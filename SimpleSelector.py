@@ -1,6 +1,7 @@
 import traceback
 import sys
 
+
 class SimpleSelector(object):
     """
     A SimpleSelector object that is able to find elements

@@ -7,7 +7,9 @@ class GermaniumDriver(object):
     """
     A Germanium extension to top of WebDriver
     """
-    def __init__(self, web_driver, screenshot_folder="screenshots"):
+    def __init__(self,
+                 web_driver,
+                 screenshot_folder="screenshots"):
         self.web_driver = web_driver
         self.simple_selector = SimpleSelector(self)
         self._screenshot_folder = screenshot_folder
@@ -18,14 +20,12 @@ class GermaniumDriver(object):
         """
         return self.simple_selector.find_element(locator)
 
-
     def reload_page(self):
         """
         Reloads the page via JS, and waits for it to load.
         """
         self.execute_script('document.location.href = document.location.href;')
         self.wait_for_page_to_load()
-
 
     def execute_script(self, script):
         """
@@ -59,11 +59,9 @@ class GermaniumDriver(object):
             #else:
             #    raise JavaScriptException( response['name'], response['message'] )
 
-
         except Exception as e:
            # print "Script failed. `%s`" % eval_script
             raise Exception(e)
-
 
     def wait_for_page_to_load(self):
         """
@@ -71,7 +69,6 @@ class GermaniumDriver(object):
         """
         self.wait_for_javascript("""return "complete" == document["readyState"]""")
         self.load_simple_locator() #automatically load the simple locator if waiting for the page to load finished.
-
 
     def wait_for_javascript(self, script, timeout = 60):
         """
@@ -108,13 +105,11 @@ class GermaniumDriver(object):
             passed_timeout += 0.4
             sleep(0.4)
 
-
     def load_simple_locator(self):
         """
         Since the simple locator script is a bazillion bytes big, it should be loaded independently.
         """
         self.load_script('simple-locator.js')
-
 
     def load_script(self, script_name):
         """
@@ -129,7 +124,17 @@ class GermaniumDriver(object):
         :param name:
         :return:
         """
-        self.web_driver.get_screenshot_as_file(self._screenshot_folder + "/" + name + ".png")
+        path = self._screenshot_folder + "/" + name + ".png"
+        self.web_driver.get_screenshot_as_file(path)
+        print("Screenshot saved as " + path)
+
+    def select_iframe(self, iframe_name):
+        """
+        Selects the iframe
+        :param iframe_name:
+        :return:
+        """
+        print "Selecting iframe: " + iframe_name
 
     def __getattr__(self, item):
         """

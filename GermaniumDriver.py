@@ -3,16 +3,29 @@ import pkg_resources
 from SimpleSelector import SimpleSelector
 
 
+class NoopIFrameSelector:
+    def select_iframe(self, germanium, iframe_name):
+        print("iframe: " + iframe_name)
+
 class GermaniumDriver(object):
     """
     A Germanium extension to top of WebDriver
     """
     def __init__(self,
                  web_driver,
+                 iframe_selector=NoopIFrameSelector(),
                  screenshot_folder="screenshots"):
         self.web_driver = web_driver
         self.simple_selector = SimpleSelector(self)
         self._screenshot_folder = screenshot_folder
+        self._iframe_selector = iframe_selector
+        self._current_iframe = "default"
+
+    def get(self, url):
+        result = self.web_driver.get(url)
+        self._current_iframe = "default"
+
+        return result
 
     def find_element_by_simple(self, locator):
         """
@@ -54,13 +67,13 @@ class GermaniumDriver(object):
             return self.web_driver.execute_script(eval_script)
 
             # this is for when using the wrapper script.
-            #if response['status'] == 'SUCCESS':
+            # if response['status'] == 'SUCCESS':
             #    return response['data']
-            #else:
+            # else:
             #    raise JavaScriptException( response['name'], response['message'] )
 
         except Exception as e:
-           # print "Script failed. `%s`" % eval_script
+            # print "Script failed. `%s`" % eval_script
             raise Exception(e)
 
     def wait_for_page_to_load(self):
@@ -68,7 +81,8 @@ class GermaniumDriver(object):
         Wait for the page to load.
         """
         self.wait_for_javascript("""return "complete" == document["readyState"]""")
-        self.load_simple_locator() #automatically load the simple locator if waiting for the page to load finished.
+        self.load_simple_locator()  # automatically load the simple locator if waiting for the page to load finished.
+        self._current_iframe = "default"
 
     def wait_for_javascript(self, script, timeout = 60):
         """
@@ -130,11 +144,15 @@ class GermaniumDriver(object):
 
     def select_iframe(self, iframe_name):
         """
-        Selects the iframe
+        Selects the iframe, only if the iframe is different
         :param iframe_name:
         :return:
         """
-        print "Selecting iframe: " + iframe_name
+        print "current: " + self._current_iframe
+
+        if iframe_name != self._current_iframe:
+            self._iframe_selector.select_iframe(self, iframe_name)
+            self._current_iframe = iframe_name
 
     def __getattr__(self, item):
         """

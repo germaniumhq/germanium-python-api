@@ -2,44 +2,15 @@ from time import sleep
 import pkg_resources
 from SimpleSelector import SimpleSelector
 
+
 class GermaniumDriver(object):
     """
     A Germanium extension to top of WebDriver
     """
-    def __init__(self, web_driver):
+    def __init__(self, web_driver, screenshot_folder="screenshots"):
         self.web_driver = web_driver
         self.simple_selector = SimpleSelector(self)
-
-
-    def maximize_window(self):
-        """
-        @delegated
-        Maximize the current browser window.
-        """
-        return self.web_driver.maximize_window()
-
-
-    def get(self, url):
-        """
-        @delegated
-        Load the given page.
-        """
-        return self.web_driver.get(url)
-
-
-    def switch_to_default_content(self):
-        """
-        @delegated
-        Switch to the default content.
-        """
-        return self.web_driver.switch_to_default_content()
-
-    def switch_to_frame(self, frame):
-        """
-        @delegated
-        Switch to the given frame.
-        """
-        return self.web_driver.switch_to_frame(frame)
+        self._screenshot_folder = screenshot_folder
 
     def find_element_by_simple(self, locator):
         """
@@ -119,7 +90,6 @@ class GermaniumDriver(object):
 
         self.wait_for_closure(lambda : self.execute_script(wrapper_script))
 
-
     def wait_for_closure(self, closure, timeout = 10):
         """
         Executes a function given as argument every 400 milliseconds until it returns true. If it goes more than
@@ -153,10 +123,18 @@ class GermaniumDriver(object):
         script = pkg_resources.resource_string(__name__, script_name)
         self.execute_script(script)
 
+    def take_screenshot(self, name):
+        """
+        Takes a screenshot of the current browser.
+        :param name:
+        :return:
+        """
+        self.web_driver.get_screenshot_as_file(self._screenshot_folder + "/" + name + ".png")
 
-    def quit(self):
+    def __getattr__(self, item):
         """
-        @delegated
-        Quit the webdriver.
+        Delegate all the gett attributes that are missing to the web_driver.
+        :param item:
+        :return:
         """
-        self.web_driver.quit()
+        return getattr(self.web_driver, item)

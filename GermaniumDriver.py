@@ -4,8 +4,11 @@ from SimpleSelector import SimpleSelector
 
 
 class NoopIFrameSelector:
+    """
+    An implementation of the IFrameSelector strategy that does nothing.
+    """
     def select_iframe(self, germanium, iframe_name):
-        print("iframe: " + iframe_name)
+        return iframe_name
 
 class GermaniumDriver(object):
     """
@@ -19,11 +22,13 @@ class GermaniumDriver(object):
         self.simple_selector = SimpleSelector(self)
         self._screenshot_folder = screenshot_folder
         self._iframe_selector = iframe_selector
-        self._current_iframe = "default"
+        self._current_iframe = None
+
+        self.select_iframe("default")
 
     def get(self, url):
         result = self.web_driver.get(url)
-        self._current_iframe = "default"
+        self.select_iframe("default")
 
         return result
 
@@ -82,7 +87,7 @@ class GermaniumDriver(object):
         """
         self.wait_for_javascript("""return "complete" == document["readyState"]""")
         self.load_simple_locator()  # automatically load the simple locator if waiting for the page to load finished.
-        self._current_iframe = "default"
+        self.select_iframe("default")
 
     def wait_for_javascript(self, script, timeout = 60):
         """
@@ -148,11 +153,10 @@ class GermaniumDriver(object):
         :param iframe_name:
         :return:
         """
-        print "current: " + self._current_iframe
-
         if iframe_name != self._current_iframe:
-            self._iframe_selector.select_iframe(self, iframe_name)
-            self._current_iframe = iframe_name
+            self._current_iframe = self._iframe_selector.select_iframe(self, iframe_name)
+
+        return self._current_iframe
 
     def __getattr__(self, item):
         """

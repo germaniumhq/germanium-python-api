@@ -6,7 +6,7 @@ def find_germanium_object(items):
     """
     Finds the germanium object in the given call. Searches it
     first in the parameter list, and if is not there, it searches
-    it in the self reference.
+    it in the self reference, as either self.germanium or self._germanium.
     :param items:
     :return:
     """

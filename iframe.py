@@ -24,19 +24,26 @@ def find_germanium_object(items):
     return self._germanium
 
 
-def iframe(target):
+def iframe(target, restore=False):
     """
     IFrame selector for various operations.
-    :param method:
+    :param target: The IFrame to set.
+    :param restore: True if should restore the IFrame to the current iframe after this method is done.
     :param germanium:
     :return:
     """
     def wrapper(original):
         def original_aspect(*args, **kwargs):
             germanium = find_germanium_object(args)
+            original_iframe = germanium.current_iframe
+
             germanium.select_iframe(target)
 
-            return original(*args, **kwargs)
+            try:
+                return original(*args, **kwargs)
+            finally:
+                if restore:
+                    germanium.select_iframe(original_iframe)
 
         return original_aspect
 

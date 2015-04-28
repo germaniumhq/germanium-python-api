@@ -17,18 +17,20 @@ class GermaniumDriver(object):
     def __init__(self,
                  web_driver,
                  iframe_selector=NoopIFrameSelector(),
-                 screenshot_folder="screenshots"):
+                 screenshot_folder="screenshots",
+                 scripts=[]):
         self.web_driver = web_driver
         self.simple_selector = SimpleSelector(self)
         self._screenshot_folder = screenshot_folder
         self._iframe_selector = iframe_selector
         self._current_iframe = None
+        self._scripts_to_load = scripts
 
         self.select_iframe("default")
 
     def get(self, url):
         result = self.web_driver.get(url)
-        self.select_iframe("default")
+        self.wait_for_page_to_load()
 
         return result
 
@@ -42,7 +44,7 @@ class GermaniumDriver(object):
         """
         Reloads the page via JS, and waits for it to load.
         """
-        self.execute_script('document.location.href = document.location.href;')
+        self.execute_script('document.location.reload();')
         self.wait_for_page_to_load()
 
     def execute_script(self, script):
@@ -85,9 +87,13 @@ class GermaniumDriver(object):
         """
         Wait for the page to load.
         """
+        self.select_iframe("default")
+
         self.wait_for_javascript("""return "complete" == document["readyState"]""")
         self.load_simple_locator()  # automatically load the simple locator if waiting for the page to load finished.
-        self.select_iframe("default")
+
+        for script_name in self._scripts_to_load:
+            self.load_script(script_name)
 
     def wait_for_javascript(self, script, timeout = 60):
         """
@@ -122,6 +128,10 @@ class GermaniumDriver(object):
         passed_timeout = 0
         while passed_timeout < timeout and not closure_try_catch():
             passed_timeout += 0.4
+
+            if passed_timeout >= 2:
+                print("Running takes more than 2 seconds.")
+
             sleep(0.4)
 
     def load_simple_locator(self):
@@ -160,8 +170,11 @@ class GermaniumDriver(object):
 
     def __getattr__(self, item):
         """
-        Delegate all the gett attributes that are missing to the web_driver.
+        Delegate all the attributes that are missing to the web_driver.
         :param item:
         :return:
         """
+        if "current_iframe" == item:
+            return self._current_iframe
+
         return getattr(self.web_driver, item)

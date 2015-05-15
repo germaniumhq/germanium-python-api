@@ -24,11 +24,11 @@ def find_germanium_object(items):
     return self._germanium
 
 
-def iframe(target, restore=False):
+def iframe(target, keep_new_context=False):
     """
     IFrame selector for various operations.
     :param target: The IFrame to set.
-    :param restore: True if should restore the IFrame to the current iframe after this method is done.
+    :param keep_new_context: True if the new IFrame should be kept as context after the method is done.
     :param germanium:
     :return:
     """
@@ -42,7 +42,7 @@ def iframe(target, restore=False):
             try:
                 return original(*args, **kwargs)
             finally:
-                if restore:
+                if not keep_new_context:
                     germanium.select_iframe(original_iframe)
 
         return original_aspect

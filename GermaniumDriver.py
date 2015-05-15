@@ -88,12 +88,25 @@ class GermaniumDriver(object):
         Wait for the page to load.
         """
         self.select_iframe("default")
-
         self.wait_for_javascript("""return "complete" == document["readyState"]""")
+
         self.load_simple_locator()  # automatically load the simple locator if waiting for the page to load finished.
 
         for script_name in self._scripts_to_load:
             self.load_script(script_name)
+
+    def wait_for_action_to_complete(self):
+        """
+        Waits for all the AJAX and Page calls to finish.
+        """
+        self.wait_for_ajax_to_complete()
+        self.wait_for_page_to_load()
+
+    def wait_for_ajax_to_complete(self):
+        """
+        Waits for the action calls to complete.
+        """
+        self.wait_for_javascript("""return (!XMLHttpRequest.isAjaxRunning || ! XMLHttpRequest.isAjaxRunning()) && "complete" == document["readyState"]""")
 
     def wait_for_javascript(self, script, timeout = 60):
         """
@@ -138,7 +151,10 @@ class GermaniumDriver(object):
         """
         Since the simple locator script is a bazillion bytes big, it should be loaded independently.
         """
-        self.load_script('simple-locator.js')
+        if self.execute_script("return !window.locateElementBySimple"):
+            self.load_script('simple-locator.js')
+            self.load_script('ajax-interceptor.js')
+            self.load_script('is-ajax-running.js')
 
     def load_script(self, script_name):
         """

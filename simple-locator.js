@@ -1,6 +1,7 @@
 (function() {
 
 var LOG = window.console ? window.console : {
+   log : function() {},
    error : function() {},
    info : function() {}
 };
@@ -3970,7 +3971,7 @@ var isElementVisible = function(realElement) {
             ///^0\D*$/.test( getStyle(element, "height") ) || // FIXME: overflow : show, and 0 sized parents are ok actually.
             ///^0\D*$/.test( getStyle(element, "width") )
             ) {
-            console.log("Element is not visible",
+            LOG.log("Element is not visible",
                 getStyle(element, "display"),
                 getStyle(element, "visibility"),
                 getStyle(element, "height"),
@@ -4230,5 +4231,8 @@ var errorLogging = function(expression, _document) {
     }
 };
 
+if (!window.parent.locateElementBySimple) { // if is already loaded, don't reload it
     window.parent.locateElementBySimple = errorLogging;
+}
+
 })();

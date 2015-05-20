@@ -95,18 +95,18 @@ class GermaniumDriver(object):
         for script_name in self._scripts_to_load:
             self.load_script(script_name)
 
-    def wait_for_action_to_complete(self):
+    def wait_for_action_to_complete(self, throttle=0):
         """
         Waits for all the AJAX and Page calls to finish.
         """
-        self.wait_for_ajax_to_complete()
+        self.wait_for_ajax_to_complete(throttle)
         self.wait_for_page_to_load()
 
-    def wait_for_ajax_to_complete(self):
+    def wait_for_ajax_to_complete(self, throttle=0):
         """
         Waits for the action calls to complete.
         """
-        self.wait_for_javascript("""return (!XMLHttpRequest.isAjaxRunning || ! XMLHttpRequest.isAjaxRunning()) && "complete" == document["readyState"]""")
+        self.wait_for_javascript("""window.AJAX_OPERATION_TIMEOUT = %s; return (!XMLHttpRequest.isAjaxRunning || ! XMLHttpRequest.isAjaxRunning()) && "complete" == document["readyState"];""" % throttle)
 
     def wait_for_javascript(self, script, timeout = 60):
         """

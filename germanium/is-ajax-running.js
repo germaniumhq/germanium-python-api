@@ -1,5 +1,11 @@
+(function() {
+
 var lastCheckedTime = -1,
-    OPERATION_TIMEOUT = 400;
+    AJAX_OPERATION_TIMEOUT = 0;
+
+if (typeof window.AJAX_OPERATION_TIMEOUT != "undefined") {
+    AJAX_OPERATION_TIMEOUT = window.AJAX_OPERATION_TIMEOUT;
+}
 
 XMLHttpRequest.interceptorsBefore.push(function() {
     lastCheckedTime = -1;
@@ -10,6 +16,10 @@ XMLHttpRequest.interceptorsAfter.push(function() {
 });
 
 XMLHttpRequest.isAjaxRunning = function() {
+    if (AJAX_OPERATION_TIMEOUT == 0) {
+        return XMLHttpRequest.runningCalls != 0;
+    }
+
     if (lastCheckedTime < 0) {
         lastCheckedTime = new Date().getTime();
         return true;
@@ -17,10 +27,13 @@ XMLHttpRequest.isAjaxRunning = function() {
 
     var currentTime = new Date().getTime();
 
-    if (currentTime - lastCheckedTime > OPERATION_TIMEOUT && XMLHttpRequest.runningCalls == 0) {
+    if (currentTime - lastCheckedTime > AJAX_OPERATION_TIMEOUT && XMLHttpRequest.runningCalls == 0) {
+        window.AJAX_OPERATION_TIMEOUT = 0;
         lastCheckedTime = -1;
         return false;
     }
 
     return true;
 };
+
+})();

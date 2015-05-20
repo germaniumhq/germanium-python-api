@@ -10,5 +10,6 @@ setup(
     license='BSD',
 
     install_requires=['selenium'],
-    packages=['germanium']
+    packages=['germanium'],
+    package_data={'germanium': ['*.js']}
 )

@@ -26,4 +26,3 @@ class SimpleSelector(object):
             except Exception as e:
                 traceback.print_exc( sys.stdout )
                 raise e
-

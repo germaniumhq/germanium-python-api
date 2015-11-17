@@ -1,7 +1,9 @@
 from time import sleep
 import pkg_resources
 from SimpleSelector import SimpleSelector
+import types
 
+import sys
 
 class NoopIFrameSelector:
     """
@@ -9,6 +11,16 @@ class NoopIFrameSelector:
     """
     def select_iframe(self, germanium, iframe_name):
         return iframe_name
+
+
+class JavaScriptException(Exception):
+    def __init__(self, name, message):
+        self.name = name
+        self.message = message
+
+    def __str__(self):
+        return "JavaScriptException: %s - %s" % (self.name, self.message)
+
 
 class GermaniumDriver(object):
     """
@@ -18,7 +30,7 @@ class GermaniumDriver(object):
                  web_driver,
                  iframe_selector=NoopIFrameSelector(),
                  screenshot_folder="screenshots",
-                 scripts=[]):
+                 scripts=list()):
         self.web_driver = web_driver
         self.simple_selector = SimpleSelector(self)
         self._screenshot_folder = screenshot_folder
@@ -48,10 +60,10 @@ class GermaniumDriver(object):
         self.wait_for_page_to_load()
 
     def execute_script(self, script):
-        """
-        Execute the script, and also display it on the console for debug purposes.
-        """
         try:
+            """
+            Execute the script, and also display it on the console for debug purposes.
+            """
             wrapper_script = """try {
                 return {
                     data : (function() {
@@ -68,20 +80,18 @@ class GermaniumDriver(object):
             }
             """ % script
 
-            #eval_script = wrapper_script % (script,)
-            eval_script = script
+            eval_script = wrapper_script
+            response = self.web_driver.execute_script(eval_script)
 
-            return self.web_driver.execute_script(eval_script)
-
-            # this is for when using the wrapper script.
-            # if response['status'] == 'SUCCESS':
-            #    return response['data']
-            # else:
-            #    raise JavaScriptException( response['name'], response['message'] )
-
+            if response['status'] == 'SUCCESS':
+                return response['data']
+            else:
+                raise JavaScriptException( response['name'], response['message'] )
         except Exception as e:
-            # print "Script failed. `%s`" % eval_script
-            raise Exception(e)
+            print(wrapper_script)
+            print("Failure executing script: %s, error: %s" % (script, e))
+            raise e
+
 
     def wait_for_page_to_load(self):
         """
@@ -135,7 +145,7 @@ class GermaniumDriver(object):
             try:
                 return closure()
             except Exception as e:
-                print "WARNING: waiting as false since: %s" % e
+                print("WARNING: waiting as false since: %s" % e)
                 return False
 
         passed_timeout = 0
@@ -161,6 +171,9 @@ class GermaniumDriver(object):
         Load an external script into the current window context.
         """
         script = pkg_resources.resource_string(__name__, script_name)
+        if type(script) != 'str':  # it is bytes
+            script = script.decode('utf-8')
+
         self.execute_script(script)
 
     def take_screenshot(self, name):

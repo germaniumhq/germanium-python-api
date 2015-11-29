@@ -1,9 +1,9 @@
 from time import sleep
-import pkg_resources
-from SimpleSelector import SimpleSelector
-import types
 
-import sys
+import pkg_resources
+
+from .SimpleSelector import SimpleSelector
+
 
 class NoopIFrameSelector:
     """

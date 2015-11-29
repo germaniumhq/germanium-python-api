@@ -1,5 +1,5 @@
 
-from GermaniumDriver import GermaniumDriver
+from .GermaniumDriver import GermaniumDriver
 
 
 def find_germanium_object(items):

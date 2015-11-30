@@ -173,14 +173,16 @@ def create_custom_key(combo_string):
     """
     key_string = combo_string.upper()
 
-    if key_string == "CR":
-        return Keys.ENTER
-    elif key_string == "CTRL" or \
-         key_string == "CTL" or \
-         key_string == "C":
+    key = create_abbreviated_key(key_string)
+    if key:
+        return key
+
+    if key_string == "C":
         return Keys.CONTROL
     elif key_string == "S":
         return Keys.SHIFT
+    elif key_string == "M":
+        return Keys.META
 
     return getattr(Keys, key_string)
 
@@ -189,15 +191,35 @@ def create_key(combo_string):
     Create a single key for webdriver that represents a regular
     or a custom key, that is the last part of the macro.
     """
+    # if it's a single character return it
     if len(combo_string) <= 1:
         return combo_string
 
     key_string = combo_string.upper()
+    key = create_abbreviated_key(key_string)
 
+    if key:
+        return key
+
+    return getattr(Keys, key_string)
+
+def create_abbreviated_key(key_string):
     if key_string == "CR":
         return Keys.ENTER
     elif key_string == "CTRL" or \
          key_string == "CTL":
-            return Keys.CONTROL
+        return Keys.CONTROL
+    elif key_string == "DEL":
+        return Keys.DELETE
+    elif key_string == "CMD":
+        return Keys.COMMAND
+    elif key_string == "BS":
+        return Keys.BACKSPACE
+    elif key_string == "INS":
+        return Keys.INSERT
+    elif key_string == "PGUP":
+        return Keys.PAGE_UP
+    elif key_string == "PGDN":
+        return Keys.PAGE_DOWN
 
-    return getattr(Keys, key_string)
+    return None

@@ -4,6 +4,8 @@ import pkg_resources
 
 from .SimpleSelector import SimpleSelector
 
+from selenium.webdriver.remote.webelement import WebElement
+
 
 class NoopIFrameSelector:
     """
@@ -59,18 +61,29 @@ class GermaniumDriver(object):
         self.execute_script('document.location.reload();')
         self.wait_for_page_to_load()
 
+    #
+    # This executes a script taking care of actually catching and rethrowing correctly
+    # JavaScript exceptions.
+    #
+    # It takes special care for returning web elements directly since if they are exported
+    # using a map, under python-3.4 webdriver gets dizzy, and returns the elements as "dict"
+    #
     def execute_script(self, script):
         try:
             """
             Execute the script, and also display it on the console for debug purposes.
             """
             wrapper_script = """try {
-                return {
+                var result = {
                     data : (function() {
                         %s
                     })(),
                     status : "SUCCESS"
                 };
+
+                return result.data instanceof Element ?
+                       result.data :
+                       result;
             } catch (e) {
                 return {  // return the exception information in case of failure.
                     status : "FAILURE",
@@ -82,6 +95,9 @@ class GermaniumDriver(object):
 
             eval_script = wrapper_script
             response = self.web_driver.execute_script(eval_script)
+
+            if isinstance(response, WebElement):
+                return response
 
             if response['status'] == 'SUCCESS':
                 return response['data']

@@ -1,3 +1,4 @@
+from selenium.common.exceptions import NoSuchElementException
 
 class DeferredLocator(object):
     """
@@ -35,7 +36,10 @@ class CssLocator(DeferredLocator):
         """
         Find an element using the CSS locator provided at creation.
         """
-        return self._germanium.find_element_by_css_selector(self._locator)
+        try:
+            return self._germanium.find_element_by_css_selector(self._locator)
+        except NoSuchElementException as e:
+            return null
 
 
 class SimpleLocator(DeferredLocator):
@@ -65,7 +69,10 @@ class XPathLocator(DeferredLocator):
         """
         Find an element using the CSS locator provided at creation.
         """
-        return self._germanium.find_element_by_xpath(self._locator)
+        try:
+            return self._germanium.find_element_by_xpath(self._locator)
+        except NoSuchElementException as e:
+            return null
 
 
 def create_locator(germanium, locator, strategy='detect'):

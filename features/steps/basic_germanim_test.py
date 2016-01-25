@@ -34,13 +34,13 @@ def navigate_to_page(context, page):
 
 @step(u'I type \'(?P<keys>.*?)\' into (?P<simple_locator>.*)')
 def type_keys_with_simple_locator(context, keys, simple_locator):
-    element = context.germanium.find_element_by_simple(simple_locator)
+    element = context.germanium.S(simple_locator).element()
     element.send_keys(keys)
 
 
 @step(u'the value for the (?P<simple_locator>.*) is \'(?P<value>.*?)\'')
 def step_impl(context, simple_locator, value):
-    element = context.germanium.find_element_by_simple(simple_locator)
+    element = context.germanium.S(simple_locator).element()
     assert element.get_attribute("value") == value
 
 
@@ -54,6 +54,6 @@ def type_keys_impl(context, what):
 
 @step(u'I click on (?P<simple_locator>.*)')
 def step_impl(context, simple_locator):
-    element = context.germanium.find_element_by_simple(simple_locator)
+    element = context.germanium.S(simple_locator).element()
     element.click()
 

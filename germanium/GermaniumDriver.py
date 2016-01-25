@@ -3,6 +3,7 @@ from time import sleep
 import pkg_resources
 
 from .SimpleSelector import SimpleSelector
+from .DeferredLocator import create_locator
 
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -41,6 +42,10 @@ class GermaniumDriver(object):
         self._scripts_to_load = scripts
 
         self.select_iframe("default")
+
+    def S(self, locator, strategy='detect'):
+        """ Finds an element by the given locator. """
+        return create_locator(self, locator, strategy)
 
     def get(self, url):
         result = self.web_driver.get(url)

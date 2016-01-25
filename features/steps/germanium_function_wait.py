@@ -5,20 +5,23 @@ from germanium import wait
 
 @step(u'waiting for success to happen should fail')
 def step_impl(context):
-    g = context.germanium
+    S = context.germanium.S
     wait_threw_exception = True
 
     try:
-        wait(lambda: g.find_element_by_simple('div#successContent') is not None,
-            while_not=lambda: g.find_element_by_simple('div#errorContent') is not None)
+        wait(S('div#successContent'),
+            while_not=S('div#errorContent'))
         wait_threw_exception = False
     except Exception as e:
         pass
+
+    if not S('div#errorContent'):
+        assert False
 
     if not wait_threw_exception:
         assert False
 
 @step(u'waiting for error to happen should pass')
 def step_impl(context):
-    g = context.germanium
-    wait(lambda: g.find_element_by_simple('div#errorContent') is not None)
+    wait(context.germanium.S('div#errorContent'))
+

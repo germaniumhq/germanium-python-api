@@ -5,7 +5,7 @@ from threading import Thread
 from behave import *
 
 def before_all(context):
-    TCPServer.allow_reuse_address
+    TCPServer.allow_reuse_address = True
     Handler = SimpleHTTPRequestHandler
     context._httpServer = TCPServer(("localhost", 8000), Handler)
 

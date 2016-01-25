@@ -7,3 +7,4 @@ Feature: Simple Element Locator found elements should function with send_keys
     When I go to 'http://localhost:8000/simple/inputs.html'
     Then I type 'input test' into input
     Then the value for the input is 'input test'
+

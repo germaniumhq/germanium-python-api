@@ -44,6 +44,7 @@ def step_impl(context, simple_locator, value):
     assert element.get_attribute("value") == value
 
 
-@then("the title of the page contains '(?P<what>.*?)'")
+@then("the title of the page equals '(?P<what>.*?)'")
 def check_title_page(context, what):
-    context.germanium.quit()
+    assert context.germanium.title == what
+

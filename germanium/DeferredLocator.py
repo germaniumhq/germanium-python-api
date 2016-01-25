@@ -39,7 +39,7 @@ class CssLocator(DeferredLocator):
         try:
             return self._germanium.find_element_by_css_selector(self._locator)
         except NoSuchElementException as e:
-            return null
+            return None
 
 
 class SimpleLocator(DeferredLocator):
@@ -72,7 +72,7 @@ class XPathLocator(DeferredLocator):
         try:
             return self._germanium.find_element_by_xpath(self._locator)
         except NoSuchElementException as e:
-            return null
+            return None
 
 
 def create_locator(germanium, locator, strategy='detect'):

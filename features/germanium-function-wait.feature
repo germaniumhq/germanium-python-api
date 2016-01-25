@@ -10,11 +10,11 @@ Feature: Germanium wait utility function.
 
 Scenario: Test simple wait
   Given I open firefox
-  When I go to 'http://localhost:8000/simple/wait-error.html'
+  When I go to 'http://localhost:8000/features/simple/wait-error.html'
   Then waiting for error to happen should pass
 
 Scenario: Test simple while_not callback
   Given I open firefox
-  When I go to 'http://localhost:8000/simple/wait-error.html'
+  When I go to 'http://localhost:8000/features/simple/wait-error.html'
   Then waiting for success to happen should fail
 

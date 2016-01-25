@@ -10,7 +10,7 @@ Feature: Germanium enabled typing of the keys.
 
     Scenario:
       Given I open firefox
-      When I go to 'http://localhost:8000/simple/inputs.html'
+      When I go to 'http://localhost:8000/features/simple/inputs.html'
       And I click on input#textInput
       And I type_keys 'input test<tab>'
       Then the value for the input#textInput is 'input test'

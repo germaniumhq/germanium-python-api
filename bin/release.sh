@@ -7,9 +7,18 @@
 
 set -e
 
-git checkout python2.7
-git rebase master
+VERSION=$1
+
 git checkout python3.4
 git rebase -ff master
-git push --all
+git checkout python2.7
+git rebase master
+git checkout master
+git push --all -f
+
+if [[ "$VERSION" != "" ]]; then
+    git tag $VERSION master
+    git tag "$VERSION-python2.7" python2.7
+    git push --tags
+fi # [[ "$VERSION" != "" ]]
 

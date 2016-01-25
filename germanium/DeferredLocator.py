@@ -28,7 +28,7 @@ class CssLocator(DeferredLocator):
     A CSS Deferred locator.
     """
     def __init__(self, germanium, locator):
-        super().__init__(germanium)
+        super(CssLocator, self).__init__(germanium)
         self._locator = locator
 
     def _findElement(self):
@@ -43,7 +43,7 @@ class SimpleLocator(DeferredLocator):
     A Simple Deferred locator.
     """
     def __init__(self, germanium, locator):
-        super().__init__(germanium)
+        super(SimpleLocator, self).__init__(germanium)
         self._locator = locator
 
     def _findElement(self):
@@ -58,7 +58,7 @@ class XPathLocator(DeferredLocator):
     A XPath Deferred locator.
     """
     def __init__(self, germanium, locator):
-        super().__init__(germanium)
+        super(XPathLocator, self).__init__(germanium)
         self._locator = locator
 
     def _findElement(self):

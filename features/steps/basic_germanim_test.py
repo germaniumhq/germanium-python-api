@@ -1,24 +1,38 @@
 from behave import *
 from time import sleep
 
-use_step_matcher("re")
-
 from germanium import GermaniumDriver, type_keys
 
 from selenium import webdriver
 from selenium.webdriver import FirefoxProfile
 
-@step("I open firefox")
-def open_browser(context):
+import os
+
+use_step_matcher("re")
+
+@step("I open (.*?)")
+def open_browser(context, browser):
     """
     :param context:
     :return: void
     """
-    firefox_profile = FirefoxProfile()
-    firefox_profile.set_preference("network.proxy.type", 0)
 
-    context.germanium = GermaniumDriver(
-        webdriver.Firefox(firefox_profile))
+    if 'TEST_BROWSER' in os.environ:
+        browser = os.environ['TEST_BROWSER']
+
+    if browser.lower() == "firefox":
+        firefox_profile = FirefoxProfile()
+        firefox_profile.set_preference("network.proxy.type", 0)
+
+        web_driver = webdriver.Firefox(firefox_profile)
+    elif browser.lower() == "chrome":
+        web_driver = webdriver.Chrome()
+    elif browser.lower() == "ie":
+        web_driver = webdriver.Ie()
+    else:
+        raise Exception("Unknown browser: %s, only firefox, chrome and ie are supported." % browser)
+
+    context.germanium = GermaniumDriver(web_driver)
 
 @when("I go to '(?P<page>.*?)'")
 @when("I navigate to '(?P<page>.*?)'")

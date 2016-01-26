@@ -147,33 +147,17 @@ def create_multicombo(pressed_keys):
     keys_released = []
     result = []
     combo_key=None
-    control_down=False
-    shift_down=False
 
     tokens = pressed_keys.split("-")
-    for i in range(len(tokens)):
+
+    for i in reversed(range(len(tokens))):
         if i < len(tokens) - 1:
             custom_key = create_custom_key(tokens[i])
-            if custom_key == Keys.CONTROL:
-                control_down = True
-            elif custom_key == Keys.SHIFT:
-                shift_down = True
-            else:
-                keys_pressed.append(custom_key)
-                keys_released.insert(0, custom_key)
+            combo_key = custom_key + combo_key + custom_key
         else:
             combo_key = create_key(tokens[i])
 
-    for key in keys_pressed:
-        result.append(ComboKeyDown(key))
-
-    combo_key = combo_key if not shift_down else Keys.SHIFT + combo_key + Keys.SHIFT
-    combo_key = combo_key if not control_down else Keys.CONTROL + combo_key + Keys.CONTROL
-
     result.append(BasicKeysAction(combo_key))
-
-    for key in keys_released:
-        result.append(ComboKeyUp(key))
 
     return result
 

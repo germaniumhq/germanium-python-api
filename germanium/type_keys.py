@@ -47,7 +47,6 @@ def type_keys(context, keys_typed, element=None, *args):
             if element:
                 action_chain.send_keys_to_element(element, key_action.keys)
             else:
-                print(key_action.keys)
                 action_chain.send_keys(key_action.keys)
         elif isinstance(key_action, ComboKeyDown):
             action_chain.key_down(key_action.key, element)

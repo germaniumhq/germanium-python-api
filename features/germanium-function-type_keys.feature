@@ -8,7 +8,7 @@ Feature: Germanium enabled typing of the keys.
     shift down, and keeping it pressed, then twice the right key, then releasing
     the shift key.
 
-    @scenario1
+    @1
     Scenario:
       Given I open firefox
       When I go to 'http://localhost:8000/features/simple/inputs.html'
@@ -22,7 +22,7 @@ Feature: Germanium enabled typing of the keys.
       And I type_keys '<ctrl-shift-left><bs>test'
       Then the value for the input#anotherTextInput is 'another input test'
 
-    @scenario2
+    @2
     Scenario: Ensure all the keycodes are passed correctly
       Given I open firefox
       And I go to 'http://localhost:8000/features/simple/key_type-support.html'
@@ -30,7 +30,7 @@ Feature: Germanium enabled typing of the keys.
       Then I type_keys '<ctrl-a><del>'
       And I type_keys 'qw<CR>as<CR>'
       And I type_keys '<up><home><right><!shift><right><right><^shift>'
-      And I type_keys '<ctrl-b><ctrl-end>'
+      And I type_keys '<ctrl-c><ctrl-end>'
       And I type_keys '<ctrl-z>'
       And I type_keys '<ctrl-z>'
       Then there is no error message.

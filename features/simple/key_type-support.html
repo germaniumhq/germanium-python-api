@@ -58,23 +58,20 @@
                     JSON.stringify(expectedEvents) +
                     "\n\ngot instead:\n\n" +
                     JSON.stringify(recordedEvents);
-            } else
-            if (expectedEvent.eventType != eventObject.eventType) {
+            } else if (expectedEvent.eventType != eventObject.eventType) {
                 errorMessage ="Different event type, expected: " +
-                    expectedEvents.eventType + ", got instead: " +
+                    expectedEvent.eventType + ", got instead: " +
                     eventObject.eventType + " at index " + keyIndex;
-            } else
-            if (expectedEvent.eventType != eventObject.eventType) {
+            } else if (expectedEvent.eventType != eventObject.eventType) {
                 errorMessage = "Different key code, expected: " +
-                    expectedEvents.keycode + ", got instead: " +
+                    expectedEvent.keycode + ", got instead: " +
                     eventObject.keycode + " at index " + keyIndex;
             }
 
             if (errorMessage) {
                 errorHappened = true;
                 var errorReportingDiv = document.getElementById('errorReportingDiv');
-                var currentText = errorReportingDiv.innerText;
-                errorReportingDiv.innerText = currentText + "\n" + errorMessage;
+                errorReportingDiv.innerText = errorMessage;
             }
         }
 

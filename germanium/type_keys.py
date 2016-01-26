@@ -47,6 +47,7 @@ def type_keys(context, keys_typed, element=None, *args):
             if element:
                 action_chain.send_keys_to_element(element, key_action.keys)
             else:
+                print(key_action.keys)
                 action_chain.send_keys(key_action.keys)
         elif isinstance(key_action, ComboKeyDown):
             action_chain.key_down(key_action.key, element)
@@ -146,18 +147,28 @@ def create_multicombo(pressed_keys):
     keys_released = []
     result = []
     combo_key=None
+    control_down=False
+    shift_down=False
 
     tokens = pressed_keys.split("-")
     for i in range(len(tokens)):
         if i < len(tokens) - 1:
             custom_key = create_custom_key(tokens[i])
-            keys_pressed.append(custom_key)
-            keys_released.insert(0, custom_key)
+            if custom_key == Keys.CONTROL:
+                control_down = True
+            elif custom_key == Keys.SHIFT:
+                shift_down = True
+            else:
+                keys_pressed.append(custom_key)
+                keys_released.insert(0, custom_key)
         else:
             combo_key = create_key(tokens[i])
 
     for key in keys_pressed:
         result.append(ComboKeyDown(key))
+
+    combo_key = combo_key if not shift_down else Keys.SHIFT + combo_key + Keys.SHIFT
+    combo_key = combo_key if not control_down else Keys.CONTROL + combo_key + Keys.CONTROL
 
     result.append(BasicKeysAction(combo_key))
 

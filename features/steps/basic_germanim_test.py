@@ -34,8 +34,8 @@ def open_browser(context, browser):
 
     context.germanium = GermaniumDriver(web_driver)
 
-@when("I go to '(?P<page>.*?)'")
-@when("I navigate to '(?P<page>.*?)'")
+@step("I go to '(?P<page>.*?)'")
+@step("I navigate to '(?P<page>.*?)'")
 def navigate_to_page(context, page):
     """
     Navigate to the given URL.
@@ -44,7 +44,6 @@ def navigate_to_page(context, page):
     :return:
     """
     context.germanium.get(page)
-
 
 @step(u'I type \'(?P<keys>.*?)\' into (?P<simple_locator>.*)')
 def type_keys_with_simple_locator(context, keys, simple_locator):
@@ -71,3 +70,6 @@ def step_impl(context, simple_locator):
     element = context.germanium.S(simple_locator).element()
     element.click()
 
+@step(u'I wait forever')
+def step_impl(context):
+    sleep(10000000)

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='germanium',
-    version='1.3.3',
+    version='1.3.4',
     description='The germanium project',
     long_description = 'The germanium project',
     author='Bogdan Mustiata',

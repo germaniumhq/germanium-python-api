@@ -86,7 +86,7 @@ class GermaniumDriver(object):
                     status : "SUCCESS"
                 };
 
-                return result.data instanceof Element ?
+                return result.data && result.data.nodeType && result.data.ownerDocument ?
                        result.data :
                        result;
             } catch (e) {

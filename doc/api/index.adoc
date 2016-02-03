@@ -160,8 +160,8 @@ Execute the given JavaScript, and return its result.
 germanium.js('return document.title;')
 -----------------------------------------------------------------------------
 
-WARNING: The `execute_script` is just an alias for the js function, but is
-    deprecated and will be removed in the future.
+[TIP]
+The `js` is just an alias for the `execute_script` function
 
 ### germanium.take_screenshot(name)
 

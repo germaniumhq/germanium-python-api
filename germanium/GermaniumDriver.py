@@ -63,8 +63,12 @@ class GermaniumDriver(object):
         """
         Reloads the page via JS, and waits for it to load.
         """
-        self.execute_script('document.location.reload();')
+        self.js('document.location.reload();')
         self.wait_for_page_to_load()
+
+    def execute_script(self, script):
+        """ deprecated js """
+        return self.js(script)
 
     #
     # This executes a script taking care of actually catching and rethrowing correctly
@@ -73,7 +77,7 @@ class GermaniumDriver(object):
     # It takes special care for returning web elements directly since if they are exported
     # using a map, under python-3.4 webdriver gets dizzy, and returns the elements as "dict"
     #
-    def execute_script(self, script):
+    def js(self, script):
         try:
             """
             Execute the script, and also display it on the console for debug purposes.
@@ -154,7 +158,7 @@ class GermaniumDriver(object):
             }
         """ % script
 
-        self.wait_for_closure(lambda : self.execute_script(wrapper_script))
+        self.wait_for_closure(lambda : self.js(wrapper_script))
 
     def wait_for_closure(self, closure, timeout = 10):
         """
@@ -182,7 +186,7 @@ class GermaniumDriver(object):
         """
         Since the simple locator script is a bazillion bytes big, it should be loaded independently.
         """
-        if self.execute_script("return !window.locateElementBySimple"):
+        if self.js("return !window.locateElementBySimple"):
             self.load_script('simple-locator.js')
             self.load_script('ajax-interceptor.js')
             self.load_script('is-ajax-running.js')
@@ -195,7 +199,7 @@ class GermaniumDriver(object):
         if type(script) != 'str':  # it is bytes
             script = script.decode('utf-8')
 
-        self.execute_script(script)
+        self.js(script)
 
     def take_screenshot(self, name):
         """

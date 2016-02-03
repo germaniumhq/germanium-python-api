@@ -2,6 +2,7 @@ Germanium API Documentation
 ===========================
 
 :toc: left
+:experimental:
 
 there are three kinds of functions that are provided for easier support
 inside the browsers.
@@ -208,8 +209,8 @@ send the events to.
 type_keys(germanium, "send data<cr>but <!shift>not<^shift> now.")
 -----------------------------------------------------------------------------
 
-Special keys such as Enter, are available by just escaping them in `<` and `>`
-characters. For example to send two tabs, followed by an Enter keypress someone
+Special keys such as kbd:[ENTER], are available by just escaping them in `<` and `>`
+characters, e.g. `<ENTER>`. For example to send kbd:[TAB] kbd:[TAB] kbd:[ENTER] someone
 could type:
 
 [source,python]
@@ -218,19 +219,21 @@ type_keys(germanium, "<tab><tab><enter>")
 -----------------------------------------------------------------------------
 
 Also, in the typing of the keys, combined macros such as `<ctrl-a>` are
-automatically understood and translated correctly as an action chain.
+automatically understood as kbd:[CTRL+A] and translated correctly as an action chain.
 
-Macro keys are:
+Macro keys can be written such as:
 
-- `SHIFT`: `S`, `SHIFT`
-- `CONTROL`: `C`, `CTL`, `CTRL`, `CONTROL`
-- `META`: `M`, `META`
+- kbd:[SHIFT]: `S`, `SHIFT`
+- kbd:[CONTROL]: `C`, `CTL`, `CTRL`, `CONTROL`
+- kbd:[META]: `M`, `META`
 
 Also germanium is smart enough, so the position of the macro key matters, thus
-`<s-s>` is equivalent to `<shift-s>`.
+`<s-s>` is equivalent to `<shift-s>` and thus interpreted as kbd:[SHIFT+s], and not
+kbd:[s+s] or kbd:[SHIFT+SHIFT].
 
-In order to start pressing a key, and release it latter, the `!` and `^` symbols
-can be used. For example to type some keys with shift pressed this can be done:
+In order to start pressing a key, and release it latter, while still typing other
+keys, the `!` and `^` symbols can be used.
+For example to type some keys with kbd:[SHIFT] pressed this can be done:
 
 [source,python]
 -----------------------------------------------------------------------------

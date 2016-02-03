@@ -745,8 +745,8 @@ send the events to.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Special keys such as Enter, are available by just escaping them in <code>&lt;</code> and <code>&gt;</code>
-characters. For example to send two tabs, followed by an Enter keypress someone
+<p>Special keys such as <kbd>ENTER</kbd>, are available by just escaping them in <code>&lt;</code> and <code>&gt;</code>
+characters, e.g. <code>&lt;ENTER&gt;</code>. For example to send <kbd>TAB</kbd> <kbd>TAB</kbd> <kbd>ENTER</kbd> someone
 could type:</p>
 </div>
 <div class="listingblock">
@@ -756,31 +756,33 @@ could type:</p>
 </div>
 <div class="paragraph">
 <p>Also, in the typing of the keys, combined macros such as <code>&lt;ctrl-a&gt;</code> are
-automatically understood and translated correctly as an action chain.</p>
+automatically understood as <span class="keyseq"><kbd>CTRL</kbd>+<kbd>A</kbd></span> and translated correctly as an action chain.</p>
 </div>
 <div class="paragraph">
-<p>Macro keys are:</p>
+<p>Macro keys can be written such as:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>SHIFT</code>: <code>S</code>, <code>SHIFT</code></p>
+<p><kbd>SHIFT</kbd>: <code>S</code>, <code>SHIFT</code></p>
 </li>
 <li>
-<p><code>CONTROL</code>: <code>C</code>, <code>CTL</code>, <code>CTRL</code>, <code>CONTROL</code></p>
+<p><kbd>CONTROL</kbd>: <code>C</code>, <code>CTL</code>, <code>CTRL</code>, <code>CONTROL</code></p>
 </li>
 <li>
-<p><code>META</code>: <code>M</code>, <code>META</code></p>
+<p><kbd>META</kbd>: <code>M</code>, <code>META</code></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>Also germanium is smart enough, so the position of the macro key matters, thus
-<code>&lt;s-s&gt;</code> is equivalent to <code>&lt;shift-s&gt;</code>.</p>
+<code>&lt;s-s&gt;</code> is equivalent to <code>&lt;shift-s&gt;</code> and thus interpreted as <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>s</kbd></span>, and not
+<span class="keyseq"><kbd>s</kbd>+<kbd>s</kbd></span> or <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>SHIFT</kbd></span>.</p>
 </div>
 <div class="paragraph">
-<p>In order to start pressing a key, and release it latter, the <code>!</code> and <code>^</code> symbols
-can be used. For example to type some keys with shift pressed this can be done:</p>
+<p>In order to start pressing a key, and release it latter, while still typing other
+keys, the <code>!</code> and <code>^</code> symbols can be used.
+For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -826,7 +828,7 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-02-03 16:13:00 CET
+Last updated 2016-02-03 16:25:47 CET
 </div>
 </div>
 </body>

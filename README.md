@@ -11,6 +11,7 @@ Here is some draft documentation: [doc/api/index.adoc](doc/api/index.adoc)
 ChangeLog
 ---------
 
+* 2016-02-03  1.3.5  Added `germanium.js()`. Added documentation.
 * 2016-01-28  1.3.4  *BugFix* Detect if the node is an element, by nodeType and not instanceof. (Fixes Chrome issues)
 * 2016-01-26  1.3.3  *BugFix* Fixed the `type_keys` implementation for IE.
 * 2016-01-25  1.3.2  *BugFix* `S` locator doesn't throw when is not finding elements.

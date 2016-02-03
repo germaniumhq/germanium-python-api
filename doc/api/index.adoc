@@ -1,0 +1,259 @@
+Germanium API Documentation
+===========================
+
+:toc: left
+
+there are three kinds of functions that are provided for easier support
+inside the browsers.
+
+1. decorator:
+    - `@iframe`
+2. germanium functions:
+    - `S`, super locator
+    - `js`, `execute_script`
+    - `take_screenshot`
+    - `load_script`
+    - `find_element_by_simple`
+3. static utility functions:
+    - `type_keys`
+    - `wait`
+
+germanium iframe decorator
+--------------------------
+
+### @iframe(name, keep_new_context=False)
+
+Switch the iframe when executing the code of the function. It will use the
+strategy provided when the Germanium instance was created.
+
+For example if we would have an editor that is embedded in an IFrame, and
+we would want to call the saving of the document, we could implement that
+such as:
+
+[source,python]
+-----------------------------------------------------------------------------
+@iframe("default")
+def close_dialog(germanium):
+    germanium.S('"Save dialog" > button["Ok"]').click()
+
+@iframe("editor")
+def save_document(germanium):
+    germanium.S('#save-button').element().click()
+    close_dialog(germanium)
+-----------------------------------------------------------------------------
+
+The `@iframe` decorator is going to find the current context by scanning the
+parameters of the function for the Germanium instance. If the first parameter
+is an object that contains a property named either: `germanium` or `_germanium`
+will be used.
+
+
+germanium Instance Functions
+----------------------------
+
+### Constructor Germanium(web_driver, ..)
+
+Constructs a new Germanium utility object on top of whatever WebDriver object
+is given.
+
+[source,python]
+-----------------------------------------------------------------------------
+Germanium(web_driver,
+        iframe_selector=NoopIFrameSelector(),
+        screenshot_folder="screenshots",
+        scripts=list())
+-----------------------------------------------------------------------------
+
+The only required parameter is the `web_driver` argument, that must be a
+WebDriver instance.
+
+#### iframe_selector
+
+The `iframe_selector` specifies the strategy to use whenever the iframe will
+be changed by the `@iframe` decorator.
+
+Germanium uses `"default"` for the `switch_to_default_content`.
+
+The default implementation is:
+
+[source,python]
+-----------------------------------------------------------------------------
+class NoopIFrameSelector:
+    """
+    An implementation of the IFrameSelector strategy that does nothing.
+    """
+    def select_iframe(self, germanium, iframe_name):
+        return iframe_name
+-----------------------------------------------------------------------------
+
+This can easily be changed so depending on the `iframe_name` it will
+do a switch_to_frame on the germanium object.
+
+[source,python]
+-----------------------------------------------------------------------------
+class EditorIFrameSelector(object):
+    def select_iframe(self, germanium, iframe_name):
+        if iframe_name == "default":
+            germanium.switch_to_default_content()
+        elif iframe_name == "editor":
+            editor_iframe = germanium.find_element_by_css_selector('iframe')
+            germanium.switch_to_frame(editor_iframe)
+
+        return iframe_name
+-----------------------------------------------------------------------------
+
+#### screenshot_folder
+
+The folder where to save the screenshots, whenever take_screenshot is called.
+It defaults to `"screenshots"`, so basically a local folder named screenshots
+in the current working directory.
+
+#### scripts
+
+A list of files with JavaScript to be automatically loaded into the page,
+whenever either `get()`, `reload_page()` or `wait_for_page_to_load()` is done.
+
+### germanium.S(locator, strategy?)
+
+`S` stands for the super locator, and returns an object that can execute
+a locator in the current iframe context of germanium. The letter
+`S` was chosen since it is looking greatly similar with jquery's `$`.
+
+the s locator is not itself a locator but rather a locator strategy.
+thus the s locator will choose:
+
+1. if the searched expression starts with `//` then the xpath locator
+    will be used.
+
+[source,python]
+-----------------------------------------------------------------------------
+# will find elements by XPath
+germanium.S('//*[contains(@class, "test")]');
+-----------------------------------------------------------------------------
+
+2. if the searched expression contains no `"` then, the css locator.
+    will be used.
+
+[source,python]
+-----------------------------------------------------------------------------
+# will find elements by CSS
+germanium.S('.test')
+-----------------------------------------------------------------------------
+
+3. otherwise the simple locator will be used.
+
+[source,python]
+-----------------------------------------------------------------------------
+# will find elements by the simple locator
+germanium.S('*[contains(@class, "test")')
+-----------------------------------------------------------------------------
+
+The S function call will return an object that is compatible with the static
+`wait_for` command.
+
+### germanium.js(code), germanium.execute_script(code)
+
+Execute the given JavaScript, and return its result.
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.js('return document.title;')
+-----------------------------------------------------------------------------
+
+WARNING: The `execute_script` is just an alias for the js function, but is
+    deprecated and will be removed in the future.
+
+### germanium.take_screenshot(name)
+
+Takes a screenshot of the browser and saves it in the configured screenshot
+folder.
+
+[source,python]
+-----------------------------------------------------------------------------
+# will save a screenshot as `screenshots/test.png`
+germanium.take_screenshot('test')
+-----------------------------------------------------------------------------
+
+### germanium.load_script(filename)
+
+Loads the JavaScript code from the file with the given name into the browser.
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.load_script('jquery.js')
+-----------------------------------------------------------------------------
+
+### germanium.find_element_by_simple(locator)
+
+Finds the element in the current iframe, using the simple locator given.
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.find_element_by_simple('"Title" > button["Ok"]')
+-----------------------------------------------------------------------------
+
+germanium Static Functions
+--------------------------
+
+These are just a bunch of utility functions, that can even be used without
+germanium itself.
+
+### type_keys(germanium, keys_typed, element=None)
+
+Type the current keys into the browser, eventually specifying the element to
+send the events to.
+
+[source,python]
+-----------------------------------------------------------------------------
+type_keys(germanium, "send data<cr>but <!shift>not<^shift> now.")
+-----------------------------------------------------------------------------
+
+Special keys such as Enter, are available by just escaping them in `<` and `>`
+characters. For example to send two tabs, followed by an Enter keypress someone
+could type:
+
+[source,python]
+-----------------------------------------------------------------------------
+type_keys(germanium, "<tab><tab><enter>")
+-----------------------------------------------------------------------------
+
+Also, in the typing of the keys, combined macros such as `<ctrl-a>` are
+automatically understood and translated correctly as an action chain.
+
+Macro keys are:
+
+- `SHIFT`: `S`, `SHIFT`
+- `CONTROL`: `C`, `CTL`, `CTRL`, `CONTROL`
+- `META`: `M`, `META`
+
+Also germanium is smart enough, so the position of the macro key matters, thus
+`<s-s>` is equivalent to `<shift-s>`.
+
+In order to start pressing a key, and release it latter, the `!` and `^` symbols
+can be used. For example to type some keys with shift pressed this can be done:
+
+[source,python]
+-----------------------------------------------------------------------------
+type_keys(germanium, "<!shift>shift is down<^shift>, and now is up.")
+-----------------------------------------------------------------------------
+
+[TIP]
+The `!` looks like a finger almost pressing the button,
+and the `^` is self explanatory: the finger released the given button.
+
+### wait(closure, while_not=None, timeout=10)
+
+A function that allows waiting for a condition to happen, monitoring also that
+some other conditions do not happen.
+
+[source,python]
+-----------------------------------------------------------------------------
+wait(germanium.S('"document uploaded successfully"'),
+    while_not = germanium.S('"an error occured"'))
+-----------------------------------------------------------------------------
+
+In case the timeout expires, or one of the `while_not` conditions matches until
+the `closure` is not yet matching then throws an exception.
+
+`while_not` is either a closure, either an array of closures.
+

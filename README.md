@@ -6,6 +6,8 @@ for a super easy creation of tests. It's opensource and free.
 
 Simply put Germanium is a Web Testing API that doesn't suck.
 
+Here is some draft documentation: [doc/api/index.adoc](doc/api/index.adoc)
+
 ChangeLog
 ---------
 

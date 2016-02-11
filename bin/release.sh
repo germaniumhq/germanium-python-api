@@ -24,5 +24,8 @@ if [[ "$VERSION" != "" ]]; then
     git tag "$VERSION-python3.4" python3.4
     git tag "$VERSION-python3.5" python3.5
     git push --tags
+
+    python setup.py sdist upload -r pypitest
+    python setup.py sdist upload -r pypi
 fi # [[ "$VERSION" != "" ]]
 

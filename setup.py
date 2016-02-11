@@ -6,7 +6,7 @@ with open('README.rst') as readme_file:
 
 setup(
     name='germanium',
-    version='1.3.9',
+    version='1.3.10',
     description='The germanium project: Selenium WebDriver testing API that doesn\'t suck.',
     long_description = readme,
     author='Bogdan Mustiata',

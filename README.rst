@@ -6,11 +6,12 @@ for a super easy creation of tests. It's opensource and free.
 
 Simply put Germanium is a Web Testing API that doesn't suck.
 
-Here is some draft documentation: [doc/api/index.adoc](doc/api/index.adoc)
+Here is some draft documentation: https://github.com/bmustiata/germanium/blob/master/doc/api/index.adoc
 
 ChangeLog
 ---------
 
+* 2016-02-11  1.3.8  setup.py trying to get the long description in.
 * 2016-02-11  1.3.7  Renamed README so it should appear in Pypy hopefully.
 * 2016-02-11  1.3.6  Added multikey typing: `type_keys(g, '<ctrl-left*3>')`
 * 2016-02-03  1.3.5  Added `germanium.js()`. Added documentation.

@@ -47,8 +47,8 @@ class GermaniumDriver(object):
         """ Finds an element by the given locator. """
         return create_locator(self, locator, strategy)
 
-    def get(self, url):
-        result = self.web_driver.get(url)
+    def get(self, url, *args, **kwargs):
+        result = self.web_driver.get(url, *args, **kwargs)
         self.wait_for_page_to_load()
 
         return result
@@ -66,9 +66,9 @@ class GermaniumDriver(object):
         self.js('document.location.reload();')
         self.wait_for_page_to_load()
 
-    def execute_script(self, script):
+    def execute_script(self, script, *args, **kwargs):
         """ deprecated js """
-        return self.js(script)
+        return self.js(script, *args, **kwargs)
 
     #
     # This executes a script taking care of actually catching and rethrowing correctly
@@ -77,7 +77,7 @@ class GermaniumDriver(object):
     # It takes special care for returning web elements directly since if they are exported
     # using a map, under python-3.4 webdriver gets dizzy, and returns the elements as "dict"
     #
-    def js(self, script):
+    def js(self, script, *args, **kwargs):
         try:
             """
             Execute the script, and also display it on the console for debug purposes.
@@ -103,7 +103,7 @@ class GermaniumDriver(object):
             """ % script
 
             eval_script = wrapper_script
-            response = self.web_driver.execute_script(eval_script)
+            response = self.web_driver.execute_script(eval_script, *args, **kwargs)
 
             if isinstance(response, WebElement):
                 return response
@@ -201,14 +201,14 @@ class GermaniumDriver(object):
 
         self.js(script)
 
-    def take_screenshot(self, name):
+    def take_screenshot(self, name, *args, **kwargs):
         """
         Takes a screenshot of the current browser.
         :param name:
         :return:
         """
         path = self._screenshot_folder + "/" + name + ".png"
-        self.web_driver.get_screenshot_as_file(path)
+        self.web_driver.get_screenshot_as_file(path, *args, **kwargs)
         print("Screenshot saved as " + path)
 
     def select_iframe(self, iframe_name):

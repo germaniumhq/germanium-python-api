@@ -1,6 +1,7 @@
 from http.server import SimpleHTTPRequestHandler
 from socketserver import TCPServer
 from threading import Thread
+import os
 
 from behave import *
 
@@ -16,5 +17,8 @@ def after_all(context):
     context._httpServer.shutdown()
 
 def after_scenario(context, scenario):
-    context.germanium.quit()
+    if 'TEST_KEEP_BROWSER' not in os.environ.keys():
+        context.germanium.quit()
+    else:
+        print("Not closing the browser since TEST_KEEP_BROWSER is set")
 

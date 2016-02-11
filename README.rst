@@ -11,6 +11,7 @@ Here is some draft documentation: https://github.com/bmustiata/germanium/blob/ma
 ChangeLog
 ---------
 
+* 2016-02-11  1.3.9  *BugFix* pass extra parameters in `execute_script` or `get` webdriver calls.
 * 2016-02-11  1.3.8  setup.py trying to get the long description in.
 * 2016-02-11  1.3.7  Renamed README so it should appear in Pypy hopefully.
 * 2016-02-11  1.3.6  Added multikey typing: `type_keys(g, '<ctrl-left*3>')`

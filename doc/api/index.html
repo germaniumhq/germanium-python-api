@@ -412,32 +412,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article">
 <div id="header">
 <h1>Germanium API Documentation</h1>
-<div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_germanium_iframe_decorator">germanium iframe decorator</a>
-<ul class="sectlevel2">
-<li><a href="#__iframe_name_keep_new_context_false">@iframe(name, keep_new_context=False)</a></li>
-</ul>
-</li>
-<li><a href="#_germanium_instance_functions">germanium Instance Functions</a>
-<ul class="sectlevel2">
-<li><a href="#_constructor_germanium_web_driver">Constructor Germanium(web_driver, ..)</a></li>
-<li><a href="#_germanium_s_locator_strategy">germanium.S(locator, strategy?)</a></li>
-<li><a href="#_germanium_js_code_germanium_execute_script_code">germanium.js(code), germanium.execute_script(code)</a></li>
-<li><a href="#_germanium_take_screenshot_name">germanium.take_screenshot(name)</a></li>
-<li><a href="#_germanium_load_script_filename">germanium.load_script(filename)</a></li>
-<li><a href="#_germanium_find_element_by_simple_locator">germanium.find_element_by_simple(locator)</a></li>
-</ul>
-</li>
-<li><a href="#_germanium_static_functions">germanium Static Functions</a>
-<ul class="sectlevel2">
-<li><a href="#_type_keys_germanium_keys_typed_element_none">type_keys(germanium, keys_typed, element=None)</a></li>
-<li><a href="#_wait_closure_while_not_none_timeout_10">wait(closure, while_not=None, timeout=10)</a></li>
-</ul>
-</li>
-</ul>
-</div>
 </div>
 <div id="content">
 <div id="preamble">
@@ -751,8 +725,21 @@ could type:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">type_keys(germanium, "&lt;tab&gt;&lt;tab&gt;&lt;enter&gt;")</code></pre>
+<pre class="highlight"><code class="language-python" data-lang="python">type_keys(germanium, "&lt;tab*2&gt;&lt;enter&gt;")</code></pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Using <code>*</code> in special keys or combined macros, allows you to type the same key,
+or key combination multiple times.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Also, in the typing of the keys, combined macros such as <code>&lt;ctrl-a&gt;</code> are
@@ -828,7 +815,7 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-02-03 16:25:47 CET
+Last updated 2016-02-11 13:35:22 CET
 </div>
 </div>
 </body>

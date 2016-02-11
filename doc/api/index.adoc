@@ -215,8 +215,12 @@ could type:
 
 [source,python]
 -----------------------------------------------------------------------------
-type_keys(germanium, "<tab><tab><enter>")
+type_keys(germanium, "<tab*2><enter>")
 -----------------------------------------------------------------------------
+
+[TIP]
+Using `*` in special keys or combined macros, allows you to type the same key,
+or key combination multiple times.
 
 Also, in the typing of the keys, combined macros such as `<ctrl-a>` are
 automatically understood as kbd:[CTRL+A] and translated correctly as an action chain.

@@ -1,10 +1,11 @@
-
 import re
 
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 
 from .arguments_processor import find_germanium_object
+
+MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
 
 class BasicKeysAction(object):
     """
@@ -96,10 +97,19 @@ def transform_to_keys(keys):
         else:
             if isinstance(last_action, BasicKeysAction):
                 key = create_custom_key(pressed_keys)
-                last_action.keys.append(key)
+
+                for i in range(get_keypress_count(pressed_keys)):
+                    last_action.keys.append(key)
             else:
+                multiple_keys = []
                 key = create_custom_key(pressed_keys)
-                action = BasicKeysAction([key])
+
+                kp = get_keypress_count(pressed_keys)
+
+                for i in range(kp):
+                    multiple_keys.append(key)
+
+                action = BasicKeysAction(multiple_keys)
                 transformed_keys.append(action)
 
         initial_key_index = m.end()
@@ -128,9 +138,17 @@ def create_up_down_toggle(pressed_keys):
     """
     if pressed_keys.find('^') == 0:  # release key
         key = create_custom_key(pressed_keys[1:])
+
+        if get_keypress_count(pressed_keys[1:]) != 1:
+            raise Exception("The key can be released only once.")
+
         return ComboKeyUp(key)
     elif pressed_keys.find('!') == 0:  # pressed key
         key = create_custom_key(pressed_keys[1:])
+
+        if get_keypress_count(pressed_keys[1:]) != 1:
+            raise Exception("The key can be pressed only once.")
+
         return ComboKeyDown(key)
     else:
         raise Exception("Unable to create key toggle for: '%s'" % pressed_keys)
@@ -148,6 +166,7 @@ def create_multicombo(pressed_keys):
     combo_key=None
 
     tokens = pressed_keys.split("-")
+    keypress_count = 1
 
     for i in reversed(range(len(tokens))):
         if i < len(tokens) - 1:
@@ -155,8 +174,10 @@ def create_multicombo(pressed_keys):
             combo_key = custom_key + combo_key + custom_key
         else:
             combo_key = create_key(tokens[i])
+            keypress_count = get_keypress_count(tokens[i])
 
-    result.append(BasicKeysAction(combo_key))
+    for i in range(keypress_count):
+        result.append(BasicKeysAction(combo_key))
 
     return result
 
@@ -165,6 +186,11 @@ def create_custom_key(combo_string):
     Create a single key for webdriver that represents a custom
     key (<CR>, <SHIFT>, <UP> etc)
     """
+
+    m = MULTIPLE_TIMES_KEY_PRESS_RE.match(combo_string)
+    if m:
+        combo_string = m.group(1)
+
     key_string = combo_string.upper()
 
     key = create_abbreviated_key(key_string)
@@ -180,6 +206,7 @@ def create_custom_key(combo_string):
 
     return getattr(Keys, key_string)
 
+
 def create_key(combo_string):
     """
     Create a single key for webdriver that represents a regular
@@ -189,6 +216,10 @@ def create_key(combo_string):
     if len(combo_string) <= 1:
         return combo_string
 
+    m = MULTIPLE_TIMES_KEY_PRESS_RE.match(combo_string)
+    if (m):
+        combo_string = m.group(1)
+
     key_string = combo_string.upper()
     key = create_abbreviated_key(key_string)
 
@@ -196,6 +227,23 @@ def create_key(combo_string):
         return key
 
     return getattr(Keys, key_string)
+
+
+def get_keypress_count(combo_string):
+    """
+    Finds the number of times a key is pressed:
+    `c` - once
+    `c*3` - three times
+    """
+    m = MULTIPLE_TIMES_KEY_PRESS_RE.match(combo_string)
+
+    if (m):
+        result = int(m.group(2))
+        if result <= 0:
+            raise Exception("The number of key presses should be more than 0.");
+        return result
+
+    return 1
 
 def create_abbreviated_key(key_string):
     if key_string == "CR":

@@ -17,8 +17,10 @@ Feature: Germanium enabled typing of the keys.
       Then the value for the input#textInput is 'input test'
       And I type_keys 'another input teST<bs><bs>st'
       Then the value for the input#anotherTextInput is 'another input test'
-      And I type_keys '<!shift><left><left><left><^shift><bs>EST'
+      And I type_keys '<!shift><left*3><^shift><bs>EST'
       Then the value for the input#anotherTextInput is 'another input tEST'
+      And I type_keys '<shift-left*3><bs>EsT'
+      Then the value for the input#anotherTextInput is 'another input tEsT'
       And I type_keys '<ctrl-shift-left><bs>test'
       Then the value for the input#anotherTextInput is 'another input test'
 

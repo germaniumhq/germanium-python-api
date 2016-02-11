@@ -86,7 +86,7 @@ class GermaniumDriver(object):
                 var result = {
                     data : (function() {
                         %s
-                    })(),
+                    }).apply(this, arguments),
                     status : "SUCCESS"
                 };
 

@@ -18,9 +18,6 @@ def after_all(context):
 
     reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()
 
-    if reuse_browser:
-        g.global_germanium.quit()
-
 def after_scenario(context, scenario):
     keep_browser = 'TEST_KEEP_BROWSER' in os.environ.keys()
     reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()

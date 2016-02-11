@@ -8,6 +8,8 @@ from selenium.webdriver import FirefoxProfile
 
 import os
 
+import g
+
 use_step_matcher("re")
 
 @step("I open (.*?)")
@@ -16,23 +18,26 @@ def open_browser(context, browser):
     :param context:
     :return: void
     """
+    if 'TEST_REUSE_BROWSER' in os.environ:
+        if not g.global_germanium:
+            if 'TEST_BROWSER' in os.environ:
+                browser = os.environ['TEST_BROWSER']
 
-    if 'TEST_BROWSER' in os.environ:
-        browser = os.environ['TEST_BROWSER']
+            if browser.lower() == "firefox":
+                firefox_profile = FirefoxProfile()
+                firefox_profile.set_preference("network.proxy.type", 0)
 
-    if browser.lower() == "firefox":
-        firefox_profile = FirefoxProfile()
-        firefox_profile.set_preference("network.proxy.type", 0)
+                web_driver = webdriver.Firefox(firefox_profile)
+            elif browser.lower() == "chrome":
+                web_driver = webdriver.Chrome()
+            elif browser.lower() == "ie":
+                web_driver = webdriver.Ie()
+            else:
+                raise Exception("Unknown browser: %s, only firefox, chrome and ie are supported." % browser)
 
-        web_driver = webdriver.Firefox(firefox_profile)
-    elif browser.lower() == "chrome":
-        web_driver = webdriver.Chrome()
-    elif browser.lower() == "ie":
-        web_driver = webdriver.Ie()
-    else:
-        raise Exception("Unknown browser: %s, only firefox, chrome and ie are supported." % browser)
+            g.global_germanium = GermaniumDriver(web_driver)
 
-    context.germanium = GermaniumDriver(web_driver)
+    context.germanium = g.global_germanium
 
 @step("I go to '(?P<page>.*?)'")
 @step("I navigate to '(?P<page>.*?)'")

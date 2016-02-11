@@ -16,9 +16,19 @@ def before_all(context):
 def after_all(context):
     context._httpServer.shutdown()
 
+    reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()
+
+    if reuse_browser:
+        g.global_germanium.quit()
+
 def after_scenario(context, scenario):
-    if 'TEST_KEEP_BROWSER' not in os.environ.keys():
-        context.germanium.quit()
-    else:
+    keep_browser = 'TEST_KEEP_BROWSER' in os.environ.keys()
+    reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()
+
+    if keep_browser:
         print("Not closing the browser since TEST_KEEP_BROWSER is set")
+    elif reuse_browser:
+        print("Not closing the browser since TEST_REUSE_BROWSER is set")
+    else:
+        context.germanium.quit()
 

@@ -41,6 +41,9 @@ def type_keys(context, keys_typed, element=None, *args):
     germanium = find_germanium_object([context])
     keys_array = transform_to_keys(keys_typed)
 
+    if element:
+        element = germanium.S(element).element()
+
     action_chain = ActionChains(germanium.web_driver)
 
     for key_action in keys_array:

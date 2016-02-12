@@ -1,4 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
+from germanium.selectors import AbstractSelector
+from selenium.webdriver.remote.webelement import WebElement
 
 class DeferredLocator(object):
     """
@@ -75,6 +77,16 @@ class XPathLocator(DeferredLocator):
             return None
 
 
+class StaticElementLocator(DeferredLocator):
+    def __init__(self, element):
+        """ documentation """
+        self._element = element
+
+    def _findElement(self):
+        """ Returns the locally stored element. """
+        return self._element
+
+
 def create_locator(germanium, locator, strategy='detect'):
     if strategy == 'css':
         return CssLocator(germanium, locator)
@@ -87,6 +99,12 @@ def create_locator(germanium, locator, strategy='detect'):
 
     if strategy != 'detect':
         raise Exception('Unable to find element. Available strategies: detect, css, xpath, simple')
+
+    if isinstance(locator, AbstractSelector):
+        return create_locator(germanium, locator.get_selector())
+
+    if isinstance(locator, WebElement):
+        return StaticElementLocator(locator)
 
     # if it starts with // it's probably an XPath locator.
     if locator[0:2] == "//":

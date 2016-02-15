@@ -1,4 +1,4 @@
-Feature: Button locator.
+Feature: Button selector.
 
 Scenario: Find an input button.
     Given I open firefox

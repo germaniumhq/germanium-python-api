@@ -72,8 +72,10 @@ class XPathLocator(DeferredLocator):
         Find an element using the CSS locator provided at creation.
         """
         try:
+            print("Gonna find: " + self._locator)
             return self._germanium.find_element_by_xpath(self._locator)
         except NoSuchElementException as e:
+            print(e)
             return None
 
 

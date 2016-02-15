@@ -13,7 +13,7 @@ import g
 use_step_matcher("re")
 
 def instantiate_germanium_webdriver():
-    browser = None
+    browser = "firefox"
     web_driver = None
 
     if 'TEST_BROWSER' in os.environ:

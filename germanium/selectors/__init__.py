@@ -42,3 +42,17 @@ class Button(AbstractSelector):
 
         return [input_selector, button_selector]
 
+class Text(AbstractSelector):
+    """
+    Just a selector that finds the text in the page.
+    """
+    def __init__(self, text):
+        self._text = text
+
+    def get_selectors(self):
+        """ Return the XPath selector to find the text """
+        xpath_selector = "//*[contains(string(.), '%s')]" % self._text
+
+        return [xpath_selector]
+
+

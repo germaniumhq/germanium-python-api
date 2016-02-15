@@ -1,5 +1,5 @@
 from behave import *
-from germanium.selectors import Button
+from germanium.selectors import Button, Text
 
 use_step_matcher("re")
 
@@ -23,3 +23,10 @@ def step_impl(context, expected_name):
 def step_impl(context, actualId):
     assert context.found_element.get_attribute('id') == actualId
 
+@step(u'I look for some text: \'(.*?)\'')
+def step_impl(context, text):
+    element = context.germanium.S(Text(text)).element()
+
+    assert element
+
+    context.found_element = element

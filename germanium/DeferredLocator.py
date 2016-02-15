@@ -87,6 +87,21 @@ class StaticElementLocator(DeferredLocator):
         return self._element
 
 
+class CompositeLocator(DeferredLocator):
+    """
+    A locator that will search using the locators it contains.
+    """
+    def __init__(self, locators):
+        self._locators = locators
+
+    def _findElement(self):
+        for locator in self._locators:
+            element = locator.element()
+            if element:
+                return element
+        return None
+
+
 def create_locator(germanium, locator, strategy='detect'):
     if strategy == 'css':
         return CssLocator(germanium, locator)
@@ -101,7 +116,18 @@ def create_locator(germanium, locator, strategy='detect'):
         raise Exception('Unable to find element. Available strategies: detect, css, xpath, simple')
 
     if isinstance(locator, AbstractSelector):
-        return create_locator(germanium, locator.get_selector())
+        selectors = locator.get_selectors()
+
+        # if there is only one locator, don't apply the composite.
+        if len(selectors) == 1:
+            return create_locator(germanium, selectors[0])
+
+        # if we have multiple locators, apply the composite locator.
+        locator_list = []
+        for selector in locator.get_selectors():
+            locator_list.append(create_locator(germanium, selector))
+
+        return CompositeLocator(locator_list)
 
     if isinstance(locator, WebElement):
         return StaticElementLocator(locator)

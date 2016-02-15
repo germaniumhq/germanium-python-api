@@ -10,6 +10,8 @@ def before_all(context):
     Handler = SimpleHTTPRequestHandler
     context._httpServer = TCPServer(("localhost", 8000), Handler)
 
+    print("started server on localhost:8000")
+
     t = Thread(target=context._httpServer.serve_forever)
     t.start()
 
@@ -27,5 +29,8 @@ def after_scenario(context, scenario):
     elif reuse_browser:
         print("Not closing the browser since TEST_REUSE_BROWSER is set")
     else:
-        context.germanium.quit()
+        if 'germanium' in context and context.germanium:
+            context.germanium.quit()
+        else:
+            print("Germanium is not running in the current test context")
 

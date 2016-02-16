@@ -3814,9 +3814,11 @@ var parseTokenExpression = function(token) {
 
 	if (STRING_REGEXP.test(token)) {
 		var strValue = STRING_REGEXP.exec(token)[1];
-		strValue = escapeDoubleQuotes(strValue);
+        var quote = /"/.test(strValue) ? "'" : '"';
 
-		result.setXPath('.//*[contains(normalize-space(string()), "' + strValue + '")]');
+        var xpath = './/*[contains(normalize-space(string()), ' + quote + strValue + quote + ')]';
+        console.log("searching: " + xpath);
+		result.setXPath(xpath);
 
         return result;
 	} else if (ELEMENT_PARAM_REGEXP.test(token)) {

@@ -54,6 +54,8 @@ class Text(AbstractSelector):
         #xpath_selector = "//*[contains(string(.), '%s')]" % self._text
         xpath_selector = '"%s"' % self._text
 
+        print("Going to find: %s" % xpath_selector)
+
         return [xpath_selector]
 
 

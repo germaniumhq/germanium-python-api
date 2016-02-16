@@ -4,8 +4,8 @@ Germanium API Documentation
 :toc: left
 :experimental:
 
-there are three kinds of functions that are provided for easier support
-inside the browsers.
+There are three kinds of functions that are provided for easier support
+inside the browsers:
 
 1. decorator:
     - `@iframe`
@@ -120,8 +120,30 @@ whenever either `get()`, `reload_page()` or `wait_for_page_to_load()` is done.
 a locator in the current iframe context of germanium. The letter
 `S` was chosen since it is looking greatly similar with jquery's `$`.
 
-the s locator is not itself a locator but rather a locator strategy.
-thus the s locator will choose:
+The first parameter, the locator, can be any of the selector objects from the
+link:selectors.adoc[germanium.selectors] package, or a string that will be
+further interpreted on what selector will be used.
+
+For example to find a button you can either:
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S(Button('OK'))
+-----------------------------------------------------------------------------
+
+or using a CSS selector:
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S("input[value'OK'][type='button']")
+-----------------------------------------------------------------------------
+
+The link:selectors.adoc[selectors approach] is recommended since a selector find will match either
+an html `input` element of type `button`, either a html button `element` that
+has the label OK.
+
+The S locator is not itself a locator but rather a locator strategy.
+Thus the S locator will choose:
 
 1. if the searched expression starts with `//` then the xpath locator
     will be used.

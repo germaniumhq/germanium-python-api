@@ -1,0 +1,52 @@
+Germanium Selectors
+===================
+
+:toc: left
+:experimental:
+
+In the `germanium.selectors` package there are several selectors that are already
+built in order to make test writing easier:
+
+Button(label = None, name = None)
+---------------------------------
+
+Just a selector that finds a button by its label or name.
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S(Button("Ok"))
+-----------------------------------------------------------------------------
+
+This selector will find simultaneously both `input` elements that have the
+`type="button"`, and also `button` elements.
+
+Input(input_name)
+-----------------
+
+Just a selector that finds an input by its name.
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S(Input('q'))
+-----------------------------------------------------------------------------
+
+Text(text)
+----------
+
+Just a selector that finds the element that contains the text in the page.
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S(Text("some text"))
+-----------------------------------------------------------------------------
+
+The selector can find the text even in formatted text. For example the previous
+selector would match the parrent div in such a DOM structure:
+
+[source,html]
+-----------------------------------------------------------------------------
+<div>
+    some <b>text</b>
+</div>
+-----------------------------------------------------------------------------
+

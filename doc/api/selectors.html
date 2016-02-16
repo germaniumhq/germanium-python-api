@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
-<title>Germanium API Documentation</title>
+<title>Germanium Selectors</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -411,429 +411,67 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Germanium API Documentation</h1>
+<h1>Germanium Selectors</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are three kinds of functions that are provided for easier support
-inside the browsers:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>decorator:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>@iframe</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>germanium functions:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>S</code>, super locator</p>
-</li>
-<li>
-<p><code>js</code>, <code>execute_script</code></p>
-</li>
-<li>
-<p><code>take_screenshot</code></p>
-</li>
-<li>
-<p><code>load_script</code></p>
-</li>
-<li>
-<p><code>find_element_by_simple</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>static utility functions:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>type_keys</code></p>
-</li>
-<li>
-<p><code>wait</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
+<p>In the <code>germanium.selectors</code> package there are several selectors that are already
+built in order to make test writing easier:</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_germanium_iframe_decorator">germanium iframe decorator</h2>
+<h2 id="_button_label_none_name_none">Button(label = None, name = None)</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="__iframe_name_keep_new_context_false">@iframe(name, keep_new_context=False)</h3>
 <div class="paragraph">
-<p>Switch the iframe when executing the code of the function. It will use the
-strategy provided when the Germanium instance was created.</p>
-</div>
-<div class="paragraph">
-<p>For example if we would have an editor that is embedded in an IFrame, and
-we would want to call the saving of the document, we could implement that
-such as:</p>
+<p>Just a selector that finds a button by its label or name.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">@iframe("default")
-def close_dialog(germanium):
-    germanium.S('"Save dialog" &gt; button["Ok"]').click()
-
-@iframe("editor")
-def save_document(germanium):
-    germanium.S('#save-button').element().click()
-    close_dialog(germanium)</code></pre>
+<pre class="highlight"><code class="language-python" data-lang="python">germanium.S(Button("Ok"))</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>@iframe</code> decorator is going to find the current context by scanning the
-parameters of the function for the Germanium instance. If the first parameter
-is an object that contains a property named either: <code>germanium</code> or <code>_germanium</code>
-will be used.</p>
+<p>This selector will find simultaneously both <code>input</code> elements that have the
+<code>type="button"</code>, and also <code>button</code> elements.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_input_input_name">Input(input_name)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Just a selector that finds an input by its name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">germanium.S(Input('q'))</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_germanium_instance_functions">germanium Instance Functions</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_constructor_germanium_web_driver">Constructor Germanium(web_driver, ..)</h3>
-<div class="paragraph">
-<p>Constructs a new Germanium utility object on top of whatever WebDriver object
-is given.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">Germanium(web_driver,
-        iframe_selector=NoopIFrameSelector(),
-        screenshot_folder="screenshots",
-        scripts=list())</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The only required parameter is the <code>web_driver</code> argument, that must be a
-WebDriver instance.</p>
-</div>
-<div class="sect3">
-<h4 id="_iframe_selector">iframe_selector</h4>
-<div class="paragraph">
-<p>The <code>iframe_selector</code> specifies the strategy to use whenever the iframe will
-be changed by the <code>@iframe</code> decorator.</p>
-</div>
-<div class="paragraph">
-<p>Germanium uses <code>"default"</code> for the <code>switch_to_default_content</code>.</p>
-</div>
-<div class="paragraph">
-<p>The default implementation is:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">class NoopIFrameSelector:
-    """
-    An implementation of the IFrameSelector strategy that does nothing.
-    """
-    def select_iframe(self, germanium, iframe_name):
-        return iframe_name</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This can easily be changed so depending on the <code>iframe_name</code> it will
-do a switch_to_frame on the germanium object.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">class EditorIFrameSelector(object):
-    def select_iframe(self, germanium, iframe_name):
-        if iframe_name == "default":
-            germanium.switch_to_default_content()
-        elif iframe_name == "editor":
-            editor_iframe = germanium.find_element_by_css_selector('iframe')
-            germanium.switch_to_frame(editor_iframe)
-
-        return iframe_name</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_screenshot_folder">screenshot_folder</h4>
-<div class="paragraph">
-<p>The folder where to save the screenshots, whenever take_screenshot is called.
-It defaults to <code>"screenshots"</code>, so basically a local folder named screenshots
-in the current working directory.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_scripts">scripts</h4>
-<div class="paragraph">
-<p>A list of files with JavaScript to be automatically loaded into the page,
-whenever either <code>get()</code>, <code>reload_page()</code> or <code>wait_for_page_to_load()</code> is done.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_germanium_s_locator_strategy">germanium.S(locator, strategy?)</h3>
-<div class="paragraph">
-<p><code>S</code> stands for the super locator, and returns an object that can execute
-a locator in the current iframe context of germanium. The letter
-<code>S</code> was chosen since it is looking greatly similar with jquery&#8217;s <code>$</code>.</p>
-</div>
-<div class="paragraph">
-<p>The first parameter, the locator, can be any of the selector objects from the
-<a href="selectors.adoc">germanium.selectors</a> package, or a string that will be
-further interpreted on what selector will be used.</p>
-</div>
-<div class="paragraph">
-<p>For example to find a button you can either:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.S(Button('OK'))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>or using a CSS selector:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.S("input[value'OK'][type='button']")</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <a href="selectors.adoc">selectors approach</a> is recommended since a selector find will match either
-an html <code>input</code> element of type <code>button</code>, either a html button <code>element</code> that
-has the label OK.</p>
-</div>
-<div class="paragraph">
-<p>The S locator is not itself a locator but rather a locator strategy.
-Thus the S locator will choose:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>if the searched expression starts with <code>//</code> then the xpath locator
-will be used.</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python"># will find elements by XPath
-germanium.S('//*[contains(@class, "test")]');</code></pre>
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>if the searched expression contains no <code>"</code> then, the css locator.
-will be used.</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python"># will find elements by CSS
-germanium.S('.test')</code></pre>
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>otherwise the simple locator will be used.</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python"># will find elements by the simple locator
-germanium.S('*[contains(@class, "test")')</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The S function call will return an object that is compatible with the static
-<code>wait_for</code> command.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_germanium_js_code_germanium_execute_script_code">germanium.js(code), germanium.execute_script(code)</h3>
-<div class="paragraph">
-<p>Execute the given JavaScript, and return its result.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.js('return document.title;')</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-The <code>js</code> is just an alias for the <code>execute_script</code> function
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_germanium_take_screenshot_name">germanium.take_screenshot(name)</h3>
-<div class="paragraph">
-<p>Takes a screenshot of the browser and saves it in the configured screenshot
-folder.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python"># will save a screenshot as `screenshots/test.png`
-germanium.take_screenshot('test')</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_germanium_load_script_filename">germanium.load_script(filename)</h3>
-<div class="paragraph">
-<p>Loads the JavaScript code from the file with the given name into the browser.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.load_script('jquery.js')</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_germanium_find_element_by_simple_locator">germanium.find_element_by_simple(locator)</h3>
-<div class="paragraph">
-<p>Finds the element in the current iframe, using the simple locator given.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.find_element_by_simple('"Title" &gt; button["Ok"]')</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_germanium_static_functions">germanium Static Functions</h2>
+<h2 id="_text_text">Text(text)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These are just a bunch of utility functions, that can even be used without
-germanium itself.</p>
-</div>
-<div class="sect2">
-<h3 id="_type_keys_germanium_keys_typed_element_none">type_keys(germanium, keys_typed, element=None)</h3>
-<div class="paragraph">
-<p>Type the current keys into the browser, eventually specifying the element to
-send the events to.</p>
+<p>Just a selector that finds the element that contains the text in the page.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">type_keys(germanium, "send data&lt;cr&gt;but &lt;!shift&gt;not&lt;^shift&gt; now.")</code></pre>
+<pre class="highlight"><code class="language-python" data-lang="python">germanium.S(Text("some text"))</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Special keys such as <kbd>ENTER</kbd>, are available by just escaping them in <code>&lt;</code> and <code>&gt;</code>
-characters, e.g. <code>&lt;ENTER&gt;</code>. For example to send <kbd>TAB</kbd> <kbd>TAB</kbd> <kbd>ENTER</kbd> someone
-could type:</p>
+<p>The selector can find the text even in formatted text. For example the previous
+selector would match the parrent div in such a DOM structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">type_keys(germanium, "&lt;tab*2&gt;&lt;enter&gt;")</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-Using <code>*</code> in special keys or combined macros, allows you to type the same key,
-or key combination multiple times.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Also, in the typing of the keys, combined macros such as <code>&lt;ctrl-a&gt;</code> are
-automatically understood as <span class="keyseq"><kbd>CTRL</kbd>+<kbd>A</kbd></span> and translated correctly as an action chain.</p>
-</div>
-<div class="paragraph">
-<p>Macro keys can be written such as:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><kbd>SHIFT</kbd>: <code>S</code>, <code>SHIFT</code></p>
-</li>
-<li>
-<p><kbd>CONTROL</kbd>: <code>C</code>, <code>CTL</code>, <code>CTRL</code>, <code>CONTROL</code></p>
-</li>
-<li>
-<p><kbd>META</kbd>: <code>M</code>, <code>META</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Also germanium is smart enough, so the position of the macro key matters, thus
-<code>&lt;s-s&gt;</code> is equivalent to <code>&lt;shift-s&gt;</code> and thus interpreted as <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>s</kbd></span>, and not
-<span class="keyseq"><kbd>s</kbd>+<kbd>s</kbd></span> or <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>SHIFT</kbd></span>.</p>
-</div>
-<div class="paragraph">
-<p>In order to start pressing a key, and release it latter, while still typing other
-keys, the <code>!</code> and <code>^</code> symbols can be used.
-For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">type_keys(germanium, "&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.")</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-The <code>!</code> looks like a finger almost pressing the button,
-and the <code>^</code> is self explanatory: the finger released the given button.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_wait_closure_while_not_none_timeout_10">wait(closure, while_not=None, timeout=10)</h3>
-<div class="paragraph">
-<p>A function that allows waiting for a condition to happen, monitoring also that
-some other conditions do not happen.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">wait(germanium.S('"document uploaded successfully"'),
-    while_not = germanium.S('"an error occured"'))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In case the timeout expires, or one of the <code>while_not</code> conditions matches until
-the <code>closure</code> is not yet matching then throws an exception.</p>
-</div>
-<div class="paragraph">
-<p><code>while_not</code> is either a closure, either an array of closures.</p>
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;div&gt;
+    some &lt;b&gt;text&lt;/b&gt;
+&lt;/div&gt;</code></pre>
 </div>
 </div>
 </div>
@@ -841,7 +479,7 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-02-16 14:46:27 CET
+Last updated 2016-02-16 15:48:15 CET
 </div>
 </div>
 </body>

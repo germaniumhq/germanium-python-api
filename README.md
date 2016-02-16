@@ -11,6 +11,7 @@ Here is some draft documentation: [doc/api/index.adoc](doc/api/index.adoc)
 ChangeLog
 ---------
 
+* 2016-02-16  1.4.0  Added initial selectors support. Started work on a static API.
 * 2016-02-11  1.3.10  *BugFix* Fixed the wrapper JS so it gives the `arguments` of the function down.
 * 2016-02-11  1.3.9  *BugFix* pass extra parameters in `execute_script` or `get` webdriver calls.
 * 2016-02-11  1.3.8  setup.py trying to get the long description in.

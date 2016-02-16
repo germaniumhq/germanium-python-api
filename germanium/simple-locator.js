@@ -1,6 +1,6 @@
 (function() {
 
-var LOG = window.console ? window.console : {
+var LOG = {
    log : function() {},
    error : function() {},
    info : function() {}

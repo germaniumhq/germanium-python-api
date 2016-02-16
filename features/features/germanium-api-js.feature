@@ -2,7 +2,7 @@ Feature: The js API.
 
 Scenario: Call a JS Script with a custom argument.
     Given I open firefox
-    And I go to 'http://localhost:8000/features/simple/inputs.html'
+    And I go to 'http://localhost:8000/features/test-site/inputs.html'
     When I execute js with one parameter 'jsparameter'
     """
     if (arguments.length == 0) {

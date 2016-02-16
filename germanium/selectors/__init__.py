@@ -51,7 +51,8 @@ class Text(AbstractSelector):
 
     def get_selectors(self):
         """ Return the XPath selector to find the text """
-        xpath_selector = "//*[contains(string(.), '%s')]" % self._text
+        #xpath_selector = "//*[contains(string(.), '%s')]" % self._text
+        xpath_selector = '"%s"' % self._text
 
         return [xpath_selector]
 

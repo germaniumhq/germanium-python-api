@@ -11,7 +11,7 @@ Feature: Germanium enabled typing of the keys.
     @1
     Scenario:
       Given I open firefox
-      When I go to 'http://localhost:8000/features/simple/inputs.html'
+      When I go to 'http://localhost:8000/features/test-site/inputs.html'
       And I click on input#textInput
       And I type_keys 'input test<tab>'
       Then the value for the input#textInput is 'input test'
@@ -27,7 +27,7 @@ Feature: Germanium enabled typing of the keys.
     @2
     Scenario: Ensure all the keycodes are passed correctly
       Given I open firefox
-      And I go to 'http://localhost:8000/features/simple/key_type-support.html'
+      And I go to 'http://localhost:8000/features/test-site/key_type-support.html'
       And I click on body
       Then I type_keys '<ctrl-a><del>'
       And I type_keys 'qw<CR>as<CR>'

@@ -3817,7 +3817,6 @@ var parseTokenExpression = function(token) {
         var quote = /"/.test(strValue) ? "'" : '"';
 
         var xpath = './/*[contains(normalize-space(string()), ' + quote + strValue + quote + ')]';
-        console.log("searching: " + xpath);
 		result.setXPath(xpath);
 
         return result;

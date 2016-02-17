@@ -3,7 +3,8 @@ from time import sleep
 import pkg_resources
 
 from .SimpleSelector import SimpleSelector
-from .DeferredLocator import create_locator
+from .locators import CssLocator, SimpleLocator, XPathLocator
+from .util import create_locator
 
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -40,6 +41,12 @@ class GermaniumDriver(object):
         self._iframe_selector = iframe_selector
         self._current_iframe = None
         self._scripts_to_load = scripts
+
+        self.locator_map = {
+            "simple" : SimpleLocator,
+            "xpath" : XPathLocator,
+            "css" : CssLocator
+        }
 
         self.select_iframe("default")
 

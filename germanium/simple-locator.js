@@ -6,6 +6,8 @@ var LOG = {
    info : function() {}
 };
 
+LOG = console;
+
 // Copyright 2005 Google
 //
 // Author: Steffen Meschkat <mesch@google.com>
@@ -3988,11 +3990,12 @@ var isElementVisible = function(realElement) {
 };
 
 
-function SearchElement(element, weight, parentDistance, siblingDistance) {
+function SearchElement(element, weight, parentDistance, siblingDistance, index) {
 	this.element = element;
 	this.weight = weight;
     this.parentDistance = parentDistance;
     this.siblingDistance = siblingDistance;
+    this.index = index ? index : 0;
 }
 
 SearchElement.prototype.isChildOf = function(otherElement) {
@@ -4032,10 +4035,10 @@ var findElementsForToken = function(element, token, tokenIndex) {
 
             if (foundElement.nodeType == 1)  {
                 result.push(
-					new SearchElement(foundElement,
-                        element.weight + nfactorial( visitedParents + tokenIndex),
-                        visitedParents + distanceToParent(domElement, foundElement),
-                        computeSiblingDistance(domElement, element.element, foundElement)
+					new SearchElement(foundElement, // element
+                        element.weight + nfactorial( visitedParents + tokenIndex), // weight
+                        visitedParents + distanceToParent(domElement, foundElement), // parentDistance
+                        computeSiblingDistance(domElement, element.element, foundElement) // siblingDistance
                     )
                 );
             }
@@ -4057,6 +4060,10 @@ var findElementsForToken = function(element, token, tokenIndex) {
     }
 
 	LOG.info("xpath results: " + collect(result, function(it) { return it.weight + " - " + it.parentDistance + " - [" + it.element.tagName + '#' + it.element.id + "]" }));
+
+    for (var i = 0; i < result.length; i++) {
+        result[i].index = i;
+    }
 
 	return result;
 };
@@ -4175,7 +4182,9 @@ var findElementBySimpleExpression = function(expression, _document) {
 			       o1.weight > o2.weight ?  1 :
                    o1.parentDistance < o2.parentDistance ? -1 :
                    o1.parentDistance > o2.parentDistance ? 1 :
-                   o1.siblingDistance - o2.siblingDistance;
+                   o1.siblingDistance < o2.siblingDistance ? -1 :
+                   o1.siblingDistance > o2.siblingDistance ? 1 :
+                   o1.index - o2.index;
 		});
 
         LOG.info("filtered results: " + collect(possibleElements, function(it) {
@@ -4191,7 +4200,7 @@ var findElementBySimpleExpression = function(expression, _document) {
 		}
 	}
 
-	LOG.info("weight " + possibleElements[0].weight);
+	LOG.info("weight " + possibleElements[0].weight + " index: " + possibleElements[0].index);
 
 	return possibleElements[0].element;
 };

@@ -27,3 +27,11 @@ def step_impl(context, href):
 
     context.found_element = element
 
+@when(u'I look for a link with the href containing: \'(.*?)\'')
+def step_impl(context, href):
+    element = context.germanium.S(Link(search_href=href)).element()
+
+    assert element
+
+    context.found_element = element
+

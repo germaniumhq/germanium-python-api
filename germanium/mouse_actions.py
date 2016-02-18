@@ -15,7 +15,7 @@ def click(context, selector = None, move_mouse_over = True):
 
     action.click(element).perform()
 
-def right_click(germanium, selector = None, move_mouse_over = True):
+def right_click(context, selector = None, move_mouse_over = True):
     """ Right click the given location """
     germanium = find_germanium_object([context])
 
@@ -27,7 +27,7 @@ def right_click(germanium, selector = None, move_mouse_over = True):
 
     action.context_click(element).perform()
 
-def double_click(germanium, selector = None, move_mouse_over = True):
+def double_click(context, selector = None, move_mouse_over = True):
     """ Double click the given location """
     germanium = find_germanium_object([context])
 
@@ -39,7 +39,7 @@ def double_click(germanium, selector = None, move_mouse_over = True):
 
     action.double_click(element).perform()
 
-def hover(germanium, selector = None):
+def hover(context, selector = None):
     """ Hover the given location """
     """ Double click the given location """
     germanium = find_germanium_object([context])

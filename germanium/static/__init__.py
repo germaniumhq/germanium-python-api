@@ -1,4 +1,10 @@
-from germanium import GermaniumDriver, type_keys as type_keys_impl
+from germanium import GermaniumDriver,\
+    type_keys as type_keys_impl,\
+    iframe as iframe_impl, \
+    right_click as right_click_impl, \
+    click as click_impl, \
+    hover as hover_impl, \
+    double_click as double_click_impl
 from germanium.selectors import *
 
 from selenium import webdriver
@@ -73,19 +79,50 @@ def click(where):
     """
     Click the element with the given selector.
     """
-    element = global_germanium.S(where).element()
-    element.click()
+    global global_germanium
+
+    if not global_germanium:
+        raise Exception("You need to start a browser first with open_browser()")
+
+    click_impl(global_germanium, where)
 
 def hover(where):
-    pass
+    """
+    Hover the element with the given selector.
+    """
+    global global_germanium
+
+    if not global_germanium:
+        raise Exception("You need to start a browser first with open_browser()")
+
+    hover_impl(global_germanium, where)
 
 def double_click(where):
-    pass
+    """
+    Double click the element with the given selector.
+    """
+    global global_germanium
+
+    if not global_germanium:
+        raise Exception("You need to start a browser first with open_browser()")
+
+    double_click_impl(global_germanium, where)
 
 def right_click(where):
-    pass
+    """
+    Right click the element with the given selector.
+    """
+    global global_germanium
+
+    if not global_germanium:
+        raise Exception("You need to start a browser first with open_browser()")
+
+    right_click_impl(global_germanium, where)
 
 def get_web_driver():
+    """
+    Returns the currently used web_driver object by germanium.
+    """
     global global_germanium
 
     if not global_germanium:
@@ -108,4 +145,17 @@ def S(*argv, **kwargs):
         raise Exception("You need to start a browser first with open_browser()")
 
     return global_germanium.S(*argv, **kwargs)
+
+def iframe(target, keep_new_context = False):
+    """
+    Allow using the iframe method in static contexts.
+    """
+    def wrapper(original):
+        @iframe_impl(target, keep_new_context)
+        def original_aspect(*args, **kwargs):
+            return original(*args, **kwargs)
+
+        return original_aspect
+
+    return wrapper
 

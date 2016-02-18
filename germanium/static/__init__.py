@@ -76,6 +76,9 @@ def click(where):
     element = global_germanium.S(where).element()
     element.click()
 
+def hover(where):
+    pass
+
 def double_click(where):
     pass
 

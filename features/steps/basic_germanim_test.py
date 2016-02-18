@@ -1,7 +1,7 @@
 from behave import *
 from time import sleep
 
-from germanium import GermaniumDriver, type_keys
+from germanium import GermaniumDriver, type_keys, click
 
 from selenium import webdriver
 from selenium.webdriver import FirefoxProfile
@@ -82,8 +82,7 @@ def type_keys_impl(context, what):
 
 @step(u'I click on (?P<simple_locator>.*)')
 def step_impl(context, simple_locator):
-    element = context.germanium.S(simple_locator).element()
-    element.click()
+    click(context.germanium, simple_locator)
 
 @step(u'I wait forever')
 def step_impl(context):

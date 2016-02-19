@@ -10,15 +10,19 @@ built in order to make test writing easier:
 Button(label = None, name = None)
 ---------------------------------
 
-Just a selector that finds a button by its label or name.
+Just a selector that finds a button by its label or name:
+
+This selector will find simultaneously both `input` elements that have the
+`type="button"`, but also `button` elements.
+
+* the label, either the `value` attribute if it's an input, either its text if
+  it's an actual `button` (`label`)
+* its form name (`name`)
 
 [source,python]
 -----------------------------------------------------------------------------
 germanium.S(Button("Ok"))
 -----------------------------------------------------------------------------
-
-This selector will find simultaneously both `input` elements that have the
-`type="button"`, and also `button` elements.
 
 Input(input_name)
 -----------------
@@ -28,6 +32,32 @@ Just a selector that finds an input by its name.
 [source,python]
 -----------------------------------------------------------------------------
 germanium.S(Input('q'))
+-----------------------------------------------------------------------------
+
+Link(search_text, text, search_href, href)
+------------------------------------------
+
+Just a selector that finds a link by either:
+
+* some of its text content (`search_text`)
+* its exact text content(`text`)
+* some of its link location (`search_href`)
+* its link location(`href`)
+
+To match the first link that contains the 'test' string, someone can:
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S(Link("test"))
+-----------------------------------------------------------------------------
+
+Of course, the text and href search can be combined, so we can do,
+in order to find a link that is on the `ciplogic.com` that has in the
+text `testing`:
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S(Link("testing", search_href="http://ciplogic.com"))
 -----------------------------------------------------------------------------
 
 Text(text)

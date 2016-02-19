@@ -40,7 +40,9 @@ def open_browser(browser = "Firefox", wd = None):
     return global_germanium
 
 def close_browser():
-    """ Close the currently running browser. """
+    """
+    Close the currently running browser.
+    """
     global global_germanium
 
     if not global_germanium:

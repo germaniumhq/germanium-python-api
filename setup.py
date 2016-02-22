@@ -6,7 +6,7 @@ with open('README.rst') as readme_file:
 
 setup(
     name='germanium',
-    version='1.4.1',
+    version='1.4.2',
     description='The germanium project: Selenium WebDriver testing API that doesn\'t dissapoint.',
     long_description = readme,
     author='Bogdan Mustiata',
@@ -14,6 +14,6 @@ setup(
     license='BSD',
 
     install_requires=['selenium'],
-    packages=['germanium'],
+    packages=['germanium', 'germanium.locators', 'germanium.selectors', 'germanium.static', 'germanium.util'],
     package_data={'germanium': ['*.js']}
 )

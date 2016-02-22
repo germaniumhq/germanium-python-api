@@ -4,13 +4,14 @@ germanium
 Germanium is a set of extensions on top of the regular WebDriver API, allowing
 for a super easy creation of tests. It's opensource and free.
 
-Simply put Germanium is a Web Testing API that doesn't suck.
+Simply put Germanium is a Web Testing API that doesn't dissapoint.
 
 Here is some draft documentation: [doc/api/index.adoc](doc/api/index.adoc)
 
 ChangeLog
 ---------
 
+* 2016-02-22  1.4.1  Added a bunch of static API calls. Better tests.
 * 2016-02-16  1.4.0  Added initial selectors support. Started work on a static API.
 * 2016-02-11  1.3.10  *BugFix* Fixed the wrapper JS so it gives the `arguments` of the function down.
 * 2016-02-11  1.3.9  *BugFix* pass extra parameters in `execute_script` or `get` webdriver calls.

@@ -1,0 +1,33 @@
+Germanium Static
+================
+
+:toc: left
+:experimental:
+
+The Germanium static package is for creating tests that revolve around
+running a single browser instance at a time, in the whole test process.
+
+
+def open_browser(browser = "Firefox", wd = None):
+
+Open the given browser.
+
+def close_browser():
+
+Close the currently running browser.
+
+def go_to(url):
+
+Go to the given URL, and wait for the page to load.
+
+def type_keys(what, where = None):
+
+Type the keys specified into the element, or the currently active element.
+
+def click(where):
+
+Click the element with the given selector.
+
+def hover(where):
+
+Hover the element with the given selector.

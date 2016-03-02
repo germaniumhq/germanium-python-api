@@ -49,6 +49,7 @@ def close_browser():
         raise Exception("You need to start a browser first with open_browser()")
 
     global_germanium.quit()
+    global_germanium = None
 
 def go_to(url):
     """

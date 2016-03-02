@@ -5,18 +5,35 @@ Germanium Selectors
 :experimental:
 
 In the `germanium.selectors` package there are several selectors that are already
-built in order to make test writing easier:
+built in order to make test writing easier.
 
-Button(label = None, name = None)
----------------------------------
+All of the selectors extend the `germanium.selectors.AbstractSelector` class,
+and the selector matching in Germanium called via S will invoke them.
+
+Custom Selectors
+----------------
+
+You can write a new selector by extending the AbstractSelector class and implementing
+the `get_selectors` method, that returns an array of selectors to be searched in the
+document.
+
+Provided Selectors
+------------------
+
+Provided selectors are just classes that are generally useful for testing, simple things
+such as buttons, links or text.
+
+=== Button(search_text = None, text = None, name = None)
 
 Just a selector that finds a button by its label or name:
 
 This selector will find simultaneously both `input` elements that have the
 `type="button"`, but also `button` elements.
 
-* the label, either the `value` attribute if it's an input, either its text if
-  it's an actual `button` (`label`)
+* some of the text, in either the `value` attribute if it's an `input`, either
+  the text of the `button` (`search_text`)
+* the text, either the `value` attribute if it's an input, either its text if
+  it's an actual `button` (`text`)
 * its form name (`name`)
 
 [source,python]
@@ -24,8 +41,7 @@ This selector will find simultaneously both `input` elements that have the
 germanium.S(Button("Ok"))
 -----------------------------------------------------------------------------
 
-Input(input_name)
------------------
+=== Input(input_name)
 
 Just a selector that finds an input by its name.
 
@@ -34,8 +50,7 @@ Just a selector that finds an input by its name.
 germanium.S(Input('q'))
 -----------------------------------------------------------------------------
 
-Link(search_text, text, search_href, href)
-------------------------------------------
+=== Link(search_text, text, search_href, href)
 
 Just a selector that finds a link by either:
 
@@ -60,8 +75,7 @@ text `testing`:
 germanium.S(Link("testing", search_href="http://ciplogic.com"))
 -----------------------------------------------------------------------------
 
-Text(text)
-----------
+=== Text(text)
 
 Just a selector that finds the element that contains the text in the page.
 

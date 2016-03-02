@@ -17,5 +17,5 @@ class XPathLocator(DeferredLocator):
         try:
             return self._germanium.find_element_by_xpath(self._locator)
         except NoSuchElementException as e:
-            print(e)
             return None
+

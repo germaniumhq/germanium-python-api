@@ -27,6 +27,12 @@ def create_locator(germanium, locator, strategy='detect'):
 
         return locator_constructor(germanium, locator)
 
+    if isinstance(locator, DeferredLocator):
+        if strategy is not 'detect':
+            raise Exception('The locator is already constructed, but a strategy is also defined: "%s"' % strategy)
+
+        return locator
+
     if isinstance(locator, AbstractSelector):
         selectors = locator.get_selectors()
 

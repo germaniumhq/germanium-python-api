@@ -25,5 +25,5 @@ Scenario: I can find elements left of a specific element.
 Scenario: I can find elements right of a specific element.
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
-  When I search for a Input right of the text "Surname"
+  When I search for an Input right of the text "Surname"
   Then I find the element with id: 'surnameInput'

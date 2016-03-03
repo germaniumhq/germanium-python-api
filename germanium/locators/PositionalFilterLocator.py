@@ -2,10 +2,11 @@ from .DeferredLocator import DeferredLocator
 
 
 class PositionalFilterLocator(DeferredLocator):
-    def __init__(self, locator, left_of_filters=[]):
+    def __init__(self, locator, left_of_filters=[], right_of_filters=[]):
         super(DeferredLocator, self).__init__()
         self.locator = locator
         self.left_of_filters = left_of_filters
+        self.right_of_filters = right_of_filters
 
     def _findElement(self):
         items = self._findElements()
@@ -18,6 +19,7 @@ class PositionalFilterLocator(DeferredLocator):
         elements = self.locator.element_list()
 
         elements = self._left_of_filter(elements)
+        elements = self._right_of_filter(elements)
 
         return elements
 
@@ -36,4 +38,22 @@ class PositionalFilterLocator(DeferredLocator):
             elements = list(filter(is_left_of_all, elements))
             pivot_y = left_of_elements[0].location['y']
             elements = sorted(elements, key=lambda e: abs(e.location['y'] - pivot_y))
+        return elements
+
+    def _right_of_filter(self, elements):
+        right_of_elements = []
+        for right_of_filter in self.right_of_filters:
+            right_of_elements.extend(right_of_filter.element_list())
+
+        def is_right_of_all(element):
+            for e in right_of_elements:
+                if e.location['x'] <= element.location['x']:
+                    return True
+            return False
+
+        if len(right_of_elements):
+            elements = list(filter(is_right_of_all, elements))
+            pivot_y = right_of_elements[0].location['y']
+            elements = sorted(elements, key=lambda e: abs(e.location['y'] - pivot_y))
+
         return elements

@@ -44,9 +44,13 @@ def create_locator(germanium, locator, strategy='detect'):
         left_of_filters = map(lambda x: create_locator(germanium, x),
                               locator.left_of_filters)
 
+        right_of_filters = map(lambda x: create_locator(germanium, x),
+                               locator.right_of_filters)
+
         return PositionalFilterLocator(
             locator=create_locator(germanium, locator.selector),
-            left_of_filters=left_of_filters
+            left_of_filters=left_of_filters,
+            right_of_filters=right_of_filters
         )
 
     if isinstance(locator, AbstractSelector):

@@ -10,14 +10,14 @@ class PositionalFilterLocator(DeferredLocator):
         self.above_filters = above_filters
         self.below_filters = below_filters
 
-    def _findElement(self):
-        items = self._findElements()
+    def _find_element(self):
+        items = self._find_element_list()
         if len(items):
             return items[0]
 
         return None
 
-    def _findElements(self):
+    def _find_element_list(self):
         elements = self.locator.element_list()
 
         elements = self._below_filter(elements)

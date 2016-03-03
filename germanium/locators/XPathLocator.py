@@ -11,7 +11,7 @@ class XPathLocator(DeferredLocator):
         super(XPathLocator, self).__init__(germanium)
         self._locator = locator
 
-    def _findElement(self):
+    def _find_element(self):
         """
         Find an element using the CSS locator provided at creation.
         """
@@ -20,7 +20,7 @@ class XPathLocator(DeferredLocator):
         except NoSuchElementException as e:
             return None
 
-    def _findElements(self):
+    def _find_element_list(self):
         """
         Find an element using the CSS locator
         :return:

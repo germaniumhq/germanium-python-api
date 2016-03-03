@@ -12,20 +12,20 @@ class DeferredLocator(object):
 
     def element(self):
         """ Return the current matched element. """
-        return self._findElement()
+        return self._find_element()
 
     def element_list(self):
-        return self._findElements()
+        return self._find_element_list()
 
     def exists(self):
         """ Return True/False if the currently matched element exists or not """
         return self.element() is not None
 
-    def _findElement(self):
+    def _find_element(self):
         """ Find the element. """
         raise Exception("not implemented")
 
-    def _findElements(self):
+    def _find_element_list(self):
         """
         Find all the elements that match the given locator.
         :return:

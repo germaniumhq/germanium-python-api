@@ -2,15 +2,17 @@ from selenium.common.exceptions import NoSuchElementException
 
 from .DeferredLocator import DeferredLocator
 
+
 class CssLocator(DeferredLocator):
     """
     A CSS Deferred locator.
     """
     def __init__(self, germanium, locator):
         super(CssLocator, self).__init__(germanium)
+
         self._locator = locator
 
-    def _findElement(self):
+    def _find_element(self):
         """
         Find an element using the CSS locator provided at creation.
         """
@@ -19,7 +21,7 @@ class CssLocator(DeferredLocator):
         except NoSuchElementException as e:
             return None
 
-    def _findElements(self):
+    def _find_element_list(self):
         """
         Find an element using the CSS locator provided at creation.
         """

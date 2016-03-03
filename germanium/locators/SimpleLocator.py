@@ -10,15 +10,15 @@ class SimpleLocator(DeferredLocator):
         print("A deprecated SimpleLocator instance was created. SimpleLocator will be removed in a future release.")
         self._locator = locator
 
-    def _findElements(self):
-        element = self._findElement()
+    def _find_element_list(self):
+        element = self._find_element()
 
         if element:
             return [element]
 
         return []
 
-    def _findElement(self):
+    def _find_element(self):
         """
         Find an element using the Simple locator provided at creation.
         """

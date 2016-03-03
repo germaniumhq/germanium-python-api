@@ -16,11 +16,11 @@ class SelectorLocator(DeferredLocator):
         Finds the element by just using the actual locator that
         was created.
         """
-        return self._locator._findElement()
+        return self._locator._find_element()
 
     def _findElements(self):
         """
         Finds the elements using the locator that was created.
         :return:
         """
-        return self._locator._findElements()
+        return self._locator._find_element_list()

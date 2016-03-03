@@ -2,12 +2,13 @@ from .DeferredLocator import DeferredLocator
 
 
 class PositionalFilterLocator(DeferredLocator):
-    def __init__(self, locator, left_of_filters=[], right_of_filters=[], above_filters=[]):
+    def __init__(self, locator, left_of_filters=[], right_of_filters=[], above_filters=[], below_filters=[]):
         super(DeferredLocator, self).__init__()
         self.locator = locator
         self.left_of_filters = left_of_filters
         self.right_of_filters = right_of_filters
         self.above_filters = above_filters
+        self.below_filters = below_filters
 
     def _findElement(self):
         items = self._findElements()
@@ -19,11 +20,28 @@ class PositionalFilterLocator(DeferredLocator):
     def _findElements(self):
         elements = self.locator.element_list()
 
+        elements = self._below_filter(elements)
         elements = self._above_filter(elements)
-
         elements = self._left_of_filter(elements)
         elements = self._right_of_filter(elements)
 
+        return elements
+
+    def _below_filter(self, elements):
+        below_elements = []
+        for below_filter in self.below_filters:
+            below_elements.extend(below_filter.element_list())
+
+        def is_below_all(element):
+            for e in below_elements:
+                if e.location['y'] <= element.location['y']:
+                    return True
+            return False
+
+        if len(below_elements):
+            elements = list(filter(is_below_all, elements))
+            pivot_x = below_elements[0].location['x']
+            elements = sorted(elements, key=lambda e: abs(e.location['x'] - pivot_x))
         return elements
 
     def _above_filter(self, elements):

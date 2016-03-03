@@ -31,3 +31,12 @@ def step_impl(context, text):
     assert element
 
     context.found_element = element
+
+@step(u'I search for an InputText below the text "(.*?)"')
+def step_impl(context, text):
+    selector = InputText().below(Text(text))
+    element = context.germanium.S(selector).element()
+
+    assert element
+
+    context.found_element = element

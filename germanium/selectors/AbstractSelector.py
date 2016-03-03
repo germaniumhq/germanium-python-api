@@ -21,6 +21,10 @@ class AbstractSelector(object):
         return PositionalFilterSelector(self) \
             .above(other_selector)
 
+    def below(self, other_selector):
+        return PositionalFilterSelector(self) \
+            .below(other_selector)
+
 
 class PositionalFilterSelector(AbstractSelector):
     """
@@ -46,4 +50,8 @@ class PositionalFilterSelector(AbstractSelector):
 
     def above(self, other_selector):
         self.above_filters.append(other_selector)
+        return self
+
+    def below(self, other_selector):
+        self.below_filters.append(other_selector)
         return self

@@ -13,7 +13,7 @@ from germanium.locators import \
 
 import re
 
-LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?)\:)(.*)')
+LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?)\:)(.*)', re.MULTILINE|re.DOTALL)
 
 
 def create_locator(germanium, locator, strategy='detect'):

@@ -11,6 +11,32 @@ class Text(AbstractSelector):
 
     def get_selectors(self):
         """ Return the simple selector to find the text """
-        simple_locator = 'simple:"%s"' % self._text
+        simple_locator = """js:
+            var searchedText = "%s";
+
+            function text(node) {
+                return node.innerText || node.textContent;
+            }
+
+            if (!text(document.body).contains(searchedText)) {
+                return null;
+            }
+
+            var result = document.body;
+            var foundChildElement = true;
+
+            while (foundChildElement) {
+                foundChildElement = false;
+
+                for (var i = 0; i < result.children.length; i++) {
+                    if (text(result.children[i]).contains(searchedText)) {
+                        foundChildElement = true;
+                        result = result.children[i];
+                    }
+                }
+            }
+
+            return result;
+        """ % str(self._text).replace('"', '\\"', 100000)
 
         return [simple_locator]

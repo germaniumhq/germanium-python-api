@@ -5,5 +5,6 @@ from .DeferredLocator import DeferredLocator
 from .SimpleLocator import SimpleLocator
 from .StaticElementLocator import StaticElementLocator
 from .XPathLocator import XPathLocator
+from .JsLocator import JsLocator
 
 from .PositionalFilterLocator import PositionalFilterLocator

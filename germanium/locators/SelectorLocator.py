@@ -1,9 +1,10 @@
 
 from germanium.util import create_locator
 
+
 class SelectorLocator(DeferredLocator):
     """
-    A Locator that uses the given selector to lcoate elements.
+    A Locator that uses the given selector to locate elements.
     It will defer all the actual work to `create_locator`
     """
     def __init__(self, germanium, selector_instance):
@@ -16,3 +17,10 @@ class SelectorLocator(DeferredLocator):
         was created.
         """
         return self._locator._findElement()
+
+    def _findElements(self):
+        """
+        Finds the elements using the locator that was created.
+        :return:
+        """
+        return self._locator._findElements()

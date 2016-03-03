@@ -11,6 +11,7 @@ Here is some draft documentation: https://github.com/bmustiata/germanium/blob/ma
 ChangeLog
 ---------
 
+* 2016-03-03  1.5.0  Added positional filtering for selectors. `Link('edit').right_of(Text('User 11'))`
 * 2016-02-22  1.4.1  Added a bunch of static API calls. Better tests.
 * 2016-02-16  1.4.0  Added initial selectors support. Started work on a static API.
 * 2016-02-11  1.3.10  *BugFix* Fixed the wrapper JS so it gives the `arguments` of the function down.

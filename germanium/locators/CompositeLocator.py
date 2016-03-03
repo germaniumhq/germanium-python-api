@@ -14,3 +14,10 @@ class CompositeLocator(DeferredLocator):
                 return element
         return None
 
+    def _findElements(self):
+        result = []
+
+        for locator in self._locators:
+            result.extend(locator.element_list())
+
+        return result

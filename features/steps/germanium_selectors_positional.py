@@ -1,6 +1,6 @@
 from behave import *
 
-from germanium.selectors import Input, Text
+from germanium.selectors import Input, Text, InputText
 
 use_step_matcher("re")
 
@@ -23,3 +23,11 @@ def step_impl(context, text):
 
     context.found_element = element
 
+@step(u'I search for an InputText above the text "(.*?)"')
+def step_impl(context, text):
+    selector = InputText().above(Text(text))
+    element = context.germanium.S(selector).element()
+
+    assert element
+
+    context.found_element = element

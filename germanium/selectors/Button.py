@@ -1,10 +1,13 @@
 from .AbstractSelector import AbstractSelector
 
+
 class Button(AbstractSelector):
     """
     Just a selector that finds a button by its label or name.
     """
-    def __init__(self, search_text = None, text = None, name = None):
+    def __init__(self, search_text=None, text=None, name=None):
+        super(AbstractSelector, self).__init__()
+
         self._search_text = search_text
         self._text = text
         self._name = name

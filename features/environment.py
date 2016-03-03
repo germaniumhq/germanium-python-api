@@ -5,6 +5,8 @@ import os
 
 from behave import *
 
+import steps.g as g
+
 def before_all(context):
     TCPServer.allow_reuse_address = True
     Handler = SimpleHTTPRequestHandler
@@ -19,6 +21,9 @@ def after_all(context):
     context._httpServer.shutdown()
 
     reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()
+
+    if reuse_browser:
+        g.global_germanium.quit()
 
 def after_scenario(context, scenario):
     keep_browser = 'TEST_KEEP_BROWSER' in os.environ.keys()

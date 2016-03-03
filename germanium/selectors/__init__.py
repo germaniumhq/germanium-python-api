@@ -1,4 +1,4 @@
-from .AbstractSelector import AbstractSelector
+from .AbstractSelector import AbstractSelector, PositionalFilterSelector
 
 from .Button import Button
 from .Input import Input

@@ -1,8 +1,15 @@
 
-from germanium.selectors import AbstractSelector
+from germanium.selectors import AbstractSelector, PositionalFilterSelector
 from selenium.webdriver.remote.webelement import WebElement
 
-from germanium.locators import XPathLocator, CssLocator, SimpleLocator, CompositeLocator, DeferredLocator, StaticElementLocator
+from germanium.locators import \
+    XPathLocator, \
+    CssLocator, \
+    SimpleLocator, \
+    CompositeLocator, \
+    DeferredLocator, \
+    StaticElementLocator, \
+    PositionalFilterLocator
 
 import re
 
@@ -32,6 +39,15 @@ def create_locator(germanium, locator, strategy='detect'):
             raise Exception('The locator is already constructed, but a strategy is also defined: "%s"' % strategy)
 
         return locator
+
+    if isinstance(locator, PositionalFilterSelector):
+        left_of_filters = map(lambda x: create_locator(germanium, x),
+                              locator.left_of_filters)
+
+        return PositionalFilterLocator(
+            locator=create_locator(germanium, locator.selector),
+            left_of_filters=left_of_filters
+        )
 
     if isinstance(locator, AbstractSelector):
         selectors = locator.get_selectors()

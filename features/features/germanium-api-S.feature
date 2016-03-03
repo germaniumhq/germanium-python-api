@@ -25,7 +25,7 @@ Scenario: Find by inferred simple locators.
 Scenario: Finding elements that don't exist should not throw exceptions
     Given I open firefox
     When I go to 'http://localhost:8000/features/test-site/inputs.html'
-    And I search for //does/not/exist
-    And I search for div.what
-    And I search for div["what"].what
+    And I search using S for //does/not/exist
+    And I search using S for div.what
+    And I search using S for div["what"].what
     Then nothing happens

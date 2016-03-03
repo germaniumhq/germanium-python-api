@@ -7,7 +7,16 @@ class SimpleLocator(DeferredLocator):
     """
     def __init__(self, germanium, locator):
         super(SimpleLocator, self).__init__(germanium)
+        print("A deprecated SimpleLocator instance was created. SimpleLocator will be removed in a future release.")
         self._locator = locator
+
+    def _findElements(self):
+        element = self._findElement()
+
+        if element:
+            return [element]
+
+        return []
 
     def _findElement(self):
         """

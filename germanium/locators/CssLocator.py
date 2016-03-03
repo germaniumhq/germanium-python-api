@@ -19,3 +19,11 @@ class CssLocator(DeferredLocator):
         except NoSuchElementException as e:
             return None
 
+    def _findElements(self):
+        """
+        Find an element using the CSS locator provided at creation.
+        """
+        try:
+            return self._germanium.find_elements_by_css_selector(self._locator)
+        except NoSuchElementException as e:
+            return None

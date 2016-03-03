@@ -10,12 +10,96 @@ built in order to make test writing easier.
 All of the selectors extend the `germanium.selectors.AbstractSelector` class,
 and the selector matching in Germanium called via S will invoke them.
 
+Selectors allow abstracting how the elements in the DOM will be found, and also
+allow positional filtering depending on other elements position.
+
+Positional Filtering
+--------------------
+
+Germanium provides the following positional filters:
+
+1. left_of
+2. right_of
+3. below
+4. above
+
+These filters can be used to filter otherwise false positive matches when selecting.
+
+Multiple filters can be used for the same selector, for example someone can:
+
+[source,python]
+-----------------------------------------------------------------------------
+click(Link("edit").below(Text("User Edit Panel")).right_of(Text("User 11")))
+-----------------------------------------------------------------------------
+
+This will find a link that contains the label `edit`, that is positioned below
+the text `User Edit Panel` and is to the right of the text `User 11`.
+
+=== selector.left_of(other_selector)
+
+Make a selector that will return only the items that are left of all the elements
+returned by the other_selector.
+
+[source,python]
+-----------------------------------------------------------------------------
+click(Input().left_of(Text("User")))
+-----------------------------------------------------------------------------
+
+=== selector.right_of(other_selector)
+
+Make a selector that will return only the items that are right of all the elements
+returned by the other_selector.
+
+[source,python]
+-----------------------------------------------------------------------------
+click(Link("edit").right_of(Text("User 11")))
+-----------------------------------------------------------------------------
+
+=== selector.above(other_selector)
+
+Make a selector that will return only the items that are above all the elements
+returned by the other_selector.
+
+[source,python]
+-----------------------------------------------------------------------------
+click(Link("logout").above("div.toolbar"))
+-----------------------------------------------------------------------------
+
+=== selector.below(other_selector)
+
+Make a selector that will return only the items that are below all the elements
+returned by the other_selector.
+
+[source,python]
+-----------------------------------------------------------------------------
+click(Button("edit").below(Text("entry 5")))
+-----------------------------------------------------------------------------
+
 Custom Selectors
 ----------------
 
 You can write a new selector by extending the AbstractSelector class and implementing
 the `get_selectors` method, that returns an array of selectors to be searched in the
 document.
+
+Utility Selectors
+-----------------
+
+Utility selectors are provided so you can use the positional filtering capabilities
+of the selectors. For example:
+
+[source,python]
+-----------------------------------------------------------------------------
+click(Css('.tree-plus-icon').left_of(Text('Item 15')))
+-----------------------------------------------------------------------------
+
+=== Css(locator)
+
+A selector that finds the given CSS expression.
+
+=== XPath(locator)
+
+A selector that finds the given XPath expression.
 
 Provided Selectors
 ------------------
@@ -48,6 +132,15 @@ Just a selector that finds an input by its name.
 [source,python]
 -----------------------------------------------------------------------------
 germanium.S(Input('q'))
+-----------------------------------------------------------------------------
+
+=== InputText(input_name)
+
+Just a selector that finds an input with the type `text` by its name.
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S(InputText('q'))
 -----------------------------------------------------------------------------
 
 === Link(search_text, text, search_href, href)

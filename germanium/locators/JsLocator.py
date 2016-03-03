@@ -15,12 +15,12 @@ class JsLocator(DeferredLocator):
 
     def _find_element(self):
         """
-        Find an element using the CSS locator provided at creation.
+        Finds a single element using the provided JS Code.
         """
         element = self._germanium.js(self._code)
 
         if not element:
-            return element
+            return None
 
         if not isinstance(element, WebElement):
             raise Exception("Code `%s` is not returning an element." % self._code)
@@ -29,16 +29,11 @@ class JsLocator(DeferredLocator):
 
     def _find_element_list(self):
         """
-        Find an element using the CSS locator provided at creation.
+        Finds a single element using the given code.
         """
-        result = self._germanium.js(self._code)
+        element = self._find_element()
 
-        if not result:
+        if not element:
             return []
 
-        for element in result:
-            if not isinstance(element, WebElement):
-                raise Exception("Code `%s` is not returning only elements, "
-                                "is returning also: %s" % (self._code, element))
-
-        return result
+        return [element]

@@ -22,6 +22,13 @@ Scenario: Find by inferred simple locators.
     Then the value for the simple:"Text input" > input is 'input test'
 
 @4
+Scenario: Find by javascript locators.
+    Given I open firefox
+    When I go to 'http://localhost:8000/features/test-site/inputs.html'
+    Then I type 'input test' into js:return document.getElementById('textInput')
+    Then the value for the #textInput is 'input test'
+
+@5
 Scenario: Finding elements that don't exist should not throw exceptions
     Given I open firefox
     When I go to 'http://localhost:8000/features/test-site/inputs.html'

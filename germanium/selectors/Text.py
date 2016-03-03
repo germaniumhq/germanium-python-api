@@ -18,7 +18,7 @@ class Text(AbstractSelector):
                 return node.innerText || node.textContent;
             }
 
-            if (!text(document.body).contains(searchedText)) {
+            if (text(document.body).indexOf(searchedText) < 0) {
                 return null;
             }
 
@@ -29,7 +29,7 @@ class Text(AbstractSelector):
                 foundChildElement = false;
 
                 for (var i = 0; i < result.children.length; i++) {
-                    if (text(result.children[i]).contains(searchedText)) {
+                    if (text(result.children[i]).indexOf(searchedText) >= 0) {
                         foundChildElement = true;
                         result = result.children[i];
                     }

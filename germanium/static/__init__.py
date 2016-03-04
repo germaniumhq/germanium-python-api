@@ -5,6 +5,7 @@ from germanium import GermaniumDriver,\
     click as click_impl, \
     hover as hover_impl, \
     double_click as double_click_impl
+
 from germanium.selectors import *
 
 from selenium import webdriver

@@ -14,8 +14,25 @@ class NoopIFrameSelector:
     An implementation of the IFrameSelector strategy that does nothing.
     """
     def select_iframe(self, germanium, iframe_name):
+        if iframe_name != "default":
+            raise Exception("Unknown iframe name: '%s'. Make sure you create an IFrame Selector "
+                            "that you will pass when creating the GermaniumDriver, e.g.:\n"
+                            "GermaniumDriver(wd, iframe_selector=MyIFrameSelector())")
+
+        germanium.switch_to_default_content()
         return iframe_name
 
+
+class CallableIFrameSelector:
+    """
+    An implementation of the IFrameSelector strategy that uses the
+    given callback and wraps it.
+    """
+    def __init__(self, callable):
+        self._callable = callable
+
+    def select_iframe(self, germanium, iframe_name):
+        return self._callable(germanium, iframe_name)
 
 class JavaScriptException(Exception):
     def __init__(self, name, message):
@@ -35,6 +52,10 @@ class GermaniumDriver(object):
                  iframe_selector=NoopIFrameSelector(),
                  screenshot_folder="screenshots",
                  scripts=list()):
+
+        if hasattr(iframe_selector, '__call__'):
+            iframe_selector=CallableIFrameSelector(iframe_selector)
+
         self.web_driver = web_driver
         self.simple_selector = SimpleSelector(self)
         self._screenshot_folder = screenshot_folder
@@ -227,6 +248,9 @@ class GermaniumDriver(object):
         """
         if iframe_name != self._current_iframe:
             self._current_iframe = self._iframe_selector.select_iframe(self, iframe_name)
+
+        if not self._current_iframe:
+            self._current_iframe = iframe_name
 
         return self._current_iframe
 

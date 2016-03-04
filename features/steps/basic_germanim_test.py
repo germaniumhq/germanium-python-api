@@ -10,6 +10,8 @@ import os
 
 import g
 
+from features.steps.asserts import *
+
 use_step_matcher("re")
 
 def instantiate_germanium_webdriver():
@@ -31,7 +33,14 @@ def instantiate_germanium_webdriver():
     else:
         raise Exception("Unknown browser: %s, only firefox, chrome and ie are supported." % browser)
 
-    return GermaniumDriver(web_driver)
+    def iframe_selector(germanium, iframe_name):
+        if iframe_name == 'iframe':
+            iframe = germanium.S('iframe').element()
+            germanium.switch_to_frame(iframe)
+        else:
+            germanium.switch_to_default_content()
+
+    return GermaniumDriver(web_driver, iframe_selector=iframe_selector)
 
 
 @step("I open (.*?)")
@@ -66,15 +75,16 @@ def type_keys_with_simple_locator(context, keys, simple_locator):
     element.send_keys(keys)
 
 
-@step(u'the value for the (?P<simple_locator>.*) is \'(?P<value>.*?)\'')
-def step_impl(context, simple_locator, value):
-    element = context.germanium.S(simple_locator).element()
-    assert element.get_attribute("value") == value
+@step(u'the value for the (?P<selector>.*) is \'(?P<value>.*?)\'')
+def step_impl(context, selector, value):
+    element = context.germanium.S(selector).element()
+
+    assert_equals(value, element.get_attribute("value"))
 
 
 @step("the title of the page equals '(?P<what>.*?)'")
 def check_title_page(context, what):
-    assert context.germanium.title == what
+    assert_equals(what, context.germanium.title)
 
 @step(u'I type_keys \'(?P<what>.*?)\'')
 def type_keys_impl(context, what):

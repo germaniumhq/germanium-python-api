@@ -16,16 +16,12 @@ allow positional filtering depending on other elements position.
 Positional Filtering
 --------------------
 
-Germanium provides the following positional filters:
-
-1. left_of
-2. right_of
-3. below
-4. above
+Germanium provides the following methods to enable positional filtering: `left_of()`,
+`right_of()`, `below()`, `above()`.
 
 These filters can be used to filter otherwise false positive matches when selecting.
 
-Multiple filters can be used for the same selector, for example someone can:
+Multiple filters can be chained for the same selector, for example someone can:
 
 [source,python]
 -----------------------------------------------------------------------------
@@ -100,6 +96,10 @@ A selector that finds the given CSS expression.
 === XPath(locator)
 
 A selector that finds the given XPath expression.
+
+=== JsSelector(code)
+
+A selector that finds an element by evaluating the given JavaScript code.
 
 Provided Selectors
 ------------------

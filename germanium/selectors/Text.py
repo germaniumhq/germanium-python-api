@@ -11,7 +11,7 @@ class Text(AbstractSelector):
 
     def get_selectors(self):
         """ Return the simple selector to find the text """
-        simple_locator = """js:
+        js_selector = """js:
             var searchedText = "%s";
 
             function text(node) {
@@ -39,4 +39,4 @@ class Text(AbstractSelector):
             return result;
         """ % str(self._text).replace('"', '\\"', 100000)
 
-        return [simple_locator]
+        return [js_selector]

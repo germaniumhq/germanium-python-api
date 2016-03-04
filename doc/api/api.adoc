@@ -138,6 +138,18 @@ or using a CSS selector:
 germanium.S("input[value'OK'][type='button']")
 -----------------------------------------------------------------------------
 
+or using a specific locator:
+
+[source,python]
+-----------------------------------------------------------------------------
+# implicit strategy detection, will match XPath, due to // start
+germanium.S("//input[@value='OK'][@type='button']")
+# or explicit in-string strategy:
+germanium.S("xpath://input[@value='OK'][@type='button']")
+# or explicit strategy:
+germanium.S("//input[@value='OK'][@type='button']", "xpath")
+-----------------------------------------------------------------------------
+
 The link:selectors.adoc[selectors approach] is recommended since a selector find will match either
 an html `input` element of type `button`, either a html button `element` that
 has the label OK.
@@ -154,16 +166,13 @@ Thus the S locator will choose:
 germanium.S('//*[contains(@class, "test")]');
 -----------------------------------------------------------------------------
 
-2. if the searched expression contains no `"` then, the css locator.
-    will be used.
+2. else the css locator will be used.
 
 [source,python]
 -----------------------------------------------------------------------------
 # will find elements by CSS
 germanium.S('.test')
 -----------------------------------------------------------------------------
-
-3. otherwise the simple locator will be used.
 
 [source,python]
 -----------------------------------------------------------------------------

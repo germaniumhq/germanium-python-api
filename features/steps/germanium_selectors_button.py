@@ -28,7 +28,7 @@ def step_impl(context, expected_id):
     assert_true(context.found_element, "No element was found.")
     assert_equals(expected_id, context.found_element.get_attribute('id'))
 
-@step(u'I look for some text: \'(.*?)\'')
+@step(u'I look for some text: \'(.*)\'')
 def step_impl(context, text):
     element = context.germanium.S(Text(text)).element()
 

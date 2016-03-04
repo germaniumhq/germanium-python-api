@@ -14,7 +14,7 @@ class Link(AbstractSelector):
         self._href = href
 
     def get_selectors(self):
-        """ Return the simple locator to find the text """
+        """ Return the xpsth locator to find the text """
         if self._search_text and self._text:
             raise Exception("You can't have both a searched text and an exact text match")
 

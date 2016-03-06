@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.2">
-<title>Germanium API Documentation</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
+<meta name="generator" content="Asciidoctor 1.5.4">
+<meta name="author" content="Web Testing API that doesn't dissapoint">
+<title>Germanium</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
-/* Remove the comments around the @import statement below when using this as a custom stylesheet */
-/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400";*/
+/* Remove comment around @import statement below when using as a custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
 audio,canvas,video{display:inline-block}
 audio:not([controls]){display:none;height:0}
@@ -57,7 +58,6 @@ a:hover{cursor:pointer}
 img,object,embed{max-width:100%;height:auto}
 object,embed{height:100%}
 img{-ms-interpolation-mode:bicubic}
-#map_canvas img,#map_canvas embed,#map_canvas object,.map_canvas img,.map_canvas embed,.map_canvas object{max-width:none!important}
 .left{float:left!important}
 .right{float:right!important}
 .text-left{text-align:left!important}
@@ -65,10 +65,12 @@ img{-ms-interpolation-mode:bicubic}
 .text-center{text-align:center!important}
 .text-justify{text-align:justify!important}
 .hide{display:none}
-.antialiased,body{-webkit-font-smoothing:antialiased}
-img{display:inline-block;vertical-align:middle}
+body{-webkit-font-smoothing:antialiased}
+img,object,svg{display:inline-block;vertical-align:middle}
 textarea{height:auto;min-height:50px}
 select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.spread{width:100%}
 p.lead,.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{font-size:1.21875em;line-height:1.6}
 .subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
 div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
@@ -111,12 +113,14 @@ blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
 h1{font-size:2.75em}
 h2{font-size:2.3125em}
 h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
-h4{font-size:1.4375em}}table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
 table thead,table tfoot{background:#f7f8f7;font-weight:bold}
 table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
 table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
 table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+body{tab-size:4}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
 h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
 .clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
@@ -124,7 +128,7 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 *:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
 .keyseq{color:rgba(51,51,51,.8)}
-kbd{display:inline-block;color:rgba(0,0,0,.8);font-size:.75em;line-height:1.4;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:-.15em .15em 0 .15em;padding:.2em .6em .2em .5em;vertical-align:middle;white-space:nowrap}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
 .menuseq,.menu{color:rgba(0,0,0,.8)}
@@ -155,29 +159,33 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toc ul.sectlevel0>li>a{font-style:italic}
 #toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
 #toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
 #toc a{text-decoration:none}
 #toc a:active{text-decoration:underline}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media only screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
 #toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
-#toc.toc2 #toctitle{margin-top:0;font-size:1.2em}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
 #toc.toc2 ul ul{margin-left:0;padding-left:1em}
 #toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
 body.toc2.toc-right{padding-left:0;padding-right:15em}
-body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}@media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}
+@media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
 #toc.toc2{width:20em}
 #toc.toc2 #toctitle{font-size:1.375em}
 #toc.toc2>ul{font-size:.95em}
 #toc.toc2 ul ul{padding-left:1.25em}
-body.toc2.toc-right{padding-left:0;padding-right:20em}}#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
 #content #toc>:first-child{margin-top:0}
 #content #toc>:last-child{margin-bottom:0}
 #footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
 #footer-text{color:rgba(255,255,255,.8);line-height:1.44}
 .sect1{padding-bottom:.625em}
-@media only screen and (min-width:768px){.sect1{padding-bottom:1.25em}}.sect1+.sect1{border-top:1px solid #efefed}
+@media only screen and (min-width:768px){.sect1{padding-bottom:1.25em}}
+.sect1+.sect1{border-top:1px solid #efefed}
 #content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
 #content h1>a.anchor:before,h2>a.anchor:before,h3>a.anchor:before,#toctitle>a.anchor:before,.sidebarblock>.content>.title>a.anchor:before,h4>a.anchor:before,h5>a.anchor:before,h6>a.anchor:before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
 #content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
@@ -206,7 +214,9 @@ table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inh
 .sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
 .literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
 .literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
-@media only screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}@media only screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+@media only screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}
+@media only screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}
+.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
 .listingblock pre.highlightjs{padding:0}
 .listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
 .listingblock pre.prettyprint{border-width:0}
@@ -216,7 +226,7 @@ table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inh
 .listingblock.terminal pre .command:before{content:attr(data-prompt);padding-right:.5em;color:#999}
 .listingblock.terminal pre .command:not([data-prompt]):before{content:"$"}
 table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
-table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0;line-height:1.45}
 table.pyhltable td.code{padding-left:.75em;padding-right:0}
 pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
 pre.pygments .lineno{display:inline-block;margin-right:.25em}
@@ -237,13 +247,12 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 .verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
 .quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
 .quoteblock .attribution br,.verseblock .attribution br{display:none}
-.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.05em;color:rgba(0,0,0,.6)}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
 .quoteblock.abstract{margin:0 0 1.25em 0;display:block}
 .quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{text-align:left;word-spacing:0}
 .quoteblock.abstract blockquote:before,.quoteblock.abstract blockquote p:first-of-type:before{display:none}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
-table.spread{width:100%}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
 table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
 table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
@@ -289,8 +298,8 @@ ol.upperroman{list-style-type:upper-roman}
 ol.lowergreek{list-style-type:lower-greek}
 .hdlist>table,.colist>table{border:0;background:none}
 .hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
-td.hdlist1{padding-right:.75em;font-weight:bold}
-td.hdlist1,td.hdlist2{vertical-align:top}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
 .colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
 .colist>table tr>td:last-of-type{padding:.25em 0}
@@ -303,13 +312,14 @@ td.hdlist1,td.hdlist2{vertical-align:top}
 .image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
 .image.left{margin-right:.625em}
 .image.right{margin-left:.625em}
-a.image{text-decoration:none}
-span.footnote,span.footnoteref{vertical-align:super;font-size:.875em}
-span.footnote a,span.footnoteref a{text-decoration:none}
-span.footnote a:active,span.footnoteref a:active{text-decoration:underline}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em 0;border-width:1px 0 0 0}
-#footnotes .footnote{padding:0 .375em;line-height:1.3;font-size:.875em;margin-left:1.2em;text-indent:-1.2em;margin-bottom:.2em}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;text-indent:-1.05em;margin-bottom:.2em}
 #footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none}
 #footnotes .footnote:last-of-type{margin-bottom:0}
 #content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
@@ -367,11 +377,10 @@ span.icon>.fa{cursor:default}
 pre .conum[data-value]{position:relative;top:-.125em}
 b.conum *{color:inherit!important}
 .conum:not([data-value]):empty{display:none}
-h1,h2{letter-spacing:-.01em}
-dt,th.tableblock,td.content{text-rendering:optimizeLegibility}
-p,td.content{letter-spacing:-.01em}
-p strong,td.content strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content{font-size:1.0625rem}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -382,9 +391,9 @@ a{color:inherit!important;text-decoration:underline!important}
 a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
 a[href^="http:"]:not(.bare):after,a[href^="https:"]:not(.bare):after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
 abbr[title]:after{content:" (" attr(title) ")"}
-pre,blockquote,tr,img{page-break-inside:avoid}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
 thead{display:table-header-group}
-img{max-width:100%!important}
+svg{max-width:100%}
 p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
 h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
 #toc,.sidebarblock,.exampleblock>.content{background:none!important}
@@ -409,12 +418,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 </style>
 </head>
-<body class="article">
+<body class="book">
 <div id="header">
-<h1>Germanium API Documentation</h1>
+<h1>Germanium</h1>
+<div class="details">
+<span id="author" class="author">Web Testing API that doesn't dissapoint</span><br>
+</div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_germanium_api_documentation">Germanium API Documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>There are three kinds of functions that are provided for easier support
@@ -469,13 +482,10 @@ inside the browsers:</p>
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_germanium_iframe_decorator">germanium iframe decorator</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="__iframe_name_keep_new_context_false">@iframe(name, keep_new_context=False)</h3>
+<h3 id="_germanium_iframe_decorator">germanium iframe decorator</h3>
+<div class="sect3">
+<h4 id="__iframe_name_keep_new_context_false">@iframe(name, keep_new_context=False)</h4>
 <div class="paragraph">
 <p>Switch the iframe when executing the code of the function. It will use the
 strategy provided when the Germanium instance was created.</p>
@@ -487,13 +497,13 @@ such as:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">@iframe("default")
-def close_dialog(germanium):
-    germanium.S('"Save dialog" &gt; button["Ok"]').click()
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;default&quot;</span>)
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">close_dialog</span>(germanium):
+    germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;&quot;Save dialog&quot; &gt; button[&quot;Ok&quot;]&#39;</span>)<span style="color: #666666">.</span>click()
 
-@iframe("editor")
-def save_document(germanium):
-    germanium.S('#save-button').element().click()
+<span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;editor&quot;</span>)
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">save_document</span>(germanium):
+    germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;#save-button&#39;</span>)<span style="color: #666666">.</span>element()<span style="color: #666666">.</span>click()
     close_dialog(germanium)</code></pre>
 </div>
 </div>
@@ -505,30 +515,28 @@ will be used.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_germanium_instance_functions">germanium Instance Functions</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_constructor_germanium_web_driver">Constructor Germanium(web_driver, ..)</h3>
+<h3 id="_germanium_instance_functions">germanium Instance Functions</h3>
+<div class="sect3">
+<h4 id="_constructor_germanium_web_driver">Constructor Germanium(web_driver, ..)</h4>
 <div class="paragraph">
 <p>Constructs a new Germanium utility object on top of whatever WebDriver object
 is given.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">Germanium(web_driver,
-        iframe_selector=NoopIFrameSelector(),
-        screenshot_folder="screenshots",
-        scripts=list())</code></pre>
+<pre class="pygments highlight"><code data-lang="python">Germanium(web_driver,
+        iframe_selector<span style="color: #666666">=</span>NoopIFrameSelector(),
+        screenshot_folder<span style="color: #666666">=</span><span style="color: #BA2121">&quot;screenshots&quot;</span>,
+        scripts<span style="color: #666666">=</span><span style="color: #008000">list</span>())</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The only required parameter is the <code>web_driver</code> argument, that must be a
 WebDriver instance.</p>
 </div>
-<div class="sect3">
-<h4 id="_iframe_selector">iframe_selector</h4>
+<div class="sect4">
+<h5 id="_iframe_selector">iframe_selector</h5>
 <div class="paragraph">
 <p>The <code>iframe_selector</code> specifies the strategy to use whenever the iframe will
 be changed by the <code>@iframe</code> decorator.</p>
@@ -541,12 +549,12 @@ be changed by the <code>@iframe</code> decorator.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">class NoopIFrameSelector:
-    """
-    An implementation of the IFrameSelector strategy that does nothing.
-    """
-    def select_iframe(self, germanium, iframe_name):
-        return iframe_name</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">NoopIFrameSelector</span>:
+    <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    An implementation of the IFrameSelector strategy that does nothing.</span>
+<span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select_iframe</span>(<span style="color: #008000">self</span>, germanium, iframe_name):
+        <span style="color: #008000; font-weight: bold">return</span> iframe_name</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -555,36 +563,36 @@ do a switch_to_frame on the germanium object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">class EditorIFrameSelector(object):
-    def select_iframe(self, germanium, iframe_name):
-        if iframe_name == "default":
-            germanium.switch_to_default_content()
-        elif iframe_name == "editor":
-            editor_iframe = germanium.find_element_by_css_selector('iframe')
-            germanium.switch_to_frame(editor_iframe)
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">EditorIFrameSelector</span>(<span style="color: #008000">object</span>):
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select_iframe</span>(<span style="color: #008000">self</span>, germanium, iframe_name):
+        <span style="color: #008000; font-weight: bold">if</span> iframe_name <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;default&quot;</span>:
+            germanium<span style="color: #666666">.</span>switch_to_default_content()
+        <span style="color: #008000; font-weight: bold">elif</span> iframe_name <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;editor&quot;</span>:
+            editor_iframe <span style="color: #666666">=</span> germanium<span style="color: #666666">.</span>find_element_by_css_selector(<span style="color: #BA2121">&#39;iframe&#39;</span>)
+            germanium<span style="color: #666666">.</span>switch_to_frame(editor_iframe)
 
-        return iframe_name</code></pre>
+        <span style="color: #008000; font-weight: bold">return</span> iframe_name</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_screenshot_folder">screenshot_folder</h4>
+<div class="sect4">
+<h5 id="_screenshot_folder">screenshot_folder</h5>
 <div class="paragraph">
 <p>The folder where to save the screenshots, whenever take_screenshot is called.
 It defaults to <code>"screenshots"</code>, so basically a local folder named screenshots
 in the current working directory.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_scripts">scripts</h4>
+<div class="sect4">
+<h5 id="_scripts">scripts</h5>
 <div class="paragraph">
 <p>A list of files with JavaScript to be automatically loaded into the page,
 whenever either <code>get()</code>, <code>reload_page()</code> or <code>wait_for_page_to_load()</code> is done.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_germanium_s_locator_strategy">germanium.S(locator, strategy?)</h3>
+<div class="sect3">
+<h4 id="_germanium_s_locator_strategy">germanium.S(locator, strategy?)</h4>
 <div class="paragraph">
 <p><code>S</code> stands for the super locator, and returns an object that can execute
 a locator in the current iframe context of germanium. The letter
@@ -600,7 +608,7 @@ further interpreted on what selector will be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.S(Button('OK'))</code></pre>
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&#39;OK&#39;</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -608,7 +616,20 @@ further interpreted on what selector will be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.S("input[value'OK'][type='button']")</code></pre>
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&quot;input[value&#39;OK&#39;][type=&#39;button&#39;]&quot;</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or using a specific locator:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># implicit strategy detection, will match XPath, due to // start</span>
+germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&quot;//input[@value=&#39;OK&#39;][@type=&#39;button&#39;]&quot;</span>)
+<span style="color: #408080; font-style: italic"># or explicit in-string strategy:</span>
+germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&quot;xpath://input[@value=&#39;OK&#39;][@type=&#39;button&#39;]&quot;</span>)
+<span style="color: #408080; font-style: italic"># or explicit strategy:</span>
+germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&quot;//input[@value=&#39;OK&#39;][@type=&#39;button&#39;]&quot;</span>, <span style="color: #BA2121">&quot;xpath&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -630,35 +651,27 @@ will be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python"># will find elements by XPath
-germanium.S('//*[contains(@class, "test")]');</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># will find elements by XPath</span>
+germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;//*[contains(@class, &quot;test&quot;)]&#39;</span>);</code></pre>
 </div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>if the searched expression contains no <code>"</code> then, the css locator.
-will be used.</p>
+<p>else the css locator will be used.</p>
 </li>
 </ol>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python"># will find elements by CSS
-germanium.S('.test')</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># will find elements by CSS</span>
+germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;.test&#39;</span>)</code></pre>
 </div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>otherwise the simple locator will be used.</p>
-</li>
-</ol>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python"># will find elements by the simple locator
-germanium.S('*[contains(@class, "test")')</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># will find elements by the simple locator</span>
+germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;*[contains(@class, &quot;test&quot;)&#39;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -666,14 +679,14 @@ germanium.S('*[contains(@class, "test")')</code></pre>
 <code>wait_for</code> command.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_germanium_js_code_germanium_execute_script_code">germanium.js(code), germanium.execute_script(code)</h3>
+<div class="sect3">
+<h4 id="_germanium_js_code_germanium_execute_script_code">germanium.js(code), germanium.execute_script(code)</h4>
 <div class="paragraph">
 <p>Execute the given JavaScript, and return its result.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.js('return document.title;')</code></pre>
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>js(<span style="color: #BA2121">&#39;return document.title;&#39;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -689,59 +702,57 @@ The <code>js</code> is just an alias for the <code>execute_script</code> functio
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_germanium_take_screenshot_name">germanium.take_screenshot(name)</h3>
+<div class="sect3">
+<h4 id="_germanium_take_screenshot_name">germanium.take_screenshot(name)</h4>
 <div class="paragraph">
 <p>Takes a screenshot of the browser and saves it in the configured screenshot
 folder.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python"># will save a screenshot as `screenshots/test.png`
-germanium.take_screenshot('test')</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># will save a screenshot as `screenshots/test.png`</span>
+germanium<span style="color: #666666">.</span>take_screenshot(<span style="color: #BA2121">&#39;test&#39;</span>)</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_germanium_load_script_filename">germanium.load_script(filename)</h3>
+<div class="sect3">
+<h4 id="_germanium_load_script_filename">germanium.load_script(filename)</h4>
 <div class="paragraph">
 <p>Loads the JavaScript code from the file with the given name into the browser.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.load_script('jquery.js')</code></pre>
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>load_script(<span style="color: #BA2121">&#39;jquery.js&#39;</span>)</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_germanium_find_element_by_simple_locator">germanium.find_element_by_simple(locator)</h3>
+<div class="sect3">
+<h4 id="_germanium_find_element_by_simple_locator">germanium.find_element_by_simple(locator)</h4>
 <div class="paragraph">
 <p>Finds the element in the current iframe, using the simple locator given.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">germanium.find_element_by_simple('"Title" &gt; button["Ok"]')</code></pre>
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>find_element_by_simple(<span style="color: #BA2121">&#39;&quot;Title&quot; &gt; button[&quot;Ok&quot;]&#39;</span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_germanium_static_functions">germanium Static Functions</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_germanium_static_functions">germanium Static Functions</h3>
 <div class="paragraph">
 <p>These are just a bunch of utility functions, that can even be used without
 germanium itself.</p>
 </div>
-<div class="sect2">
-<h3 id="_type_keys_germanium_keys_typed_element_none">type_keys(germanium, keys_typed, element=None)</h3>
+<div class="sect3">
+<h4 id="_type_keys_germanium_keys_typed_element_none">type_keys(germanium, keys_typed, element=None)</h4>
 <div class="paragraph">
 <p>Type the current keys into the browser, eventually specifying the element to
 send the events to.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">type_keys(germanium, "send data&lt;cr&gt;but &lt;!shift&gt;not&lt;^shift&gt; now.")</code></pre>
+<pre class="pygments highlight"><code data-lang="python">type_keys(germanium, <span style="color: #BA2121">&quot;send data&lt;cr&gt;but &lt;!shift&gt;not&lt;^shift&gt; now.&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -751,7 +762,7 @@ could type:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">type_keys(germanium, "&lt;tab*2&gt;&lt;enter&gt;")</code></pre>
+<pre class="pygments highlight"><code data-lang="python">type_keys(germanium, <span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -799,7 +810,7 @@ For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">type_keys(germanium, "&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.")</code></pre>
+<pre class="pygments highlight"><code data-lang="python">type_keys(germanium, <span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -816,16 +827,16 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_wait_closure_while_not_none_timeout_10">wait(closure, while_not=None, timeout=10)</h3>
+<div class="sect3">
+<h4 id="_wait_closure_while_not_none_timeout_10">wait(closure, while_not=None, timeout=10)</h4>
 <div class="paragraph">
 <p>A function that allows waiting for a condition to happen, monitoring also that
 some other conditions do not happen.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-python" data-lang="python">wait(germanium.S('"document uploaded successfully"'),
-    while_not = germanium.S('"an error occured"'))</code></pre>
+<pre class="pygments highlight"><code data-lang="python">wait(germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;&quot;document uploaded successfully&quot;&#39;</span>),
+    while_not <span style="color: #666666">=</span> germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;&quot;an error occured&quot;&#39;</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -839,9 +850,337 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_germanium_static">Germanium Static</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Germanium static package is for creating tests that revolve around
+running a single browser instance at a time, in the whole test process.</p>
+</div>
+<div class="sect2">
+<h3 id="_def_open_browser_browser_firefox_wd_none">def open_browser(browser = "Firefox", wd = None)</h3>
+<div class="paragraph">
+<p>Open the given browser.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_close_browser">def close_browser()</h3>
+<div class="paragraph">
+<p>Close the currently running browser.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_go_to_url">def go_to(url)</h3>
+<div class="paragraph">
+<p>Go to the given URL, and wait for the page to load.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_type_keys_what_where_none">def type_keys(what, where = None)</h3>
+<div class="paragraph">
+<p>Type the keys specified into the element, or the currently active element.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_click_where">def click(where)</h3>
+<div class="paragraph">
+<p>Click the element with the given selector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_hover_where">def hover(where)</h3>
+<div class="paragraph">
+<p>Hover the element with the given selector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_double_click_where">def double_click(where)</h3>
+<div class="paragraph">
+<p>Double click the element with the given selector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_right_click_where">def right_click(where)</h3>
+<div class="paragraph">
+<p>Right click the element with the given selector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_get_web_driver">def get_web_driver()</h3>
+<div class="paragraph">
+<p>Return the WebDriver instance the global Germanium was built around.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_get_germanium">def get_germanium()</h3>
+<div class="paragraph">
+<p>Returns the currently running Germanium instance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_s_argv_kwargs">def S(*argv, **kwargs)</h3>
+<div class="paragraph">
+<p>Returns a deferred locator, using the `S`uper locator.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</h3>
+<div class="paragraph">
+<p>Selects the current working iframe with the <code>target</code> name.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_germanium_selectors">Germanium Selectors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the <code>germanium.selectors</code> package there are several selectors that are already
+built in order to make test writing easier.</p>
+</div>
+<div class="paragraph">
+<p>All of the selectors extend the <code>germanium.selectors.AbstractSelector</code> class,
+and the selector matching in Germanium called via S will invoke them.</p>
+</div>
+<div class="paragraph">
+<p>Selectors allow abstracting how the elements in the DOM will be found, and also
+allow positional filtering depending on other elements position.</p>
+</div>
+<div class="sect2">
+<h3 id="_positional_filtering">Positional Filtering</h3>
+<div class="paragraph">
+<p>Germanium provides the following methods to enable positional filtering: <code>left_of()</code>,
+<code>right_of()</code>, <code>below()</code>, <code>above()</code>.</p>
+</div>
+<div class="paragraph">
+<p>These filters can be used to filter otherwise false positive matches when selecting.</p>
+</div>
+<div class="paragraph">
+<p>Multiple filters can be chained for the same selector, for example someone can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;User Edit Panel&quot;</span>))<span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will find a link that contains the label <code>edit</code>, that is positioned below
+the text <code>User Edit Panel</code> and is to the right of the text <code>User 11</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_selector_left_of_other_selector">selector.left_of(other_selector)</h4>
+<div class="paragraph">
+<p>Make a selector that will return only the items that are left of all the elements
+returned by the other_selector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Input()<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&quot;User&quot;</span>)))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selector_right_of_other_selector">selector.right_of(other_selector)</h4>
+<div class="paragraph">
+<p>Make a selector that will return only the items that are right of all the elements
+returned by the other_selector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selector_above_other_selector">selector.above(other_selector)</h4>
+<div class="paragraph">
+<p>Make a selector that will return only the items that are above all the elements
+returned by the other_selector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;logout&quot;</span>)<span style="color: #666666">.</span>above(<span style="color: #BA2121">&quot;div.toolbar&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selector_below_other_selector">selector.below(other_selector)</h4>
+<div class="paragraph">
+<p>Make a selector that will return only the items that are below all the elements
+returned by the other_selector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Button(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;entry 5&quot;</span>)))</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_selectors">Custom Selectors</h3>
+<div class="paragraph">
+<p>You can write a new selector by extending the AbstractSelector class and implementing
+the <code>get_selectors</code> method, that returns an array of selectors to be searched in the
+document.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_utility_selectors">Utility Selectors</h3>
+<div class="paragraph">
+<p>Utility selectors are provided so you can use the positional filtering capabilities
+of the selectors. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Css(<span style="color: #BA2121">&#39;.tree-plus-icon&#39;</span>)<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&#39;Item 15&#39;</span>)))</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_css_locator">Css(locator)</h4>
+<div class="paragraph">
+<p>A selector that finds the given CSS expression.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_xpath_locator">XPath(locator)</h4>
+<div class="paragraph">
+<p>A selector that finds the given XPath expression.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_jsselector_code">JsSelector(code)</h4>
+<div class="paragraph">
+<p>A selector that finds an element by evaluating the given JavaScript code.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_provided_selectors">Provided Selectors</h3>
+<div class="paragraph">
+<p>Provided selectors are just classes that are generally useful for testing, simple things
+such as buttons, links or text.</p>
+</div>
+<div class="sect3">
+<h4 id="_button_search_text_none_text_none_name_none">Button(search_text = None, text = None, name = None)</h4>
+<div class="paragraph">
+<p>Just a selector that finds a button by its label or name:</p>
+</div>
+<div class="paragraph">
+<p>This selector will find simultaneously both <code>input</code> elements that have the
+<code>type="button"</code>, but also <code>button</code> elements.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>some of the text, in either the <code>value</code> attribute if it&#8217;s an <code>input</code>, either
+the text of the <code>button</code> (<code>search_text</code>)</p>
+</li>
+<li>
+<p>the text, either the <code>value</code> attribute if it&#8217;s an input, either its text if
+it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
+</li>
+<li>
+<p>its form name (<code>name</code>)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_input_input_name">Input(input_name)</h4>
+<div class="paragraph">
+<p>Just a selector that finds an input by its name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Input(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inputtext_input_name">InputText(input_name)</h4>
+<div class="paragraph">
+<p>Just a selector that finds an input with the type <code>text</code> by its name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(InputText(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_link_search_text_text_search_href_href">Link(search_text, text, search_href, href)</h4>
+<div class="paragraph">
+<p>Just a selector that finds a link by either:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>some of its text content (<code>search_text</code>)</p>
+</li>
+<li>
+<p>its exact text content(<code>text</code>)</p>
+</li>
+<li>
+<p>some of its link location (<code>search_href</code>)</p>
+</li>
+<li>
+<p>its link location(<code>href</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To match the first link that contains the <em>test</em> string, someone can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;test&quot;</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Of course, the text and href search can be combined, so we can do,
+in order to find a link that is on the <code>ciplogic.com</code> that has in the
+text <code>testing</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;testing&quot;</span>, search_href<span style="color: #666666">=</span><span style="color: #BA2121">&quot;http://ciplogic.com&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_text_text">Text(text)</h4>
+<div class="paragraph">
+<p>Just a selector that finds the element that contains the text in the page.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;some text&quot;</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The selector can find the text even in formatted text. For example the previous
+selector would match the parrent div in such a DOM structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;div&gt;</span>
+    some <span style="color: #008000; font-weight: bold">&lt;b&gt;</span>text<span style="color: #008000; font-weight: bold">&lt;/b&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-02-16 14:46:27 CET
+Last updated 2016-03-06 23:54:40 UTC
 </div>
 </div>
 </body>

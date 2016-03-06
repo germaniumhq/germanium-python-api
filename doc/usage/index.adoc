@@ -1,0 +1,19 @@
+Germanium
+=========
+Web Testing API that doesn't dissapoint
+
+:toc: left
+:experimental:
+:source-highlighter: pygments
+:pygments-css: style
+
+:leveloffset: +1
+
+include::api.adoc[]
+
+include::static.adoc[]
+
+include::selectors.adoc[]
+
+:leveloffset: -1
+

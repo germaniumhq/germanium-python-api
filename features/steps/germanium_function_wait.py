@@ -1,11 +1,11 @@
 from behave import *
-from time import sleep
 
 from germanium import wait
+from germanium.static import *
+
 
 @step(u'waiting for success to happen should fail')
 def step_impl(context):
-    S = context.germanium.S
     wait_threw_exception = True
 
     try:
@@ -23,5 +23,4 @@ def step_impl(context):
 
 @step(u'waiting for error to happen should pass')
 def step_impl(context):
-    wait(context.germanium.S('div#errorContent'))
-
+    wait(S('div#errorContent'))

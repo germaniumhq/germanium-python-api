@@ -9,7 +9,7 @@ Feature: Germanium enabled typing of the keys.
     the shift key.
 
     @1
-    Scenario:
+    Scenario: A simple typing test.
       Given I open firefox
       When I go to 'http://localhost:8000/features/test-site/inputs.html'
       And I click on input#textInput

@@ -1,11 +1,10 @@
+import os
 from http.server import SimpleHTTPRequestHandler
 from socketserver import TCPServer
 from threading import Thread
-import os
 
-from behave import *
+from germanium.static import *
 
-import steps.g as g
 
 def before_all(context):
     TCPServer.allow_reuse_address = True
@@ -22,8 +21,8 @@ def after_all(context):
 
     reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()
 
-#    if reuse_browser:
-#        g.global_germanium.quit()
+    if reuse_browser:
+        close_browser()
 
 def after_scenario(context, scenario):
     keep_browser = 'TEST_KEEP_BROWSER' in os.environ.keys()
@@ -34,8 +33,4 @@ def after_scenario(context, scenario):
     elif reuse_browser:
         print("Not closing the browser since TEST_REUSE_BROWSER is set")
     else:
-        if 'germanium' in context and context.germanium:
-            context.germanium.quit()
-        else:
-            print("Germanium is not running in the current test context")
-
+        close_browser()

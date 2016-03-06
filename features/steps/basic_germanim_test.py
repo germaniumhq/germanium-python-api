@@ -1,14 +1,8 @@
 from behave import *
 from time import sleep
-
-from germanium import GermaniumDriver, type_keys, click
-
-from selenium import webdriver
-from selenium.webdriver import FirefoxProfile
-
 import os
 
-import g
+from germanium.static import *
 
 from features.steps.asserts import *
 
@@ -16,22 +10,9 @@ use_step_matcher("re")
 
 def instantiate_germanium_webdriver():
     browser = "firefox"
-    web_driver = None
 
     if 'TEST_BROWSER' in os.environ:
         browser = os.environ['TEST_BROWSER']
-
-    if browser.lower() == "firefox":
-        firefox_profile = FirefoxProfile()
-        firefox_profile.set_preference("network.proxy.type", 0)
-
-        web_driver = webdriver.Firefox(firefox_profile)
-    elif browser.lower() == "chrome":
-        web_driver = webdriver.Chrome()
-    elif browser.lower() == "ie":
-        web_driver = webdriver.Ie()
-    else:
-        raise Exception("Unknown browser: %s, only firefox, chrome and ie are supported." % browser)
 
     def iframe_selector(germanium, iframe_name):
         if iframe_name == 'iframe':
@@ -40,23 +21,18 @@ def instantiate_germanium_webdriver():
         else:
             germanium.switch_to_default_content()
 
-    return GermaniumDriver(web_driver, iframe_selector=iframe_selector)
+    open_browser(browser,
+                 iframe_selector=iframe_selector)
 
 
 @step("I open (.*?)")
-def open_browser(context, browser):
+def open_browser_step(context, browser):
     """
     :param context:
     :return: void
     """
-    if 'TEST_REUSE_BROWSER' in os.environ:
-        if not g.global_germanium:
-            g.global_germanium = instantiate_germanium_webdriver()
-
-        context.germanium = g.global_germanium
-    else:
-        context.germanium = instantiate_germanium_webdriver()
-
+    if not get_germanium():
+        instantiate_germanium_webdriver()
 
 @step("I go to '(?P<page>.*?)'")
 @step("I navigate to '(?P<page>.*?)'")
@@ -67,32 +43,33 @@ def navigate_to_page(context, page):
     :param page:
     :return:
     """
-    context.germanium.get(page)
+    go_to(page)
+
 
 @step(u'I type \'(?P<keys>.*?)\' into (?P<simple_locator>.*)')
 def type_keys_with_simple_locator(context, keys, simple_locator):
-    element = context.germanium.S(simple_locator).element()
-    element.send_keys(keys)
+    type_keys(keys, simple_locator)
 
 
 @step(u'the value for the (?P<selector>.*) is \'(?P<value>.*?)\'')
 def step_impl(context, selector, value):
-    element = context.germanium.S(selector).element()
+    element = S(selector).element()
 
     assert_equals(value, element.get_attribute("value"))
 
 
 @step("the title of the page equals '(?P<what>.*?)'")
 def check_title_page(context, what):
-    assert_equals(what, context.germanium.title)
+    assert_equals(what, get_germanium().title)
+
 
 @step(u'I type_keys \'(?P<what>.*?)\'')
 def type_keys_impl(context, what):
-    type_keys(context, what)
+    type_keys(what)
 
 @step(u'I click on (?P<simple_locator>.*)')
 def step_impl(context, simple_locator):
-    click(context.germanium, simple_locator)
+    click(simple_locator)
 
 @step(u'I wait forever')
 def step_impl(context):

@@ -1,12 +1,12 @@
 from behave import *
-from germanium.selectors import Link
+from germanium.static import *
 
 use_step_matcher("re")
 
 
 @step(u'I look for a link with some text: \'(.*?)\'')
 def step_impl(context, text):
-    element = context.germanium.S(Link(text)).element()
+    element = S(Link(text)).element()
 
     assert element
 
@@ -15,7 +15,7 @@ def step_impl(context, text):
 
 @step(u'I look for a link with exactly the text: \'(.*?)\'')
 def step_impl(context, text):
-    element = context.germanium.S(Link(text=text)).element()
+    element = S(Link(text=text)).element()
 
     assert element
 
@@ -24,7 +24,7 @@ def step_impl(context, text):
 
 @step(u'I look for a link with the href: \'(.*?)\'')
 def step_impl(context, href):
-    element = context.germanium.S(Link(href=href)).element()
+    element = S(Link(href=href)).element()
 
     assert element
 
@@ -33,7 +33,7 @@ def step_impl(context, href):
 
 @when(u'I look for a link with the href containing: \'(.*?)\'')
 def step_impl(context, href):
-    element = context.germanium.S(Link(search_href=href)).element()
+    element = S(Link(search_href=href)).element()
 
     assert element
 

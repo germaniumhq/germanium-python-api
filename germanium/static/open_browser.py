@@ -1,13 +1,15 @@
 from .global_germanium_instance import *
+
 from selenium import webdriver
 from selenium.webdriver import FirefoxProfile
 
 from germanium import GermaniumDriver
+from germanium.GermaniumDriver import NoopIFrameSelector
 
 
 def open_browser(browser="Firefox",
                  wd=None,
-                 iframe_selector=None,
+                 iframe_selector=NoopIFrameSelector(),
                  screenshot_folder="screenshots",
                  scripts=list()):
     """

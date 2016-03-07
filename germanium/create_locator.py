@@ -1,5 +1,5 @@
+import re
 
-from germanium.selectors import AbstractSelector, PositionalFilterSelector
 from selenium.webdriver.remote.webelement import WebElement
 
 from germanium.locators import \
@@ -10,8 +10,7 @@ from germanium.locators import \
     DeferredLocator, \
     StaticElementLocator, \
     PositionalFilterLocator
-
-import re
+from germanium.selectors import AbstractSelector, PositionalFilterSelector
 
 LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?)\:)(.*)', re.MULTILINE|re.DOTALL)
 

@@ -6,6 +6,7 @@ def wait(closure, while_not=None, timeout = 10):
     Executes a function given as argument every 400 milliseconds until it returns true. If it goes more than
     the timeout seconds, then this function throws an exception. If the function throws an exception, then
     it is assumed it is false.
+    :deprecated:
     """
     def closure_try_catch():
         try:

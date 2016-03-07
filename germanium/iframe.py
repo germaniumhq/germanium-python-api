@@ -1,5 +1,4 @@
-
-from .util.arguments_processor import find_germanium_object
+from .GermaniumDriver import find_germanium_object
 
 def iframe(target, keep_new_context=False):
     """

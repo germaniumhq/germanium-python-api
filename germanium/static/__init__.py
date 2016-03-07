@@ -16,6 +16,7 @@ from .right_click import right_click
 from .S import S
 from .type_keys import type_keys
 from .js import js
+from .get_attributes import get_attributes
 
 # decorators
 from .iframe import iframe

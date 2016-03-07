@@ -4,35 +4,10 @@ import pkg_resources
 
 from .SimpleSelector import SimpleSelector
 from .locators import CssLocator, SimpleLocator, XPathLocator, JsLocator
-from .util import create_locator
+from .iframe_selector import DefaultIFrameSelector, CallableIFrameSelector
+from .create_locator import create_locator
 
 from selenium.webdriver.remote.webelement import WebElement
-
-
-class DefaultIFrameSelector(object):
-    """
-    An implementation of the IFrameSelector strategy that does nothing.
-    """
-    def select_iframe(self, germanium, iframe_name):
-        if iframe_name != "default":
-            raise Exception("Unknown iframe name: '%s'. Make sure you create an IFrame Selector "
-                            "that you will pass when creating the GermaniumDriver, e.g.:\n"
-                            "GermaniumDriver(wd, iframe_selector=MyIFrameSelector())")
-
-        germanium.switch_to_default_content()
-        return iframe_name
-
-
-class CallableIFrameSelector(object):
-    """
-    An implementation of the IFrameSelector strategy that uses the
-    given callback and wraps it.
-    """
-    def __init__(self, callable):
-        self._callable = callable
-
-    def select_iframe(self, germanium, iframe_name):
-        return self._callable(germanium, iframe_name)
 
 
 class JavaScriptException(Exception):
@@ -133,6 +108,7 @@ class GermaniumDriver(object):
             """ % script
 
             eval_script = wrapper_script
+
             response = self.web_driver.execute_script(eval_script, *args, **kwargs)
 
             if isinstance(response, WebElement):
@@ -265,3 +241,28 @@ class GermaniumDriver(object):
             return self._current_iframe
 
         return getattr(self.web_driver, item)
+
+
+def find_germanium_object(items):
+    """
+    Finds the germanium object in the given call. Searches it
+    first in the parameter list, and if is not there, it searches
+    it in the self reference, as either self.germanium or self._germanium.
+    :param items:
+    :return:
+    """
+    if isinstance(items, GermaniumDriver):
+        return items
+
+    for item in items:
+        if isinstance(item, GermaniumDriver):
+            return item
+
+    self = items[0]  # get the self/context reference
+
+    _germanium = getattr(self, "germanium", None)
+
+    if _germanium:
+        return _germanium
+
+    return self._germanium

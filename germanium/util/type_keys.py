@@ -3,9 +3,10 @@ import re
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-from .arguments_processor import find_germanium_object
+from germanium.iframe import find_germanium_object
 
 MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
+
 
 class BasicKeysAction(object):
     """
@@ -17,6 +18,7 @@ class BasicKeysAction(object):
         for i in range(len(keys)):
             self.keys.append(keys[i])
 
+
 class ComboKeyDown(object):
     """
     An action that marks a single combo key that should be pressed
@@ -24,6 +26,7 @@ class ComboKeyDown(object):
     """
     def __init__(self, key):
         self.key = key
+
 
 class ComboKeyUp(object):
     """

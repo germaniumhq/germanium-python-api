@@ -34,6 +34,7 @@ class CallableIFrameSelector:
     def select_iframe(self, germanium, iframe_name):
         return self._callable(germanium, iframe_name)
 
+
 class JavaScriptException(Exception):
     def __init__(self, name, message):
         self.name = name

@@ -4,12 +4,12 @@ from selenium import webdriver
 from selenium.webdriver import FirefoxProfile
 
 from germanium import GermaniumDriver
-from germanium.GermaniumDriver import NoopIFrameSelector
+from germanium.GermaniumDriver import DefaultIFrameSelector
 
 
 def open_browser(browser="Firefox",
                  wd=None,
-                 iframe_selector=NoopIFrameSelector(),
+                 iframe_selector=DefaultIFrameSelector(),
                  screenshot_folder="screenshots",
                  scripts=list()):
     """

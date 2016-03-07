@@ -60,7 +60,7 @@ is given.
 [source,python]
 -----------------------------------------------------------------------------
 Germanium(web_driver,
-        iframe_selector=NoopIFrameSelector(),
+        iframe_selector=DefaultIFrameSelector(),
         screenshot_folder="screenshots",
         scripts=list())
 -----------------------------------------------------------------------------
@@ -79,11 +79,17 @@ The default implementation is:
 
 [source,python]
 -----------------------------------------------------------------------------
-class NoopIFrameSelector:
+class DefaultIFrameSelector(object):
     """
     An implementation of the IFrameSelector strategy that does nothing.
     """
     def select_iframe(self, germanium, iframe_name):
+        if iframe_name != "default":
+            raise Exception("Unknown iframe name: '%s'. Make sure you create an IFrame Selector "
+                            "that you will pass when creating the GermaniumDriver, e.g.:\n"
+                            "GermaniumDriver(wd, iframe_selector=MyIFrameSelector())")
+
+        germanium.switch_to_default_content()
         return iframe_name
 -----------------------------------------------------------------------------
 

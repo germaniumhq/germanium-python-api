@@ -9,7 +9,7 @@ from .util import create_locator
 from selenium.webdriver.remote.webelement import WebElement
 
 
-class NoopIFrameSelector:
+class DefaultIFrameSelector(object):
     """
     An implementation of the IFrameSelector strategy that does nothing.
     """
@@ -23,7 +23,7 @@ class NoopIFrameSelector:
         return iframe_name
 
 
-class CallableIFrameSelector:
+class CallableIFrameSelector(object):
     """
     An implementation of the IFrameSelector strategy that uses the
     given callback and wraps it.
@@ -50,7 +50,7 @@ class GermaniumDriver(object):
     """
     def __init__(self,
                  web_driver,
-                 iframe_selector=NoopIFrameSelector(),
+                 iframe_selector=DefaultIFrameSelector(),
                  screenshot_folder="screenshots",
                  scripts=list()):
 

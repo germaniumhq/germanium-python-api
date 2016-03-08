@@ -4,9 +4,6 @@ from setuptools import setup, find_packages
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('CHANGELOG.md') as changelog_file:
-    readme += changelog_file.read()
-
 setup(
     name='germanium',
     version='1.6.0',

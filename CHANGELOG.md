@@ -1,6 +1,7 @@
 ChangeLog
 ---------
 
+* 2016-03-08  1.6.1  Added `get_attributes`. Fixed pip setup fail (Issue #1).
 * 2016-03-07  1.6.0  Tests run now through the static API. Started working on documentation.
 * 2016-03-04  1.5.1  Added JsLocator, and made `Text()` not use the simple locator.
 * 2016-03-03  1.5.0  Added positional filtering for selectors. `Link('edit').right_of(Text('User 11'))`

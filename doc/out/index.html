@@ -461,9 +461,6 @@ inside the browsers:</p>
 <li>
 <p><code>load_script</code></p>
 </li>
-<li>
-<p><code>find_element_by_simple</code></p>
-</li>
 </ul>
 </div>
 </li>
@@ -473,6 +470,21 @@ inside the browsers:</p>
 <ul>
 <li>
 <p><code>type_keys</code></p>
+</li>
+<li>
+<p><code>click</code></p>
+</li>
+<li>
+<p><code>double_click</code></p>
+</li>
+<li>
+<p><code>right_click</code></p>
+</li>
+<li>
+<p><code>hover</code></p>
+</li>
+<li>
+<p><code>get_attributes</code></p>
 </li>
 <li>
 <p><code>wait</code></p>
@@ -526,7 +538,7 @@ is given.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python">Germanium(web_driver,
-        iframe_selector<span style="color: #666666">=</span>NoopIFrameSelector(),
+        iframe_selector<span style="color: #666666">=</span>DefaultIFrameSelector(),
         screenshot_folder<span style="color: #666666">=</span><span style="color: #BA2121">&quot;screenshots&quot;</span>,
         scripts<span style="color: #666666">=</span><span style="color: #008000">list</span>())</code></pre>
 </div>
@@ -549,11 +561,17 @@ be changed by the <code>@iframe</code> decorator.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">NoopIFrameSelector</span>:
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">DefaultIFrameSelector</span>(<span style="color: #008000">object</span>):
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    An implementation of the IFrameSelector strategy that does nothing.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select_iframe</span>(<span style="color: #008000">self</span>, germanium, iframe_name):
+        <span style="color: #008000; font-weight: bold">if</span> iframe_name <span style="color: #666666">!=</span> <span style="color: #BA2121">&quot;default&quot;</span>:
+            <span style="color: #008000; font-weight: bold">raise</span> <span style="color: #D2413A; font-weight: bold">Exception</span>(<span style="color: #BA2121">&quot;Unknown iframe name: &#39;</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121">&#39;. Make sure you create an IFrame Selector &quot;</span>
+                            <span style="color: #BA2121">&quot;that you will pass when creating the GermaniumDriver, e.g.:</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&quot;</span>
+                            <span style="color: #BA2121">&quot;GermaniumDriver(wd, iframe_selector=MyIFrameSelector())&quot;</span>)
+
+        germanium<span style="color: #666666">.</span>switch_to_default_content()
         <span style="color: #008000; font-weight: bold">return</span> iframe_name</code></pre>
 </div>
 </div>
@@ -825,6 +843,78 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_click_germanium_selector">click(germanium, selector)</h4>
+<div class="paragraph">
+<p>Perform a single click mouse action.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(germanium, Button(<span style="color: #BA2121">&quot;Cancel&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;Delete file?&quot;</span>)))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_double_click_germanium_selector">double_click(germanium, selector)</h4>
+<div class="paragraph">
+<p>Perform a double click mouse action.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">double_click(germanium, <span style="color: #BA2121">&quot;a.test-label&quot;</span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_right_click_germanium_selector">right_click(germanium, selector)</h4>
+<div class="paragraph">
+<p>Perform a mouse right click. Also known as a context menu click.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">right_click(germanium, webdriver_element)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_hover_germanium_selector">hover(germanium, selector)</h4>
+<div class="paragraph">
+<p>Hover the given element.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">hover(germanium, <span style="color: #BA2121">&#39;a.main-menu&#39;</span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_get_attributes_germanium_selector">get_attributes(germanium, selector)</h4>
+<div class="paragraph">
+<p>Return all the attributes of the element matched by the selector as a dictionary
+object.</p>
+</div>
+<div class="paragraph">
+<p>For example for this HTML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;body&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&#39;editor&#39;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&#39;modal superb&#39;</span> <span style="color: #7D9029">custom-data=</span><span style="color: #BA2121">&#39;simple-code&#39;</span><span style="color: #008000; font-weight: bold">&gt;&lt;/div&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/body&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get all the attributes of the editor div, someone can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">editor_attributes <span style="color: #666666">=</span> get_attributes(germanium, <span style="color: #BA2121">&#39;#editor&#39;</span>)
+<span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;class&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;modal superb&#39;</span>
+<span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;id&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;editor&#39;</span>
+<span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;custom-data&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;simple-code&#39;</span></code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -1180,7 +1270,7 @@ selector would match the parrent div in such a DOM structure:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-03-07 09:16:16 UTC
+Last updated 2016-03-07 09:58:49 UTC
 </div>
 </div>
 </body>

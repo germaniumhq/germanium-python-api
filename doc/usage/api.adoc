@@ -14,9 +14,13 @@ inside the browsers:
     - `js`, `execute_script`
     - `take_screenshot`
     - `load_script`
-    - `find_element_by_simple`
 3. static utility functions:
     - `type_keys`
+    - `click`
+    - `double_click`
+    - `right_click`
+    - `hover`
+    - `get_attributes`
     - `wait`
 
 germanium iframe decorator
@@ -284,6 +288,66 @@ type_keys(germanium, "<!shift>shift is down<^shift>, and now is up.")
 [TIP]
 The `!` looks like a finger almost pressing the button,
 and the `^` is self explanatory: the finger released the given button.
+
+### click(germanium, selector)
+
+Perform a single click mouse action.
+
+[source,python]
+-----------------------------------------------------------------------------
+click(germanium, Button("Cancel").below(Text("Delete file?")))
+-----------------------------------------------------------------------------
+
+### double_click(germanium, selector)
+
+Perform a double click mouse action.
+
+[source,python]
+-----------------------------------------------------------------------------
+double_click(germanium, "a.test-label")
+-----------------------------------------------------------------------------
+
+### right_click(germanium, selector)
+
+Perform a mouse right click. Also known as a context menu click.
+
+[source,python]
+-----------------------------------------------------------------------------
+right_click(germanium, webdriver_element)
+-----------------------------------------------------------------------------
+
+### hover(germanium, selector)
+
+Hover the given element.
+
+[source,python]
+-----------------------------------------------------------------------------
+hover(germanium, 'a.main-menu')
+-----------------------------------------------------------------------------
+
+### get_attributes(germanium, selector)
+
+Return all the attributes of the element matched by the selector as a dictionary
+object.
+
+For example for this HTML:
+
+[source,html]
+-----------------------------------------------------------------------------
+<body>
+    <div id='editor' class='modal superb' custom-data='simple-code'></div>
+</body>
+-----------------------------------------------------------------------------
+
+To get all the attributes of the editor div, someone can:
+
+[source,python]
+-----------------------------------------------------------------------------
+editor_attributes = get_attributes(germanium, '#editor')
+assert editor_attributes['class'] == 'modal superb'
+assert editor_attributes['id'] == 'editor'
+assert editor_attributes['custom-data'] == 'simple-code'
+-----------------------------------------------------------------------------
 
 ### wait(closure, while_not=None, timeout=10)
 

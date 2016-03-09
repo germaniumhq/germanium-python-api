@@ -11,9 +11,9 @@ Feature: Germanium enabled typing of the keys.
     @1
     Scenario: A simple typing test.
       Given I open firefox
-      When I go to 'http://localhost:8000/features/test-site/inputs.html'
+      And I go to 'http://localhost:8000/features/test-site/inputs.html'
       And I click on input#textInput
-      And I type_keys 'input test<tab>'
+      When I type_keys 'input test<tab>'
       Then the value for the input#textInput is 'input test'
       And I type_keys 'another input teST<bs><bs>st'
       Then the value for the input#anotherTextInput is 'another input test'
@@ -36,3 +36,19 @@ Feature: Germanium enabled typing of the keys.
       And I type_keys '<ctrl-z>'
       And I type_keys '<ctrl-z>'
       Then there is no error message.
+
+    @3
+    Scenario: Ensure that typing in an absolute element outside the current view will scroll the view.
+      Given I open firefox
+      And I go to 'http://localhost:8000/features/test-site/inputs.html'
+      When in the #outsideAbsoluteInput I type_keys 'outside absolute input'
+      Then the value for the #outsideAbsoluteInput is 'outside absolute input'
+
+    @4
+    Scenario: Ensure that typing in an element outside the current view will scroll the view.
+      This will test the scrolling for elements that are actually lower in the page
+      due to the scroll.
+      Given I open firefox
+      And I go to 'http://localhost:8000/features/test-site/inputs.html'
+      When in the #outsideTextFlowedInput I type_keys 'outside text flow input'
+      Then the value for the #outsideTextFlowedInput is 'outside text flow input'

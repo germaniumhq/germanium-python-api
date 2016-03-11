@@ -19,11 +19,11 @@ git checkout master
 git push --all -f
 
 if [[ "$VERSION" != "" ]]; then
-    git tag $VERSION master
-    git tag "$VERSION-python2.7" python2.7
-    git tag "$VERSION-python3.4" python3.4
-    git tag "$VERSION-python3.5" python3.5
-    git push --tags
+    git tag -f $VERSION master
+    git tag -f "$VERSION-python2.7" python2.7
+    git tag -f "$VERSION-python3.4" python3.4
+    git tag -f "$VERSION-python3.5" python3.5
+    git push -f --tags
 
     python setup.py sdist upload -r pypitest
     python setup.py sdist upload -r pypi

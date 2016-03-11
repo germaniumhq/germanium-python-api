@@ -6,8 +6,6 @@ var LOG = {
    info : function() {}
 };
 
-LOG = console;
-
 // Copyright 2005 Google
 //
 // Author: Steffen Meschkat <mesch@google.com>

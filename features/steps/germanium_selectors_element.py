@@ -26,3 +26,11 @@ def step_impl(context, element_name, class_name):
                         css_classes=[class_name])).element()
 
     context.found_element = element
+
+
+@step(u"I look for a '(.*?)' element with a matching '(.*?)=(.*?)' attribute")
+def step_impl(context, element_name, attribute_name, attribute_value):
+    element = S(Element(element_name,
+                        contains_attributes={attribute_name: attribute_value})).element()
+
+    context.found_element = element

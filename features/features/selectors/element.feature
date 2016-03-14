@@ -22,3 +22,10 @@ Scenario: Find an element by a given class name
   And I go to 'http://localhost:8000/features/test-site/selectors/element.html'
   When I look for a 'div' element with 'formatted-text' class
   Then I find the element with id: 'editableText'
+
+@4
+Scenario: Find an element by a part of an attribute
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/element.html'
+  When I look for a 'div' element with a matching 'contenteditable=ru' attribute
+  Then I find the element with id: 'editableDiv'

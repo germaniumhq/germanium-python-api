@@ -8,35 +8,36 @@ class Element(AbstractSelector):
                  exact_text=None,
                  contains_text=None,
                  css_classes=[],
-                 exact_attributes={}):
+                 exact_attributes={},
+                 contains_attributes={}):
         """ A general element selector. """
-        self._tag_name = tag_name
-        self._index = index
-        self._text = exact_text
-        self._contains_text = contains_text
-        self._css_classes = css_classes
-        self._exact_attributes = exact_attributes
+        super(AbstractSelector, self).__init__()
 
-        if self._text and self._contains_text:
+        if exact_text and contains_text:
             raise Exception("Having the exact text to be matched, "
                             "and a partial text to be searched is not supported.")
 
-    def get_selectors(self):
-        xpath_locator = '//' + self._tag_name
+        xpath_locator = '//' + tag_name
 
-        if self._contains_text:
-            xpath_locator += "[contains(normalize-space(string()), '%s')]" % self._contains_text
+        if contains_text:
+            xpath_locator += "[contains(normalize-space(string()), '%s')]" % contains_text
 
-        if self._text:
-            xpath_locator += "[string() = '%s']" % self._text
+        if exact_text:
+            xpath_locator += "[string() = '%s']" % exact_text
 
-        for css_class in self._css_classes:
+        for css_class in css_classes:
             xpath_locator += '[contains(concat(" ", @class, " "), " %s ")]' % css_class
 
-        for k, v in self._exact_attributes.items():
+        for k, v in exact_attributes.items():
             xpath_locator += '[@%s = "%s"]' % (k, v)
 
-        if self._index >= 0:
-            xpath_locator = '(%s)[%d]' % (xpath_locator, self._index)
+        for k, v in contains_attributes.items():
+            xpath_locator += "[contains(normalize-space(@%s), '%s')]" % (k, v)
 
-        return ["xpath:" + xpath_locator]
+        if index >= 0:
+            xpath_locator = '(%s)[%d]' % (xpath_locator, index)
+
+        self._xpath_locator = xpath_locator
+
+    def get_selectors(self):
+        return ["xpath:" + self._xpath_locator]

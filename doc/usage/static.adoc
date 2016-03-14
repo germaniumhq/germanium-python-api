@@ -8,10 +8,29 @@ The Germanium static package is for creating tests that revolve around
 running a single browser instance at a time, in the whole test process.
 
 
-def open_browser(browser = "Firefox", wd = None)
-------------------------------------------------
+def open_browser(browser="Firefox", wd=None, iframe_selector=DefaultIFrameSelector(), screenshot_folder="screenshots", scripts=list())
+--------------------------------------------------------------------------------------------------------------------------------------
 
-Open the given browser.
+Open the given browser:
+
+[source,python]
+-----------------------------------------------------------------------------
+open_browser("firefox")
+-----------------------------------------------------------------------------
+
+or:
+
+[source,python]
+-----------------------------------------------------------------------------
+open_browser("ie")
+-----------------------------------------------------------------------------
+
+This allows also connecting to remote drivers, for example:
+
+[source,python]
+-----------------------------------------------------------------------------
+open_browser("ff:http://10.2.1.1:5555/wd/hub")
+-----------------------------------------------------------------------------
 
 def close_browser()
 -------------------
@@ -23,27 +42,42 @@ def go_to(url)
 
 Go to the given URL, and wait for the page to load.
 
-def type_keys(what, where = None)
----------------------------------
+[source,python]
+-----------------------------------------------------------------------------
+go_to("http://google.com/")
+-----------------------------------------------------------------------------
+
+def type_keys(keys, selector = None)
+------------------------------------
 
 Type the keys specified into the element, or the currently active element.
 
-def click(where)
-----------------
+[source,python]
+-----------------------------------------------------------------------------
+type_keys('germanium', Input('q'))
+-----------------------------------------------------------------------------
+
+def click(selector)
+-------------------
 
 Click the element with the given selector.
 
-def hover(where)
-----------------
+[source,python]
+-----------------------------------------------------------------------------
+click(Button('OK'))
+-----------------------------------------------------------------------------
+
+def hover(selector)
+-------------------
 
 Hover the element with the given selector.
 
-def double_click(where)
------------------------
+def double_click(selector)
+--------------------------
 
 Double click the element with the given selector.
 
-def right_click(where)
+def right_click(selector)
 ----------------------
 
 Right click the element with the given selector.
@@ -67,4 +101,14 @@ def iframe(target, keep_new_context = False)
 --------------------------------------------
 
 Selects the current working iframe with the `target` name.
+
+[source,python]
+-----------------------------------------------------------------------------
+@iframe("editor")
+def type_keys_into_editor(keys):
+    type_keys(keys)
+
+type_keys_into_editor('hello world') # will switch the iframe to 'editor' and back
+click(Button("Save"))                # iframe is 'default'
+-----------------------------------------------------------------------------
 

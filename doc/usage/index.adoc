@@ -9,9 +9,9 @@ Web Testing API that doesn't disappoint
 
 :leveloffset: +1
 
-include::api.adoc[]
-
 include::static.adoc[]
+
+include::api.adoc[]
 
 include::selectors.adoc[]
 

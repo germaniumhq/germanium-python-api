@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Web Testing API that doesn't dissapoint">
+<meta name="author" content="Web Testing API that doesn't disappoint">
 <title>Germanium</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -422,10 +422,136 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Germanium</h1>
 <div class="details">
-<span id="author" class="author">Web Testing API that doesn't dissapoint</span><br>
+<span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_germanium_static">Germanium Static</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Germanium static package is for creating tests that revolve around
+running a single browser instance at a time, in the whole test process.</p>
+</div>
+<div class="sect2">
+<h3 id="_def_open_browser_browser_firefox_wd_none_iframe_selector_defaultiframeselector_screenshot_folder_screenshots_scripts_list">def open_browser(browser="Firefox", wd=None, iframe_selector=DefaultIFrameSelector(), screenshot_folder="screenshots", scripts=list())</h3>
+<div class="paragraph">
+<p>Open the given browser:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;firefox&quot;</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;ie&quot;</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This allows also connecting to remote drivers, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;ff:http://10.2.1.1:5555/wd/hub&quot;</span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_close_browser">def close_browser()</h3>
+<div class="paragraph">
+<p>Close the currently running browser.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_go_to_url">def go_to(url)</h3>
+<div class="paragraph">
+<p>Go to the given URL, and wait for the page to load.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">go_to(<span style="color: #BA2121">&quot;http://google.com/&quot;</span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_type_keys_keys_selector_none">def type_keys(keys, selector = None)</h3>
+<div class="paragraph">
+<p>Type the keys specified into the element, or the currently active element.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;germanium&#39;</span>, Input(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_click_selector">def click(selector)</h3>
+<div class="paragraph">
+<p>Click the element with the given selector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Button(<span style="color: #BA2121">&#39;OK&#39;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_hover_selector">def hover(selector)</h3>
+<div class="paragraph">
+<p>Hover the element with the given selector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_double_click_selector">def double_click(selector)</h3>
+<div class="paragraph">
+<p>Double click the element with the given selector.</p>
+</div>
+<div class="paragraph">
+<p>def right_click(selector)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Right click the element with the given selector.
+
+def get_web_driver()
+--------------------
+
+Return the WebDriver instance the global Germanium was built around.
+
+def get_germanium()
+-------------------
+
+Returns the currently running Germanium instance.
+
+def S(*argv, **kwargs)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns a deferred locator, using the `S`uper locator.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</h3>
+<div class="paragraph">
+<p>Selects the current working iframe with the <code>target</code> name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;editor&quot;</span>)
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">type_keys_into_editor</span>(keys):
+    type_keys(keys)
+
+type_keys_into_editor(<span style="color: #BA2121">&#39;hello world&#39;</span>) <span style="color: #408080; font-style: italic"># will switch the iframe to &#39;editor&#39; and back</span>
+click(Button(<span style="color: #BA2121">&quot;Save&quot;</span>))                <span style="color: #408080; font-style: italic"># iframe is &#39;default&#39;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_germanium_api_documentation">Germanium API Documentation</h2>
 <div class="sectionbody">
@@ -530,17 +656,17 @@ will be used.</p>
 <div class="sect2">
 <h3 id="_germanium_instance_functions">germanium Instance Functions</h3>
 <div class="sect3">
-<h4 id="_constructor_germanium_web_driver">Constructor Germanium(web_driver, ..)</h4>
+<h4 id="_constructor_germaniumdriver_web_driver">Constructor GermaniumDriver(web_driver, ..)</h4>
 <div class="paragraph">
-<p>Constructs a new Germanium utility object on top of whatever WebDriver object
-is given.</p>
+<p>Constructs a new GermaniumDriver utility object on top of whatever WebDriver
+object is given.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">Germanium(web_driver,
-        iframe_selector<span style="color: #666666">=</span>DefaultIFrameSelector(),
-        screenshot_folder<span style="color: #666666">=</span><span style="color: #BA2121">&quot;screenshots&quot;</span>,
-        scripts<span style="color: #666666">=</span><span style="color: #008000">list</span>())</code></pre>
+<pre class="pygments highlight"><code data-lang="python">GermaniumDriver(web_driver,
+                iframe_selector<span style="color: #666666">=</span>DefaultIFrameSelector(),
+                screenshot_folder<span style="color: #666666">=</span><span style="color: #BA2121">&quot;screenshots&quot;</span>,
+                scripts<span style="color: #666666">=</span><span style="color: #008000">list</span>())</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -551,7 +677,8 @@ WebDriver instance.</p>
 <h5 id="_iframe_selector">iframe_selector</h5>
 <div class="paragraph">
 <p>The <code>iframe_selector</code> specifies the strategy to use whenever the iframe will
-be changed by the <code>@iframe</code> decorator.</p>
+be changed by the <code>@iframe</code> decorator. This class should have a method named
+<code>select_iframe(self, germanium, iframe_name)</code>.</p>
 </div>
 <div class="paragraph">
 <p>Germanium uses <code>"default"</code> for the <code>switch_to_default_content</code>.</p>
@@ -590,6 +717,31 @@ do a switch_to_frame on the germanium object.</p>
             germanium<span style="color: #666666">.</span>switch_to_frame(editor_iframe)
 
         <span style="color: #008000; font-weight: bold">return</span> iframe_name</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case you don&#8217;t want a full class, you can pass also a callable that will
+be invoked with two parameters <code>germanium</code> and <code>iframe_name</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select_iframe</span>(germanium, iframe_name):
+    <span style="color: #008000; font-weight: bold">if</span> iframe_name <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;default&quot;</span>:
+        germanium<span style="color: #666666">.</span>switch_to_default_content()
+    <span style="color: #008000; font-weight: bold">elif</span> iframe_name <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;editor&quot;</span>:
+        editor_iframe <span style="color: #666666">=</span> germanium<span style="color: #666666">.</span>find_element_by_css_selector(<span style="color: #BA2121">&#39;iframe&#39;</span>)
+        germanium<span style="color: #666666">.</span>switch_to_frame(editor_iframe)
+
+    <span style="color: #008000; font-weight: bold">return</span> iframe_name</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So when invoking the <code>GermaniumDriver</code> someone can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">GermaniumDriver(web_driver,
+                iframe_selector<span style="color: #666666">=</span>select_iframe)</code></pre>
 </div>
 </div>
 </div>
@@ -941,87 +1093,6 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_germanium_static">Germanium Static</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The Germanium static package is for creating tests that revolve around
-running a single browser instance at a time, in the whole test process.</p>
-</div>
-<div class="sect2">
-<h3 id="_def_open_browser_browser_firefox_wd_none">def open_browser(browser = "Firefox", wd = None)</h3>
-<div class="paragraph">
-<p>Open the given browser.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_close_browser">def close_browser()</h3>
-<div class="paragraph">
-<p>Close the currently running browser.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_go_to_url">def go_to(url)</h3>
-<div class="paragraph">
-<p>Go to the given URL, and wait for the page to load.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_type_keys_what_where_none">def type_keys(what, where = None)</h3>
-<div class="paragraph">
-<p>Type the keys specified into the element, or the currently active element.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_click_where">def click(where)</h3>
-<div class="paragraph">
-<p>Click the element with the given selector.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_hover_where">def hover(where)</h3>
-<div class="paragraph">
-<p>Hover the element with the given selector.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_double_click_where">def double_click(where)</h3>
-<div class="paragraph">
-<p>Double click the element with the given selector.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_right_click_where">def right_click(where)</h3>
-<div class="paragraph">
-<p>Right click the element with the given selector.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_get_web_driver">def get_web_driver()</h3>
-<div class="paragraph">
-<p>Return the WebDriver instance the global Germanium was built around.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_get_germanium">def get_germanium()</h3>
-<div class="paragraph">
-<p>Returns the currently running Germanium instance.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_s_argv_kwargs">def S(*argv, **kwargs)</h3>
-<div class="paragraph">
-<p>Returns a deferred locator, using the `S`uper locator.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</h3>
-<div class="paragraph">
-<p>Selects the current working iframe with the <code>target</code> name.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_germanium_selectors">Germanium Selectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1150,6 +1221,52 @@ of the selectors. For example:</p>
 <p>Provided selectors are just classes that are generally useful for testing, simple things
 such as buttons, links or text.</p>
 </div>
+<div class="paragraph">
+<p>The most basic of them is called <code>Element</code>. There are a lot of more specific selectors
+on top of that, for `Input`s, or `Link`s.</p>
+</div>
+<div class="sect3">
+<h4 id="_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes">Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={})</h4>
+<div class="paragraph">
+<p>A selector that finds a random element.</p>
+</div>
+<div class="paragraph">
+<p>Parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tag_name</code> - the html tag name to find (e.g. <code>div</code>, <code>span</code>, <code>li</code>);</p>
+</li>
+<li>
+<p><code>index</code> - if specified, is the 1 index based result;</p>
+</li>
+<li>
+<p><code>exact_text</code> - if specified, the exact text the element must have;</p>
+</li>
+<li>
+<p><code>contains_text</code> - if specified, the exact text the element should contain;</p>
+</li>
+<li>
+<p><code>css_classes</code> - the CSS classes that the element must have;</p>
+</li>
+<li>
+<p><code>exact_attributes</code> - attributes with their values that the element must have.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">S(Element(<span style="color: #BA2121">&#39;div&#39;</span>,
+          contains_text<span style="color: #666666">=</span><span style="color: #BA2121">&#39;error has occured&#39;</span>,
+          css_classes<span style="color: #666666">=</span>[<span style="color: #BA2121">&#39;error-message&#39;</span>]))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will find a div that contains the text <code>error has occured</code> and has also
+a CSS class attached to it named <code>error-message</code>.</p>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_button_search_text_none_text_none_name_none">Button(search_text = None, text = None, name = None)</h4>
 <div class="paragraph">
@@ -1270,7 +1387,7 @@ selector would match the parrent div in such a DOM structure:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-03-07 09:58:49 UTC
+Last updated 2016-03-14 15:28:57 UTC
 </div>
 </div>
 </body>

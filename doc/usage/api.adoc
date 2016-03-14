@@ -56,17 +56,17 @@ will be used.
 germanium Instance Functions
 ----------------------------
 
-### Constructor Germanium(web_driver, ..)
+### Constructor GermaniumDriver(web_driver, ..)
 
-Constructs a new Germanium utility object on top of whatever WebDriver object
-is given.
+Constructs a new GermaniumDriver utility object on top of whatever WebDriver
+object is given.
 
 [source,python]
 -----------------------------------------------------------------------------
-Germanium(web_driver,
-        iframe_selector=DefaultIFrameSelector(),
-        screenshot_folder="screenshots",
-        scripts=list())
+GermaniumDriver(web_driver,
+                iframe_selector=DefaultIFrameSelector(),
+                screenshot_folder="screenshots",
+                scripts=list())
 -----------------------------------------------------------------------------
 
 The only required parameter is the `web_driver` argument, that must be a
@@ -75,7 +75,8 @@ WebDriver instance.
 #### iframe_selector
 
 The `iframe_selector` specifies the strategy to use whenever the iframe will
-be changed by the `@iframe` decorator.
+be changed by the `@iframe` decorator. This class should have a method named
+`select_iframe(self, germanium, iframe_name)`.
 
 Germanium uses `"default"` for the `switch_to_default_content`.
 
@@ -111,6 +112,29 @@ class EditorIFrameSelector(object):
             germanium.switch_to_frame(editor_iframe)
 
         return iframe_name
+-----------------------------------------------------------------------------
+
+In case you don't want a full class, you can pass also a callable that will
+be invoked with two parameters `germanium` and `iframe_name`:
+
+[source,python]
+-----------------------------------------------------------------------------
+def select_iframe(germanium, iframe_name):
+    if iframe_name == "default":
+        germanium.switch_to_default_content()
+    elif iframe_name == "editor":
+        editor_iframe = germanium.find_element_by_css_selector('iframe')
+        germanium.switch_to_frame(editor_iframe)
+
+    return iframe_name
+-----------------------------------------------------------------------------
+
+So when invoking the `GermaniumDriver` someone can:
+
+[source,python]
+-----------------------------------------------------------------------------
+GermaniumDriver(web_driver,
+                iframe_selector=select_iframe)
 -----------------------------------------------------------------------------
 
 #### screenshot_folder

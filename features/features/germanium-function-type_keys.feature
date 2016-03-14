@@ -52,3 +52,10 @@ Feature: Germanium enabled typing of the keys.
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
       When in the #outsideTextFlowedInput I type_keys 'outside text flow input'
       Then the value for the #outsideTextFlowedInput is 'outside text flow input'
+
+    @5
+    Scenario: Ensure typing in a password element will work.
+      Given I open firefox
+      And I go to 'http://localhost:8000/features/test-site/inputs.html'
+      When in the #passwordInputField I type_keys 'password'
+      Then the value for the #passwordInputField is 'password'

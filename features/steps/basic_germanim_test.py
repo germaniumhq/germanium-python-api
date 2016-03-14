@@ -1,12 +1,17 @@
 from behave import *
 from time import sleep
 import os
+import re
 
 from germanium.static import *
 
 from features.steps.asserts import *
 
 use_step_matcher("re")
+
+
+URL_MATCHER=re.compile(r"^(https?://)(.*?)(/.*)$")
+
 
 def instantiate_germanium_webdriver():
     browser = "firefox"
@@ -43,6 +48,12 @@ def navigate_to_page(context, page):
     :param page:
     :return:
     """
+    if 'TEST_HOST' in os.environ:
+        page_matcher = URL_MATCHER.match(page)
+        page = page_matcher.group(1) + \
+               os.environ['TEST_HOST'] + \
+               page_matcher.group(3)
+
     go_to(page)
 
 

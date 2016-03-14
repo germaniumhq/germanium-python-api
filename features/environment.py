@@ -9,9 +9,9 @@ from germanium.static import *
 def before_all(context):
     TCPServer.allow_reuse_address = True
     Handler = SimpleHTTPRequestHandler
-    context._httpServer = TCPServer(("localhost", 8000), Handler)
+    context._httpServer = TCPServer(("0.0.0.0", 8000), Handler)
 
-    print("started server on localhost:8000")
+    print("started server on 0.0.0.0:8000")
 
     t = Thread(target=context._httpServer.serve_forever)
     t.start()

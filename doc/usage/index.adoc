@@ -1,6 +1,6 @@
 Germanium
 =========
-Web Testing API that doesn't dissapoint
+Web Testing API that doesn't disappoint
 
 :toc: left
 :experimental:

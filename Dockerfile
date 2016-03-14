@@ -3,20 +3,6 @@ MAINTAINER Bogdan Mustiata <bogdan.mustiata@gmail.com>
 
 ENV REFRESHED_AT="2016.03.14-23:39:29"
 
-ENV PYTHON_VERSION=3.5.1
-
-ENV RUN_VNC_SERVER=1
-ENV RUN_WEB_INTERFACE=1
-ENV VNC_PASSWORD=germanium
-
-ENV DISPLAY=:1
-
-ENV UID=1000
-ENV GID=1000
-
-EXPOSE 8081
-EXPOSE 5901
-
 # system update
 RUN apt-get update -y && \
     apt-get upgrade -y && \
@@ -32,6 +18,21 @@ RUN apt-get install -y \
     vnc4server \
     novnc \
     websockify
+
+
+ENV PYTHON_VERSION=3.5.1
+
+ENV RUN_VNC_SERVER=1
+ENV RUN_WEB_INTERFACE=1
+ENV VNC_PASSWORD=germanium
+
+ENV DISPLAY=:1
+
+ENV UID=1000
+ENV GID=1000
+
+EXPOSE 8081
+EXPOSE 5901
 
 #
 # Actual python installation.

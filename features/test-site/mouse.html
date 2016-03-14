@@ -15,12 +15,20 @@
         <input id="textInput" value="none" type="text">
 
         <script type="text/javascript">
+            (function() {
+                var clicked = false;
+
             $('#eventTargetDiv').contextmenu(function() {
+                clicked = true;
+
                 document.getElementById('textInput').value = 'contextmenu';
+
                 return false;
             });
 
             $('#eventTargetDiv').on('click', function(ev) {
+                clicked = true;
+
                 switch(ev.which) {
                     case 1:
                         document.getElementById('textInput').value = 'click';
@@ -39,13 +47,22 @@
             });
 
             $('#eventTargetDiv').on('dblclick', function(ev) {
+                clicked = true;
+
             	document.getElementById('textInput').value = 'doubleclick';
             	return false;
             });
 
             $('#eventTargetDiv').on('mouseover', function(ev) {
-            	document.getElementById('textInput').value = 'mouseover';
+                /*
+                 * IE9 gets spurious mouseover events after clicks.
+                 */
+                if (!clicked) {
+                    document.getElementById('textInput').value = 'mouseover';
+                }
             });
+
+            })();
         </script>
     </body>
 </html>

@@ -12,12 +12,11 @@ class InputText(AbstractSelector):
 
     def get_selectors(self):
         # CSS selector.
-        css_selectors = ["css:input[type='text']", "css:input"]
+        xpath_selectors = ["xpath://input[@type='text']",
+                           "xpath://input[not(@type)]"]
 
         if self._input_name:
-            for i in range(len(css_selectors)):
-                css_selectors[i] += "[name='%s']" % self._input_name
+            for i in range(len(xpath_selectors)):
+                xpath_selectors[i] += "[@name='%s']" % self._input_name
 
-        css_selectors[1] += ":not([type])"
-
-        return css_selectors
+        return xpath_selectors

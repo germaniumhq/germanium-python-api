@@ -1,6 +1,7 @@
 ChangeLog
 ---------
 
+* 2016-03-14  1.6.3  `Element` selector. IE8/9 Full test coverage.
 * 2016-03-11  1.6.2  Removed LOG to console. Fixes IE.
 * 2016-03-08  1.6.1  Added `get_attributes`. Fixed pip setup fail (Issue #1).
 * 2016-03-07  1.6.0  Tests run now through the static API. Started working on documentation.

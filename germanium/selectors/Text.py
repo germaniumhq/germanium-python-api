@@ -15,7 +15,7 @@ class Text(AbstractSelector):
             var searchedText = "%s";
 
             function text(node) {
-                return node.innerText || node.textContent;
+                return node.innerText || node.textContent || "";
             }
 
             if (text(document.body).indexOf(searchedText) < 0) {

@@ -47,8 +47,7 @@ RUN mkdir /build && \
     make install && \
     rm -fr /build
 
-RUN ln /usr/local/bin/pip3.5 /usr/local/bin/pip && \
-    ln /usr/local/bin/python3.5 /usr/local/bin/python
+RUN wget -O - https://bootstrap.pypa.io/get-pip.py | python
 
 # Install behave and germanium into the package.
 #RUN pip install --upgrade pip
@@ -56,7 +55,9 @@ RUN pip install behave
 
 RUN useradd -m germanium
 ADD . /germanium
-RUN cd /germanium && python setup.py install
+RUN cd /germanium && \
+    python setup.py install && \
+    rm -fr /germanium
 
 
 RUN cp -R /usr/share/novnc /home/germanium/novnc

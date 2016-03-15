@@ -1,6 +1,7 @@
 ChangeLog
 ---------
 
+* 2016-03-15  1.6.4  `Element` selector can search for attribute content parts.
 * 2016-03-14  1.6.3  `Element` selector. IE8/9 Full test coverage.
 * 2016-03-11  1.6.2  Removed LOG to console. Fixes IE.
 * 2016-03-08  1.6.1  Added `get_attributes`. Fixed pip setup fail (Issue #1).

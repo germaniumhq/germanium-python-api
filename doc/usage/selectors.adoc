@@ -110,7 +110,7 @@ such as buttons, links or text.
 The most basic of them is called `Element`. There are a lot of more specific selectors
 on top of that, for `Input`s, or `Link`s.
 
-=== Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={})
+=== Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})
 
 A selector that finds a random element.
 
@@ -121,7 +121,8 @@ Parameters:
 * `exact_text` - if specified, the exact text the element must have;
 * `contains_text` - if specified, the exact text the element should contain;
 * `css_classes` - the CSS classes that the element must have;
-* `exact_attributes` - attributes with their values that the element must have.
+* `exact_attributes` - attributes with their values that the element must have;
+* `contains_attributes` - attributes that contain the given values.
 
 [source,python]
 -----------------------------------------------------------------------------

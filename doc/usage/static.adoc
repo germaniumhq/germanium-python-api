@@ -78,7 +78,7 @@ def double_click(selector)
 Double click the element with the given selector.
 
 def right_click(selector)
-----------------------
+-------------------------
 
 Right click the element with the given selector.
 

@@ -427,6 +427,41 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
+<h2 id="_installation">Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To install it just run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">pip install germanium</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Writing a test then becomes as easy as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">germanium.static</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">germanium</span> <span style="color: #008000; font-weight: bold">import</span> wait
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">time</span> <span style="color: #008000; font-weight: bold">import</span> sleep
+
+open_browser(<span style="color: #BA2121">&quot;ff&quot;</span>)
+go_to(<span style="color: #BA2121">&quot;http://www.google.com&quot;</span>)
+type_keys(<span style="color: #BA2121">&quot;germanium pypy&lt;enter&gt;&quot;</span>, Input(<span style="color: #BA2121">&quot;q&quot;</span>))
+wait(S(Link(<span style="color: #BA2121">&quot;Python Package Index&quot;</span>)))
+click(Link(<span style="color: #BA2121">&quot;Python Package Index&quot;</span>))
+sleep(<span style="color: #666666">5</span>)
+close_browser()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Germanium supports Python 2.7, 3.4 and 3.5, and is already used in
+production tests.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_germanium_static">Germanium Static</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -510,26 +545,27 @@ running a single browser instance at a time, in the whole test process.</p>
 <div class="paragraph">
 <p>Double click the element with the given selector.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_def_right_click_selector">def right_click(selector)</h3>
 <div class="paragraph">
-<p>def right_click(selector)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Right click the element with the given selector.
-
-def get_web_driver()
---------------------
-
-Return the WebDriver instance the global Germanium was built around.
-
-def get_germanium()
--------------------
-
-Returns the currently running Germanium instance.
-
-def S(*argv, **kwargs)</pre>
+<p>Right click the element with the given selector.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_def_get_web_driver">def get_web_driver()</h3>
+<div class="paragraph">
+<p>Return the WebDriver instance the global Germanium was built around.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_get_germanium">def get_germanium()</h3>
+<div class="paragraph">
+<p>Returns the currently running Germanium instance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_s_argv_kwargs">def S(*argv, **kwargs)</h3>
 <div class="paragraph">
 <p>Returns a deferred locator, using the `S`uper locator.</p>
 </div>
@@ -1226,7 +1262,7 @@ such as buttons, links or text.</p>
 on top of that, for `Input`s, or `Link`s.</p>
 </div>
 <div class="sect3">
-<h4 id="_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes">Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={})</h4>
+<h4 id="_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes">Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})</h4>
 <div class="paragraph">
 <p>A selector that finds a random element.</p>
 </div>
@@ -1251,7 +1287,10 @@ on top of that, for `Input`s, or `Link`s.</p>
 <p><code>css_classes</code> - the CSS classes that the element must have;</p>
 </li>
 <li>
-<p><code>exact_attributes</code> - attributes with their values that the element must have.</p>
+<p><code>exact_attributes</code> - attributes with their values that the element must have;</p>
+</li>
+<li>
+<p><code>contains_attributes</code> - attributes that contain the given values.</p>
 </li>
 </ul>
 </div>
@@ -1387,7 +1426,7 @@ selector would match the parrent div in such a DOM structure:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-03-14 15:28:57 UTC
+Last updated 2016-03-15 11:09:42 UTC
 </div>
 </div>
 </body>

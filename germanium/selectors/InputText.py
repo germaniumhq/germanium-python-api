@@ -8,15 +8,16 @@ class InputText(AbstractSelector):
     """
     def __init__(self, name=None):
         super(AbstractSelector, self).__init__()
-        self._input_name = name
+
+        xpath_selectors = ["//input[@type='text']",
+                           "//input[not(@type)]"]
+
+        if name:
+            for i in range(len(xpath_selectors)):
+                xpath_selectors[i] += "[@name='%s']" % name
+
+        self._xpath_selectors = xpath_selectors
 
     def get_selectors(self):
         # CSS selector.
-        xpath_selectors = ["xpath://input[@type='text']",
-                           "xpath://input[not(@type)]"]
-
-        if self._input_name:
-            for i in range(len(xpath_selectors)):
-                xpath_selectors[i] += "[@name='%s']" % self._input_name
-
-        return xpath_selectors
+        return self._xpath_selectors

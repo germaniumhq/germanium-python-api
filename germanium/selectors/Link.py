@@ -21,7 +21,7 @@ class Link(AbstractSelector):
         if self._search_href and self._href:
             raise Exception("You can't have both a searched href and an exact href match")
 
-        css_locator = 'xpath://a'
+        css_locator = '//a'
 
         if self._search_text:
             css_locator += "[contains(normalize-space(string()), \"%s\")]" % self._search_text
@@ -36,4 +36,3 @@ class Link(AbstractSelector):
             css_locator += '[@href="%s"]' % self._href
 
         return [css_locator]
-

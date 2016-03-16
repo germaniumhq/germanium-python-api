@@ -9,8 +9,8 @@ class JsSelector(AbstractSelector):
     def __init__(self, code=None):
         super(JsSelector, self).__init__()
 
-        self._code = code
+        self._selector = "js:" + code
 
     def get_selectors(self):
         """ Return the JavaScript selector itself """
-        return ["js:" + self._code]
+        return [self._selector]

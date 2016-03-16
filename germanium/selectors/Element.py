@@ -40,4 +40,4 @@ class Element(AbstractSelector):
         self._xpath_locator = xpath_locator
 
     def get_selectors(self):
-        return ["xpath:" + self._xpath_locator]
+        return [self._xpath_locator]

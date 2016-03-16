@@ -7,6 +7,9 @@ from .JsSelector import JsSelector
 from .Button import Button
 from .Element import Element
 from .Input import Input
+from .CheckBox import CheckBox
 from .InputText import InputText
 from .Link import Link
 from .Text import Text
+from .TableCell import TableCell
+from .TableRow import TableRow

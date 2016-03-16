@@ -11,7 +11,7 @@ class Element(AbstractSelector):
                  exact_attributes={},
                  contains_attributes={}):
         """ A general element selector. """
-        super(AbstractSelector, self).__init__()
+        super(Element, self).__init__()
 
         if exact_text and contains_text:
             raise Exception("Having the exact text to be matched, "

@@ -1,6 +1,7 @@
 
 from time import sleep
 
+
 def wait(closure, while_not=None, timeout = 10):
     """
     Executes a function given as argument every 400 milliseconds until it returns true. If it goes more than

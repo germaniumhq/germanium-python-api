@@ -47,18 +47,19 @@ RUN mkdir /build && \
     make install && \
     rm -fr /build
 
-RUN wget -O - https://bootstrap.pypa.io/get-pip.py | python
+ENV PYTHON_BINARY=/usr/local/bin/python3.5
 
 # Install behave and germanium into the package.
 #RUN pip install --upgrade pip
-RUN pip install behave
+RUN $PYTHON_BINARY -m pip install virtualenv && \
+    virtualenv /python && \
+    /python/bin/pip install behave
 
 RUN useradd -m germanium
 ADD . /germanium
 RUN cd /germanium && \
-    python setup.py install && \
+    /python/bin/python setup.py install && \
     rm -fr /germanium
-
 
 RUN cp -R /usr/share/novnc /home/germanium/novnc
 ADD bin/docker/index.html /home/germanium/novnc/

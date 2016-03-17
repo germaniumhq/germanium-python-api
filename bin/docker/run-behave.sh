@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# First things first, use the python virtual env
+cd /python/bin
+. activate
+
 # This will run the tests from the /tests folder.
 
 if [[ $RUN_VNC_SERVER -eq 1 ]]; then

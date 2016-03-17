@@ -13,7 +13,7 @@ PYTHON_VERSIONS="python2.7 python3.4 python3.5"
 
 for PYTHON_VERSION in $PYTHON_VERSIONS; do
     git checkout $PYTHON_VERSION
-    git rebase -ff master
+    git rebase master
 done
 
 git checkout master

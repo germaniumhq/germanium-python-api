@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # First things first, use the python virtual env
 cd /python/bin
 . activate
@@ -20,9 +22,4 @@ fi # [[ $RUN_VNC_SERVER -eq 1 ]]
 
 cd /tests
 behave
-
-#
-# cleanup processes
-#
-kill $(ps | grep -v bash | grep -v grep | grep -v PID | tr -s " " | cut -f2 -d\ )
 

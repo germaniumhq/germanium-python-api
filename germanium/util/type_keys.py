@@ -3,7 +3,7 @@ import re
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-from germanium.iframe import find_germanium_object
+from .arguments_processor import find_germanium_object
 
 MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
 

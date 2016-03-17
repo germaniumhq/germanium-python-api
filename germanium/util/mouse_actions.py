@@ -1,7 +1,7 @@
 from selenium.webdriver import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 
-from germanium.iframe import find_germanium_object
+from .arguments_processor import find_germanium_object
 
 
 def click(context, selector = None, move_mouse_over = True):

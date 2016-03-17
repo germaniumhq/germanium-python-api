@@ -1,4 +1,4 @@
-from germanium.GermaniumDriver import find_germanium_object
+from .arguments_processor import find_germanium_object
 
 
 def get_attributes(context, selector):

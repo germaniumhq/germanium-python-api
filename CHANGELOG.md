@@ -1,6 +1,7 @@
 ChangeLog
 ---------
 
+* 2016-03-17  1.6.5  Selenium:2.52.0. `TableRow` selectors. Test matrix across python versions.
 * 2016-03-15  1.6.4  `Element` selector can search for attribute content parts.
 * 2016-03-14  1.6.3  `Element` selector. IE8/9 Full test coverage.
 * 2016-03-11  1.6.2  Removed LOG to console. Fixes IE.

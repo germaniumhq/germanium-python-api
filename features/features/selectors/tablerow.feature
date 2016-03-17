@@ -15,3 +15,17 @@ Scenario: I can find table rows with multiple xpath selectors.
   And I go to 'http://localhost:8000/features/test-site/selectors/tablerow.html'
   When I search for a TableRow with a Button that has label 'edit'
   Then I find the element with id: 'row3'
+
+@3
+Scenario: I can find table rows with xpath selectors that have xpath:// in the path.
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/tablerow.html'
+  When I search for a TableRow with a custom XPath that is //input[@id='nameInput']
+  Then I find the element with id: 'row1'
+
+@4
+Scenario: Using a positional locator should raise an error in table rows.
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/tablerow.html'
+  When I search for a TableRow with positional locator CheckBox left of "Surname"
+  Then it throws an exception

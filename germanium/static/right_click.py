@@ -1,6 +1,6 @@
 from .global_germanium_instance import *
 
-from germanium import right_click as right_click_impl
+from germanium.util import right_click as right_click_impl
 
 
 def right_click(selector):

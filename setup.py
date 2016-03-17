@@ -14,6 +14,10 @@ setup(
     license='BSD',
 
     install_requires=['selenium==2.52.0'],
-    packages=['germanium', 'germanium.locators', 'germanium.selectors', 'germanium.static', 'germanium.util'],
+    packages=['germanium',
+              'germanium.locators',
+              'germanium.selectors',
+              'germanium.static',
+              'germanium.util'],
     package_data={'germanium': ['*.js']}
 )

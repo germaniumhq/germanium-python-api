@@ -1,4 +1,4 @@
-from germanium import type_keys as type_keys_impl
+from germanium.util import type_keys as type_keys_impl
 from .global_germanium_instance import *
 
 

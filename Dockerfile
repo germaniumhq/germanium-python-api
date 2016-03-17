@@ -51,7 +51,8 @@ ENV PYTHON_BINARY=/usr/local/bin/python3.5
 
 # Install behave and germanium into the package.
 #RUN pip install --upgrade pip
-RUN $PYTHON_BINARY -m pip install virtualenv && \
+RUN $PYTHON_BINARY -m ensurepip && \
+    $PYTHON_BINARY -m pip install virtualenv && \
     virtualenv /python && \
     /python/bin/pip install behave
 
@@ -69,7 +70,7 @@ RUN cd /germanium && \
     /python/bin/python setup.py install && \
     rm -fr /germanium
 
-CMD perl -pi -e "s/germanium:x:1000:1000/germanium:x:$UID:$GID/" /etc/passwd && \
+RUN perl -pi -e "s/germanium:x:1000:1000/germanium:x:$UID:$GID/" /etc/passwd && \
     perl -pi -e "s/germanium:x:1000:/germanium:x:$GID:/" /etc/group && \
     chown -R germanium:germanium /home/germanium/ /python
 

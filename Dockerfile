@@ -56,20 +56,22 @@ RUN $PYTHON_BINARY -m pip install virtualenv && \
     /python/bin/pip install behave
 
 RUN useradd -m germanium
-ADD . /germanium
-RUN cd /germanium && \
-    /python/bin/python setup.py install && \
-    rm -fr /germanium
 
 RUN cp -R /usr/share/novnc /home/germanium/novnc
 ADD bin/docker/index.html /home/germanium/novnc/
 ADD bin/docker/xstartup /home/germanium/.vnc/xstartup
 ADD bin/docker/run-behave.sh /home/germanium/bin/run-behave.sh
 
-RUN chown -R germanium:germanium /home/germanium/
+# add germanium the project only after having the docker binaries in the
+# home folder, to reduce the time to create new docker iamges
+ADD . /germanium
+RUN cd /germanium && \
+    /python/bin/python setup.py install && \
+    rm -fr /germanium
 
 CMD perl -pi -e "s/germanium:x:1000:1000/germanium:x:$UID:$GID/" /etc/passwd && \
-    perl -pi -e "s/germanium:x:1000:/germanium:x:$GID:/" /etc/group
+    perl -pi -e "s/germanium:x:1000:/germanium:x:$GID:/" /etc/group && \
+    chown -R germanium:germanium /home/germanium/ /python
 
 USER germanium
 

@@ -6,8 +6,6 @@ set -e
 
 GERMANIUM_FOLDER=$(readlink -f $(dirname $0)/..)
 
-echo $GERMANIUM_FOLDER
-
 for PYTHON_VERSION in $PYTHON_VERSIONS; do
     git checkout $PYTHON_VERSION
     git rebase -ff master

@@ -20,7 +20,7 @@ class DeferredLocator(object):
         if only_visible:
             elements = self.element_list(only_visible=only_visible)
             if not elements:
-                raise NoSuchElementException()
+                return None
 
             return elements[0]
 
@@ -40,6 +40,20 @@ class DeferredLocator(object):
     def exists(self):
         """ Return True/False if the currently matched element exists or not """
         return self.element() is not None
+
+    def not_exists(self):
+        """
+        :return: True if the element is not existing/
+        """
+        return self.element() is None
+
+    def exists_visible(self):
+        """ Return True/False if the currently matched element exists and is visible or not"""
+        return self.element(only_visible=True) is not None
+
+    def not_exists_visible(self):
+        """ Return True/False if the currently matched element exists and is visible or not"""
+        return self.element(only_visible=True) is None
 
     def _find_element(self):
         """ Find the element. """

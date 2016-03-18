@@ -36,3 +36,14 @@ Scenario: Finding elements that don't exist should not throw exceptions
     And I search using S for div.what
     And I search using S for div["what"].what
     Then nothing happens
+
+@6
+Scenario: Element (not)exists(visible) should function.
+    Given I open firefox
+    When I go to 'http://localhost:8000/features/test-site/inputs.html'
+    Then the selector '.textInput' exists somewhere
+    And the selector '.textInput' exists and is visible
+    And the selector '.displayHidden' exists somewhere
+    And the selector '.displayHidden' doesn't exists as visible
+    And the selector '.missingLocator' doesn't exists at all
+    And the selector '.missingLocator' doesn't exists as visible

@@ -45,7 +45,6 @@ def double_click(context, selector = None, move_mouse_over = True):
 
 def hover(context, selector = None):
     """ Hover the given location """
-    """ Double click the given location """
     germanium = find_germanium_object([context])
 
     element = _element(germanium, selector)
@@ -58,9 +57,8 @@ def _element(germanium, selector):
     element = None
 
     if selector:
-        element = germanium.S(selector).element()
+        element = germanium.S(selector).element(only_visible=True)
         if not element:
             raise NoSuchElementException(selector)
 
     return element
-

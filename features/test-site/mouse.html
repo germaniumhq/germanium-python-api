@@ -7,9 +7,11 @@
         <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
     </head>
     <body>
+        <div style="display:none" class="eventTargetDiv"></div>
         <div style="height: 100px; width : 500px"
-             id="eventTargetDiv">
-            #eventTargetDiv
+             id="mouseTargetDiv"
+             class="eventTargetDiv">
+            .eventTargetDiv
         </div>
 
         <input id="textInput" value="none" type="text">
@@ -18,7 +20,7 @@
             (function() {
                 var clicked = false;
 
-            $('#eventTargetDiv').contextmenu(function() {
+            $('#mouseTargetDiv').contextmenu(function() {
                 clicked = true;
 
                 document.getElementById('textInput').value = 'contextmenu';
@@ -26,7 +28,7 @@
                 return false;
             });
 
-            $('#eventTargetDiv').on('click', function(ev) {
+            $('#mouseTargetDiv').on('click', function(ev) {
                 clicked = true;
 
                 switch(ev.which) {
@@ -46,14 +48,14 @@
                 return false;
             });
 
-            $('#eventTargetDiv').on('dblclick', function(ev) {
+            $('#mouseTargetDiv').on('dblclick', function(ev) {
                 clicked = true;
 
             	document.getElementById('textInput').value = 'doubleclick';
             	return false;
             });
 
-            $('#eventTargetDiv').on('mouseover', function(ev) {
+            $('#mouseTargetDiv').on('mouseover', function(ev) {
                 /*
                  * IE9 gets spurious mouseover events after clicks.
                  */

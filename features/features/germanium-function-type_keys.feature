@@ -41,7 +41,7 @@ Feature: Germanium enabled typing of the keys.
     Scenario: Ensure that typing in an absolute element outside the current view will scroll the view.
       Given I open firefox
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
-      When in the #outsideAbsoluteInput I type_keys 'outside absolute input'
+      When in the .outsideAbsoluteInput I type_keys 'outside absolute input'
       Then the value for the #outsideAbsoluteInput is 'outside absolute input'
 
     @4
@@ -50,7 +50,7 @@ Feature: Germanium enabled typing of the keys.
       due to the scroll.
       Given I open firefox
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
-      When in the #outsideTextFlowedInput I type_keys 'outside text flow input'
+      When in the .outsideTextFlowedInput I type_keys 'outside text flow input'
       Then the value for the #outsideTextFlowedInput is 'outside text flow input'
 
     @5

@@ -13,3 +13,5 @@ for PYTHON_VERSION in $PYTHON_VERSIONS; do
     docker run --rm -it -v $GERMANIUM_FOLDER/features:/tests/features:ro germanium/germanium-$PYTHON_VERSION
 done
 
+git checkout master
+

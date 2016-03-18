@@ -51,10 +51,11 @@ def type_keys(context, keys_typed, element=None, *args):
 
     for key_action in keys_array:
         if isinstance(key_action, BasicKeysAction):
+            keys_to_send = ''.join(key_action.keys)
             if element:
-                action_chain.send_keys_to_element(element, key_action.keys)
+                action_chain.send_keys_to_element(element, keys_to_send)
             else:
-                action_chain.send_keys(key_action.keys)
+                action_chain.send_keys(keys_to_send)
         elif isinstance(key_action, ComboKeyDown):
             action_chain.key_down(key_action.key, element)
         elif isinstance(key_action, ComboKeyUp):

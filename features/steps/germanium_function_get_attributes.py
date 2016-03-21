@@ -1,13 +1,14 @@
 from behave import *
-from germanium.static import *
+
 from features.steps.asserts import *
+from germanium.static import *
 
 use_step_matcher("re")
 
 
 @step(u'I get the (.*?) element attributes')
 def step_impl(context, selector):
-    context.found_attributes = get_attributes(selector)
+    context.found_attributes = get_attributes(selector, False)
 
 
 @step('there are 4 attributes')

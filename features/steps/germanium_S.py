@@ -11,22 +11,22 @@ def step_impl(context, locator):
 
 @step(u"the selector '(.*?)' exists somewhere")
 def step_impl(context, selector):
-    assert S(selector).exists()
+    assert S(selector).exists(only_visible=False)
 
 
 @step(u"the selector '(.*?)' exists and is visible")
 def step_impl(context, selector):
-    assert S(selector).exists_visible()
+    assert S(selector).exists()
 
 
 @step(u"the selector '(.*?)' doesn't exists at all")
 def step_impl(context, selector):
-    assert S(selector).not_exists()
+    assert S(selector).not_exists(only_visible=False)
 
 
 @step(u"the selector '(.*?)' doesn't exists as visible")
 def step_impl(context, selector):
-    assert S(selector).not_exists_visible()
+    assert S(selector).not_exists()
 
 
 @step(u'nothing happens')

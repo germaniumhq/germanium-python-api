@@ -79,9 +79,14 @@ def type_keys_impl(context, what):
     type_keys(what)
 
 
-@step(u"in the (.*?) I type_keys '(.*?)'")
+@step(u"in the selector (.*?) I type_keys '(.*?)'")
 def type_keys_impl(context, selector, keys):
     type_keys(keys, selector)
+
+
+@step(u"in the locator (.*?) I type_keys '(.*?)'")
+def type_keys_impl(context, selector, keys):
+    type_keys(keys, S(selector))
 
 
 @step(u'I click on (?P<simple_locator>.*)')

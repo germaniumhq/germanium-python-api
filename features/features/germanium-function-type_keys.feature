@@ -41,7 +41,7 @@ Feature: Germanium enabled typing of the keys.
     Scenario: Ensure that typing in an absolute element outside the current view will scroll the view.
       Given I open firefox
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
-      When in the .outsideAbsoluteInput I type_keys 'outside absolute input'
+      When in the selector .outsideAbsoluteInput I type_keys 'outside absolute input'
       Then the value for the #outsideAbsoluteInput is 'outside absolute input'
 
     @4
@@ -50,12 +50,19 @@ Feature: Germanium enabled typing of the keys.
       due to the scroll.
       Given I open firefox
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
-      When in the .outsideTextFlowedInput I type_keys 'outside text flow input'
+      When in the selector .outsideTextFlowedInput I type_keys 'outside text flow input'
       Then the value for the #outsideTextFlowedInput is 'outside text flow input'
 
     @5
     Scenario: Ensure typing in a password element will work.
       Given I open firefox
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
-      When in the #passwordInputField I type_keys 'password'
+      When in the selector #passwordInputField I type_keys 'password'
+      Then the value for the #passwordInputField is 'password'
+
+    @6
+    Scenario: Ensure typing in a password element using a locaotr will work.
+      Given I open firefox
+      And I go to 'http://localhost:8000/features/test-site/inputs.html'
+      When in the locator #passwordInputField I type_keys 'password'
       Then the value for the #passwordInputField is 'password'

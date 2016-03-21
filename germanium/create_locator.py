@@ -77,6 +77,9 @@ def create_locator(germanium, selector, strategy='detect'):
     if isinstance(selector, WebElement):
         return StaticElementLocator(selector)
 
+    if hasattr(selector, '__call__'):
+        return create_locator(germanium, selector())
+
     # if it starts with // it's probably an XPath locator.
     if selector[0:2] == "//":
         return XPathLocator(germanium, selector)

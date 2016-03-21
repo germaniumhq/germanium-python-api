@@ -33,3 +33,20 @@ def step_impl(context, selector):
 @step(u'nothing happens')
 def step_impl(context):
     pass
+
+
+@step(u"I search using a nested locator for '(.*?)'")
+def step_impl(context, selector):
+    element = S(S(selector)).element()
+
+    context.found_element = element
+
+
+@step(u"I search using a callable that returns a CssSelector '(.*?)'")
+def step_impl(context, selector):
+    def fn():
+        return Css(selector)
+
+    element = S(fn).element()
+
+    context.found_element = element

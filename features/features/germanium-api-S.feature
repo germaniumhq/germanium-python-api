@@ -47,3 +47,17 @@ Scenario: Element (not)exists(visible) should function.
     And the selector '.displayHidden' doesn't exists as visible
     And the selector '.missingLocator' doesn't exists at all
     And the selector '.missingLocator' doesn't exists as visible
+
+@7
+Scenario: Calling S with an existing locator should return the existing locator.
+    Given I open firefox
+    When I go to 'http://localhost:8000/features/test-site/inputs.html'
+    And I search using a nested locator for '#outsideTextFlowedInput'
+    Then I find the element with id: 'outsideTextFlowedInput'
+
+@8
+Scenario: Calling S with a callable should invoke the callable, and re-eval S.
+    Given I open firefox
+    When I go to 'http://localhost:8000/features/test-site/inputs.html'
+    And I search using a callable that returns a CssSelector '#outsideTextFlowedInput'
+    Then I find the element with id: 'outsideTextFlowedInput'

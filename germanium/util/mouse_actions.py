@@ -1,10 +1,9 @@
 from selenium.webdriver import ActionChains
 from selenium.common.exceptions import NoSuchElementException
-
 from .find_germanium_object import find_germanium_object
 
 
-def click(context, selector = None, move_mouse_over = True):
+def click(context, selector=None, move_mouse_over=True):
     """ Click the given selector
     :param context:
     :param selector:
@@ -21,8 +20,12 @@ def click(context, selector = None, move_mouse_over = True):
     action.click(element).perform()
 
 
-def right_click(context, selector = None, move_mouse_over = True):
-    """ Right click the given location """
+def right_click(context, selector=None, move_mouse_over=True):
+    """ Right click the given location
+    :param context:
+    :param selector:
+    :param move_mouse_over:
+    """
     germanium = find_germanium_object(context)
 
     element = _element(germanium, selector)
@@ -34,8 +37,12 @@ def right_click(context, selector = None, move_mouse_over = True):
     action.context_click(element).perform()
 
 
-def double_click(context, selector = None, move_mouse_over = True):
-    """ Double click the given location """
+def double_click(context, selector=None, move_mouse_over=True):
+    """ Double click the given location
+    :param context:
+    :param selector:
+    :param move_mouse_over:
+    """
     germanium = find_germanium_object(context)
 
     element = _element(germanium, selector)
@@ -47,8 +54,11 @@ def double_click(context, selector = None, move_mouse_over = True):
     action.double_click(element).perform()
 
 
-def hover(context, selector = None):
-    """ Hover the given location """
+def hover(context, selector=None):
+    """ Hover the given location
+    :param context:
+    :param selector:
+    """
     germanium = find_germanium_object(context)
 
     element = _element(germanium, selector)
@@ -58,6 +68,12 @@ def hover(context, selector = None):
 
 
 def _element(germanium, selector):
+    """
+    Finds the given element.
+    :param germanium:
+    :param selector:
+    :return:
+    """
     element = None
 
     if selector:

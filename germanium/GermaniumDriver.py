@@ -49,7 +49,10 @@ class GermaniumDriver(object):
         self.select_iframe("default")
 
     def S(self, locator, strategy='detect'):
-        """ Finds an element by the given locator. """
+        """ Finds an element by the given locator.
+        :param locator:
+        :param strategy:
+        """
         return create_locator(self, locator, strategy)
 
     def get(self, url, *args, **kwargs):

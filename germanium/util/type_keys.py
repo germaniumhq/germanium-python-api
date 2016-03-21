@@ -37,29 +37,32 @@ class ComboKeyUp(object):
         self.key = key
 
 
-def type_keys(context, keys_typed, element=None, *args):
+def type_keys(context, keys_typed, selector=None, *args):
     """
-    :type germanium.GermaniumDriver
+    :param context:
+    :param keys_typed:
+    :param selector:
+    :param args:
     """
     germanium = find_germanium_object(context)
     keys_array = transform_to_keys(keys_typed)
 
-    if element:
-        element = germanium.S(element).element(only_visible=True)
+    if selector:
+        selector = germanium.S(selector).element(only_visible=True)
 
     action_chain = ActionChains(germanium.web_driver)
 
     for key_action in keys_array:
         if isinstance(key_action, BasicKeysAction):
             keys_to_send = ''.join(key_action.keys)
-            if element:
-                action_chain.send_keys_to_element(element, keys_to_send)
+            if selector:
+                action_chain.send_keys_to_element(selector, keys_to_send)
             else:
                 action_chain.send_keys(keys_to_send)
         elif isinstance(key_action, ComboKeyDown):
-            action_chain.key_down(key_action.key, element)
+            action_chain.key_down(key_action.key, selector)
         elif isinstance(key_action, ComboKeyUp):
-            action_chain.key_up(key_action.key, element)
+            action_chain.key_up(key_action.key, selector)
 
     action_chain.perform()
 

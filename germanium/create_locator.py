@@ -15,15 +15,15 @@ from germanium.selectors import AbstractSelector, PositionalFilterSelector
 LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?)\:)(.*)', re.MULTILINE|re.DOTALL)
 
 
-def create_locator(germanium, locator, strategy='detect'):
+def create_locator(germanium, selector, strategy='detect'):
     if strategy == 'css':
-        return CssLocator(germanium, locator)
+        return CssLocator(germanium, selector)
 
     if strategy == 'xpath':
-        return XPathLocator(germanium, locator)
+        return XPathLocator(germanium, selector)
 
     if strategy == 'simple':
-        return SimpleLocator(germanium, locator)
+        return SimpleLocator(germanium, selector)
 
     if strategy != 'detect':
         locator_constructor = germanium.locator_map[strategy]
@@ -31,37 +31,37 @@ def create_locator(germanium, locator, strategy='detect'):
         if not locator_constructor:
             raise Exception('Unable to find strategy %s. Available strategies: detect, %s' % (strategy, ', '.join(germanium.locator_map.keys())))
 
-        return locator_constructor(germanium, locator)
+        return locator_constructor(germanium, selector)
 
-    if isinstance(locator, DeferredLocator):
+    if isinstance(selector, DeferredLocator):
         if strategy is not 'detect':
             raise Exception('The locator is already constructed, but a strategy is also defined: "%s"' % strategy)
 
-        return locator
+        return selector
 
-    if isinstance(locator, PositionalFilterSelector):
+    if isinstance(selector, PositionalFilterSelector):
         left_of_filters = map(lambda x: create_locator(germanium, x),
-                              locator.left_of_filters)
+                              selector.left_of_filters)
 
         right_of_filters = map(lambda x: create_locator(germanium, x),
-                               locator.right_of_filters)
+                               selector.right_of_filters)
 
         above_filters = map(lambda x: create_locator(germanium, x),
-                            locator.above_filters)
+                            selector.above_filters)
 
         below_filters = map(lambda x: create_locator(germanium, x),
-                            locator.below_filters)
+                            selector.below_filters)
 
         return PositionalFilterLocator(
-            locator=create_locator(germanium, locator.selector),
+            locator=create_locator(germanium, selector.selector),
             left_of_filters=left_of_filters,
             right_of_filters=right_of_filters,
             above_filters=above_filters,
             below_filters=below_filters
         )
 
-    if isinstance(locator, AbstractSelector):
-        selectors = locator.get_selectors()
+    if isinstance(selector, AbstractSelector):
+        selectors = selector.get_selectors()
 
         # if there is only one locator, don't apply the composite.
         if len(selectors) == 1:
@@ -69,23 +69,23 @@ def create_locator(germanium, locator, strategy='detect'):
 
         # if we have multiple locators, apply the composite locator.
         locator_list = []
-        for selector in locator.get_selectors():
+        for selector in selector.get_selectors():
             locator_list.append(create_locator(germanium, selector))
 
         return CompositeLocator(locator_list)
 
-    if isinstance(locator, WebElement):
-        return StaticElementLocator(locator)
+    if isinstance(selector, WebElement):
+        return StaticElementLocator(selector)
 
     # if it starts with // it's probably an XPath locator.
-    if locator[0:2] == "//":
-        return XPathLocator(germanium, locator)
+    if selector[0:2] == "//":
+        return XPathLocator(germanium, selector)
 
-    m = LOCATOR_SPECIFIER.match(locator)
+    m = LOCATOR_SPECIFIER.match(selector)
     if m:
         locator_constructor = germanium.locator_map[m.group(2)]
         if locator_constructor:
             return locator_constructor(germanium, m.group(3))
 
-    return CssLocator(germanium, locator)
+    return CssLocator(germanium, selector)
 

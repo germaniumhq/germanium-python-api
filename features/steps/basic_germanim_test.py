@@ -78,13 +78,16 @@ def check_title_page(context, what):
 def type_keys_impl(context, what):
     type_keys(what)
 
+
 @step(u"in the (.*?) I type_keys '(.*?)'")
 def type_keys_impl(context, selector, keys):
     type_keys(keys, selector)
 
+
 @step(u'I click on (?P<simple_locator>.*)')
 def step_impl(context, simple_locator):
     click(simple_locator)
+
 
 @step(u'I wait forever')
 def step_impl(context):

@@ -9,10 +9,16 @@ class Element(AbstractSelector):
                  exact_text=None,
                  contains_text=None,
                  css_classes=None,
-                 exact_attributes={},
-                 contains_attributes={}):
+                 exact_attributes=None,
+                 contains_attributes=None):
         """ A general element selector. """
         super(Element, self).__init__()
+
+        if not contains_attributes:
+            contains_attributes = {}
+
+        if not exact_attributes:
+            exact_attributes = {}
 
         if exact_text and contains_text:
             raise Exception("Having the exact text to be matched, "

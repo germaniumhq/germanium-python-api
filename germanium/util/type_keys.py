@@ -3,7 +3,7 @@ import re
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-from .arguments_processor import find_germanium_object
+from .find_germanium_object import find_germanium_object
 
 MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
 
@@ -41,7 +41,7 @@ def type_keys(context, keys_typed, element=None, *args):
     """
     :type germanium.GermaniumDriver
     """
-    germanium = find_germanium_object([context])
+    germanium = find_germanium_object(context)
     keys_array = transform_to_keys(keys_typed)
 
     if element:

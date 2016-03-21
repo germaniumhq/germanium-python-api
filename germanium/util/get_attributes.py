@@ -1,4 +1,4 @@
-from .arguments_processor import find_germanium_object
+from .find_germanium_object import find_germanium_object
 
 
 def get_attributes(context, selector, only_visible=True):
@@ -10,7 +10,7 @@ def get_attributes(context, selector, only_visible=True):
     :param only_visible:
     :return:
     """
-    germanium = find_germanium_object([context])
+    germanium = find_germanium_object(context)
     element = germanium.S(selector).element(only_visible=only_visible)
 
     if not element:

@@ -1,4 +1,5 @@
 from germanium.GermaniumDriver import GermaniumDriver
+from ._ensure_list import _ensure_list
 
 
 def find_germanium_object(items):
@@ -9,8 +10,7 @@ def find_germanium_object(items):
     :param items:
     :return:
     """
-    if isinstance(items, GermaniumDriver):
-        return items
+    items = _ensure_list(items)
 
     for item in items:
         if isinstance(item, GermaniumDriver):

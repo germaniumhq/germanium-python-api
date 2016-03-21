@@ -1,12 +1,16 @@
 from selenium.webdriver import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 
-from .arguments_processor import find_germanium_object
+from .find_germanium_object import find_germanium_object
 
 
 def click(context, selector = None, move_mouse_over = True):
-    """ Click the given selector """
-    germanium = find_germanium_object([context])
+    """ Click the given selector
+    :param context:
+    :param selector:
+    :param move_mouse_over:
+    """
+    germanium = find_germanium_object(context)
 
     element = _element(germanium, selector)
     action = ActionChains(germanium.web_driver)
@@ -19,7 +23,7 @@ def click(context, selector = None, move_mouse_over = True):
 
 def right_click(context, selector = None, move_mouse_over = True):
     """ Right click the given location """
-    germanium = find_germanium_object([context])
+    germanium = find_germanium_object(context)
 
     element = _element(germanium, selector)
     action = ActionChains(germanium.web_driver)
@@ -32,7 +36,7 @@ def right_click(context, selector = None, move_mouse_over = True):
 
 def double_click(context, selector = None, move_mouse_over = True):
     """ Double click the given location """
-    germanium = find_germanium_object([context])
+    germanium = find_germanium_object(context)
 
     element = _element(germanium, selector)
     action = ActionChains(germanium.web_driver)
@@ -45,7 +49,7 @@ def double_click(context, selector = None, move_mouse_over = True):
 
 def hover(context, selector = None):
     """ Hover the given location """
-    germanium = find_germanium_object([context])
+    germanium = find_germanium_object(context)
 
     element = _element(germanium, selector)
     action = ActionChains(germanium.web_driver)

@@ -11,4 +11,7 @@ def _ensure_list(item):
     if isinstance(item, list):
         return item
 
+    if isinstance(item, tuple):
+        return list(item)
+
     return [item]

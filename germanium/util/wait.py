@@ -1,6 +1,6 @@
 
 from time import sleep
-from ._ensure_list import _ensure_list
+from germanium.impl import _ensure_list
 
 
 def wait(closures, *extra_closures, while_not=None, timeout=10):

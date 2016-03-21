@@ -1,4 +1,5 @@
 from .AbstractSelector import AbstractSelector
+from germanium.impl import _ensure_list
 
 
 class Element(AbstractSelector):
@@ -7,7 +8,7 @@ class Element(AbstractSelector):
                  index=-1,
                  exact_text=None,
                  contains_text=None,
-                 css_classes=[],
+                 css_classes=None,
                  exact_attributes={},
                  contains_attributes={}):
         """ A general element selector. """
@@ -25,6 +26,7 @@ class Element(AbstractSelector):
         if exact_text:
             xpath_locator += "[string() = '%s']" % exact_text
 
+        css_classes = _ensure_list(css_classes)
         for css_class in css_classes:
             xpath_locator += '[contains(concat(" ", @class, " "), " %s ")]' % css_class
 

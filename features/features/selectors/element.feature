@@ -20,10 +20,17 @@ Scenario: Find an element by attributes.
 Scenario: Find an element by a given class name
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/element.html'
-  When I look for a 'div' element with 'formatted-text' class
+  When I look for a 'div' element with class 'formatted-text'
   Then I find the element with id: 'editableText'
 
 @4
+Scenario: Find an element by multiple class names
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/element.html'
+  When I look for a 'div' element with classes 'formatted-text' and 'formatted-text-extra'
+  Then I find the element with id: 'editableText2'
+
+@5
 Scenario: Find an element by a part of an attribute
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/element.html'

@@ -20,10 +20,18 @@ def step_impl(context, element_name, attribute_name, attribute_value):
     context.found_element = element
 
 
-@step(u"I look for a '(.*?)' element with '(.*?)' class")
+@step(u"I look for a '(.*?)' element with class '(.*?)'")
 def step_impl(context, element_name, class_name):
     element = S(Element(element_name,
-                        css_classes=[class_name])).element()
+                        css_classes=class_name)).element()
+
+    context.found_element = element
+
+
+@step(u"I look for a '(.*?)' element with classes '(.*?)' and '(.*?)'")
+def step_impl(context, element_name, class1, class2):
+    element = S(Element(element_name,
+                        css_classes=[class1, class2])).element()
 
     context.found_element = element
 

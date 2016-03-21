@@ -1,5 +1,5 @@
 from germanium.GermaniumDriver import GermaniumDriver
-from ._ensure_list import _ensure_list
+from germanium.impl import _ensure_list
 
 
 def find_germanium_object(items):

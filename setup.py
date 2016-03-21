@@ -15,6 +15,7 @@ setup(
 
     install_requires=['selenium==2.53.1'],
     packages=['germanium',
+              'germanium.impl',
               'germanium.locators',
               'germanium.selectors',
               'germanium.static',

@@ -12,7 +12,7 @@ for PYTHON_VERSION in $PYTHON_VERSIONS; do
     git checkout $PYTHON_VERSION
     git rebase master
     docker build -t germanium/germanium-$PYTHON_VERSION .
-    docker run --rm -it -v $GERMANIUM_FOLDER/features:/tests/features:ro germanium/germanium-$PYTHON_VERSION
+    docker run --rm -it -v $GERMANIUM_FOLDER/features:/tests/features:ro -e TEST_REUSE_BROWSER=1 germanium/germanium-$PYTHON_VERSION
 done
 
 git checkout master

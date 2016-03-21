@@ -4,7 +4,7 @@ from .AbstractSelector import AbstractSelector
 class JsSelector(AbstractSelector):
     """
     Just a selector that finds some elements using some
-    Js code. The code must return a single WebDriver element.
+    Js code. The code must return a list of WebDriver elements.
     """
     def __init__(self, code=None):
         super(JsSelector, self).__init__()

@@ -1,7 +1,8 @@
 ChangeLog
 ---------
 
-* 2016-03-21  1.6.7  `only_visible` filtering by default. Selenium 2.53.1 support. `not_exists` check for deferred locators. 
+* 2016-03-22  1.6.8  Bugfixes. Check for element arrays in `js`, `wait` on multiple functions, `locators` as `selectors`.
+* 2016-03-21  1.6.7  `only_visible` filtering by default. Selenium 2.53.1 support. `not_exists` check for deferred locators.
 * 2016-03-18  1.6.6  Test matrix runs end-to-end tests for all python versions.
 * 2016-03-17  1.6.5  Selenium:2.52.0. `TableRow` selectors. Test matrix across python versions.
 * 2016-03-15  1.6.4  `Element` selector can search for attribute content parts.

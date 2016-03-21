@@ -4,6 +4,8 @@ PYTHON_VERSIONS="python2.7 python3.4 python3.5"
 
 set -e
 
+git checkout master
+
 GERMANIUM_FOLDER=$(readlink -f $(dirname $0)/..)
 
 for PYTHON_VERSION in $PYTHON_VERSIONS; do

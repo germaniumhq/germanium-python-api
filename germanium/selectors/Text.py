@@ -22,17 +22,22 @@ class Text(AbstractSelector):
                 return null;
             }
 
-            var result = document.body;
-            var foundChildElement = true;
+            var processing_queue = [ document.body ];
+            var result = [];
 
-            while (foundChildElement) {
-                foundChildElement = false;
+            while (processing_queue.length) {
+                var foundChildElement = false;
+                var currentNode = processing_queue.splice(0, 1)[0];
 
-                for (var i = 0; i < result.children.length; i++) {
-                    if (text(result.children[i]).indexOf(searchedText) >= 0) {
+                for (var i = 0; i < currentNode.children.length; i++) {
+                    if (text(currentNode.children[i]).indexOf(searchedText) >= 0) {
                         foundChildElement = true;
-                        result = result.children[i];
+                        processing_queue.push(currentNode.children[i]);
                     }
+                }
+
+                if (!foundChildElement) {
+                    result.push(currentNode);
                 }
             }
 

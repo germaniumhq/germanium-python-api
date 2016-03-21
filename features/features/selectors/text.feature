@@ -34,3 +34,10 @@ Scenario: Find an element that contains some text that has single quotes.
     And I go to 'http://localhost:8000/features/test-site/selectors/text.html'
     When I look for some text: 'a 'text' with quotes'
     Then I find the element with id: 'textWithSingleQuotes'
+
+@6
+Scenario: Finding multiple text elements that match across the document.
+    Given I open firefox
+    And I go to 'http://localhost:8000/features/test-site/selectors/text.html'
+    When I look for some text in multiple elements: 'text'
+    Then I find 5 text elements that match

@@ -1,5 +1,4 @@
 from behave import *
-from germanium.selectors import Button, Text
 from germanium.static import *
 
 from features.steps.asserts import *
@@ -24,10 +23,12 @@ def step_impl(context, expected_name):
 
     context.found_element = element
 
+
 @step(u'I find the element with id: \'(.*?)\'')
 def step_impl(context, expected_id):
     assert_true(context.found_element, "No element was found.")
     assert_equals(expected_id, context.found_element.get_attribute('id'))
+
 
 @step(u'I look for some text: \'(.*)\'')
 def step_impl(context, text):
@@ -35,7 +36,21 @@ def step_impl(context, text):
 
     context.found_element = element
 
+
+@step(u"I look for some text in multiple elements: '(.*?)'")
+def step_impl(context, text):
+    element_list = S(Text(text)).element_list()
+
+    context.found_elements = element_list
+
+
 @step(u'there is no element found')
 def step_impl(context):
     assert not context.found_element
 
+
+@step(u'I find (\d+) text elements that match')
+def step_impl(context, count):
+    assert_true(context.found_elements)
+    assert_true(isinstance(context.found_elements, list))
+    assert_equals(int(count), len(context.found_elements))

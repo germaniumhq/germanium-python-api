@@ -15,3 +15,14 @@ Scenario: Call a JS Script with a custom argument.
     """
     Then nothing happens
 
+Scenario: Call a JS Script that returns a list of elements.
+    Given I open firefox
+    And I go to 'http://localhost:8000/features/test-site/inputs.html'
+    When I execute js without any parameters
+    """
+    return [
+        document.getElementById('textInput'),
+        document.getElementById('anotherTextInput')
+    ];
+    """
+    Then I got two elements, one with id textInput, and the other with id anotherTextInput.

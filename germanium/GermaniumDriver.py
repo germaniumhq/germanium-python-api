@@ -91,6 +91,22 @@ class GermaniumDriver(object):
             Execute the script, and also display it on the console for debug purposes.
             """
             wrapper_script = """try {
+                function __isElement(n) {
+                    return n && n.nodeType && n.ownerDocument
+                }
+
+                function __isElementList(l) {
+                    if (l && typeof l['length'] != 'undefined') {
+                        for (var __i = 0; __i < l.length; __i++) {
+                            if (!__isElement(l[__i])) {
+                                return false;
+                            }
+                        }
+
+                        return true;
+                    }
+                }
+
                 var result = {
                     data : (function() {
                         %s
@@ -98,7 +114,7 @@ class GermaniumDriver(object):
                     status : "SUCCESS"
                 };
 
-                return result.data && result.data.nodeType && result.data.ownerDocument ?
+                return __isElement(result.data) || __isElementList(result.data) ?
                        result.data :
                        result;
             } catch (e) {
@@ -114,7 +130,7 @@ class GermaniumDriver(object):
 
             response = self.web_driver.execute_script(eval_script, *args, **kwargs)
 
-            if isinstance(response, WebElement):
+            if isinstance(response, WebElement) or isinstance(response, list):
                 return response
 
             if response['status'] == 'SUCCESS':

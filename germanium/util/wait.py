@@ -1,36 +1,36 @@
 
 from time import sleep
+from ._ensure_list import _ensure_list
 
 
-def wait(closure, while_not=None, timeout = 10):
+def wait(closures, *extra_closures, while_not=None, timeout=10):
     """
     Executes a function given as argument every 400 milliseconds until it returns true. If it goes more than
     the timeout seconds, then this function throws an exception. If the function throws an exception, then
     it is assumed it is false.
-    :deprecated:
+    :param closures:
+    :param while_not:
+    :param timeout:
+    :param extra_closures:
     """
+    while_not = _ensure_list(while_not)
+    closures = list(_ensure_list(closures))
+    closures.extend(extra_closures)
+
     def closure_try_catch():
-        try:
-            return closure()
-        except Exception as e:
-            print("WARNING: waiting as false since: %s" % e)
-            return False
-
-    # compute the while_not_closures that need evaluation.
-    while_not_closures = None
-
-    if not while_not:
-        while_not_closures = []
-    elif hasattr(while_not, '__call__'):
-        while_not_closures = [while_not]
-    else:
-        while_not_closures = while_not
+        for closure in closures:
+            try:
+                result = closure()
+                if result:
+                    return result
+            except Exception as e:
+                print("WARNING: waiting as false since: %s" % e)
 
     passed_timeout = 0
     closure_result = False
 
     while passed_timeout < timeout:
-        for while_not_closure in while_not_closures:
+        for while_not_closure in while_not:
             try:
                 if while_not_closure():
                     raise Exception("Waiting failed, since while_not condition matched")
@@ -51,4 +51,3 @@ def wait(closure, while_not=None, timeout = 10):
 
     if not closure_result:
         raise Exception("Waiting has failed")
-

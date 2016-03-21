@@ -18,3 +18,12 @@ Scenario: Test simple while_not callback
   When I go to 'http://localhost:8000/features/test-site/wait-error.html'
   Then waiting for success to happen should fail
 
+Scenario: Test multiple wait callback
+  Given I open firefox
+  When I go to 'http://localhost:8000/features/test-site/wait-error.html'
+  Then waiting for error or success to happen should pass with array callbacks
+
+Scenario: Test multiple wait callback
+  Given I open firefox
+  When I go to 'http://localhost:8000/features/test-site/wait-error.html'
+  Then waiting for error or success to happen should pass with multiarg callbacks

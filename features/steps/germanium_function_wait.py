@@ -10,7 +10,7 @@ def step_impl(context):
 
     try:
         wait(S('div#successContent'),
-            while_not=S('div#errorContent'))
+             while_not=S('div#errorContent'))
         wait_threw_exception = False
     except Exception as e:
         pass
@@ -21,6 +21,17 @@ def step_impl(context):
     if not wait_threw_exception:
         assert False
 
+
 @step(u'waiting for error to happen should pass')
 def step_impl(context):
     wait(S('div#errorContent'))
+
+
+@step(u'waiting for error or success to happen should pass with array callbacks')
+def step_impl(context):
+    wait([S('div#successContent'), S('div#errorContent')])
+
+
+@step(u'waiting for error or success to happen should pass with multiarg callbacks')
+def step_impl(context):
+    wait(S('div#successContent'), S('div#errorContent'))

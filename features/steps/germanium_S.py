@@ -1,5 +1,8 @@
 from germanium.static import *
+from germanium.locators import StaticElementLocator
 from behave import *
+
+from features.steps.asserts import *
 
 use_step_matcher("re")
 
@@ -50,3 +53,27 @@ def step_impl(context, selector):
     element = S(fn).element()
 
     context.found_element = element
+
+
+@step(u"I create a StaticElementLocator with a single element: (.*?)")
+def step_impl(context, selector):
+    element = S(selector).element()
+    context.static_element_locator = StaticElementLocator(element)
+
+
+@step(u"the StaticElementLocator has one element")
+def step_impl(context):
+    assert_true(context.static_element_locator, "The static element locator is not found. "
+                                                "Call first: I create a StaticElementLocator with a single element")
+    locator = context.static_element_locator
+    assert_true(locator.element())
+
+
+@step(u"the StaticElementLocator has no elements anymore")
+def step_impl(context):
+    assert_true(context.static_element_locator, "The static element locator is not found. "
+                                                "Call first: I create a StaticElementLocator with a single element")
+    locator = context.static_element_locator
+    assert_false(locator.element())
+
+

@@ -35,8 +35,13 @@ class DeferredLocator(object):
         if not found_items:
             return list()
 
-        items = filter(lambda x: x.is_displayed(), found_items)
-        return list(items)
+        def is_displayed_filter(item):
+            try:
+                return item.is_displayed()
+            except Exception:
+                return False
+
+        return list(filter(is_displayed_filter, found_items))
 
     def exists(self, only_visible=True):
         """ Return True/False if the currently matched element exists or not

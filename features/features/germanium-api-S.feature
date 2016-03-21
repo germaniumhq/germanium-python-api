@@ -61,3 +61,16 @@ Scenario: Calling S with a callable should invoke the callable, and re-eval S.
     When I go to 'http://localhost:8000/features/test-site/inputs.html'
     And I search using a callable that returns a CssSelector '#outsideTextFlowedInput'
     Then I find the element with id: 'outsideTextFlowedInput'
+
+@9
+Scenario: Elements that are evaluated outside the page with is_displayed should not throw
+    The problem happens when the page changes, and we're stuck inside
+    a `wait` loop, since we get a page change happening in the background
+    while we're still trying to eval elements if they are visible.
+    Given I open firefox
+    When I go to 'http://localhost:8000/features/test-site/inputs.html'
+    And I create a StaticElementLocator with a single element: #outsideTextFlowedInput
+    Then the StaticElementLocator has one element
+    # I invalidate the element in the StaticLocator
+    When I go to 'http://localhost:8000/features/test-site/inputs.html'
+    Then the StaticElementLocator has no elements anymore

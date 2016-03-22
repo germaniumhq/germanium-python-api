@@ -8,7 +8,7 @@ class SelectorLocator(DeferredLocator):
     It will defer all the actual work to `create_locator`
     """
     def __init__(self, germanium, selector_instance):
-        super(DeferredLocator, self).__init__(germanium)
+        super(SelectorLocator, self).__init__(germanium)
         self._locator = create_locator(germanium, selector_instance)
 
     def _findElement(self):

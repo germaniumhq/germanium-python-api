@@ -7,7 +7,7 @@ class InputText(AbstractSelector):
     Just a selector that finds an input text by its name.
     """
     def __init__(self, name=None):
-        super(AbstractSelector, self).__init__()
+        super(InputText, self).__init__()
 
         xpath_selectors = ["//input[@type='text']",
                            "//input[not(@type)]"]

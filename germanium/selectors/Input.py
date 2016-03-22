@@ -7,7 +7,7 @@ class Input(AbstractSelector):
     Just a selector that finds an input by its name.
     """
     def __init__(self, name=None):
-        super(AbstractSelector, self).__init__()
+        super(Input, self).__init__()
         self._input_name = name
 
     def get_selectors(self):

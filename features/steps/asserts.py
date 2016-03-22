@@ -8,7 +8,7 @@ class AssertionFailedException(Exception):
 
     """
     def __init__(self, message):
-        super(Exception, self).__init__(message)
+        super(AssertionFailedException, self).__init__(message)
 
 
 def assert_equals(expected, actual, message = None):

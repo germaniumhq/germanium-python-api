@@ -6,7 +6,7 @@ class Text(AbstractSelector):
     Just a selector that finds the text in the page.
     """
     def __init__(self, text):
-        super(AbstractSelector, self).__init__()
+        super(Text, self).__init__()
         self._text = text
 
     def get_selectors(self):

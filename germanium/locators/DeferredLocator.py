@@ -3,7 +3,7 @@ class DeferredLocator(object):
     Create a deferred locator that can be used in matching
     elements in wait conditions.
     """
-    def __init__(self, germanium):
+    def __init__(self, germanium=None):
         self._germanium = germanium
 
     def __call__(self):

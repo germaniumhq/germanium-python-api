@@ -6,7 +6,7 @@ class Link(AbstractSelector):
     A selector that finds links in the page.
     """
     def __init__(self, search_text=None, text=None, search_href=None, href=None):
-        super(AbstractSelector, self).__init__()
+        super(Link, self).__init__()
 
         self._search_text = search_text
         self._text = text

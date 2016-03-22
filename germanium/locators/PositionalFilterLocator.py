@@ -2,8 +2,27 @@ from .DeferredLocator import DeferredLocator
 
 
 class PositionalFilterLocator(DeferredLocator):
-    def __init__(self, locator, left_of_filters=[], right_of_filters=[], above_filters=[], below_filters=[]):
-        super(DeferredLocator, self).__init__()
+    def __init__(self,
+                 locator,
+                 left_of_filters=None,
+                 right_of_filters=None,
+                 above_filters=None,
+                 below_filters=None):
+
+        super(PositionalFilterLocator, self).__init__()
+
+        if not left_of_filters:
+            left_of_filters = []
+
+        if not right_of_filters:
+            right_of_filters = []
+
+        if not above_filters:
+            above_filters = []
+
+        if not below_filters:
+            below_filters = []
+
         self.locator = locator
         self.left_of_filters = left_of_filters
         self.right_of_filters = right_of_filters

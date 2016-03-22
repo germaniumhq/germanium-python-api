@@ -6,7 +6,7 @@ class XPath(AbstractSelector):
     Just a selector that finds some XPath.
     """
     def __init__(self, selector=None):
-        super(AbstractSelector, self).__init__()
+        super(XPath, self).__init__()
 
         if not selector.startswith('//'):
             selector = "xpath:" + selector

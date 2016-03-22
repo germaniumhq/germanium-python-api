@@ -2,7 +2,7 @@ import re
 
 from selenium import webdriver
 
-from germanium import GermaniumDriver
+from germanium.driver import GermaniumDriver
 from germanium.iframe_selector import DefaultIFrameSelector
 from .global_germanium_instance import *
 

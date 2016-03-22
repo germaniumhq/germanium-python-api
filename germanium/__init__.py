@@ -1,5 +1,5 @@
 
-from .GermaniumDriver import GermaniumDriver
+from .driver import GermaniumDriver
 from .iframe import iframe
 
 from .util import get_attributes

@@ -1,4 +1,4 @@
-from germanium.GermaniumDriver import GermaniumDriver
+from germanium.driver import GermaniumDriver
 from germanium.impl import _ensure_list
 
 

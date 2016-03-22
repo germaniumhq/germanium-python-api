@@ -1,5 +1,6 @@
 from .AbstractSelector import AbstractSelector, PositionalFilterSelector
 
+
 class TableRow(AbstractSelector):
     def __init__(self):
         super(TableRow, self).__init__()

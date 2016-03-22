@@ -16,6 +16,11 @@ LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?)\:)(.*)', re.MULTILINE|re.DOTALL)
 
 
 def create_locator(germanium, selector, strategy='detect'):
+    if selector is None:
+        raise Exception("A `None` selector was passed to Germanium to create a "
+                        "locator out of it. Maybe an invalid function return "
+                        "is being used?")
+
     if strategy == 'css':
         return CssLocator(germanium, selector)
 

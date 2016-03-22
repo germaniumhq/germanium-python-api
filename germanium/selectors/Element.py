@@ -5,7 +5,9 @@ from germanium.impl import _ensure_list
 class Element(AbstractSelector):
     def __init__(self,
                  tag_name=None,
+                 *args,
                  index=-1,
+                 id=None,
                  exact_text=None,
                  contains_text=None,
                  css_classes=None,
@@ -19,6 +21,9 @@ class Element(AbstractSelector):
 
         if not exact_attributes:
             exact_attributes = {}
+
+        if id:
+            exact_attributes['id'] = id
 
         if exact_text and contains_text:
             raise Exception("Having the exact text to be matched, "

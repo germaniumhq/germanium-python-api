@@ -55,3 +55,4 @@ def step_impl(context):
 @step(u'it throws an exception')
 def step_impl(context):
     assert context.exception
+    print(context.exception)

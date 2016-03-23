@@ -8,89 +8,264 @@ The Germanium static package is for creating tests that revolve around
 running a single browser instance at a time, in the whole test process.
 
 
-def open_browser(browser="Firefox", wd=None, iframe_selector=DefaultIFrameSelector(), screenshot_folder="screenshots", scripts=list())
---------------------------------------------------------------------------------------------------------------------------------------
+open_browser()
+--------------
 
-Open the given browser:
+*Description*
+
+Opens the given browser instance.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def open_browser(browser="Firefox", <1>
+                 wd=None, <2>
+                 iframe_selector=DefaultIFrameSelector(), <3>
+                 screenshot_folder="screenshots", <4>
+                 scripts=list()) <5>
+-----------------------------------------------------------------------------
+<1> _browser_ - The browser is case insensitive and can be one of:
+    1. "ff" or "firefox" - to start Mozilla Firefox
+    2. "chrome" - to start Google Chrome
+    3. "ie" - to start Microsoft Internet Explorer
+<2> _wd_ - A specific already created WebDriver instance can also be given, and
+    then the _browser_ parameter will be ignored.
+<3> _iframe_selector_ - The strategy to use when finding the execution iframe,
+    whenever the active iframe name changes.
+<4> _screenshot_folder_ - Folder under browser screenshots are saved.
+<5> _scripts_ - A list of JavaScript resources to be loaded whenever a page is
+    newly loaded.
+
+*Sample*
 
 [source,python]
 -----------------------------------------------------------------------------
 open_browser("firefox")
 -----------------------------------------------------------------------------
 
-or:
-
-[source,python]
------------------------------------------------------------------------------
-open_browser("ie")
------------------------------------------------------------------------------
-
-This allows also connecting to remote drivers, for example:
+This also connecting to remote drivers, for example:
 
 [source,python]
 -----------------------------------------------------------------------------
 open_browser("ff:http://10.2.1.1:5555/wd/hub")
 -----------------------------------------------------------------------------
 
+
+
+close_browser()
+---------------
+
+*Description*
+
+Close the currently running browser instance that was opened with `open_browser()`
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
 def close_browser()
--------------------
+-----------------------------------------------------------------------------
 
-Close the currently running browser.
+*Sample*
 
-def go_to(url)
---------------
+[source,python]
+-----------------------------------------------------------------------------
+close_browser()
+-----------------------------------------------------------------------------
 
-Go to the given URL, and wait for the page to load.
+go_to(url)
+----------
+
+*Description*
+
+Go to the given URL, and wait for the page to load. After the page will load,
+the scripts provided in the creation of the GermaniumDriver object will be
+automatically loaded.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def go_to(url) <1>
+-----------------------------------------------------------------------------
+<1> _url_ - The URL to load in the browser.
+
+*Sample*
 
 [source,python]
 -----------------------------------------------------------------------------
 go_to("http://google.com/")
 -----------------------------------------------------------------------------
 
-def type_keys(keys, selector = None)
-------------------------------------
+type_keys(keys, selector)
+-------------------------
+
+*Description*
 
 Type the keys specified into the element, or the currently active element.
 
+*Signature*
+
 [source,python]
 -----------------------------------------------------------------------------
-type_keys('germanium', Input('q'))
+def type_keys(keys, <1>
+              selector) <2>
 -----------------------------------------------------------------------------
+<1> _keys_ - the keys to press. _See the *Germanium Keys Support*, to learn
+        about having multiple keypresses, combo key presses, or repetitions._
+<2> _selector_ - _optional_ For what element to send the keys. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
 
-def click(selector)
--------------------
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+type_keys('john.doe@example.com', Input('email')) <1>
+type_keys("<tab*2><enter>") <2>
+-----------------------------------------------------------------------------
+<1> Type in the input with the `name` attribute equal to `email`.
+<2> Type in the currently active element in the current iframe.
+
+click(selector)
+---------------
+
+*Description*
 
 Click the element with the given selector.
 
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def click(selector) <1>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to click. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+
+*Sample*
 [source,python]
 -----------------------------------------------------------------------------
 click(Button('OK'))
 -----------------------------------------------------------------------------
 
-def hover(selector)
--------------------
+hover(selector)
+---------------
 
-Hover the element with the given selector.
+*Description*
 
-def double_click(selector)
---------------------------
+Hovers (sends a mouse over) the element with the given selector.
 
-Double click the element with the given selector.
+*Signature*
 
-def right_click(selector)
--------------------------
+[source,python]
+-----------------------------------------------------------------------------
+def hover(selector) <1>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to hover. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
 
-Right click the element with the given selector.
+*Sample*
+[source,python]
+-----------------------------------------------------------------------------
+hover(Element('div', id='menu1'))
+-----------------------------------------------------------------------------
 
-def get_web_driver()
---------------------
+double_click(selector)
+----------------------
+
+*Description*
+
+Double clicks the element with the given selector.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def double_click(selector) <1>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to double click. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+
+*Sample*
+[source,python]
+-----------------------------------------------------------------------------
+double_click(Element('div', css_classes='table-row'))
+-----------------------------------------------------------------------------
+
+right_click(selector)
+---------------------
+
+*Description*
+
+Right clicks the element with the given selector.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def right_click(selector) <1>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to right click. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+
+*Sample*
+[source,python]
+-----------------------------------------------------------------------------
+right_click(Element('div', css_classes='table-row'))
+-----------------------------------------------------------------------------
+
+get_web_driver()
+----------------
+
+*Description*
 
 Return the WebDriver instance the global Germanium was built around.
 
-def get_germanium()
--------------------
+*Signature*
 
-Returns the currently running Germanium instance.
+[source,python]
+-----------------------------------------------------------------------------
+def get_web_driver()
+-----------------------------------------------------------------------------
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+wd = get_web_driver()
+-----------------------------------------------------------------------------
+
+get_germanium()
+---------------
+
+*Description*
+
+Returns the currently running Germanium instance, or `None` if no instance was
+opened using `open_browser()`.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def get_germanium()
+-----------------------------------------------------------------------------
+
+_Please see the *Germanium API Documentation* to find out what is available on
+the `germanium.driver.GermaniumDriver` instance._
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+g = get_germanium()
+-----------------------------------------------------------------------------
+
 
 def S(*argv, **kwargs)
 ----------------------

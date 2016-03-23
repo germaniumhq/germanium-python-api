@@ -418,16 +418,61 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 </style>
 </head>
-<body class="book">
+<body class="book toc2 toc-left">
 <div id="header">
 <h1>Germanium</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_installation">Installation</a></li>
+<li><a href="#_germanium_static">Germanium Static</a>
+<ul class="sectlevel2">
+<li><a href="#_open_browser">open_browser()</a></li>
+<li><a href="#_close_browser">close_browser()</a></li>
+<li><a href="#_go_to_url">go_to(url)</a></li>
+<li><a href="#_type_keys_keys_selector">type_keys(keys, selector)</a></li>
+<li><a href="#_click_selector">click(selector)</a></li>
+<li><a href="#_hover_selector">hover(selector)</a></li>
+<li><a href="#_double_click_selector">double_click(selector)</a></li>
+<li><a href="#_right_click_selector">right_click(selector)</a></li>
+<li><a href="#_get_web_driver">get_web_driver()</a></li>
+<li><a href="#_get_germanium">get_germanium()</a></li>
+<li><a href="#_def_s_argv_kwargs">def S(*argv, **kwargs)</a></li>
+<li><a href="#_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</a></li>
+</ul>
+</li>
+<li><a href="#_germanium_api_documentation">Germanium API Documentation</a>
+<ul class="sectlevel2">
+<li><a href="#_germanium_iframe_decorator">germanium iframe decorator</a></li>
+<li><a href="#_germanium_instance_functions">germanium Instance Functions</a></li>
+<li><a href="#_germanium_static_functions">germanium Static Functions</a></li>
+</ul>
+</li>
+<li><a href="#_germanium_selectors">Germanium Selectors</a>
+<ul class="sectlevel2">
+<li><a href="#_positional_filtering">Positional Filtering</a></li>
+<li><a href="#_custom_selectors">Custom Selectors</a></li>
+<li><a href="#_utility_selectors">Utility Selectors</a></li>
+<li><a href="#_provided_selectors">Provided Selectors</a></li>
+</ul>
+</li>
+<li><a href="#_germanium_keys_support">Germanium Keys Support</a>
+<ul class="sectlevel2">
+<li><a href="#_regular_typing">Regular Typing</a></li>
+<li><a href="#_special_keys">Special Keys</a></li>
+<li><a href="#_combo_presses">Combo Presses</a></li>
+<li><a href="#_press_release_key">Press-Release Key</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_installation">Installation</h2>
+<h2 id="_installation"><a class="anchor" href="#_installation"></a>Installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To install it just run:</p>
@@ -462,16 +507,56 @@ production tests.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_germanium_static">Germanium Static</h2>
+<h2 id="_germanium_static"><a class="anchor" href="#_germanium_static"></a>Germanium Static</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Germanium static package is for creating tests that revolve around
 running a single browser instance at a time, in the whole test process.</p>
 </div>
 <div class="sect2">
-<h3 id="_def_open_browser_browser_firefox_wd_none_iframe_selector_defaultiframeselector_screenshot_folder_screenshots_scripts_list">def open_browser(browser="Firefox", wd=None, iframe_selector=DefaultIFrameSelector(), screenshot_folder="screenshots", scripts=list())</h3>
+<h3 id="_open_browser"><a class="anchor" href="#_open_browser"></a>open_browser()</h3>
 <div class="paragraph">
-<p>Open the given browser:</p>
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Opens the given browser instance.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">open_browser</span>(browser<span style="color: #666666">=</span><span style="color: #BA2121">&quot;Firefox&quot;</span>, <b class="conum">(1)</b>
+                 wd<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
+                 iframe_selector<span style="color: #666666">=</span>DefaultIFrameSelector(), <b class="conum">(3)</b>
+                 screenshot_folder<span style="color: #666666">=</span><span style="color: #BA2121">&quot;screenshots&quot;</span>, <b class="conum">(4)</b>
+                 scripts<span style="color: #666666">=</span><span style="color: #008000">list</span>()) <b class="conum">(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>browser</em> - The browser is case insensitive and can be one of:</p>
+</li>
+<li>
+<p><em>wd</em> - A specific already created WebDriver instance can also be given, and
+then the <em>browser</em> parameter will be ignored.</p>
+</li>
+<li>
+<p><em>iframe_selector</em> - The strategy to use when finding the execution iframe,
+whenever the active iframe name changes.</p>
+</li>
+<li>
+<p><em>screenshot_folder</em> - Folder under browser screenshots are saved.</p>
+</li>
+<li>
+<p><em>scripts</em> - A list of JavaScript resources to be loaded whenever a page is
+newly loaded.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -479,15 +564,7 @@ running a single browser instance at a time, in the whole test process.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>or:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;ie&quot;</span>)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This allows also connecting to remote drivers, for example:</p>
+<p>This also connecting to remote drivers, for example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -496,15 +573,57 @@ running a single browser instance at a time, in the whole test process.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_close_browser">def close_browser()</h3>
+<h3 id="_close_browser"><a class="anchor" href="#_close_browser"></a>close_browser()</h3>
 <div class="paragraph">
-<p>Close the currently running browser.</p>
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Close the currently running browser instance that was opened with <code>open_browser()</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">close_browser</span>()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">close_browser()</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_go_to_url">def go_to(url)</h3>
+<h3 id="_go_to_url"><a class="anchor" href="#_go_to_url"></a>go_to(url)</h3>
 <div class="paragraph">
-<p>Go to the given URL, and wait for the page to load.</p>
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Go to the given URL, and wait for the page to load. After the page will load,
+the scripts provided in the creation of the GermaniumDriver object will be
+automatically loaded.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">go_to</span>(url) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>url</em> - The URL to load in the browser.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -513,20 +632,82 @@ running a single browser instance at a time, in the whole test process.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_type_keys_keys_selector_none">def type_keys(keys, selector = None)</h3>
+<h3 id="_type_keys_keys_selector"><a class="anchor" href="#_type_keys_keys_selector"></a>type_keys(keys, selector)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
 <div class="paragraph">
 <p>Type the keys specified into the element, or the currently active element.</p>
 </div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;germanium&#39;</span>, Input(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">type_keys</span>(keys, <b class="conum">(1)</b>
+              selector) <b class="conum">(2)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>keys</em> - the keys to press. <em>See the <strong>Germanium Keys Support</strong>, to learn
+about having multiple keypresses, combo key presses, or repetitions.</em></p>
+</li>
+<li>
+<p><em>selector</em> - <em>optional</em> For what element to send the keys. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;john.doe@example.com&#39;</span>, Input(<span style="color: #BA2121">&#39;email&#39;</span>)) <b class="conum">(1)</b>
+type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>) <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Type in the input with the <code>name</code> attribute equal to <code>email</code>.</p>
+</li>
+<li>
+<p>Type in the currently active element in the current iframe.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_click_selector">def click(selector)</h3>
+<h3 id="_click_selector"><a class="anchor" href="#_click_selector"></a>click(selector)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
 <div class="paragraph">
 <p>Click the element with the given selector.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">click</span>(selector) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to click. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -535,43 +716,170 @@ running a single browser instance at a time, in the whole test process.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_hover_selector">def hover(selector)</h3>
+<h3 id="_hover_selector"><a class="anchor" href="#_hover_selector"></a>hover(selector)</h3>
 <div class="paragraph">
-<p>Hover the element with the given selector.</p>
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Hovers (sends a mouse over) the element with the given selector.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">hover</span>(selector) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to hover. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">hover(Element(<span style="color: #BA2121">&#39;div&#39;</span>, <span style="color: #008000">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;menu1&#39;</span>))</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_double_click_selector">def double_click(selector)</h3>
+<h3 id="_double_click_selector"><a class="anchor" href="#_double_click_selector"></a>double_click(selector)</h3>
 <div class="paragraph">
-<p>Double click the element with the given selector.</p>
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Double clicks the element with the given selector.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">double_click</span>(selector) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to double click. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">double_click(Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;table-row&#39;</span>))</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_right_click_selector">def right_click(selector)</h3>
+<h3 id="_right_click_selector"><a class="anchor" href="#_right_click_selector"></a>right_click(selector)</h3>
 <div class="paragraph">
-<p>Right click the element with the given selector.</p>
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Right clicks the element with the given selector.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">right_click</span>(selector) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to right click. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">right_click(Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;table-row&#39;</span>))</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_get_web_driver">def get_web_driver()</h3>
+<h3 id="_get_web_driver"><a class="anchor" href="#_get_web_driver"></a>get_web_driver()</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
 <div class="paragraph">
 <p>Return the WebDriver instance the global Germanium was built around.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_def_get_germanium">def get_germanium()</h3>
 <div class="paragraph">
-<p>Returns the currently running Germanium instance.</p>
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_web_driver</span>()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">wd <span style="color: #666666">=</span> get_web_driver()</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_s_argv_kwargs">def S(*argv, **kwargs)</h3>
+<h3 id="_get_germanium"><a class="anchor" href="#_get_germanium"></a>get_germanium()</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Returns the currently running Germanium instance, or <code>None</code> if no instance was
+opened using <code>open_browser()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_germanium</span>()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Please see the <strong>Germanium API Documentation</strong> to find out what is available on
+the <code>germanium.driver.GermaniumDriver</code> instance.</em></p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">g <span style="color: #666666">=</span> get_germanium()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_def_s_argv_kwargs"><a class="anchor" href="#_def_s_argv_kwargs"></a>def S(*argv, **kwargs)</h3>
 <div class="paragraph">
 <p>Returns a deferred locator, using the `S`uper locator.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</h3>
+<h3 id="_def_iframe_target_keep_new_context_false"><a class="anchor" href="#_def_iframe_target_keep_new_context_false"></a>def iframe(target, keep_new_context = False)</h3>
 <div class="paragraph">
 <p>Selects the current working iframe with the <code>target</code> name.</p>
 </div>
@@ -589,7 +897,7 @@ click(Button(<span style="color: #BA2121">&quot;Save&quot;</span>))             
 </div>
 </div>
 <div class="sect1">
-<h2 id="_germanium_api_documentation">Germanium API Documentation</h2>
+<h2 id="_germanium_api_documentation"><a class="anchor" href="#_germanium_api_documentation"></a>Germanium API Documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>There are three kinds of functions that are provided for easier support
@@ -657,9 +965,9 @@ inside the browsers:</p>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="_germanium_iframe_decorator">germanium iframe decorator</h3>
+<h3 id="_germanium_iframe_decorator"><a class="anchor" href="#_germanium_iframe_decorator"></a>germanium iframe decorator</h3>
 <div class="sect3">
-<h4 id="__iframe_name_keep_new_context_false">@iframe(name, keep_new_context=False)</h4>
+<h4 id="__iframe_name_keep_new_context_false"><a class="anchor" href="#__iframe_name_keep_new_context_false"></a>@iframe(name, keep_new_context=False)</h4>
 <div class="paragraph">
 <p>Switch the iframe when executing the code of the function. It will use the
 strategy provided when the Germanium instance was created.</p>
@@ -690,9 +998,9 @@ will be used.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_germanium_instance_functions">germanium Instance Functions</h3>
+<h3 id="_germanium_instance_functions"><a class="anchor" href="#_germanium_instance_functions"></a>germanium Instance Functions</h3>
 <div class="sect3">
-<h4 id="_constructor_germaniumdriver_web_driver">Constructor GermaniumDriver(web_driver, ..)</h4>
+<h4 id="_constructor_germaniumdriver_web_driver"><a class="anchor" href="#_constructor_germaniumdriver_web_driver"></a>Constructor GermaniumDriver(web_driver, ..)</h4>
 <div class="paragraph">
 <p>Constructs a new GermaniumDriver utility object on top of whatever WebDriver
 object is given.</p>
@@ -710,7 +1018,7 @@ object is given.</p>
 WebDriver instance.</p>
 </div>
 <div class="sect4">
-<h5 id="_iframe_selector">iframe_selector</h5>
+<h5 id="_iframe_selector"><a class="anchor" href="#_iframe_selector"></a>iframe_selector</h5>
 <div class="paragraph">
 <p>The <code>iframe_selector</code> specifies the strategy to use whenever the iframe will
 be changed by the <code>@iframe</code> decorator. This class should have a method named
@@ -782,7 +1090,7 @@ be invoked with two parameters <code>germanium</code> and <code>iframe_name</cod
 </div>
 </div>
 <div class="sect4">
-<h5 id="_screenshot_folder">screenshot_folder</h5>
+<h5 id="_screenshot_folder"><a class="anchor" href="#_screenshot_folder"></a>screenshot_folder</h5>
 <div class="paragraph">
 <p>The folder where to save the screenshots, whenever take_screenshot is called.
 It defaults to <code>"screenshots"</code>, so basically a local folder named screenshots
@@ -790,7 +1098,7 @@ in the current working directory.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_scripts">scripts</h5>
+<h5 id="_scripts"><a class="anchor" href="#_scripts"></a>scripts</h5>
 <div class="paragraph">
 <p>A list of files with JavaScript to be automatically loaded into the page,
 whenever either <code>get()</code>, <code>reload_page()</code> or <code>wait_for_page_to_load()</code> is done.</p>
@@ -798,7 +1106,7 @@ whenever either <code>get()</code>, <code>reload_page()</code> or <code>wait_for
 </div>
 </div>
 <div class="sect3">
-<h4 id="_germanium_s_locator_strategy">germanium.S(locator, strategy?)</h4>
+<h4 id="_germanium_s_locator_strategy"><a class="anchor" href="#_germanium_s_locator_strategy"></a>germanium.S(locator, strategy?)</h4>
 <div class="paragraph">
 <p><code>S</code> stands for the super locator, and returns an object that can execute
 a locator in the current iframe context of germanium. The letter
@@ -886,7 +1194,7 @@ germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#3
 </div>
 </div>
 <div class="sect3">
-<h4 id="_germanium_js_code_germanium_execute_script_code">germanium.js(code), germanium.execute_script(code)</h4>
+<h4 id="_germanium_js_code_germanium_execute_script_code"><a class="anchor" href="#_germanium_js_code_germanium_execute_script_code"></a>germanium.js(code), germanium.execute_script(code)</h4>
 <div class="paragraph">
 <p>Execute the given JavaScript, and return its result.</p>
 </div>
@@ -909,7 +1217,7 @@ The <code>js</code> is just an alias for the <code>execute_script</code> functio
 </div>
 </div>
 <div class="sect3">
-<h4 id="_germanium_take_screenshot_name">germanium.take_screenshot(name)</h4>
+<h4 id="_germanium_take_screenshot_name"><a class="anchor" href="#_germanium_take_screenshot_name"></a>germanium.take_screenshot(name)</h4>
 <div class="paragraph">
 <p>Takes a screenshot of the browser and saves it in the configured screenshot
 folder.</p>
@@ -922,7 +1230,7 @@ germanium<span style="color: #666666">.</span>take_screenshot(<span style="color
 </div>
 </div>
 <div class="sect3">
-<h4 id="_germanium_load_script_filename">germanium.load_script(filename)</h4>
+<h4 id="_germanium_load_script_filename"><a class="anchor" href="#_germanium_load_script_filename"></a>germanium.load_script(filename)</h4>
 <div class="paragraph">
 <p>Loads the JavaScript code from the file with the given name into the browser.</p>
 </div>
@@ -933,7 +1241,7 @@ germanium<span style="color: #666666">.</span>take_screenshot(<span style="color
 </div>
 </div>
 <div class="sect3">
-<h4 id="_germanium_find_element_by_simple_locator">germanium.find_element_by_simple(locator)</h4>
+<h4 id="_germanium_find_element_by_simple_locator"><a class="anchor" href="#_germanium_find_element_by_simple_locator"></a>germanium.find_element_by_simple(locator)</h4>
 <div class="paragraph">
 <p>Finds the element in the current iframe, using the simple locator given.</p>
 </div>
@@ -945,13 +1253,13 @@ germanium<span style="color: #666666">.</span>take_screenshot(<span style="color
 </div>
 </div>
 <div class="sect2">
-<h3 id="_germanium_static_functions">germanium Static Functions</h3>
+<h3 id="_germanium_static_functions"><a class="anchor" href="#_germanium_static_functions"></a>germanium Static Functions</h3>
 <div class="paragraph">
 <p>These are just a bunch of utility functions, that can even be used without
 germanium itself.</p>
 </div>
 <div class="sect3">
-<h4 id="_type_keys_germanium_keys_typed_element_none">type_keys(germanium, keys_typed, element=None)</h4>
+<h4 id="_type_keys_germanium_keys_typed_element_none"><a class="anchor" href="#_type_keys_germanium_keys_typed_element_none"></a>type_keys(germanium, keys_typed, element=None)</h4>
 <div class="paragraph">
 <p>Type the current keys into the browser, eventually specifying the element to
 send the events to.</p>
@@ -1034,7 +1342,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 </div>
 <div class="sect3">
-<h4 id="_click_germanium_selector">click(germanium, selector)</h4>
+<h4 id="_click_germanium_selector"><a class="anchor" href="#_click_germanium_selector"></a>click(germanium, selector)</h4>
 <div class="paragraph">
 <p>Perform a single click mouse action.</p>
 </div>
@@ -1045,7 +1353,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 </div>
 <div class="sect3">
-<h4 id="_double_click_germanium_selector">double_click(germanium, selector)</h4>
+<h4 id="_double_click_germanium_selector"><a class="anchor" href="#_double_click_germanium_selector"></a>double_click(germanium, selector)</h4>
 <div class="paragraph">
 <p>Perform a double click mouse action.</p>
 </div>
@@ -1056,7 +1364,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 </div>
 <div class="sect3">
-<h4 id="_right_click_germanium_selector">right_click(germanium, selector)</h4>
+<h4 id="_right_click_germanium_selector"><a class="anchor" href="#_right_click_germanium_selector"></a>right_click(germanium, selector)</h4>
 <div class="paragraph">
 <p>Perform a mouse right click. Also known as a context menu click.</p>
 </div>
@@ -1067,7 +1375,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hover_germanium_selector">hover(germanium, selector)</h4>
+<h4 id="_hover_germanium_selector"><a class="anchor" href="#_hover_germanium_selector"></a>hover(germanium, selector)</h4>
 <div class="paragraph">
 <p>Hover the given element.</p>
 </div>
@@ -1078,7 +1386,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 </div>
 <div class="sect3">
-<h4 id="_get_attributes_germanium_selector">get_attributes(germanium, selector)</h4>
+<h4 id="_get_attributes_germanium_selector"><a class="anchor" href="#_get_attributes_germanium_selector"></a>get_attributes(germanium, selector)</h4>
 <div class="paragraph">
 <p>Return all the attributes of the element matched by the selector as a dictionary
 object.</p>
@@ -1106,7 +1414,7 @@ object.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_wait_closure_while_not_none_timeout_10">wait(closure, while_not=None, timeout=10)</h4>
+<h4 id="_wait_closure_while_not_none_timeout_10"><a class="anchor" href="#_wait_closure_while_not_none_timeout_10"></a>wait(closure, while_not=None, timeout=10)</h4>
 <div class="paragraph">
 <p>A function that allows waiting for a condition to happen, monitoring also that
 some other conditions do not happen.</p>
@@ -1129,7 +1437,7 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_germanium_selectors">Germanium Selectors</h2>
+<h2 id="_germanium_selectors"><a class="anchor" href="#_germanium_selectors"></a>Germanium Selectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In the <code>germanium.selectors</code> package there are several selectors that are already
@@ -1144,7 +1452,7 @@ and the selector matching in Germanium called via S will invoke them.</p>
 allow positional filtering depending on other elements position.</p>
 </div>
 <div class="sect2">
-<h3 id="_positional_filtering">Positional Filtering</h3>
+<h3 id="_positional_filtering"><a class="anchor" href="#_positional_filtering"></a>Positional Filtering</h3>
 <div class="paragraph">
 <p>Germanium provides the following methods to enable positional filtering: <code>left_of()</code>,
 <code>right_of()</code>, <code>below()</code>, <code>above()</code>.</p>
@@ -1165,7 +1473,7 @@ allow positional filtering depending on other elements position.</p>
 the text <code>User Edit Panel</code> and is to the right of the text <code>User 11</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="_selector_left_of_other_selector">selector.left_of(other_selector)</h4>
+<h4 id="_selector_left_of_other_selector"><a class="anchor" href="#_selector_left_of_other_selector"></a>selector.left_of(other_selector)</h4>
 <div class="paragraph">
 <p>Make a selector that will return only the items that are left of all the elements
 returned by the other_selector.</p>
@@ -1177,7 +1485,7 @@ returned by the other_selector.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_selector_right_of_other_selector">selector.right_of(other_selector)</h4>
+<h4 id="_selector_right_of_other_selector"><a class="anchor" href="#_selector_right_of_other_selector"></a>selector.right_of(other_selector)</h4>
 <div class="paragraph">
 <p>Make a selector that will return only the items that are right of all the elements
 returned by the other_selector.</p>
@@ -1189,7 +1497,7 @@ returned by the other_selector.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_selector_above_other_selector">selector.above(other_selector)</h4>
+<h4 id="_selector_above_other_selector"><a class="anchor" href="#_selector_above_other_selector"></a>selector.above(other_selector)</h4>
 <div class="paragraph">
 <p>Make a selector that will return only the items that are above all the elements
 returned by the other_selector.</p>
@@ -1201,7 +1509,7 @@ returned by the other_selector.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_selector_below_other_selector">selector.below(other_selector)</h4>
+<h4 id="_selector_below_other_selector"><a class="anchor" href="#_selector_below_other_selector"></a>selector.below(other_selector)</h4>
 <div class="paragraph">
 <p>Make a selector that will return only the items that are below all the elements
 returned by the other_selector.</p>
@@ -1214,7 +1522,7 @@ returned by the other_selector.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_custom_selectors">Custom Selectors</h3>
+<h3 id="_custom_selectors"><a class="anchor" href="#_custom_selectors"></a>Custom Selectors</h3>
 <div class="paragraph">
 <p>You can write a new selector by extending the AbstractSelector class and implementing
 the <code>get_selectors</code> method, that returns an array of selectors to be searched in the
@@ -1222,7 +1530,7 @@ document.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_utility_selectors">Utility Selectors</h3>
+<h3 id="_utility_selectors"><a class="anchor" href="#_utility_selectors"></a>Utility Selectors</h3>
 <div class="paragraph">
 <p>Utility selectors are provided so you can use the positional filtering capabilities
 of the selectors. For example:</p>
@@ -1233,26 +1541,26 @@ of the selectors. For example:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_css_locator">Css(locator)</h4>
+<h4 id="_css_locator"><a class="anchor" href="#_css_locator"></a>Css(locator)</h4>
 <div class="paragraph">
 <p>A selector that finds the given CSS expression.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_xpath_locator">XPath(locator)</h4>
+<h4 id="_xpath_locator"><a class="anchor" href="#_xpath_locator"></a>XPath(locator)</h4>
 <div class="paragraph">
 <p>A selector that finds the given XPath expression.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_jsselector_code">JsSelector(code)</h4>
+<h4 id="_jsselector_code"><a class="anchor" href="#_jsselector_code"></a>JsSelector(code)</h4>
 <div class="paragraph">
 <p>A selector that finds an element by evaluating the given JavaScript code.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_provided_selectors">Provided Selectors</h3>
+<h3 id="_provided_selectors"><a class="anchor" href="#_provided_selectors"></a>Provided Selectors</h3>
 <div class="paragraph">
 <p>Provided selectors are just classes that are generally useful for testing, simple things
 such as buttons, links or text.</p>
@@ -1262,7 +1570,7 @@ such as buttons, links or text.</p>
 on top of that, for `Input`s, or `Link`s.</p>
 </div>
 <div class="sect3">
-<h4 id="_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes">Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})</h4>
+<h4 id="_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes"><a class="anchor" href="#_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes"></a>Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})</h4>
 <div class="paragraph">
 <p>A selector that finds a random element.</p>
 </div>
@@ -1307,7 +1615,7 @@ a CSS class attached to it named <code>error-message</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_button_search_text_none_text_none_name_none">Button(search_text = None, text = None, name = None)</h4>
+<h4 id="_button_search_text_none_text_none_name_none"><a class="anchor" href="#_button_search_text_none_text_none_name_none"></a>Button(search_text = None, text = None, name = None)</h4>
 <div class="paragraph">
 <p>Just a selector that finds a button by its label or name:</p>
 </div>
@@ -1337,7 +1645,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_input_input_name">Input(input_name)</h4>
+<h4 id="_input_input_name"><a class="anchor" href="#_input_input_name"></a>Input(input_name)</h4>
 <div class="paragraph">
 <p>Just a selector that finds an input by its name.</p>
 </div>
@@ -1348,7 +1656,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_inputtext_input_name">InputText(input_name)</h4>
+<h4 id="_inputtext_input_name"><a class="anchor" href="#_inputtext_input_name"></a>InputText(input_name)</h4>
 <div class="paragraph">
 <p>Just a selector that finds an input with the type <code>text</code> by its name.</p>
 </div>
@@ -1359,7 +1667,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_link_search_text_text_search_href_href">Link(search_text, text, search_href, href)</h4>
+<h4 id="_link_search_text_text_search_href_href"><a class="anchor" href="#_link_search_text_text_search_href_href"></a>Link(search_text, text, search_href, href)</h4>
 <div class="paragraph">
 <p>Just a selector that finds a link by either:</p>
 </div>
@@ -1399,7 +1707,7 @@ text <code>testing</code>:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_text_text">Text(text)</h4>
+<h4 id="_text_text"><a class="anchor" href="#_text_text"></a>Text(text)</h4>
 <div class="paragraph">
 <p>Just a selector that finds the element that contains the text in the page.</p>
 </div>
@@ -1423,10 +1731,130 @@ selector would match the parrent div in such a DOM structure:</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_germanium_keys_support"><a class="anchor" href="#_germanium_keys_support"></a>Germanium Keys Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section details on how to type keys better, without a headache.</p>
+</div>
+<div class="sect2">
+<h3 id="_regular_typing"><a class="anchor" href="#_regular_typing"></a>Regular Typing</h3>
+<div class="paragraph">
+<p>In general when typing keys, for example for form fields, the easiest way of doing it
+is to just type the actual keys to be pressed. For example to type the user name
+into a form field you can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;John&#39;</span>, Input(<span style="color: #BA2121">&#39;firstname&#39;</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will in turn just type the keys <code>["J", "o", "h", "n"]</code> into the input that
+has a <code>name</code> attribute equal to <code>"firstname"</code>. An email looks equally fascinating:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;john.doe@example.com&#39;</span>, Input(<span style="color: #BA2121">&#39;email&#39;</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s start the more interesting examples.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_special_keys"><a class="anchor" href="#_special_keys"></a>Special Keys</h3>
+<div class="paragraph">
+<p>Special keys such as <kbd>ENTER</kbd>, are available by just escaping them in <code>&lt;</code> and <code>&gt;</code>
+characters, e.g. <code>&lt;ENTER&gt;</code>. For example to send <kbd>TAB</kbd> <kbd>TAB</kbd> <kbd>ENTER</kbd> someone
+could type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Using <code>*</code> in special keys or combined macros, allows you to type the same key,
+or key combination multiple times.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now you might wonder, why is it <code>&lt;enter&gt;</code> and not <code>&lt;ENTER&gt;</code>? Or <code>&lt;cr&gt;</code>? Or its
+bigger brother <code>&lt;CR&gt;</code>? Or just <code>&lt;Enter&gt;</code>. Actually they are equally resolving to
+the same key, that is the <kbd>ENTER</kbd>. The same holds true for <code>&lt;del&gt;</code> vs <code>&lt;delete&gt;</code>, or
+<code>&lt;bs&gt;</code> vs <code>&lt;backspace&gt;</code>, etc. They will resolve to <kbd>DELETE</kbd>, <kbd>BACKSPACE</kbd>, etc.
+as expected.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combo_presses"><a class="anchor" href="#_combo_presses"></a>Combo Presses</h3>
+<div class="paragraph">
+<p>Also, in the typing of the keys, combined macros such as <code>&lt;ctrl-a&gt;</code> are
+automatically understood as <span class="keyseq"><kbd>CTRL</kbd>+<kbd>A</kbd></span> and translated correctly as an action chain.</p>
+</div>
+<div class="paragraph">
+<p>Macro keys can be written such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><kbd>SHIFT</kbd>: <code>S</code>, <code>SHIFT</code></p>
+</li>
+<li>
+<p><kbd>CONTROL</kbd>: <code>C</code>, <code>CTL</code>, <code>CTRL</code>, <code>CONTROL</code></p>
+</li>
+<li>
+<p><kbd>META</kbd>: <code>M</code>, <code>META</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Also germanium is smart enough, so the position of the macro key matters, thus
+<code>&lt;s-s&gt;</code> is equivalent to <code>&lt;shift-s&gt;</code> and thus interpreted as <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>s</kbd></span>, and not
+<span class="keyseq"><kbd>s</kbd>+<kbd>s</kbd></span> or <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>SHIFT</kbd></span>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_press_release_key"><a class="anchor" href="#_press_release_key"></a>Press-Release Key</h3>
+<div class="paragraph">
+<p>In order to start pressing a key, and release it latter, while still typing other
+keys, the <code>!</code> and <code>^</code> symbols can be used.
+For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+The <code>!</code> looks like a finger almost pressing the button,
+and the <code>^</code> is self explanatory: the finger released the given button.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-03-15 11:09:42 UTC
+Last updated 2016-03-23 22:03:35 UTC
 </div>
 </div>
 </body>

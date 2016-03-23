@@ -1,11 +1,11 @@
 Germanium
 =========
 Web Testing API that doesn't disappoint
-
 :toc: left
 :experimental:
 :source-highlighter: pygments
 :pygments-css: style
+:sectanchors:
 
 :leveloffset: +1
 
@@ -16,6 +16,8 @@ include::static.adoc[]
 include::api.adoc[]
 
 include::selectors.adoc[]
+
+include::keys_support.adoc[]
 
 :leveloffset: -1
 

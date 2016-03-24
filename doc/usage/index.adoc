@@ -13,11 +13,15 @@ include::basic-sample.adoc[]
 
 include::static.adoc[]
 
-include::api.adoc[]
-
 include::selectors.adoc[]
 
+:leveloffset: -1
+include::selectors_provided.adoc[]
+:leveloffset: +1
+
 include::keys_support.adoc[]
+
+include::api.adoc[]
 
 :leveloffset: -1
 

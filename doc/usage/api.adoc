@@ -9,12 +9,12 @@ inside the browsers:
 
 1. decorator:
     - `@iframe`
-2. germanium functions:
+2. germanium instance functions:
     - `S`, super locator
     - `js`, `execute_script`
     - `take_screenshot`
     - `load_script`
-3. static utility functions:
+3. utility functions:
     - `type_keys`
     - `click`
     - `double_click`
@@ -258,8 +258,8 @@ Finds the element in the current iframe, using the simple locator given.
 germanium.find_element_by_simple('"Title" > button["Ok"]')
 -----------------------------------------------------------------------------
 
-germanium Static Functions
---------------------------
+germanium Utility Functions
+---------------------------
 
 These are just a bunch of utility functions, that can even be used without
 germanium itself.

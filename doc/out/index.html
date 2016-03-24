@@ -444,19 +444,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</a></li>
 </ul>
 </li>
-<li><a href="#_germanium_api_documentation">Germanium API Documentation</a>
+<li><a href="#_germanium_selectors_and_locators">Germanium Selectors and Locators</a>
 <ul class="sectlevel2">
-<li><a href="#_germanium_iframe_decorator">germanium iframe decorator</a></li>
-<li><a href="#_germanium_instance_functions">germanium Instance Functions</a></li>
-<li><a href="#_germanium_static_functions">germanium Static Functions</a></li>
+<li><a href="#_string_selectors">String Selectors</a></li>
+<li><a href="#_selectors_overview">Selectors Overview</a></li>
+<li><a href="#_positional_filtering">Positional Filtering</a></li>
+<li><a href="#_writing_custom_selectors">Writing Custom Selectors</a></li>
 </ul>
 </li>
-<li><a href="#_germanium_selectors">Germanium Selectors</a>
+<li><a href="#_utility_selectors">Utility Selectors</a>
 <ul class="sectlevel2">
-<li><a href="#_positional_filtering">Positional Filtering</a></li>
-<li><a href="#_custom_selectors">Custom Selectors</a></li>
-<li><a href="#_utility_selectors">Utility Selectors</a></li>
-<li><a href="#_provided_selectors">Provided Selectors</a></li>
+<li><a href="#_css_locator">Css(locator)</a></li>
+<li><a href="#_xpath_locator">XPath(locator)</a></li>
+<li><a href="#_jsselector_code">JsSelector(code)</a></li>
+</ul>
+</li>
+<li><a href="#_provided_selectors">Provided Selectors</a>
+<ul class="sectlevel2">
+<li><a href="#_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes">Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})</a></li>
+<li><a href="#_button_search_text_none_text_none_name_none">Button(search_text = None, text = None, name = None)</a></li>
+<li><a href="#_input_input_name">Input(input_name)</a></li>
+<li><a href="#_inputtext_input_name">InputText(input_name)</a></li>
+<li><a href="#_link_search_text_text_search_href_href">Link(search_text, text, search_href, href)</a></li>
+<li><a href="#_text_text">Text(text)</a></li>
 </ul>
 </li>
 <li><a href="#_germanium_keys_support">Germanium Keys Support</a>
@@ -465,6 +475,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_special_keys">Special Keys</a></li>
 <li><a href="#_combo_presses">Combo Presses</a></li>
 <li><a href="#_press_release_key">Press-Release Key</a></li>
+</ul>
+</li>
+<li><a href="#_germanium_api_documentation">Germanium API Documentation</a>
+<ul class="sectlevel2">
+<li><a href="#_germanium_iframe_decorator">germanium iframe decorator</a></li>
+<li><a href="#_germanium_instance_functions">germanium Instance Functions</a></li>
+<li><a href="#_germanium_utility_functions">germanium Utility Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -897,6 +914,567 @@ click(Button(<span style="color: #BA2121">&quot;Save&quot;</span>))             
 </div>
 </div>
 <div class="sect1">
+<h2 id="_germanium_selectors_and_locators"><a class="anchor" href="#_germanium_selectors_and_locators"></a>Germanium Selectors and Locators</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>Selector</code> objects are similar to <code>String</code> values, that describe how an element
+can be found in the current page, while <code>Locator</code> objects are the implementation
+of actual aglorithms that find them. A parallel can be made between the string
+<code>"div.custom-text"</code>, and the <code>webdriver.find_element_by_css()</code> function. Selectors
+specify what you want to find in the page, and locators make sure you find them.
+It&#8217;s the combination of them, <code>webdriver.find_element_by_css("div.custom-text")</code> that
+will return the actual DOM Element to interact with.</p>
+</div>
+<div class="paragraph">
+<p>Selectors are in the end text strings. Locators evaluate them finding elements in
+the browser.</p>
+</div>
+<div class="paragraph">
+<p>In all the API calls, where <code>selector</code> is specified, the selector is actually one of:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>a string selector,</p>
+</li>
+<li>
+<p>an object that inerits from <code>AbstractSelector</code> (such as <code>Text</code>, <code>Element</code>, <code>Image</code>, etc.),</p>
+</li>
+<li>
+<p>a WebDriver WebElement,</p>
+</li>
+<li>
+<p>a locator,</p>
+</li>
+<li>
+<p>a list of any of the above.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Usually point 1 and 2, would cover 99% of all your test cases.</p>
+</div>
+<div class="sect2">
+<h3 id="_string_selectors"><a class="anchor" href="#_string_selectors"></a>String Selectors</h3>
+<div class="paragraph">
+<p>A string selector is a selector that can specify what locators to be used. Implicitly,
+the selector is either an XPath if it starts with <code>"//"</code>, either a CSS
+selector, if there is no identifier.</p>
+</div>
+<div class="paragraph">
+<p>A string selector can also specify its locator strategy, by prefixing the selector
+with the locator strategy name. Currently registered into Germanium are:</p>
+</div>
+<div class="paragraph">
+<p><strong>css</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;css:div#customID&quot;</span>
+
+<span style="color: #408080; font-style: italic"># or without the css prefix, since the string it&#39;s</span>
+<span style="color: #408080; font-style: italic"># not starting with //</span>
+selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;div#customID&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>xpath</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;xpath://div[@id=&#39;customID&#39;]&quot;</span>
+
+<span style="color: #408080; font-style: italic"># or without the xpath prefix, since the string it&#39;s</span>
+<span style="color: #408080; font-style: italic"># starting with //</span>
+selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;//div[@id=&#39;customID&#39;]&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;js:return [ document.getElementById(&#39;customID&#39;) ];&quot;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selectors_overview"><a class="anchor" href="#_selectors_overview"></a>Selectors Overview</h3>
+<div class="paragraph">
+<p>All <code>Selector</code> objects in Germanium inherit from <code>germanium.selector.AbstractSelector</code>, which
+define a single required method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">AbstractSelector</span>(<span style="color: #008000">object</span>):
+    <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    Just a marker interface.</span>
+<span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__init__</span>(<span style="color: #008000">self</span>):
+        <span style="color: #008000; font-weight: bold">pass</span>
+
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_selectors</span>(<span style="color: #008000">self</span>):
+        <span style="color: #008000; font-weight: bold">raise</span> <span style="color: #D2413A; font-weight: bold">Exception</span>(<span style="color: #BA2121">&quot;Abstract class, not implemented.&quot;</span>) <b class="conum">(1)</b>
+
+    <span style="color: #408080; font-style: italic"># ... positional, and parent-child filtering methods</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Note that the method name is <code>get_selectors</code>. This method must return a list of string
+selectors, that can even have different locator strategies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>All the Selector objects return a list of strings, that define how the element, or the multiple
+elements will be found by the given locator.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_positional_filtering"><a class="anchor" href="#_positional_filtering"></a>Positional Filtering</h3>
+<div class="paragraph">
+<p>Germanium provides the following methods to enable positional filtering: <code>left_of(selector)</code>,
+<code>right_of(selector)</code>, <code>below(selector)</code>, <code>above(selector)</code>, that is excluding elements that
+are in weird positions. These filters can be used to filter otherwise false positive matches
+when selecting.</p>
+</div>
+<div class="paragraph">
+<p>Multiple filters can be chained for the same selector, for example someone can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)
+        <span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;User Edit Panel&quot;</span>))
+        <span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will find a link that contains the label <code>edit</code>, that is positioned below
+the text <code>User Edit Panel</code> and is to the right of the text <code>User 11</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_selector_left_of_other_selector"><a class="anchor" href="#_selector_left_of_other_selector"></a>selector.left_of(other_selector)</h4>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Make a selector that will return only the items that are left of all the elements
+returned by the other_selector.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">left_of</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Input()<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&quot;User&quot;</span>)))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selector_right_of_other_selector"><a class="anchor" href="#_selector_right_of_other_selector"></a>selector.right_of(other_selector)</h4>
+<div class="paragraph">
+<p>Make a selector that will return only the items that are right of all the elements
+returned by the other_selector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selector_above_other_selector"><a class="anchor" href="#_selector_above_other_selector"></a>selector.above(other_selector)</h4>
+<div class="paragraph">
+<p>Make a selector that will return only the items that are above all the elements
+returned by the other_selector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;logout&quot;</span>)<span style="color: #666666">.</span>above(<span style="color: #BA2121">&quot;div.toolbar&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selector_below_other_selector"><a class="anchor" href="#_selector_below_other_selector"></a>selector.below(other_selector)</h4>
+<div class="paragraph">
+<p>Make a selector that will return only the items that are below all the elements
+returned by the other_selector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Button(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;entry 5&quot;</span>)))</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_writing_custom_selectors"><a class="anchor" href="#_writing_custom_selectors"></a>Writing Custom Selectors</h3>
+<div class="paragraph">
+<p>You can write a new selector by extending the AbstractSelector class and implementing
+the <code>get_selectors</code> method, that returns an array of selectors to be searched in the
+document.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="germanium-abstract-selector.svg" alt="germanium abstract selector" width="539" height="330">
+</div>
+</div>
+<div class="paragraph">
+<p>Please take note that in order to use <code>inside</code> and <code>containing</code> filtering,
+the selector must return all its expressions as XPath selectors.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utility_selectors"><a class="anchor" href="#_utility_selectors"></a>Utility Selectors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Utility selectors are provided so you can use the positional filtering capabilities
+of the selectors. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Css(<span style="color: #BA2121">&#39;.tree-plus-icon&#39;</span>)<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&#39;Item 15&#39;</span>)))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The reason behind them is that you can&#8217;t use positional filtering straight on the
+string themselves.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(<span style="color: #BA2121">&#39;.tree-plus-icon&#39;</span><span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&#39;Item 15&#39;</span>))) <span style="color: #408080; font-style: italic"># throws exception</span></code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="germanium-utility-selectors.svg" alt="germanium utility selectors" width="292" height="173">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_css_locator"><a class="anchor" href="#_css_locator"></a>Css(locator)</h3>
+<div class="paragraph">
+<p>A selector that finds the given CSS expression.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_xpath_locator"><a class="anchor" href="#_xpath_locator"></a>XPath(locator)</h3>
+<div class="paragraph">
+<p>A selector that finds the given XPath expression.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jsselector_code"><a class="anchor" href="#_jsselector_code"></a>JsSelector(code)</h3>
+<div class="paragraph">
+<p>A selector that finds an element by evaluating the given JavaScript code.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_provided_selectors"><a class="anchor" href="#_provided_selectors"></a>Provided Selectors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provided selectors are just classes that are generally useful for testing, simple things
+such as buttons, links or text.</p>
+</div>
+<div class="paragraph">
+<p>The most basic of them is called <code>Element</code>. There are a lot of more specific selectors
+on top of that, for `Input`s, or `Link`s.</p>
+</div>
+<div class="sect2">
+<h3 id="_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes"><a class="anchor" href="#_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes"></a>Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})</h3>
+<div class="paragraph">
+<p>A selector that finds a random element.</p>
+</div>
+<div class="paragraph">
+<p>Parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tag_name</code> - the html tag name to find (e.g. <code>div</code>, <code>span</code>, <code>li</code>);</p>
+</li>
+<li>
+<p><code>index</code> - if specified, is the 1 index based result;</p>
+</li>
+<li>
+<p><code>exact_text</code> - if specified, the exact text the element must have;</p>
+</li>
+<li>
+<p><code>contains_text</code> - if specified, the exact text the element should contain;</p>
+</li>
+<li>
+<p><code>css_classes</code> - the CSS classes that the element must have;</p>
+</li>
+<li>
+<p><code>exact_attributes</code> - attributes with their values that the element must have;</p>
+</li>
+<li>
+<p><code>contains_attributes</code> - attributes that contain the given values.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">S(Element(<span style="color: #BA2121">&#39;div&#39;</span>,
+          contains_text<span style="color: #666666">=</span><span style="color: #BA2121">&#39;error has occured&#39;</span>,
+          css_classes<span style="color: #666666">=</span>[<span style="color: #BA2121">&#39;error-message&#39;</span>]))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will find a div that contains the text <code>error has occured</code> and has also
+a CSS class attached to it named <code>error-message</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_button_search_text_none_text_none_name_none"><a class="anchor" href="#_button_search_text_none_text_none_name_none"></a>Button(search_text = None, text = None, name = None)</h3>
+<div class="paragraph">
+<p>Just a selector that finds a button by its label or name:</p>
+</div>
+<div class="paragraph">
+<p>This selector will find simultaneously both <code>input</code> elements that have the
+<code>type="button"</code>, but also <code>button</code> elements.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>some of the text, in either the <code>value</code> attribute if it&#8217;s an <code>input</code>, either
+the text of the <code>button</code> (<code>search_text</code>)</p>
+</li>
+<li>
+<p>the text, either the <code>value</code> attribute if it&#8217;s an input, either its text if
+it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
+</li>
+<li>
+<p>its form name (<code>name</code>)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_input_input_name"><a class="anchor" href="#_input_input_name"></a>Input(input_name)</h3>
+<div class="paragraph">
+<p>Just a selector that finds an input by its name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Input(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inputtext_input_name"><a class="anchor" href="#_inputtext_input_name"></a>InputText(input_name)</h3>
+<div class="paragraph">
+<p>Just a selector that finds an input with the type <code>text</code> by its name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(InputText(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_link_search_text_text_search_href_href"><a class="anchor" href="#_link_search_text_text_search_href_href"></a>Link(search_text, text, search_href, href)</h3>
+<div class="paragraph">
+<p>Just a selector that finds a link by either:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>some of its text content (<code>search_text</code>)</p>
+</li>
+<li>
+<p>its exact text content(<code>text</code>)</p>
+</li>
+<li>
+<p>some of its link location (<code>search_href</code>)</p>
+</li>
+<li>
+<p>its link location(<code>href</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To match the first link that contains the <em>test</em> string, someone can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;test&quot;</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Of course, the text and href search can be combined, so we can do,
+in order to find a link that is on the <code>ciplogic.com</code> that has in the
+text <code>testing</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;testing&quot;</span>, search_href<span style="color: #666666">=</span><span style="color: #BA2121">&quot;http://ciplogic.com&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_text_text"><a class="anchor" href="#_text_text"></a>Text(text)</h3>
+<div class="paragraph">
+<p>Just a selector that finds the element that contains the text in the page.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;some text&quot;</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The selector can find the text even in formatted text. For example the previous
+selector would match the parrent div in such a DOM structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;div&gt;</span>
+    some <span style="color: #008000; font-weight: bold">&lt;b&gt;</span>text<span style="color: #008000; font-weight: bold">&lt;/b&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_germanium_keys_support"><a class="anchor" href="#_germanium_keys_support"></a>Germanium Keys Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section details on how to type keys better, without a headache.</p>
+</div>
+<div class="sect2">
+<h3 id="_regular_typing"><a class="anchor" href="#_regular_typing"></a>Regular Typing</h3>
+<div class="paragraph">
+<p>In general when typing keys, for example for form fields, the easiest way of doing it
+is to just type the actual keys to be pressed. For example to type the user name
+into a form field you can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;John&#39;</span>, Input(<span style="color: #BA2121">&#39;firstname&#39;</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will in turn just type the keys <code>["J", "o", "h", "n"]</code> into the input that
+has a <code>name</code> attribute equal to <code>"firstname"</code>. An email looks equally fascinating:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;john.doe@example.com&#39;</span>, Input(<span style="color: #BA2121">&#39;email&#39;</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s start the more interesting examples.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_special_keys"><a class="anchor" href="#_special_keys"></a>Special Keys</h3>
+<div class="paragraph">
+<p>Special keys such as <kbd>ENTER</kbd>, are available by just escaping them in <code>&lt;</code> and <code>&gt;</code>
+characters, e.g. <code>&lt;ENTER&gt;</code>. For example to send <kbd>TAB</kbd> <kbd>TAB</kbd> <kbd>ENTER</kbd> someone
+could type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Using <code>*</code> in special keys or combined macros, allows you to type the same key,
+or key combination multiple times.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now you might wonder, why is it <code>&lt;enter&gt;</code> and not <code>&lt;ENTER&gt;</code>? Or <code>&lt;cr&gt;</code>? Or its
+bigger brother <code>&lt;CR&gt;</code>? Or just <code>&lt;Enter&gt;</code>. Actually they are equally resolving to
+the same key, that is the <kbd>ENTER</kbd>. The same holds true for <code>&lt;del&gt;</code> vs <code>&lt;delete&gt;</code>, or
+<code>&lt;bs&gt;</code> vs <code>&lt;backspace&gt;</code>, etc. They will resolve to <kbd>DELETE</kbd>, <kbd>BACKSPACE</kbd>, etc.
+as expected.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combo_presses"><a class="anchor" href="#_combo_presses"></a>Combo Presses</h3>
+<div class="paragraph">
+<p>Also, in the typing of the keys, combined macros such as <code>&lt;ctrl-a&gt;</code> are
+automatically understood as <span class="keyseq"><kbd>CTRL</kbd>+<kbd>A</kbd></span> and translated correctly as an action chain.</p>
+</div>
+<div class="paragraph">
+<p>Macro keys can be written such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><kbd>SHIFT</kbd>: <code>S</code>, <code>SHIFT</code></p>
+</li>
+<li>
+<p><kbd>CONTROL</kbd>: <code>C</code>, <code>CTL</code>, <code>CTRL</code>, <code>CONTROL</code></p>
+</li>
+<li>
+<p><kbd>META</kbd>: <code>M</code>, <code>META</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Also germanium is smart enough, so the position of the macro key matters, thus
+<code>&lt;s-s&gt;</code> is equivalent to <code>&lt;shift-s&gt;</code> and thus interpreted as <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>s</kbd></span>, and not
+<span class="keyseq"><kbd>s</kbd>+<kbd>s</kbd></span> or <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>SHIFT</kbd></span>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_press_release_key"><a class="anchor" href="#_press_release_key"></a>Press-Release Key</h3>
+<div class="paragraph">
+<p>In order to start pressing a key, and release it latter, while still typing other
+keys, the <code>!</code> and <code>^</code> symbols can be used.
+For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+The <code>!</code> looks like a finger almost pressing the button,
+and the <code>^</code> is self explanatory: the finger released the given button.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_germanium_api_documentation"><a class="anchor" href="#_germanium_api_documentation"></a>Germanium API Documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -916,7 +1494,7 @@ inside the browsers:</p>
 </div>
 </li>
 <li>
-<p>germanium functions:</p>
+<p>germanium instance functions:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -935,7 +1513,7 @@ inside the browsers:</p>
 </div>
 </li>
 <li>
-<p>static utility functions:</p>
+<p>utility functions:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1253,7 +1831,7 @@ germanium<span style="color: #666666">.</span>take_screenshot(<span style="color
 </div>
 </div>
 <div class="sect2">
-<h3 id="_germanium_static_functions"><a class="anchor" href="#_germanium_static_functions"></a>germanium Static Functions</h3>
+<h3 id="_germanium_utility_functions"><a class="anchor" href="#_germanium_utility_functions"></a>germanium Utility Functions</h3>
 <div class="paragraph">
 <p>These are just a bunch of utility functions, that can even be used without
 germanium itself.</p>
@@ -1436,425 +2014,10 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_germanium_selectors"><a class="anchor" href="#_germanium_selectors"></a>Germanium Selectors</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the <code>germanium.selectors</code> package there are several selectors that are already
-built in order to make test writing easier.</p>
-</div>
-<div class="paragraph">
-<p>All of the selectors extend the <code>germanium.selectors.AbstractSelector</code> class,
-and the selector matching in Germanium called via S will invoke them.</p>
-</div>
-<div class="paragraph">
-<p>Selectors allow abstracting how the elements in the DOM will be found, and also
-allow positional filtering depending on other elements position.</p>
-</div>
-<div class="sect2">
-<h3 id="_positional_filtering"><a class="anchor" href="#_positional_filtering"></a>Positional Filtering</h3>
-<div class="paragraph">
-<p>Germanium provides the following methods to enable positional filtering: <code>left_of()</code>,
-<code>right_of()</code>, <code>below()</code>, <code>above()</code>.</p>
-</div>
-<div class="paragraph">
-<p>These filters can be used to filter otherwise false positive matches when selecting.</p>
-</div>
-<div class="paragraph">
-<p>Multiple filters can be chained for the same selector, for example someone can:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;User Edit Panel&quot;</span>))<span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will find a link that contains the label <code>edit</code>, that is positioned below
-the text <code>User Edit Panel</code> and is to the right of the text <code>User 11</code>.</p>
-</div>
-<div class="sect3">
-<h4 id="_selector_left_of_other_selector"><a class="anchor" href="#_selector_left_of_other_selector"></a>selector.left_of(other_selector)</h4>
-<div class="paragraph">
-<p>Make a selector that will return only the items that are left of all the elements
-returned by the other_selector.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Input()<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&quot;User&quot;</span>)))</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_selector_right_of_other_selector"><a class="anchor" href="#_selector_right_of_other_selector"></a>selector.right_of(other_selector)</h4>
-<div class="paragraph">
-<p>Make a selector that will return only the items that are right of all the elements
-returned by the other_selector.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_selector_above_other_selector"><a class="anchor" href="#_selector_above_other_selector"></a>selector.above(other_selector)</h4>
-<div class="paragraph">
-<p>Make a selector that will return only the items that are above all the elements
-returned by the other_selector.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;logout&quot;</span>)<span style="color: #666666">.</span>above(<span style="color: #BA2121">&quot;div.toolbar&quot;</span>))</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_selector_below_other_selector"><a class="anchor" href="#_selector_below_other_selector"></a>selector.below(other_selector)</h4>
-<div class="paragraph">
-<p>Make a selector that will return only the items that are below all the elements
-returned by the other_selector.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Button(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;entry 5&quot;</span>)))</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_custom_selectors"><a class="anchor" href="#_custom_selectors"></a>Custom Selectors</h3>
-<div class="paragraph">
-<p>You can write a new selector by extending the AbstractSelector class and implementing
-the <code>get_selectors</code> method, that returns an array of selectors to be searched in the
-document.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_utility_selectors"><a class="anchor" href="#_utility_selectors"></a>Utility Selectors</h3>
-<div class="paragraph">
-<p>Utility selectors are provided so you can use the positional filtering capabilities
-of the selectors. For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Css(<span style="color: #BA2121">&#39;.tree-plus-icon&#39;</span>)<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&#39;Item 15&#39;</span>)))</code></pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_css_locator"><a class="anchor" href="#_css_locator"></a>Css(locator)</h4>
-<div class="paragraph">
-<p>A selector that finds the given CSS expression.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_xpath_locator"><a class="anchor" href="#_xpath_locator"></a>XPath(locator)</h4>
-<div class="paragraph">
-<p>A selector that finds the given XPath expression.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_jsselector_code"><a class="anchor" href="#_jsselector_code"></a>JsSelector(code)</h4>
-<div class="paragraph">
-<p>A selector that finds an element by evaluating the given JavaScript code.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_provided_selectors"><a class="anchor" href="#_provided_selectors"></a>Provided Selectors</h3>
-<div class="paragraph">
-<p>Provided selectors are just classes that are generally useful for testing, simple things
-such as buttons, links or text.</p>
-</div>
-<div class="paragraph">
-<p>The most basic of them is called <code>Element</code>. There are a lot of more specific selectors
-on top of that, for `Input`s, or `Link`s.</p>
-</div>
-<div class="sect3">
-<h4 id="_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes"><a class="anchor" href="#_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes"></a>Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})</h4>
-<div class="paragraph">
-<p>A selector that finds a random element.</p>
-</div>
-<div class="paragraph">
-<p>Parameters:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>tag_name</code> - the html tag name to find (e.g. <code>div</code>, <code>span</code>, <code>li</code>);</p>
-</li>
-<li>
-<p><code>index</code> - if specified, is the 1 index based result;</p>
-</li>
-<li>
-<p><code>exact_text</code> - if specified, the exact text the element must have;</p>
-</li>
-<li>
-<p><code>contains_text</code> - if specified, the exact text the element should contain;</p>
-</li>
-<li>
-<p><code>css_classes</code> - the CSS classes that the element must have;</p>
-</li>
-<li>
-<p><code>exact_attributes</code> - attributes with their values that the element must have;</p>
-</li>
-<li>
-<p><code>contains_attributes</code> - attributes that contain the given values.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">S(Element(<span style="color: #BA2121">&#39;div&#39;</span>,
-          contains_text<span style="color: #666666">=</span><span style="color: #BA2121">&#39;error has occured&#39;</span>,
-          css_classes<span style="color: #666666">=</span>[<span style="color: #BA2121">&#39;error-message&#39;</span>]))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will find a div that contains the text <code>error has occured</code> and has also
-a CSS class attached to it named <code>error-message</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_button_search_text_none_text_none_name_none"><a class="anchor" href="#_button_search_text_none_text_none_name_none"></a>Button(search_text = None, text = None, name = None)</h4>
-<div class="paragraph">
-<p>Just a selector that finds a button by its label or name:</p>
-</div>
-<div class="paragraph">
-<p>This selector will find simultaneously both <code>input</code> elements that have the
-<code>type="button"</code>, but also <code>button</code> elements.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>some of the text, in either the <code>value</code> attribute if it&#8217;s an <code>input</code>, either
-the text of the <code>button</code> (<code>search_text</code>)</p>
-</li>
-<li>
-<p>the text, either the <code>value</code> attribute if it&#8217;s an input, either its text if
-it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
-</li>
-<li>
-<p>its form name (<code>name</code>)</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>))</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_input_input_name"><a class="anchor" href="#_input_input_name"></a>Input(input_name)</h4>
-<div class="paragraph">
-<p>Just a selector that finds an input by its name.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Input(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_inputtext_input_name"><a class="anchor" href="#_inputtext_input_name"></a>InputText(input_name)</h4>
-<div class="paragraph">
-<p>Just a selector that finds an input with the type <code>text</code> by its name.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(InputText(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_link_search_text_text_search_href_href"><a class="anchor" href="#_link_search_text_text_search_href_href"></a>Link(search_text, text, search_href, href)</h4>
-<div class="paragraph">
-<p>Just a selector that finds a link by either:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>some of its text content (<code>search_text</code>)</p>
-</li>
-<li>
-<p>its exact text content(<code>text</code>)</p>
-</li>
-<li>
-<p>some of its link location (<code>search_href</code>)</p>
-</li>
-<li>
-<p>its link location(<code>href</code>)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>To match the first link that contains the <em>test</em> string, someone can:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;test&quot;</span>))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Of course, the text and href search can be combined, so we can do,
-in order to find a link that is on the <code>ciplogic.com</code> that has in the
-text <code>testing</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;testing&quot;</span>, search_href<span style="color: #666666">=</span><span style="color: #BA2121">&quot;http://ciplogic.com&quot;</span>))</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_text_text"><a class="anchor" href="#_text_text"></a>Text(text)</h4>
-<div class="paragraph">
-<p>Just a selector that finds the element that contains the text in the page.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;some text&quot;</span>))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The selector can find the text even in formatted text. For example the previous
-selector would match the parrent div in such a DOM structure:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;div&gt;</span>
-    some <span style="color: #008000; font-weight: bold">&lt;b&gt;</span>text<span style="color: #008000; font-weight: bold">&lt;/b&gt;</span>
-<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_germanium_keys_support"><a class="anchor" href="#_germanium_keys_support"></a>Germanium Keys Support</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This section details on how to type keys better, without a headache.</p>
-</div>
-<div class="sect2">
-<h3 id="_regular_typing"><a class="anchor" href="#_regular_typing"></a>Regular Typing</h3>
-<div class="paragraph">
-<p>In general when typing keys, for example for form fields, the easiest way of doing it
-is to just type the actual keys to be pressed. For example to type the user name
-into a form field you can:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;John&#39;</span>, Input(<span style="color: #BA2121">&#39;firstname&#39;</span>))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will in turn just type the keys <code>["J", "o", "h", "n"]</code> into the input that
-has a <code>name</code> attribute equal to <code>"firstname"</code>. An email looks equally fascinating:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;john.doe@example.com&#39;</span>, Input(<span style="color: #BA2121">&#39;email&#39;</span>))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s start the more interesting examples.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_special_keys"><a class="anchor" href="#_special_keys"></a>Special Keys</h3>
-<div class="paragraph">
-<p>Special keys such as <kbd>ENTER</kbd>, are available by just escaping them in <code>&lt;</code> and <code>&gt;</code>
-characters, e.g. <code>&lt;ENTER&gt;</code>. For example to send <kbd>TAB</kbd> <kbd>TAB</kbd> <kbd>ENTER</kbd> someone
-could type:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-Using <code>*</code> in special keys or combined macros, allows you to type the same key,
-or key combination multiple times.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Now you might wonder, why is it <code>&lt;enter&gt;</code> and not <code>&lt;ENTER&gt;</code>? Or <code>&lt;cr&gt;</code>? Or its
-bigger brother <code>&lt;CR&gt;</code>? Or just <code>&lt;Enter&gt;</code>. Actually they are equally resolving to
-the same key, that is the <kbd>ENTER</kbd>. The same holds true for <code>&lt;del&gt;</code> vs <code>&lt;delete&gt;</code>, or
-<code>&lt;bs&gt;</code> vs <code>&lt;backspace&gt;</code>, etc. They will resolve to <kbd>DELETE</kbd>, <kbd>BACKSPACE</kbd>, etc.
-as expected.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_combo_presses"><a class="anchor" href="#_combo_presses"></a>Combo Presses</h3>
-<div class="paragraph">
-<p>Also, in the typing of the keys, combined macros such as <code>&lt;ctrl-a&gt;</code> are
-automatically understood as <span class="keyseq"><kbd>CTRL</kbd>+<kbd>A</kbd></span> and translated correctly as an action chain.</p>
-</div>
-<div class="paragraph">
-<p>Macro keys can be written such as:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><kbd>SHIFT</kbd>: <code>S</code>, <code>SHIFT</code></p>
-</li>
-<li>
-<p><kbd>CONTROL</kbd>: <code>C</code>, <code>CTL</code>, <code>CTRL</code>, <code>CONTROL</code></p>
-</li>
-<li>
-<p><kbd>META</kbd>: <code>M</code>, <code>META</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Also germanium is smart enough, so the position of the macro key matters, thus
-<code>&lt;s-s&gt;</code> is equivalent to <code>&lt;shift-s&gt;</code> and thus interpreted as <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>s</kbd></span>, and not
-<span class="keyseq"><kbd>s</kbd>+<kbd>s</kbd></span> or <span class="keyseq"><kbd>SHIFT</kbd>+<kbd>SHIFT</kbd></span>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_press_release_key"><a class="anchor" href="#_press_release_key"></a>Press-Release Key</h3>
-<div class="paragraph">
-<p>In order to start pressing a key, and release it latter, while still typing other
-keys, the <code>!</code> and <code>^</code> symbols can be used.
-For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-The <code>!</code> looks like a finger almost pressing the button,
-and the <code>^</code> is self explanatory: the finger released the given button.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-03-23 22:03:35 UTC
+Last updated 2016-03-24 22:23:55 UTC
 </div>
 </div>
 </body>

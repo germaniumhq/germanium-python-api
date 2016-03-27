@@ -1,11 +1,28 @@
+
+def buildSingleVersion(version) {
+    stage version
+    node {
+        sh """
+        rm -fr $version
+        git clone /home/raptor/projects/germanium $version
+        cd $version
+        git checkout remotes/origin/$version
+        bin/run-tests-end-to-end.sh
+        #bin/build-docker-instance.sh
+        """
+    }
+}
+
 parallel python27: {
-    stage "Python 2.7"
+    buildSingleVersion("python2.7")
 }, python34: {
-    stage "Python 3.4"
+    buildSingleVersion("python3.4")
 }, python35: {
-    stage "Python 3.5"
+    buildSingleVersion("python3.5")
 }, failFast: true
 
+
+stage "Publish on PyPI"
 
 node {
     sh '''

@@ -9,3 +9,6 @@ cd $GERMANIUM_FOLDER
 
 docker build -t germanium/germanium-$TAG_VERSION .
 
+cd $GERMANIUM_FOLDER/features
+
+docker build -t germanium/germanium-${TAG_VERSION}-tests .

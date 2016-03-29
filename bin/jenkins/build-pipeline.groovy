@@ -24,17 +24,62 @@ parallel python27: {
 stage "Run Tests"
 
 parallel python27: {
-    node {
-        sh "docker run --rm -e TEST_REUSE_BROWSER=1 germanium/germanium-python2.7-tests"
-    }
+    parallel python27Firefox: {
+        node {
+            sh '''
+                docker run --rm \\
+                       -e TEST_REUSE_BROWSER=1 \\
+                       germanium/germanium-python2.7-tests
+            '''
+        }
+    }, python27Chrome: {
+        node {
+            sh '''
+                docker run --rm \\
+                       -e TEST_REUSE_BROWSER=1 \\
+                       -e TEST_BROWSER=chrome \\
+                       germanium/germanium-python2.7-tests
+            '''
+        }
+    }, failFast: true
 }, python34: {
-    node {
-        sh "docker run --rm -e TEST_REUSE_BROWSER=1 germanium/germanium-python3.4-tests"
-    }
+    parallel python34Firefox: {
+        node {
+            sh '''
+                docker run --rm \\
+                       -e TEST_REUSE_BROWSER=1 \\
+                       germanium/germanium-python3.4-tests
+            '''
+        }
+    }, python34Chrome: {
+        node {
+            sh '''
+                docker run --rm \\
+                       -e TEST_REUSE_BROWSER=1 \\
+                       -e TEST_BROWSER=chrome \\
+                       germanium/germanium-python3.4-tests
+            '''
+        }
+    }, failFast: true
 }, python35: {
-    node {
-        sh "docker run --rm -e TEST_REUSE_BROWSER=1 germanium/germanium-python3.5-tests"
-    }
+    parallel python35Firefox: {
+        node {
+            sh '''
+                docker run --rm \\
+                       -e TEST_REUSE_BROWSER=1 \\
+                       germanium/germanium-python3.5-tests
+            '''
+        }
+    }, python35Chrome: {
+        node {
+            sh '''
+                docker run --rm \\
+                       -e TEST_REUSE_BROWSER=1 \\
+                       -e TEST_BROWSER=chrome \\
+                       germanium/germanium-python3.5-tests
+            '''
+        }
+    }, failFast: true
 }, failFast: true
 
 stage "Publish on PyPI"
@@ -44,4 +89,3 @@ node {
         ls
     '''
 }
-

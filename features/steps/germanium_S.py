@@ -30,7 +30,7 @@ def step_impl(context, selector):
 
 @step(u"the selector '(.*?)' doesn't exists as visible")
 def step_impl(context, selector):
-    assert S(selector).not_exists()
+    assert Css(selector).not_exists()
 
 
 @step(u'nothing happens')

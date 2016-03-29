@@ -35,6 +35,58 @@ class AbstractSelector(object):
         return XPathInsideFilterSelector(self) \
             .containing(*argv, **kw)
 
+    def element(self, *argv, germanium=None, **kw):
+        """
+        If the germanium is provided, the selector is evaluated using
+        germanium.S. If the germanium attribute is not provided,
+        this is equivalent to: germanium.static.S(self).element()
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        return S(self, germanium=germanium).element(*argv, **kw)
+
+    def element_list(self, *argv, germanium=None, **kw):
+        """
+        If the germanium is provided, the selector is evaluated using
+        germanium.S. If the germanium attribute is not provided,
+        this is equivalent to: germanium.static.S(self).element_list()
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        return S(self, germanium=germanium).element_list(*argv, **kw)
+
+    def exists(self, *argv, germanium=None, **kw):
+        """
+        If the germanium is provided, the selector is evaluated using
+        germanium.S. If the germanium attribute is not provided,
+        this is equivalent to: germanium.static.S(self).exists()
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        return S(self, germanium=germanium).exists(*argv, **kw)
+
+    def not_exists(self, *argv, germanium=None, **kw):
+        """
+        If the germanium is provided, the selector is evaluated using
+        germanium.S. If the germanium attribute is not provided,
+        this is equivalent to: germanium.static.S(self).not_exists()
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        return S(self, germanium=germanium).not_exists(*argv, **kw)
+
 
 class XPathInsideFilterSelector(AbstractSelector):
     def __init__(self, parent_selector):

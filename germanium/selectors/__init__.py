@@ -8,6 +8,7 @@ from .Button import Button
 from .Element import Element
 from .Input import Input
 from .CheckBox import CheckBox
+from .Image import Image
 from .InputText import InputText
 from .Link import Link
 from .Text import Text

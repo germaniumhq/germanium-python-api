@@ -21,5 +21,5 @@ if [[ $RUN_VNC_SERVER -eq 1 ]]; then
 fi # [[ $RUN_VNC_SERVER -eq 1 ]]
 
 cd /tests
-behave
 
+behave --tags ~@no${TEST_BROWSER}

@@ -19,6 +19,15 @@ RUN apt-get install -y \
     novnc \
     websockify
 
+# install chrome.
+RUN apt-get install -y libxss1 libappindicator1 libindicator7 && \
+    cd /tmp && \
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    dpkg -i google-chrome*.deb && \
+    rm /tmp/google-chrome*.deb
+
+# allowed options are firefox, chrome.
+ENV TEST_BROWSER=firefox
 
 ENV PYTHON_VERSION=3.5.1
 
@@ -77,4 +86,3 @@ RUN perl -pi -e "s/germanium:x:1000:1000/germanium:x:$UID:$GID/" /etc/passwd && 
 USER germanium
 
 CMD /home/germanium/bin/run-behave.sh
-

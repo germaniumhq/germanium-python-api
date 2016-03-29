@@ -19,12 +19,16 @@ RUN apt-get install -y \
     novnc \
     websockify
 
-# install chrome.
+# install chrome, and its webdriver
 RUN apt-get install -y libxss1 libappindicator1 libindicator7 && \
     cd /tmp && \
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     dpkg -i google-chrome*.deb && \
-    rm /tmp/google-chrome*.deb
+    rm /tmp/google-chrome*.deb && \
+    wget https://chromedriver.storage.googleapis.com/2.21/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip && \
+    mv chromedriver /usr/local/bin && \
+    rm chromedriver_linux64.zip
 
 # allowed options are firefox, chrome.
 ENV TEST_BROWSER=firefox

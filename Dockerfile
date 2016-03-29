@@ -20,7 +20,7 @@ RUN apt-get install -y \
     websockify
 
 # install chrome, and its webdriver
-RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome && \
+RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     apt-get update -y && \
     apt-get install -y google-chrome-stable

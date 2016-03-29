@@ -17,7 +17,8 @@ RUN apt-get install -y \
     firefox \
     vnc4server \
     novnc \
-    websockify
+    websockify \
+    unzip
 
 # install chrome, and its webdriver
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \

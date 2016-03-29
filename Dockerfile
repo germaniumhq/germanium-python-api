@@ -20,12 +20,12 @@ RUN apt-get install -y \
     websockify
 
 # install chrome, and its webdriver
-RUN apt-get install -y libxss1 libappindicator1 libindicator7 && \
-    cd /tmp && \
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    dpkg -i google-chrome*.deb && \
-    rm /tmp/google-chrome*.deb && \
-    wget https://chromedriver.storage.googleapis.com/2.21/chromedriver_linux64.zip && \
+RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome && \
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    apt-get update -y && \
+    apt-get install -y google-chrome-stable
+
+RUN wget https://chromedriver.storage.googleapis.com/2.21/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip && \
     mv chromedriver /usr/local/bin && \
     rm chromedriver_linux64.zip

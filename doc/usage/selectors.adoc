@@ -22,6 +22,72 @@ In all the API calls, where `selector` is specified, the selector is actually on
 
 Usually point 1 and 2, would cover 99% of all your test cases.
 
+Locators Overview
+-----------------
+
+Locators are algorithms that are are able to find elements against the current browser.
+They are registered on the Germanium instance, and by default, Germanium comes with
+three locators registered: `"xpath"`, `"css"` and `"js"`. These are implemented in
+`XPathLocator`, `CssLocator` and `JsLocator` respectively, from the `germanium.locators`
+package.
+
+These locators all extend a base class named `DeferredLocator`. This class holds the
+reference to the `Germanium` object, and offers utility methods to actually fetch
+the elements. Note, that the locators don't immediately find the elements, but
+explicit calls to either `element()`, `element_list()` or the locator itself `()`, since
+it is a callable, and will return the `element_list()` when called:
+
+[source,python]
+-----------------------------------------------------------------------------
+from germanium.util import wait
+
+label_divs_locator = germanium.S('.label')  # <1>
+wait(label_divs_locator)                    # <2>
+-----------------------------------------------------------------------------
+<1> This will return a `CssLocator`.
+<2> Since the locator is a callable, we can wait on it
+
+
+[plantuml, germanium-locators-overview, svg]
+------------------------------------------------------------------------------
+class DeferredLocator {
+    +__call__() : list<WebElement>
+    +element(only_visible: boolean) : WebElement
+    +element_list(only_visible: boolean) : list<WebElement>
+    {abstract} #_find_element(only_visible: boolean) : WebElement
+    {abstract} #_find_element_list(only_visible: boolean) : list<WebElement>
+}
+
+class CssLocator
+class XPathLocator
+class JsLocator
+
+DeferredLocator <|-- CssLocator
+DeferredLocator <|-- XPathLocator
+DeferredLocator <|-- JsLocator
+------------------------------------------------------------------------------
+
+A locator is always constructed with two things: the `Germanium` instance it will use
+to attept at finding the elements, and a `string` expression that will be used
+for finding. Note that you should never manually instantiate the locator, but
+you should use the super locator (the `S` function). This function will pass both the
+germanium instance, and the selector itself.
+
+The locators can be manually specified from selectors by specifying the strategy when
+using the super locator:
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S('#testDiv', strategy='css')
+-----------------------------------------------------------------------------
+
+or by prefixing the string itself with the strategy name:
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S('css:#testDiv')
+-----------------------------------------------------------------------------
+
 String Selectors
 ----------------
 

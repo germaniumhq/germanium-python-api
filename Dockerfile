@@ -89,7 +89,7 @@ RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sou
 RUN wget https://chromedriver.storage.googleapis.com/2.21/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip && \
     mv chromedriver /usr/local/bin && \
-    chmod +x /usr/local/bin && \
+    chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver_linux64.zip
 
 # add germanium the project only after having the docker binaries in the

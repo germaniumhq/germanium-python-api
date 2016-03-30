@@ -99,7 +99,7 @@ RUN cd /germanium && \
     /python/bin/python setup.py install && \
     rm -fr /germanium
 
-CMD perl -pi -e "s/germanium:x:1000:1000/germanium:x:$UID:$GID/" /etc/passwd && \
+RUN perl -pi -e "s/germanium:x:1000:1000/germanium:x:$UID:$GID/" /etc/passwd && \
     perl -pi -e "s/germanium:x:1000:/germanium:x:$GID:/" /etc/group && \
     chown -R germanium:germanium /home/germanium/ /python
 

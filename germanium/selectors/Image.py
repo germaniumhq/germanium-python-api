@@ -10,4 +10,4 @@ class Image(Element):
 
         _exact_attributes["alt"] = alt
 
-        super(Image, self).__init__("img", exact_attributes=_exact_attributes)
+        super(Image, self).__init__("img", exact_attributes=_exact_attributes, *args, **kwargs)

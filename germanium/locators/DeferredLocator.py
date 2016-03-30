@@ -7,7 +7,7 @@ class DeferredLocator(object):
         self._germanium = germanium
 
     def __call__(self):
-        return self.element()
+        return self.element_list()
 
     def element(self, only_visible=True):
         """ Return the current matched element.

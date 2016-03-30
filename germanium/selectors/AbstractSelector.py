@@ -35,6 +35,18 @@ class AbstractSelector(object):
         return XPathInsideFilterSelector(self) \
             .containing(*argv, **kw)
 
+    def __call__(self, *args, **kwargs):
+        """
+        Return the element list. If germanium is provided, the selector
+        is evaluated using g.S(self).element_list(). If is not
+        provided, this is equivalent to
+        germanium.static.S(self).element_list()
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        return self.element_list(*args, **kwargs)
+
     def element(self, *argv, germanium=None, **kw):
         """
         If the germanium is provided, the selector is evaluated using

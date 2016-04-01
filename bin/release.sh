@@ -20,6 +20,8 @@ git checkout master
 git push --all -f
 
 if [[ "$VERSION" != "" ]]; then
+    eval $(archer py)
+
     git tag -f $VERSION master
 
     for PYTHON_VERSION in $PYTHON_VERSIONS; do
@@ -28,10 +30,12 @@ if [[ "$VERSION" != "" ]]; then
 
     git push -f --tags
 
+    py 3
     git checkout python3.5
     python setup.py bdist_wheel upload -r pypitest
     python setup.py bdist_wheel upload -r pypi
 
+    py default
     git checkout python2.7
     python setup.py bdist_wheel upload -r pypitest
     python setup.py bdist_wheel upload -r pypi

@@ -65,9 +65,9 @@ RUN apt-get install -y vnc4server \
 # Setup remoting
 RUN useradd -m germanium
 
-RUN cp -R /usr/share/novnc /home/germanium/novnc &&
-    mkdir -p /home/germanium/.icewm &&
-    echo 'Theme="metal2/default.theme"' > /home/germanium/.icewm/theme &&
+RUN cp -R /usr/share/novnc /home/germanium/novnc && \
+    mkdir -p /home/germanium/.icewm && \
+    echo 'Theme="metal2/default.theme"' > /home/germanium/.icewm/theme && \
     mkdir -p /home/germanium/.vnc && \
     echo '#!/bin/sh' > /home/germanium/.vnc/xstartup && \
     echo 'xsetroot -solid grey' >> /home/germanium/.vnc/xstartup && \

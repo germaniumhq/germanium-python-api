@@ -4,6 +4,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 
 from .find_germanium_object import find_germanium_object
+from germanium.impl import _filter_one_for_action
 
 MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
 
@@ -48,7 +49,8 @@ def type_keys(context, keys_typed, selector=None, *args):
     keys_array = transform_to_keys(keys_typed)
 
     if selector:
-        selector = germanium.S(selector).element(only_visible=True)
+        potential_elements = germanium.S(selector).element_list(only_visible=False)
+        selector = _filter_one_for_action(potential_elements)
 
     action_chain = ActionChains(germanium.web_driver)
 

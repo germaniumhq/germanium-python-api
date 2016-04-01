@@ -1,3 +1,6 @@
+from germanium.impl import _filter_not_displayed
+
+
 class DeferredLocator(object):
     """
     Create a deferred locator that can be used in matching
@@ -27,21 +30,8 @@ class DeferredLocator(object):
         """
         :type only_visible: boolean
         """
-        if not only_visible:
-            return self._find_element_list()
-
-        found_items = self._find_element_list()
-
-        if not found_items:
-            return list()
-
-        def is_displayed_filter(item):
-            try:
-                return item.is_displayed()
-            except Exception:
-                return False
-
-        return list(filter(is_displayed_filter, found_items))
+        return _filter_not_displayed(self._find_element_list(),
+                                     only_visible=only_visible)
 
     def exists(self, only_visible=True):
         """ Return True/False if the currently matched element exists or not

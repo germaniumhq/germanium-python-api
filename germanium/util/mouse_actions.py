@@ -1,5 +1,5 @@
 from selenium.webdriver import ActionChains
-from selenium.common.exceptions import NoSuchElementException
+from germanium.impl import _filter_one_for_action
 from .find_germanium_object import find_germanium_object
 
 
@@ -77,8 +77,7 @@ def _element(germanium, selector):
     element = None
 
     if selector:
-        element = germanium.S(selector).element(only_visible=True)
-        if not element:
-            raise NoSuchElementException(selector)
+        items = germanium.S(selector).element_list(only_visible=False)
+        element = _filter_one_for_action(items)
 
     return element

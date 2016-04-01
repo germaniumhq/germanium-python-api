@@ -1,6 +1,7 @@
 ChangeLog
 ---------
 
+* 2016-04-02  1.6.12  Python 2.7 tests all pass. Implemented `without_children` for selectors. Better error reporting.
 * 2016-04-01  1.6.11  Fixed `bdist_wheel` release for Python 2.7.
 * 2016-04-01  1.6.10  Bugfixes. Chrome tests. Selectors can return `element`, `element_list`, `exists`, `not_exists`, and callable.
 * 2016-03-22  1.6.9  Bugfixes. `inside`/`contains` on selectors. Multiple selectors support.

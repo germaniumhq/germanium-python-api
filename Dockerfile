@@ -26,21 +26,6 @@ RUN apt-get update -y && \
     apt-get install -y software-properties-common
 
 #
-# Install remoting apps
-#
-RUN apt-get install -y vnc4server \
-    novnc \
-    websockify
-
-# Setup remoting
-RUN useradd -m germanium
-
-RUN cp -R /usr/share/novnc /home/germanium/novnc
-ADD bin/docker/index.html /home/germanium/novnc/
-ADD bin/docker/xstartup /home/germanium/.vnc/xstartup
-ADD bin/docker/run-behave.sh /home/germanium/bin/run-behave.sh
-
-#
 # Actual python installation required programs
 #
 RUN apt-get install -y \
@@ -67,6 +52,22 @@ RUN $PYTHON_BINARY -m ensurepip && \
     $PYTHON_BINARY -m pip install virtualenv && \
     virtualenv /python && \
     /python/bin/pip install behave
+
+#
+# Install remoting apps
+#
+RUN apt-get install -y vnc4server \
+    novnc \
+    websockify
+
+# Setup remoting
+RUN useradd -m germanium
+
+RUN cp -R /usr/share/novnc /home/germanium/novnc
+ADD bin/docker/index.html /home/germanium/novnc/
+ADD bin/docker/xstartup /home/germanium/.vnc/xstartup
+ADD bin/docker/run-behave.sh /home/germanium/bin/run-behave.sh
+
 
 #
 # BROWSERS SECTION

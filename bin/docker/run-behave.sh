@@ -23,3 +23,6 @@ fi # [[ $RUN_VNC_SERVER -eq 1 ]]
 cd /tests
 
 behave --tags ~@no${TEST_BROWSER}
+
+# kill potentially remaining processes.
+killall -9 $(ps xu | grep -v "grep " | grep -v bash | grep -v "ps " | grep -v "cut " | grep -v "tr " | tr -s " " | cut -f2 -d\ )

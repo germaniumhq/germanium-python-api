@@ -48,7 +48,7 @@ class Element(AbstractSelector):
             xpath_locator += "[contains(normalize-space(@%s), '%s')]" % (k, v)
 
         if index >= 0:
-            xpath_locator = '(%s)[%d]' % (xpath_locator, index)
+            xpath_locator = 'xpath:(%s)[%d]' % (xpath_locator, index)
 
         self._xpath_locator = xpath_locator
 

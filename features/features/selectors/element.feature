@@ -36,3 +36,10 @@ Scenario: Find an element by a part of an attribute
   And I go to 'http://localhost:8000/features/test-site/selectors/element.html'
   When I look for a 'div' element with a matching 'contenteditable=ru' attribute
   Then I find the element with id: 'editableDiv'
+
+@6
+Scenario: Find an element with an index.
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/element.html'
+  When I look for the 3rd div element
+  Then I find the element with id: 'formattedText'

@@ -42,3 +42,8 @@ def step_impl(context, element_name, attribute_name, attribute_value):
                         contains_attributes={attribute_name: attribute_value})).element()
 
     context.found_element = element
+
+
+@step(u"I look for the 3rd div element")
+def step_impl(context):
+    context.found_element = Element("div", index=3).element()

@@ -14,7 +14,8 @@ def open_browser(browser="Firefox",
                  wd=None,
                  iframe_selector=DefaultIFrameSelector(),
                  screenshot_folder="screenshots",
-                 scripts=list()):
+                 scripts=list(),
+                 timeout=60):
     """
     Open the given browser.
     :param browser:
@@ -46,11 +47,11 @@ def open_browser(browser="Firefox",
         web_driver = webdriver.Remote(command_executor=remote_match.group(2),
                                       desired_capabilities=remote_capabilities)
     elif browser.lower() == "firefox" or browser.lower() == "ff":
-        web_driver = webdriver.Firefox()
+        web_driver = webdriver.Firefox(timeout=timeout)
     elif browser.lower() == "chrome":
         web_driver = webdriver.Chrome()
     elif browser.lower() == "ie":
-        web_driver = webdriver.Ie()
+        web_driver = webdriver.Ie(timeout=timeout)
     else:
         raise Exception("Unknown browser: %s, only firefox, "
                         "chrome and ie are supported." % browser)

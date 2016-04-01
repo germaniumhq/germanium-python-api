@@ -58,7 +58,8 @@ RUN $PYTHON_BINARY -m ensurepip && \
 #
 RUN apt-get install -y vnc4server \
     novnc \
-    websockify
+    websockify \
+    psmisc
 
 # Setup remoting
 RUN useradd -m germanium

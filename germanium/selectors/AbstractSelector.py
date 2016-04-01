@@ -141,7 +141,7 @@ class XPathInsideFilterSelector(AbstractSelector):
         new_selectors = []
 
         for reference_selector in self._selectors:
-            new_selectors.append("%s[count(./*) = 0]" % reference_selector)
+            new_selectors.append("%s[count(./*) = 0][string() = '']" % reference_selector)
 
         self._selectors = new_selectors
 

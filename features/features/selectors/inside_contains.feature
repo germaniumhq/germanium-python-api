@@ -27,3 +27,17 @@ Scenario: Finding elements that contain CSS elements raises exceptions.
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div containing a CSS selector
   Then it throws an exception
+
+@5
+Scenario: Finding elements without children should find only those that actually have no children
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for all the divs without children
+  Then I only get the div with id #decoyDiv
+
+@6
+Scenario: Finding elements without children might also return no elements, even if there are elements with children
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for all the spans without children
+  Then I get no elements returned

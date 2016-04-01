@@ -35,6 +35,10 @@ class AbstractSelector(object):
         return XPathInsideFilterSelector(self) \
             .containing(*argv, **kw)
 
+    def without_children(self, *argv, **kw):
+        return XPathInsideFilterSelector(self) \
+            .without_children(*argv, **kw)
+
     def __call__(self, *args, **kwargs):
         """
         Return the element list. If germanium is provided, the selector
@@ -128,6 +132,16 @@ class XPathInsideFilterSelector(AbstractSelector):
         for reference_selector in self._selectors:
             for containing_selector in containing_xpath_string_selectors:
                 new_selectors.append("%s[.%s]" % (reference_selector, containing_selector))
+
+        self._selectors = new_selectors
+
+        return self
+
+    def without_children(self, *argv, **kw):
+        new_selectors = []
+
+        for reference_selector in self._selectors:
+            new_selectors.append("%s[count(./*) = 0]" % reference_selector)
 
         self._selectors = new_selectors
 

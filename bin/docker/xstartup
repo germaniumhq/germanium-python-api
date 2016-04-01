@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 xsetroot -solid grey
-icewm &
+
+if [[ $RUN_ICEWM -ne 0 ]]; then
+    icewm &
+fi
+

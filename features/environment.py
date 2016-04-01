@@ -19,9 +19,9 @@ def before_all(context):
 def after_all(context):
     context._httpServer.shutdown()
 
-    reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()
+    keep_browser = 'TEST_KEEP_BROWSER' in os.environ.keys()
 
-    if reuse_browser:
+    if keep_browser:
         close_browser()
 
 def after_scenario(context, scenario):

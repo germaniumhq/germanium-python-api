@@ -24,5 +24,7 @@ cd /tests
 
 behave --tags ~@no${TEST_BROWSER}
 
-# kill potentially remaining processes.
-killall -9 $(ps xu | grep -v "grep " | grep -v bash | grep -v "ps " | grep -v "cut " | grep -v "tr " | tr -s " " | cut -f2 -d\ )
+# kill potentially remaining processes, but don't fail in case
+# stuff can't be killed.
+killall -9 $(ps xu | grep -v "grep " | grep -v bash | grep -v "ps " | grep -v "cut " | grep -v "tr " | tr -s " " | cut -f2 -d\ ) || true
+

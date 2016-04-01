@@ -1,6 +1,7 @@
 ChangeLog
 ---------
 
+* 2016-04-01  1.6.10  Bugfixes. Chrome tests. Selectors can return `element`, `element_list`, `exists`, `not_exists`, and callable.
 * 2016-03-22  1.6.9  Bugfixes. `inside`/`contains` on selectors. Multiple selectors support.
 * 2016-03-22  1.6.8  Bugfixes. Check for element arrays in `js`, `wait` on multiple functions, `locators` as `selectors`.
 * 2016-03-21  1.6.7  `only_visible` filtering by default. Selenium 2.53.1 support. `not_exists` check for deferred locators.

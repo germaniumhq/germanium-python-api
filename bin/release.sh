@@ -28,7 +28,14 @@ if [[ "$VERSION" != "" ]]; then
 
     git push -f --tags
 
-    python setup.py sdist upload -r pypitest
-    python setup.py sdist upload -r pypi
+    git checkout python3.5
+    python setup.py bdist_wheel upload -r pypitest
+    python setup.py bdist_wheel upload -r pypi
+
+    git checkout python2.7
+    python setup.py bdist_wheel upload -r pypitest
+    python setup.py bdist_wheel upload -r pypi
+
+    git checkout master
 fi # [[ "$VERSION" != "" ]]
 

@@ -59,16 +59,24 @@ RUN $PYTHON_BINARY -m ensurepip && \
 RUN apt-get install -y vnc4server \
     novnc \
     websockify \
-    psmisc
+    psmisc \
+    icewm
 
 # Setup remoting
 RUN useradd -m germanium
 
-RUN cp -R /usr/share/novnc /home/germanium/novnc
+RUN cp -R /usr/share/novnc /home/germanium/novnc &&
+    mkdir -p /home/germanium/.icewm &&
+    echo 'Theme="metal2/default.theme"' > /home/germanium/.icewm/theme &&
+    mkdir -p /home/germanium/.vnc && \
+    echo '#!/bin/sh' > /home/germanium/.vnc/xstartup && \
+    echo 'xsetroot -solid grey' >> /home/germanium/.vnc/xstartup && \
+    echo 'icewm &' >> /home/germanium/.vnc/xstartup && \
+    chmod +x /home/germanium/.vnc/xstartup
+
 ADD bin/docker/index.html /home/germanium/novnc/
 ADD bin/docker/xstartup /home/germanium/.vnc/xstartup
 ADD bin/docker/run-behave.sh /home/germanium/bin/run-behave.sh
-
 
 #
 # BROWSERS SECTION

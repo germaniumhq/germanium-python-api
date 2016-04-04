@@ -1,0 +1,93 @@
+= Selectors DOM Filtering
+
+DOM Filtering selectors work by selecting only specific nodes
+in relations with other nodes in the DOM. This works only with
+XPath selectors, but since `Germanium` ships all its provided
+utility selectors as XPath selectors, you can use it for all
+the classes.
+
+In case you will use a `css` or `js` selector, you will get an
+exception informing you about this error. If you want to use
+a CSS locator, your're probably safer with the `Element` provided
+selector.
+
+== selector.containing(other_selector)
+
+*Description*
+
+Matches nodes that contain the other XPath selectors.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def containing(self, other_selector)
+-----------------------------------------------------------------------------
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+row = Element("tr").containing(
+        Element("td", contains_text="User 1"),
+        Element("td", exact_text="user1@server.com")
+      ).element()
+-----------------------------------------------------------------------------
+
+== selector.inside(other_selector)
+
+*Description*
+
+Matches nodes that are inside other XPath selectors.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def inside(self, other_selector)
+-----------------------------------------------------------------------------
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+error_message = Element("div", css_classes="label") \
+                    .inside(Element("div", css_classes="error-dialog"))
+-----------------------------------------------------------------------------
+
+== selector.without_children()
+
+*Description*
+
+Matches nodes that have no children.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def without_children(self)
+-----------------------------------------------------------------------------
+
+*Sample*
+
+Given this selector:
+
+[source,python]
+-----------------------------------------------------------------------------
+Element('div', css_classes='test').without_children()
+-----------------------------------------------------------------------------
+
+and HTML:
+
+[source,html]
+-----------------------------------------------------------------------------
+<div>
+    <div class="test">a</div>
+    <div class="test"><node/></div>
+    <div class="test"></div> <!-- only this node will be matched -->
+    <div class="test"><node>mix</node></div>
+<div>
+-----------------------------------------------------------------------------
+
+only the empty node, without text, or other child elements, will be matched.
+

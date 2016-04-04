@@ -15,6 +15,10 @@ include::static.adoc[]
 
 include::selectors.adoc[]
 
+include::selectors_positional.adoc[]
+
+include::selectors_insidecontains.adoc[]
+
 :leveloffset: -1
 include::selectors_provided.adoc[]
 :leveloffset: +1

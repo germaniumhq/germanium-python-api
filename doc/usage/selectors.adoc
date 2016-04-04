@@ -20,7 +20,7 @@ In all the API calls, where `selector` is specified, the selector is actually on
 4. a locator,
 5. a list of any of the above.
 
-Usually point 1 and 2, would cover 99% of all your test cases.
+Since selectors offer Positional and DOM filtering, point 1 and 2 will cover 99% of your test cases.
 
 Locators Overview
 -----------------
@@ -29,13 +29,20 @@ Locators are algorithms that are are able to find elements against the current b
 They are registered on the Germanium instance, and by default, Germanium comes with
 three locators registered: `"xpath"`, `"css"` and `"js"`. These are implemented in
 `XPathLocator`, `CssLocator` and `JsLocator` respectively, from the `germanium.locators`
-package.
+package. Locators use selectors to find web elements. To create a locator you need a
+Germanium instance, and a string specifying the selector passed to the locator itself.
 
 These locators all extend a base class named `DeferredLocator`. This class holds the
 reference to the `Germanium` object, and offers utility methods to actually fetch
-the elements. Note, that the locators don't immediately find the elements, but
-explicit calls to either `element()`, `element_list()` or the locator itself `()`, since
-it is a callable, and will return the `element_list()` when called:
+the elements.
+
+Note, that the locators don't immediately find the elements. Explicit calls muse be made
+to:
+
+* `element()`
+* `element_list()`
+* the locator itself with `()`, (since the locator is a callable and will return the
+element_list)
 
 [source,python]
 -----------------------------------------------------------------------------
@@ -48,6 +55,31 @@ wait(label_divs_locator)                    # <2>
 <2> Since the locator is a callable, we can wait on it
 
 
+A locator is always constructed with two things: the `Germanium` instance it will use
+to attept at finding the elements, and a `string` expression that will be used
+for finding. Note that you should never manually instantiate the locator, but
+you should use the super locator (the `S` function). This function will pass both the
+germanium instance, and the selector itself.
+
+You can, and should, use the strategy parameter or the selector prefix when using the
+`S()` builder function:
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S('#testDiv', strategy='css')
+-----------------------------------------------------------------------------
+
+or prefixing the string itself with the strategy name:
+
+[source,python]
+-----------------------------------------------------------------------------
+germanium.S('css:#testDiv')
+-----------------------------------------------------------------------------
+
+Optionally a custom locator can be defined that extends the base class
+`DeferredLocator`. `DeferredLocator` contains a reference to a `Germanium`
+object and includes utility merhods to get web elements.
+
 [plantuml, germanium-locators-overview, svg]
 ------------------------------------------------------------------------------
 class DeferredLocator {
@@ -58,42 +90,32 @@ class DeferredLocator {
     {abstract} #_find_element_list(only_visible: boolean) : list<WebElement>
 }
 
-class CssLocator
-class XPathLocator
-class JsLocator
+class CssLocator {
+    #_find_element(only_visible: boolean) : WebElement
+    #_find_element_list(only_visible: boolean) : list<WebElement>
+}
+
+class XPathLocator {
+    #_find_element(only_visible: boolean) : WebElement
+    #_find_element_list(only_visible: boolean) : list<WebElement>
+}
+
+class JsLocator{
+    #_find_element(only_visible: boolean) : WebElement
+    #_find_element_list(only_visible: boolean) : list<WebElement>
+}
 
 DeferredLocator <|-- CssLocator
 DeferredLocator <|-- XPathLocator
 DeferredLocator <|-- JsLocator
 ------------------------------------------------------------------------------
 
-A locator is always constructed with two things: the `Germanium` instance it will use
-to attept at finding the elements, and a `string` expression that will be used
-for finding. Note that you should never manually instantiate the locator, but
-you should use the super locator (the `S` function). This function will pass both the
-germanium instance, and the selector itself.
-
-The locators can be manually specified from selectors by specifying the strategy when
-using the super locator:
-
-[source,python]
------------------------------------------------------------------------------
-germanium.S('#testDiv', strategy='css')
------------------------------------------------------------------------------
-
-or by prefixing the string itself with the strategy name:
-
-[source,python]
------------------------------------------------------------------------------
-germanium.S('css:#testDiv')
------------------------------------------------------------------------------
-
 String Selectors
 ----------------
 
 A string selector is a selector that can specify what locators to be used. Implicitly,
 the selector is either an XPath if it starts with `"//"`, either a CSS
-selector, if there is no identifier.
+selector, if there is no identifier prefix (`"name:..."`).
 
 A string selector can also specify its locator strategy, by prefixing the selector
 with the locator strategy name. Currently registered into Germanium are:
@@ -132,98 +154,21 @@ Selectors Overview
 ------------------
 
 All `Selector` objects in Germanium inherit from `germanium.selector.AbstractSelector`, which
-define a single required method:
+define only a single required method `get_selectors()` that returns a list of string selectors.
+The list item can have different locator strategies:
 
 [source,python]
 -----------------------------------------------------------------------------
 class AbstractSelector(object):
-    """
-    Just a marker interface.
-    """
-    def __init__(self):
-        pass
-
+    # ...
     def get_selectors(self):
         raise Exception("Abstract class, not implemented.") # <1>
 
     # ... positional, and parent-child filtering methods
 -----------------------------------------------------------------------------
-<1> Note that the method name is `get_selectors`. This method must return a list of string
-selectors, that can even have different locator strategies.
 
 All the Selector objects return a list of strings, that define how the element, or the multiple
 elements will be found by the given locator.
-
-Positional Filtering
---------------------
-
-Germanium provides the following methods to enable positional filtering: `left_of(selector)`,
-`right_of(selector)`, `below(selector)`, `above(selector)`, that is excluding elements that
-are in weird positions. These filters can be used to filter otherwise false positive matches
-when selecting.
-
-Multiple filters can be chained for the same selector, for example someone can:
-
-[source,python]
------------------------------------------------------------------------------
-click(Link("edit")
-        .below(Text("User Edit Panel"))
-        .right_of(Text("User 11")))
------------------------------------------------------------------------------
-
-This will find a link that contains the label `edit`, that is positioned below
-the text `User Edit Panel` and is to the right of the text `User 11`.
-
-=== selector.left_of(other_selector)
-
-*Description*
-
-Make a selector that will return only the items that are left of all the elements
-returned by the other_selector.
-
-*Signature*
-
-[source,python]
------------------------------------------------------------------------------
-def left_of(self, other_selector)
------------------------------------------------------------------------------
-
-*Sample*
-
-[source,python]
------------------------------------------------------------------------------
-click(Input().left_of(Text("User")))
------------------------------------------------------------------------------
-
-=== selector.right_of(other_selector)
-
-Make a selector that will return only the items that are right of all the elements
-returned by the other_selector.
-
-[source,python]
------------------------------------------------------------------------------
-click(Link("edit").right_of(Text("User 11")))
------------------------------------------------------------------------------
-
-=== selector.above(other_selector)
-
-Make a selector that will return only the items that are above all the elements
-returned by the other_selector.
-
-[source,python]
------------------------------------------------------------------------------
-click(Link("logout").above("div.toolbar"))
------------------------------------------------------------------------------
-
-=== selector.below(other_selector)
-
-Make a selector that will return only the items that are below all the elements
-returned by the other_selector.
-
-[source,python]
------------------------------------------------------------------------------
-click(Button("edit").below(Text("entry 5")))
------------------------------------------------------------------------------
 
 Writing Custom Selectors
 ------------------------

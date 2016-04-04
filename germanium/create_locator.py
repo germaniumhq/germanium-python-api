@@ -5,7 +5,6 @@ from selenium.webdriver.remote.webelement import WebElement
 from germanium.locators import \
     XPathLocator, \
     CssLocator, \
-    SimpleLocator, \
     CompositeLocator, \
     DeferredLocator, \
     StaticElementLocator, \
@@ -20,15 +19,6 @@ def create_locator(germanium, selector, strategy='detect'):
         raise Exception("A `None` selector was passed to Germanium to create a "
                         "locator out of it. Maybe an invalid function return "
                         "is being used?")
-
-    if strategy == 'css':
-        return CssLocator(germanium, selector)
-
-    if strategy == 'xpath':
-        return XPathLocator(germanium, selector)
-
-    if strategy == 'simple':
-        return SimpleLocator(germanium, selector)
 
     if strategy != 'detect':
         locator_constructor = germanium.locator_map[strategy]

@@ -15,20 +15,13 @@ Scenario: Find by inferred XPath locators.
     Then the value for the //input is 'input test'
 
 @3
-Scenario: Find by inferred simple locators.
-    Given I open firefox
-    When I go to 'http://localhost:8000/features/test-site/inputs.html'
-    Then I type 'input test' into simple:"Text input" > input
-    Then the value for the simple:"Text input" > input is 'input test'
-
-@4
 Scenario: Find by javascript locators.
     Given I open firefox
     When I go to 'http://localhost:8000/features/test-site/inputs.html'
     Then I type 'input test' into js:return [ document.getElementById('textInput') ]
     Then the value for the #textInput is 'input test'
 
-@5
+@4
 Scenario: Finding elements that don't exist should not throw exceptions
     Given I open firefox
     When I go to 'http://localhost:8000/features/test-site/inputs.html'
@@ -37,7 +30,7 @@ Scenario: Finding elements that don't exist should not throw exceptions
     And I search using S for div["what"].what
     Then nothing happens
 
-@6
+@5
 Scenario: Element (not)exists(visible) should function.
     Given I open firefox
     When I go to 'http://localhost:8000/features/test-site/inputs.html'
@@ -48,21 +41,21 @@ Scenario: Element (not)exists(visible) should function.
     And the selector '.missingLocator' doesn't exists at all
     And the selector '.missingLocator' doesn't exists as visible
 
-@7
+@6
 Scenario: Calling S with an existing locator should return the existing locator.
     Given I open firefox
     When I go to 'http://localhost:8000/features/test-site/inputs.html'
     And I search using a nested locator for '#outsideTextFlowedInput'
     Then I find the element with id: 'outsideTextFlowedInput'
 
-@8
+@7
 Scenario: Calling S with a callable should invoke the callable, and re-eval S.
     Given I open firefox
     When I go to 'http://localhost:8000/features/test-site/inputs.html'
     And I search using a callable that returns a CssSelector '#outsideTextFlowedInput'
     Then I find the element with id: 'outsideTextFlowedInput'
 
-@9
+@8
 Scenario: Elements that are evaluated outside the page with is_displayed should not throw
     The problem happens when the page changes, and we're stuck inside
     a `wait` loop, since we get a page change happening in the background

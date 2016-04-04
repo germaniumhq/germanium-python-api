@@ -57,9 +57,9 @@ def navigate_to_page(context, page):
     go_to(page)
 
 
-@step(u'I type \'(?P<keys>.*?)\' into (?P<simple_locator>.*)')
-def type_keys_with_simple_locator(context, keys, simple_locator):
-    type_keys(keys, simple_locator)
+@step(u'I type \'(?P<keys>.*?)\' into (?P<selector>.*)')
+def type_keys_with_selector(context, keys, selector):
+    type_keys(keys, selector)
 
 
 @step(u'the value for the (?P<selector>.*) is \'(?P<value>.*?)\'')
@@ -89,9 +89,9 @@ def type_keys_impl(context, selector, keys):
     type_keys(keys, S(selector))
 
 
-@step(u'I click on (?P<simple_locator>.*)')
-def step_impl(context, simple_locator):
-    click(simple_locator)
+@step(u'I click on (?P<selector>.*)')
+def step_impl(context, selector):
+    click(selector)
 
 
 @step(u'I wait forever')

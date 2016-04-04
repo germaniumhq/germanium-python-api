@@ -2,8 +2,7 @@ from time import sleep
 
 import pkg_resources
 
-from .SimpleSelector import SimpleSelector
-from .locators import CssLocator, SimpleLocator, XPathLocator, JsLocator
+from .locators import CssLocator, XPathLocator, JsLocator
 from .iframe_selector import DefaultIFrameSelector, CallableIFrameSelector
 from .create_locator import create_locator
 
@@ -33,14 +32,12 @@ class GermaniumDriver(object):
             iframe_selector=CallableIFrameSelector(iframe_selector)
 
         self.web_driver = web_driver
-        self.simple_selector = SimpleSelector(self)
         self._screenshot_folder = screenshot_folder
         self._iframe_selector = iframe_selector
         self._current_iframe = None
         self._scripts_to_load = scripts
 
         self.locator_map = {
-            "simple": SimpleLocator,
             "xpath": XPathLocator,
             "css": CssLocator,
             "js": JsLocator
@@ -60,12 +57,6 @@ class GermaniumDriver(object):
         self.wait_for_page_to_load()
 
         return result
-
-    def find_element_by_simple(self, locator):
-        """
-        Find an element using the simple locator.
-        """
-        return self.simple_selector.find_element(locator)
 
     def reload_page(self):
         """
@@ -150,7 +141,7 @@ class GermaniumDriver(object):
         self.select_iframe("default")
         self.wait_for_javascript("""return "complete" == document["readyState"]""")
 
-        self.load_simple_locator()  # automatically load the simple locator if waiting for the page to load finished.
+        self.load_support_scripts()  # automatically load the simple locator if waiting for the page to load finished.
 
         for script_name in self._scripts_to_load:
             self.load_script(script_name)
@@ -183,7 +174,7 @@ class GermaniumDriver(object):
             }
         """ % script
 
-        self.wait_for_closure(lambda : self.js(wrapper_script))
+        self.wait_for_closure(lambda: self.js(wrapper_script), timeout=timeout)
 
     def wait_for_closure(self, closure, timeout = 10):
         """
@@ -207,14 +198,14 @@ class GermaniumDriver(object):
 
             sleep(0.4)
 
-    def load_simple_locator(self):
+    def load_support_scripts(self):
         """
         Since the simple locator script is a bazillion bytes big, it should be loaded independently.
         """
-        if self.js("return !window.locateElementBySimple"):
-            self.load_script('simple-locator.js')
+        if self.js("return !window.__GERMANIUM_EXTENSIONS_LOADED"):
             self.load_script('ajax-interceptor.js')
             self.load_script('is-ajax-running.js')
+            self.load_script('germanium-extensions-loaded.js')
 
     def load_script(self, script_name):
         """

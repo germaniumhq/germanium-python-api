@@ -1,6 +1,6 @@
 Feature: Simple Element Locator found elements should function with send_keys
-  It seems that when an element was found by the simple locator, sending
-  key to it doesn't functions as expected.
+  It seems that when an element was found , sending
+  keys to it doesn't functions as expected.
 
   Scenario:
     Given I open firefox

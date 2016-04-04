@@ -21,71 +21,65 @@ parallel python27: {
     buildSingleVersion("python3.5")
 }, failFast: true
 
-stage "Run Tests"
+stage "Run Python 3.5 Tests"
 
-parallel python27: {
-    parallel python27Firefox: {
-        node {
-            sh '''
-                docker run --rm \\
-                       -e TEST_REUSE_BROWSER=1 \\
-                       germanium/germanium-python2.7-tests
-            '''
-        }
-    }, python27Chrome: {
-        node {
-            sh '''
-                docker run --rm \\
-                       -e TEST_REUSE_BROWSER=1 \\
-                       -e TEST_BROWSER=chrome \\
-                       germanium/germanium-python2.7-tests
-            '''
-        }
-    }, failFast: true
-}, python34: {
-    parallel python34Firefox: {
-        node {
-            sh '''
-                docker run --rm \\
-                       -e TEST_REUSE_BROWSER=1 \\
-                       germanium/germanium-python3.4-tests
-            '''
-        }
-    }, python34Chrome: {
-        node {
-            sh '''
-                docker run --rm \\
-                       -e TEST_REUSE_BROWSER=1 \\
-                       -e TEST_BROWSER=chrome \\
-                       germanium/germanium-python3.4-tests
-            '''
-        }
-    }, failFast: true
-}, python35: {
-    parallel python35Firefox: {
-        node {
-            sh '''
-                docker run --rm \\
-                       -e TEST_REUSE_BROWSER=1 \\
-                       germanium/germanium-python3.5-tests
-            '''
-        }
-    }, python35Chrome: {
-        node {
-            sh '''
-                docker run --rm \\
-                       -e TEST_REUSE_BROWSER=1 \\
-                       -e TEST_BROWSER=chrome \\
-                       germanium/germanium-python3.5-tests
-            '''
-        }
-    }, failFast: true
+parallel python35Firefox: {
+    node {
+        sh '''
+            docker run --rm \\
+                   -e TEST_REUSE_BROWSER=1 \\
+                   germanium/germanium-python3.5-tests
+        '''
+    }
+}, python35Chrome: {
+    node {
+        sh '''
+            docker run --rm \\
+                   -e TEST_REUSE_BROWSER=1 \\
+                   -e TEST_BROWSER=chrome \\
+                   germanium/germanium-python3.5-tests
+        '''
+    }
 }, failFast: true
 
-stage "Publish on PyPI"
+stage "Run Python 2.7 Tests"
 
-node {
-    sh '''
-        ls
-    '''
-}
+parallel python27Firefox: {
+    node {
+        sh '''
+            docker run --rm \\
+                   -e TEST_REUSE_BROWSER=1 \\
+                   germanium/germanium-python2.7-tests
+        '''
+    }
+}, python27Chrome: {
+    node {
+        sh '''
+            docker run --rm \\
+                   -e TEST_REUSE_BROWSER=1 \\
+                   -e TEST_BROWSER=chrome \\
+                   germanium/germanium-python2.7-tests
+        '''
+    }
+}, failFast: true
+
+stage "Run Python 3.4 Tests"
+
+parallel python34Firefox: {
+    node {
+        sh '''
+            docker run --rm \\
+                   -e TEST_REUSE_BROWSER=1 \\
+                   germanium/germanium-python3.4-tests
+        '''
+    }
+}, python34Chrome: {
+    node {
+        sh '''
+            docker run --rm \\
+                   -e TEST_REUSE_BROWSER=1 \\
+                   -e TEST_BROWSER=chrome \\
+                   germanium/germanium-python3.4-tests
+        '''
+    }
+}, failFast: true

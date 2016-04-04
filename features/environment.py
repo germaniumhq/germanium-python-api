@@ -1,28 +1,33 @@
 import os
 from http.server import SimpleHTTPRequestHandler
-from socketserver import TCPServer
+from socketserver import ThreadingTCPServer
 from threading import Thread
 
 from germanium.static import *
 
 
 def before_all(context):
-    TCPServer.allow_reuse_address = True
+    ThreadingTCPServer.allow_reuse_address = True
     Handler = SimpleHTTPRequestHandler
-    context._httpServer = TCPServer(("0.0.0.0", 8000), Handler)
+    context._httpServer = ThreadingTCPServer(("0.0.0.0", 8000), Handler)
 
     print("started server on 0.0.0.0:8000")
 
     t = Thread(target=context._httpServer.serve_forever)
     t.start()
 
+
 def after_all(context):
+    print("Shutting down HTTP server")
     context._httpServer.shutdown()
 
-    keep_browser = 'TEST_KEEP_BROWSER' in os.environ.keys()
+    print("Done shutting down HTTP server")
+    reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()
 
-    if keep_browser:
+    if reuse_browser:
+        print("Closing the browser, since all is done.")
         close_browser()
+
 
 def after_scenario(context, scenario):
     keep_browser = 'TEST_KEEP_BROWSER' in os.environ.keys()

@@ -30,6 +30,12 @@ def step_impl(context, expected_id):
     assert_equals(expected_id, context.found_element.get_attribute('id'))
 
 
+@step(u'I find no element')
+def step_impl(context):
+    assert_false(context.found_element)
+    assert_false(context.exception)
+
+
 @step(u'I look for some text: \'(.*)\'')
 def step_impl(context, text):
     element = S(Text(text)).element()

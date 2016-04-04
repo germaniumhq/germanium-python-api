@@ -1,6 +1,14 @@
 ChangeLog
 ---------
 
+* 2016-04-05  1.6.13
+    - Fixed tests to close HttpServer.
+    - Chrome is now part of the test matrix.
+    - Documentation.
+    - pyp different deployments for 2.7, and 3.5 using different distributions.
+    - 100% coverage JS Locator and selector.
+    - Removed simple locator.
+
 * 2016-04-02  1.6.12  Python 2.7 tests all pass. Implemented `without_children` for selectors. Better error reporting.
 * 2016-04-01  1.6.11  Fixed `bdist_wheel` release for Python 2.7.
 * 2016-04-01  1.6.10  Bugfixes. Chrome tests. Selectors can return `element`, `element_list`, `exists`, `not_exists`, and callable.

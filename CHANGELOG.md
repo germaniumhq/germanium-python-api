@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+* 2016-04-06  1.7.0
+    - Finished documentation.
+    - Utility methods from `germanium.util.*` that need germanium, are
+      postfixed with `_g` so they don't conflict with `germanium.static.*`
+    - `wait` exported also in `germanium.static`
+
 * 2016-04-05  1.6.13
     - Fixed tests to close HttpServer.
     - Chrome is now part of the test matrix.

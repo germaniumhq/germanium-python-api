@@ -1,4 +1,4 @@
-from germanium.util import double_click as double_click_impl
+from germanium.util import double_click_g as double_click_impl
 from .global_germanium_instance import *
 
 

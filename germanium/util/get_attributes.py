@@ -1,7 +1,7 @@
 from .find_germanium_object import find_germanium_object
 
 
-def get_attributes(context, selector, only_visible=True):
+def get_attributes_g(context, selector, only_visible=True):
     """
     Return the attributes for the element that is obtained
     from the selector as a dictionary object.

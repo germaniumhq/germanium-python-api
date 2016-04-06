@@ -1,4 +1,4 @@
-from germanium.util import hover as hover_impl
+from germanium.util import hover_g as hover_impl
 from .global_germanium_instance import *
 
 

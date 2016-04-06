@@ -1,5 +1,6 @@
 
 from germanium.selectors import *
+from germanium.util import wait
 
 # germanium instantiation
 from .open_browser import open_browser

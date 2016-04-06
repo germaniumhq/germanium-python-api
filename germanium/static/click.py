@@ -1,4 +1,4 @@
-from germanium.util import click as click_impl
+from germanium.util import click_g as click_impl
 from .global_germanium_instance import *
 
 

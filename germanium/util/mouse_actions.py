@@ -3,7 +3,7 @@ from germanium.impl import _filter_one_for_action
 from .find_germanium_object import find_germanium_object
 
 
-def click(context, selector=None, move_mouse_over=True):
+def click_g(context, selector=None, move_mouse_over=True):
     """ Click the given selector
     :param context:
     :param selector:
@@ -20,7 +20,7 @@ def click(context, selector=None, move_mouse_over=True):
     action.click(element).perform()
 
 
-def right_click(context, selector=None, move_mouse_over=True):
+def right_click_g(context, selector=None, move_mouse_over=True):
     """ Right click the given location
     :param context:
     :param selector:
@@ -37,7 +37,7 @@ def right_click(context, selector=None, move_mouse_over=True):
     action.context_click(element).perform()
 
 
-def double_click(context, selector=None, move_mouse_over=True):
+def double_click_g(context, selector=None, move_mouse_over=True):
     """ Double click the given location
     :param context:
     :param selector:
@@ -54,7 +54,7 @@ def double_click(context, selector=None, move_mouse_over=True):
     action.double_click(element).perform()
 
 
-def hover(context, selector=None):
+def hover_g(context, selector=None):
     """ Hover the given location
     :param context:
     :param selector:

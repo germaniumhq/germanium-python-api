@@ -1,4 +1,4 @@
-from germanium.util import get_attributes as get_attributes_impl
+from germanium.util import get_attributes_g as get_attributes_impl
 
 from .global_germanium_instance import get_instance
 

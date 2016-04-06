@@ -38,7 +38,7 @@ class ComboKeyUp(object):
         self.key = key
 
 
-def type_keys(context, keys_typed, selector=None, *args):
+def type_keys_g(context, keys_typed, selector=None, *args):
     """
     :param context:
     :param keys_typed:

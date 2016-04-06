@@ -1,5 +1,4 @@
-Germanium API Documentation
-===========================
+= Germanium API Documentation
 
 :toc: left
 :experimental:
@@ -15,16 +14,15 @@ inside the browsers:
     - `take_screenshot`
     - `load_script`
 3. utility functions:
-    - `type_keys`
-    - `click`
-    - `double_click`
-    - `right_click`
-    - `hover`
-    - `get_attributes`
+    - `type_keys_g`
+    - `click_g`
+    - `double_click_g`
+    - `right_click_g`
+    - `hover_g`
+    - `get_attributes_g`
     - `wait`
 
-germanium iframe decorator
---------------------------
+== @iframe - germanium iframe decorator
 
 ### @iframe(name, keep_new_context=False)
 
@@ -39,7 +37,7 @@ such as:
 -----------------------------------------------------------------------------
 @iframe("default")
 def close_dialog(germanium):
-    germanium.S('"Save dialog" > button["Ok"]').click()
+    germanium.S(Button("Ok").below(Text("Save dialog"))).element().click()
 
 @iframe("editor")
 def save_document(germanium):
@@ -53,13 +51,34 @@ is an object that contains a property named either: `germanium` or `_germanium`
 will be used.
 
 
-germanium Instance Functions
-----------------------------
+== germanium Instance Functions
 
-### Constructor GermaniumDriver(web_driver, ..)
+The GermaniumDriver is a simple instance that decorates an existing
+WebDriver:
 
-Constructs a new GermaniumDriver utility object on top of whatever WebDriver
-object is given.
+[plantuml, germanium-instance-overview, svg]
+------------------------------------------------------------------------------
+class GermaniumDriver
+class WebDriver
+
+GermaniumDriver *-- "1" WebDriver : "web_driver"
+------------------------------------------------------------------------------
+
+All the attributes that are not defined on the `GermaniumDriver` instance,
+are searched into the `germanium.web_driver` one. For example calling:
+
+[source,python]
+-----------------------------------------------------------------------------
+print(germanium.title)
+-----------------------------------------------------------------------------
+
+Will actually result in fetching the title from the web_driver instance
+that is used by the GermaniumDriver.
+
+=== Constructor GermaniumDriver(web_driver, ..)
+
+Constructs a new GermaniumDriver utility object on top of the given WebDriver
+object.
 
 [source,python]
 -----------------------------------------------------------------------------
@@ -72,7 +91,7 @@ GermaniumDriver(web_driver,
 The only required parameter is the `web_driver` argument, that must be a
 WebDriver instance.
 
-#### iframe_selector
+==== iframe_selector
 
 The `iframe_selector` specifies the strategy to use whenever the iframe will
 be changed by the `@iframe` decorator. This class should have a method named
@@ -137,18 +156,18 @@ GermaniumDriver(web_driver,
                 iframe_selector=select_iframe)
 -----------------------------------------------------------------------------
 
-#### screenshot_folder
+==== screenshot_folder
 
 The folder where to save the screenshots, whenever take_screenshot is called.
 It defaults to `"screenshots"`, so basically a local folder named screenshots
 in the current working directory.
 
-#### scripts
+==== scripts
 
 A list of files with JavaScript to be automatically loaded into the page,
 whenever either `get()`, `reload_page()` or `wait_for_page_to_load()` is done.
 
-### germanium.S(locator, strategy?)
+==== germanium.S(locator, strategy?)
 
 `S` stands for the super locator, and returns an object that can execute
 a locator in the current iframe context of germanium. The letter
@@ -208,16 +227,10 @@ germanium.S('//*[contains(@class, "test")]');
 germanium.S('.test')
 -----------------------------------------------------------------------------
 
-[source,python]
------------------------------------------------------------------------------
-# will find elements by the simple locator
-germanium.S('*[contains(@class, "test")')
------------------------------------------------------------------------------
-
 The S function call will return an object that is compatible with the static
 `wait_for` command.
 
-### germanium.js(code), germanium.execute_script(code)
+=== germanium.js(code), germanium.execute_script(code)
 
 Execute the given JavaScript, and return its result.
 
@@ -229,7 +242,7 @@ germanium.js('return document.title;')
 [TIP]
 The `js` is just an alias for the `execute_script` function
 
-### germanium.take_screenshot(name)
+=== germanium.take_screenshot(name)
 
 Takes a screenshot of the browser and saves it in the configured screenshot
 folder.
@@ -240,7 +253,7 @@ folder.
 germanium.take_screenshot('test')
 -----------------------------------------------------------------------------
 
-### germanium.load_script(filename)
+=== germanium.load_script(filename)
 
 Loads the JavaScript code from the file with the given name into the browser.
 
@@ -249,29 +262,19 @@ Loads the JavaScript code from the file with the given name into the browser.
 germanium.load_script('jquery.js')
 -----------------------------------------------------------------------------
 
-### germanium.find_element_by_simple(locator)
-
-Finds the element in the current iframe, using the simple locator given.
-
-[source,python]
------------------------------------------------------------------------------
-germanium.find_element_by_simple('"Title" > button["Ok"]')
------------------------------------------------------------------------------
-
-germanium Utility Functions
----------------------------
+== germanium Utility Functions
 
 These are just a bunch of utility functions, that can even be used without
 germanium itself.
 
-### type_keys(germanium, keys_typed, element=None)
+=== type_keys_g(germanium, keys_typed, element=None)
 
 Type the current keys into the browser, eventually specifying the element to
 send the events to.
 
 [source,python]
 -----------------------------------------------------------------------------
-type_keys(germanium, "send data<cr>but <!shift>not<^shift> now.")
+type_keys_g(germanium, "send data<cr>but <!shift>not<^shift> now.")
 -----------------------------------------------------------------------------
 
 Special keys such as kbd:[ENTER], are available by just escaping them in `<` and `>`
@@ -280,7 +283,7 @@ could type:
 
 [source,python]
 -----------------------------------------------------------------------------
-type_keys(germanium, "<tab*2><enter>")
+type_keys_g(germanium, "<tab*2><enter>")
 -----------------------------------------------------------------------------
 
 [TIP]
@@ -306,50 +309,50 @@ For example to type some keys with kbd:[SHIFT] pressed this can be done:
 
 [source,python]
 -----------------------------------------------------------------------------
-type_keys(germanium, "<!shift>shift is down<^shift>, and now is up.")
+type_keys_g(germanium, "<!shift>shift is down<^shift>, and now is up.")
 -----------------------------------------------------------------------------
 
 [TIP]
 The `!` looks like a finger almost pressing the button,
 and the `^` is self explanatory: the finger released the given button.
 
-### click(germanium, selector)
+=== click_g(germanium, selector)
 
 Perform a single click mouse action.
 
 [source,python]
 -----------------------------------------------------------------------------
-click(germanium, Button("Cancel").below(Text("Delete file?")))
+click_g(germanium, Button("Cancel").below(Text("Delete file?")))
 -----------------------------------------------------------------------------
 
-### double_click(germanium, selector)
+=== double_click_g(germanium, selector)
 
 Perform a double click mouse action.
 
 [source,python]
 -----------------------------------------------------------------------------
-double_click(germanium, "a.test-label")
+double_click_g(germanium, "a.test-label")
 -----------------------------------------------------------------------------
 
-### right_click(germanium, selector)
+=== right_click_g(germanium, selector)
 
 Perform a mouse right click. Also known as a context menu click.
 
 [source,python]
 -----------------------------------------------------------------------------
-right_click(germanium, webdriver_element)
+right_click_g(germanium, webdriver_element)
 -----------------------------------------------------------------------------
 
-### hover(germanium, selector)
+=== hover_g(germanium, selector)
 
 Hover the given element.
 
 [source,python]
 -----------------------------------------------------------------------------
-hover(germanium, 'a.main-menu')
+hover_g(germanium, 'a.main-menu')
 -----------------------------------------------------------------------------
 
-### get_attributes(germanium, selector)
+=== get_attributes_g(germanium, selector)
 
 Return all the attributes of the element matched by the selector as a dictionary
 object.
@@ -367,21 +370,21 @@ To get all the attributes of the editor div, someone can:
 
 [source,python]
 -----------------------------------------------------------------------------
-editor_attributes = get_attributes(germanium, '#editor')
+editor_attributes = get_attributes_g(germanium, '#editor')
 assert editor_attributes['class'] == 'modal superb'
 assert editor_attributes['id'] == 'editor'
 assert editor_attributes['custom-data'] == 'simple-code'
 -----------------------------------------------------------------------------
 
-### wait(closure, while_not=None, timeout=10)
+=== wait(closure, while_not=None, timeout=10)
 
 A function that allows waiting for a condition to happen, monitoring also that
 some other conditions do not happen.
 
 [source,python]
 -----------------------------------------------------------------------------
-wait(germanium.S('"document uploaded successfully"'),
-    while_not = germanium.S('"an error occured"'))
+wait(germanium.S(Text("document uploaded successfully")),
+    while_not = germanium.S(Text("an error occured")))
 -----------------------------------------------------------------------------
 
 In case the timeout expires, or one of the `while_not` conditions matches until

@@ -491,7 +491,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_germanium_api_documentation">Germanium API Documentation</a>
 <ul class="sectlevel2">
-<li><a href="#_germanium_iframe_decorator">germanium iframe decorator</a></li>
+<li><a href="#__iframe_germanium_iframe_decorator">@iframe - germanium iframe decorator</a></li>
 <li><a href="#_germanium_instance_functions">germanium Instance Functions</a></li>
 <li><a href="#_germanium_utility_functions">germanium Utility Functions</a></li>
 </ul>
@@ -1762,22 +1762,22 @@ inside the browsers:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>type_keys</code></p>
+<p><code>type_keys_g</code></p>
 </li>
 <li>
-<p><code>click</code></p>
+<p><code>click_g</code></p>
 </li>
 <li>
-<p><code>double_click</code></p>
+<p><code>double_click_g</code></p>
 </li>
 <li>
-<p><code>right_click</code></p>
+<p><code>right_click_g</code></p>
 </li>
 <li>
-<p><code>hover</code></p>
+<p><code>hover_g</code></p>
 </li>
 <li>
-<p><code>get_attributes</code></p>
+<p><code>get_attributes_g</code></p>
 </li>
 <li>
 <p><code>wait</code></p>
@@ -1788,7 +1788,7 @@ inside the browsers:</p>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="_germanium_iframe_decorator"><a class="anchor" href="#_germanium_iframe_decorator"></a>germanium iframe decorator</h3>
+<h3 id="__iframe_germanium_iframe_decorator"><a class="anchor" href="#__iframe_germanium_iframe_decorator"></a>@iframe - germanium iframe decorator</h3>
 <div class="sect3">
 <h4 id="__iframe_name_keep_new_context_false"><a class="anchor" href="#__iframe_name_keep_new_context_false"></a>@iframe(name, keep_new_context=False)</h4>
 <div class="paragraph">
@@ -1804,7 +1804,7 @@ such as:</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python"><span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;default&quot;</span>)
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">close_dialog</span>(germanium):
-    germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;&quot;Save dialog&quot; &gt; button[&quot;Ok&quot;]&#39;</span>)<span style="color: #666666">.</span>click()
+    germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;Save dialog&quot;</span>)))<span style="color: #666666">.</span>element()<span style="color: #666666">.</span>click()
 
 <span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;editor&quot;</span>)
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">save_document</span>(germanium):
@@ -1822,11 +1822,33 @@ will be used.</p>
 </div>
 <div class="sect2">
 <h3 id="_germanium_instance_functions"><a class="anchor" href="#_germanium_instance_functions"></a>germanium Instance Functions</h3>
+<div class="paragraph">
+<p>The GermaniumDriver is a simple instance that decorates an existing
+WebDriver:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="germanium-instance-overview.svg" alt="germanium instance overview" width="145" height="187">
+</div>
+</div>
+<div class="paragraph">
+<p>All the attributes that are not defined on the <code>GermaniumDriver</code> instance,
+are searched into the <code>germanium.web_driver</code> one. For example calling:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">print</span>(germanium<span style="color: #666666">.</span>title)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Will actually result in fetching the title from the web_driver instance
+that is used by the GermaniumDriver.</p>
+</div>
 <div class="sect3">
 <h4 id="_constructor_germaniumdriver_web_driver"><a class="anchor" href="#_constructor_germaniumdriver_web_driver"></a>Constructor GermaniumDriver(web_driver, ..)</h4>
 <div class="paragraph">
-<p>Constructs a new GermaniumDriver utility object on top of whatever WebDriver
-object is given.</p>
+<p>Constructs a new GermaniumDriver utility object on top of the given WebDriver
+object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1927,9 +1949,8 @@ in the current working directory.</p>
 whenever either <code>get()</code>, <code>reload_page()</code> or <code>wait_for_page_to_load()</code> is done.</p>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_germanium_s_locator_strategy"><a class="anchor" href="#_germanium_s_locator_strategy"></a>germanium.S(locator, strategy?)</h4>
+<div class="sect4">
+<h5 id="_germanium_s_locator_strategy"><a class="anchor" href="#_germanium_s_locator_strategy"></a>germanium.S(locator, strategy?)</h5>
 <div class="paragraph">
 <p><code>S</code> stands for the super locator, and returns an object that can execute
 a locator in the current iframe context of germanium. The letter
@@ -2005,15 +2026,10 @@ germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#3
 germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;.test&#39;</span>)</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># will find elements by the simple locator</span>
-germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;*[contains(@class, &quot;test&quot;)&#39;</span>)</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>The S function call will return an object that is compatible with the static
 <code>wait_for</code> command.</p>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -2063,17 +2079,6 @@ germanium<span style="color: #666666">.</span>take_screenshot(<span style="color
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_germanium_find_element_by_simple_locator"><a class="anchor" href="#_germanium_find_element_by_simple_locator"></a>germanium.find_element_by_simple(locator)</h4>
-<div class="paragraph">
-<p>Finds the element in the current iframe, using the simple locator given.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>find_element_by_simple(<span style="color: #BA2121">&#39;&quot;Title&quot; &gt; button[&quot;Ok&quot;]&#39;</span>)</code></pre>
-</div>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_germanium_utility_functions"><a class="anchor" href="#_germanium_utility_functions"></a>germanium Utility Functions</h3>
@@ -2082,14 +2087,14 @@ germanium<span style="color: #666666">.</span>take_screenshot(<span style="color
 germanium itself.</p>
 </div>
 <div class="sect3">
-<h4 id="_type_keys_germanium_keys_typed_element_none"><a class="anchor" href="#_type_keys_germanium_keys_typed_element_none"></a>type_keys(germanium, keys_typed, element=None)</h4>
+<h4 id="_type_keys_g_germanium_keys_typed_element_none"><a class="anchor" href="#_type_keys_g_germanium_keys_typed_element_none"></a>type_keys_g(germanium, keys_typed, element=None)</h4>
 <div class="paragraph">
 <p>Type the current keys into the browser, eventually specifying the element to
 send the events to.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(germanium, <span style="color: #BA2121">&quot;send data&lt;cr&gt;but &lt;!shift&gt;not&lt;^shift&gt; now.&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python">type_keys_g(germanium, <span style="color: #BA2121">&quot;send data&lt;cr&gt;but &lt;!shift&gt;not&lt;^shift&gt; now.&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2099,7 +2104,7 @@ could type:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(germanium, <span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python">type_keys_g(germanium, <span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -2147,7 +2152,7 @@ For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(germanium, <span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python">type_keys_g(germanium, <span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -2165,51 +2170,51 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 </div>
 <div class="sect3">
-<h4 id="_click_germanium_selector"><a class="anchor" href="#_click_germanium_selector"></a>click(germanium, selector)</h4>
+<h4 id="_click_g_germanium_selector"><a class="anchor" href="#_click_g_germanium_selector"></a>click_g(germanium, selector)</h4>
 <div class="paragraph">
 <p>Perform a single click mouse action.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(germanium, Button(<span style="color: #BA2121">&quot;Cancel&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;Delete file?&quot;</span>)))</code></pre>
+<pre class="pygments highlight"><code data-lang="python">click_g(germanium, Button(<span style="color: #BA2121">&quot;Cancel&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;Delete file?&quot;</span>)))</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_double_click_germanium_selector"><a class="anchor" href="#_double_click_germanium_selector"></a>double_click(germanium, selector)</h4>
+<h4 id="_double_click_g_germanium_selector"><a class="anchor" href="#_double_click_g_germanium_selector"></a>double_click_g(germanium, selector)</h4>
 <div class="paragraph">
 <p>Perform a double click mouse action.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">double_click(germanium, <span style="color: #BA2121">&quot;a.test-label&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python">double_click_g(germanium, <span style="color: #BA2121">&quot;a.test-label&quot;</span>)</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_right_click_germanium_selector"><a class="anchor" href="#_right_click_germanium_selector"></a>right_click(germanium, selector)</h4>
+<h4 id="_right_click_g_germanium_selector"><a class="anchor" href="#_right_click_g_germanium_selector"></a>right_click_g(germanium, selector)</h4>
 <div class="paragraph">
 <p>Perform a mouse right click. Also known as a context menu click.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">right_click(germanium, webdriver_element)</code></pre>
+<pre class="pygments highlight"><code data-lang="python">right_click_g(germanium, webdriver_element)</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hover_germanium_selector"><a class="anchor" href="#_hover_germanium_selector"></a>hover(germanium, selector)</h4>
+<h4 id="_hover_g_germanium_selector"><a class="anchor" href="#_hover_g_germanium_selector"></a>hover_g(germanium, selector)</h4>
 <div class="paragraph">
 <p>Hover the given element.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">hover(germanium, <span style="color: #BA2121">&#39;a.main-menu&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python">hover_g(germanium, <span style="color: #BA2121">&#39;a.main-menu&#39;</span>)</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_get_attributes_germanium_selector"><a class="anchor" href="#_get_attributes_germanium_selector"></a>get_attributes(germanium, selector)</h4>
+<h4 id="_get_attributes_g_germanium_selector"><a class="anchor" href="#_get_attributes_g_germanium_selector"></a>get_attributes_g(germanium, selector)</h4>
 <div class="paragraph">
 <p>Return all the attributes of the element matched by the selector as a dictionary
 object.</p>
@@ -2229,7 +2234,7 @@ object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">editor_attributes <span style="color: #666666">=</span> get_attributes(germanium, <span style="color: #BA2121">&#39;#editor&#39;</span>)
+<pre class="pygments highlight"><code data-lang="python">editor_attributes <span style="color: #666666">=</span> get_attributes_g(germanium, <span style="color: #BA2121">&#39;#editor&#39;</span>)
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;class&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;modal superb&#39;</span>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;id&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;editor&#39;</span>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;custom-data&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;simple-code&#39;</span></code></pre>
@@ -2244,8 +2249,8 @@ some other conditions do not happen.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">wait(germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;&quot;document uploaded successfully&quot;&#39;</span>),
-    while_not <span style="color: #666666">=</span> germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;&quot;an error occured&quot;&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python">wait(germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;document uploaded successfully&quot;</span>)),
+    while_not <span style="color: #666666">=</span> germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;an error occured&quot;</span>)))</code></pre>
 </div>
 </div>
 <div class="paragraph">

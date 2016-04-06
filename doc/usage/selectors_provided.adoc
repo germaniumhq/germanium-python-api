@@ -1,6 +1,5 @@
 
-Utility Selectors
------------------
+= Utility Selectors
 
 Utility selectors are provided so you can use the positional filtering capabilities
 of the selectors. For example:
@@ -30,15 +29,15 @@ AbstractSelector <|-- XPath
 AbstractSelector <|-- JsSelector
 ------------------------------------------------------------------------------
 
-=== Css(locator)
+== Css(locator)
 
 A selector that finds the given CSS expression.
 
-=== XPath(locator)
+== XPath(locator)
 
 A selector that finds the given XPath expression.
 
-=== JsSelector(code)
+== JsSelector(code)
 
 A selector that finds an element by evaluating the given JavaScript code.
 
@@ -51,7 +50,7 @@ such as buttons, links or text.
 The most basic of them is called `Element`. There are a lot of more specific selectors
 on top of that, for `Input`s, or `Link`s.
 
-=== Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})
+== Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})
 
 A selector that finds a random element.
 
@@ -75,7 +74,7 @@ S(Element('div',
 This will find a div that contains the text `error has occured` and has also
 a CSS class attached to it named `error-message`.
 
-=== Button(search_text = None, text = None, name = None)
+== Button(search_text = None, text = None, name = None)
 
 Just a selector that finds a button by its label or name:
 
@@ -93,7 +92,7 @@ This selector will find simultaneously both `input` elements that have the
 germanium.S(Button("Ok"))
 -----------------------------------------------------------------------------
 
-=== Input(input_name)
+== Input(input_name)
 
 Just a selector that finds an input by its name.
 
@@ -102,7 +101,7 @@ Just a selector that finds an input by its name.
 germanium.S(Input('q'))
 -----------------------------------------------------------------------------
 
-=== InputText(input_name)
+== InputText(input_name)
 
 Just a selector that finds an input with the type `text` by its name.
 
@@ -111,7 +110,7 @@ Just a selector that finds an input with the type `text` by its name.
 germanium.S(InputText('q'))
 -----------------------------------------------------------------------------
 
-=== Link(search_text, text, search_href, href)
+== Link(search_text, text, search_href, href)
 
 Just a selector that finds a link by either:
 
@@ -136,7 +135,7 @@ text `testing`:
 germanium.S(Link("testing", search_href="http://ciplogic.com"))
 -----------------------------------------------------------------------------
 
-=== Text(text)
+== Text(text)
 
 Just a selector that finds the element that contains the text in the page.
 

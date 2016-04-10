@@ -42,9 +42,16 @@ class DeferredLocator(object):
     def not_exists(self, only_visible=True):
         """
         :param only_visible:
-        :return: True if the element is not existing/
+        :return: True if the element is not existing.
         """
         return self.element(only_visible=only_visible) is None
+
+    def text(self, only_visible=True):
+        """
+        :param only_visible:
+        :return: True the text of the found element.
+        """
+        return self.element(only_visible=only_visible).text
 
     def _find_element(self):
         """ Find the element. """

@@ -103,6 +103,20 @@ class AbstractSelector(object):
         from germanium.static import S
         return S(self, germanium=germanium).not_exists(*argv, **kw)
 
+    def text(self, *argv, germanium=None, **kw):
+        """
+        Returns the text of the `element()` returned by this selector.
+        If the germanium is provided, the selector is evaluated using
+        germanium.S. If the germanium attribute is not provided,
+        this is equivalent to: germanium.static.S(self).text()
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        return S(self, germanium=germanium).text(*argv, **kw)
+
 
 class XPathInsideFilterSelector(AbstractSelector):
     def __init__(self, parent_selector):

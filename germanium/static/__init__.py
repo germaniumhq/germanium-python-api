@@ -18,6 +18,7 @@ from .S import S
 from .type_keys import type_keys
 from .js import js
 from .get_attributes import get_attributes
+from .drag_and_drop import drag_and_drop
 
 # decorators
 from .iframe import iframe

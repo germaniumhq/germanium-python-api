@@ -1,6 +1,6 @@
 from selenium.webdriver import ActionChains
-from germanium.impl import _filter_one_for_action
 from .find_germanium_object import find_germanium_object
+from ._element import _element
 
 
 def click_g(context, selector=None, move_mouse_over=True):
@@ -65,19 +65,3 @@ def hover_g(context, selector=None):
     action = ActionChains(germanium.web_driver)
 
     action.move_to_element(element).perform()
-
-
-def _element(germanium, selector):
-    """
-    Finds the given element.
-    :param germanium:
-    :param selector:
-    :return:
-    """
-    element = None
-
-    if selector:
-        items = germanium.S(selector).element_list(only_visible=False)
-        element = _filter_one_for_action(items)
-
-    return element

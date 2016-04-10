@@ -1,6 +1,15 @@
 ChangeLog
 ---------
 
+* 2016-04-10  1.7.1
+    - Added `text()` function to selectors and locators.
+    - Added `drag_and_drop()`.
+
+    _Bugfixes_
+
+    - Added timeouts for `wait_for_..`
+    - Minor cleanups.
+
 * 2016-04-06  1.7.0
     - Finished documentation.
     - Utility methods from `germanium.util.*` that need germanium, are

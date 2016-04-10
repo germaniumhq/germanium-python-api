@@ -14,7 +14,6 @@ Writing a test then becomes as easy as:
 [source,python]
 -----------------------------------------------------------------------------
 from germanium.static import *
-from germanium import wait
 from time import sleep
 
 open_browser("ff")

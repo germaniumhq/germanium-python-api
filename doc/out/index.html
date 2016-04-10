@@ -467,6 +467,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_selector_without_children">selector.without_children()</a></li>
 </ul>
 </li>
+<li><a href="#_germanium_selectors_in_static_contexts">Germanium Selectors in Static Contexts</a>
+<ul class="sectlevel2">
+<li><a href="#_selector_element">selector.element()</a></li>
+<li><a href="#_selector_element_list">selector.element_list()</a></li>
+<li><a href="#_selector_exists">selector.exists()</a></li>
+<li><a href="#_selector_not_exists">selector.not_exists()</a></li>
+<li><a href="#_selector_text">selector.text()</a></li>
+</ul>
+</li>
 <li><a href="#_utility_selectors">Utility Selectors</a>
 <ul class="sectlevel2">
 <li><a href="#_css_locator">Css(locator)</a></li>
@@ -517,7 +526,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">germanium.static</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
-<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">germanium</span> <span style="color: #008000; font-weight: bold">import</span> wait
 <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">time</span> <span style="color: #008000; font-weight: bold">import</span> sleep
 
 open_browser(<span style="color: #BA2121">&quot;ff&quot;</span>)
@@ -979,7 +987,7 @@ Germanium instance, and a string specifying the selector passed to the locator i
 <div class="paragraph">
 <p>These locators all extend a base class named <code>DeferredLocator</code>. This class holds the
 reference to the <code>Germanium</code> object, and offers utility methods to actually fetch
-the elements.</p>
+the elements, check if such elements exist, or retrieveing their text.</p>
 </div>
 <div class="paragraph">
 <p>Note, that the locators don&#8217;t immediately find the elements. Explicit calls muse be made
@@ -1048,7 +1056,7 @@ object and includes utility merhods to get web elements.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-locators-overview.svg" alt="germanium locators overview" width="1084" height="249">
+<img src="germanium-locators-overview.svg" alt="germanium locators overview" width="1084" height="282">
 </div>
 </div>
 </div>
@@ -1379,6 +1387,192 @@ selector.</p>
 </div>
 <div class="paragraph">
 <p>only the empty node, without text, or other child elements, will be matched.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_germanium_selectors_in_static_contexts"><a class="anchor" href="#_germanium_selectors_in_static_contexts"></a>Germanium Selectors in Static Contexts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Selectors are neat since we can reuse them, and offer a clean separation
+between finding the elements and inspecting them, but they also offer a
+few utility methods to aid you in removing that one extra call to the <code>S</code>
+super locator.</p>
+</div>
+<div class="paragraph">
+<p>For example instead of writing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">S(Button(<span style="color: #BA2121">&#39;Ok&#39;</span>))<span style="color: #666666">.</span>element()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>but you need to have a germanium instance already opened, or manually specify
+it in the element call.</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element(germanium<span style="color: #666666">=</span>my_custom_ge_instance)</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selector_element"><a class="anchor" href="#_selector_element"></a>selector.element()</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>This function allows fetching the first element from the Germanium instance,
+for which the current selector matches.</p>
+</div>
+<div class="paragraph">
+<p>In case the germanium instance is not specified it will use the static instance
+from <code>germanium.static.get_germanium()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">element</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selector_element_list"><a class="anchor" href="#_selector_element_list"></a>selector.element_list()</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>This function allows fetching the element list from the Germanium instance,
+for which the current selector matches.</p>
+</div>
+<div class="paragraph">
+<p>In case the germanium instance is not specified it will use the static instance
+from <code>germanium.static.get_germanium()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">element_list</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">Element(<span style="color: #BA2121">&#39;li&#39;</span>)<span style="color: #666666">.</span>element_list()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selector_exists"><a class="anchor" href="#_selector_exists"></a>selector.exists()</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>This function allows checking if there is at least one element matching the
+current selector.</p>
+</div>
+<div class="paragraph">
+<p>In case the germanium instance is not specified it will use the static instance
+from <code>germanium.static.get_germanium()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">exists</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">wait(Text(<span style="color: #BA2121">&#39;data saved successfuly&#39;</span>)<span style="color: #666666">.</span>exists)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selector_not_exists"><a class="anchor" href="#_selector_not_exists"></a>selector.not_exists()</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>This function allows checking if there is no element matching the
+current selector.</p>
+</div>
+<div class="paragraph">
+<p>In case the germanium instance is not specified it will use the static instance
+from <code>germanium.static.get_germanium()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">not_exists</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">wait(Text(<span style="color: #BA2121">&#39;error occurred&#39;</span>)<span style="color: #666666">.</span>not_exists)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selector_text"><a class="anchor" href="#_selector_text"></a>selector.text()</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>This function allows returning the text of the first element that matches the
+current selector.</p>
+</div>
+<div class="paragraph">
+<p>In case the germanium instance is not specified it will use the static instance
+from <code>germanium.static.get_germanium()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">text</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> Css(<span style="color: #BA2121">&#39;#messages&#39;</span>)<span style="color: #666666">.</span>text() <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;data persisted&#39;</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2267,7 +2461,7 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-06 20:11:45 UTC
+Last updated 2016-04-10 22:45:39 UTC
 </div>
 </div>
 </body>

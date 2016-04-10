@@ -34,7 +34,7 @@ Germanium instance, and a string specifying the selector passed to the locator i
 
 These locators all extend a base class named `DeferredLocator`. This class holds the
 reference to the `Germanium` object, and offers utility methods to actually fetch
-the elements.
+the elements, check if such elements exist, or retrieveing their text.
 
 Note, that the locators don't immediately find the elements. Explicit calls muse be made
 to:
@@ -86,6 +86,9 @@ class DeferredLocator {
     +__call__() : list<WebElement>
     +element(only_visible: boolean) : WebElement
     +element_list(only_visible: boolean) : list<WebElement>
+    +exists(only_visible: boolean) : boolean
+    +not_exists(only_visible: boolean) : boolean
+    +text(only_visible: boolean) : string
     {abstract} #_find_element(only_visible: boolean) : WebElement
     {abstract} #_find_element_list(only_visible: boolean) : list<WebElement>
 }

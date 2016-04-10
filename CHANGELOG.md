@@ -9,6 +9,7 @@ ChangeLog
 
     - Added timeouts for `wait_for_..`
     - Minor cleanups.
+    - Updated documentation.
 
 * 2016-04-06  1.7.0
     - Finished documentation.

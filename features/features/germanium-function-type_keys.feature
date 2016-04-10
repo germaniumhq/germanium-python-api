@@ -67,7 +67,7 @@ Feature: Germanium enabled typing of the keys.
       When in the locator #passwordInputField I type_keys 'password'
       Then the value for the #passwordInputField is 'password'
 
-    @7
+    @7 @nofirefox
     Scenario: Ensure typing into an editable section will work.
       Given I open firefox
       And I go to 'http://localhost:8000/features/test-site/key_type-support-editable.html'

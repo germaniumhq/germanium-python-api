@@ -66,3 +66,16 @@ Feature: Germanium enabled typing of the keys.
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
       When in the locator #passwordInputField I type_keys 'password'
       Then the value for the #passwordInputField is 'password'
+
+    @7
+    Scenario: Ensure typing into an editable section will work.
+      Given I open firefox
+      And I go to 'http://localhost:8000/features/test-site/key_type-support-editable.html'
+      When in the locator body I type_keys '<ctrl-a><del>Rewrite<cr>all<cr>text'
+      Then the text of the page is
+      """
+      Rewrite
+      all
+      text
+      """
+

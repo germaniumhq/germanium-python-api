@@ -94,6 +94,11 @@ def step_impl(context, selector):
     click(selector)
 
 
+@step(u'the text of the page is')
+def step_impl(context):
+    assert_equals(context.text, Element('body').element().text)
+
+
 @step(u'I wait forever')
 def step_impl(context):
     sleep(10000000)

@@ -172,8 +172,6 @@ def create_multicombo(pressed_keys):
     :param pressed_keys:
     :return:
     """
-    keys_pressed = []
-    keys_released = []
     result = []
     combo_key=None
 
@@ -192,6 +190,7 @@ def create_multicombo(pressed_keys):
         result.append(BasicKeysAction(combo_key))
 
     return result
+
 
 def create_custom_key(combo_string):
     """

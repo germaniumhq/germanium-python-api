@@ -1,10 +1,10 @@
-from time import sleep
-
 import pkg_resources
 
 from .locators import CssLocator, XPathLocator, JsLocator
 from .iframe_selector import DefaultIFrameSelector, CallableIFrameSelector
 from .create_locator import create_locator
+
+from .impl import wait
 
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -133,13 +133,13 @@ class GermaniumDriver(object):
             print("Failure executing script: %s, error: %s" % (script, e))
             raise e
 
-
-    def wait_for_page_to_load(self):
+    def wait_for_page_to_load(self, timeout=30):
         """
         Wait for the page to load.
         """
         self.select_iframe("default")
-        self.wait_for_javascript("""return "complete" == document["readyState"]""")
+        self.wait_for_javascript("""return "complete" == document["readyState"]""",
+                                 timeout=timeout)
 
         self.load_support_scripts()  # automatically load the simple locator if waiting for the page to load finished.
 
@@ -164,7 +164,6 @@ class GermaniumDriver(object):
         Executes a script every 400 milliseconds until it returns true. If it goes more than timeout seconds, then this
         function throws an exception. If the given script throws an exception, it's assumed that it returned false.
         """
-        start_time = 0 # FIXME: get actual start time.
         wrapper_script = """
             try {
                 %s // original script
@@ -174,29 +173,7 @@ class GermaniumDriver(object):
             }
         """ % script
 
-        self.wait_for_closure(lambda: self.js(wrapper_script), timeout=timeout)
-
-    def wait_for_closure(self, closure, timeout = 10):
-        """
-        Executes a function given as argument every 400 milliseconds until it returns true. If it goes more than
-        the timeout seconds, then this function throws an exception. If the function throws an exception, then
-        it is assumed it is false.
-        """
-        def closure_try_catch():
-            try:
-                return closure()
-            except Exception as e:
-                print("WARNING: waiting as false since: %s" % e)
-                return False
-
-        passed_timeout = 0
-        while passed_timeout < timeout and not closure_try_catch():
-            passed_timeout += 0.4
-
-            if passed_timeout >= 2:
-                print("Running takes more than 2 seconds.")
-
-            sleep(0.4)
+        wait(lambda: self.js(wrapper_script), timeout=timeout)
 
     def load_support_scripts(self):
         """

@@ -8,8 +8,9 @@ from germanium.locators import \
     CompositeLocator, \
     DeferredLocator, \
     StaticElementLocator, \
-    PositionalFilterLocator
-from germanium.selectors import AbstractSelector, PositionalFilterSelector
+    PositionalFilterLocator, \
+    AlertLocator
+from germanium.selectors import AbstractSelector, PositionalFilterSelector, Alert
 
 LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?)\:)(.*)', re.MULTILINE|re.DOTALL)
 
@@ -72,8 +73,17 @@ def create_locator(germanium, selector, strategy='detect'):
     if isinstance(selector, WebElement):
         return StaticElementLocator(selector)
 
+    if isinstance(selector, Alert):
+        return AlertLocator(germanium)
+
     if hasattr(selector, '__call__'):
         return create_locator(germanium, selector())
+
+    if not isinstance(selector, str):
+        raise Exception('Unable to build locator from the selector. '
+                        'The selector: %s, that is of type: %s is '
+                        'not a string selector, does not inherit from '
+                        'AbstractSelector, and is not an Alert.' % (selector, type(selector)))
 
     # if it starts with // it's probably an XPath locator.
     if selector[0:2] == "//":

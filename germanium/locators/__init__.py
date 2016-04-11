@@ -7,3 +7,5 @@ from .XPathLocator import XPathLocator
 from .JsLocator import JsLocator
 
 from .PositionalFilterLocator import PositionalFilterLocator
+
+from .AlertLocator import AlertLocator

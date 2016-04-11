@@ -3,6 +3,7 @@ import pkg_resources
 from .locators import CssLocator, XPathLocator, JsLocator
 from .iframe_selector import DefaultIFrameSelector, CallableIFrameSelector
 from .create_locator import create_locator
+from .impl._alert_exists import _alert_exists
 
 from .impl import wait
 
@@ -138,13 +139,18 @@ class GermaniumDriver(object):
         Wait for the page to load.
         """
         self.select_iframe("default")
-        self.wait_for_javascript("""return "complete" == document["readyState"]""",
-                                 timeout=timeout)
 
-        self.load_support_scripts()  # automatically load the simple locator if waiting for the page to load finished.
+        wait(lambda: self.js("""return "complete" == document["readyState"]"""),
+             lambda: _alert_exists(self),
+             timeout=timeout)
 
-        for script_name in self._scripts_to_load:
-            self.load_script(script_name)
+        if _alert_exists(self):
+            print("WARNING: Since an alert was present, wait_for_page_to_load "
+                  "exited prematurely, and the support scripts were not loaded. "
+                  "You need to call `get_germanium().load_support_scripts()` "
+                  "manually.")
+        else:
+            self.load_support_scripts()
 
     def wait_for_action_to_complete(self, throttle=0):
         """
@@ -183,6 +189,9 @@ class GermaniumDriver(object):
             self.load_script('ajax-interceptor.js')
             self.load_script('is-ajax-running.js')
             self.load_script('germanium-extensions-loaded.js')
+
+        for script_name in self._scripts_to_load:
+            self.load_script(script_name)
 
     def load_script(self, script_name):
         """

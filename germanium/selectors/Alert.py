@@ -1,4 +1,32 @@
 class Alert(object):
+    def element(self, *argv, germanium=None, **kw):
+        """
+        Returns the existing alert instance for the given germanium instance.
+        If the alert is not present, then it will return None.
+        If the germanium parameter is not set it will use instead the
+        `germanium.static.get_germanium` instance.
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        return S(self, germanium=germanium).element(*argv, **kw)
+
+    def element_list(self, *argv, germanium=None, **kw):
+        """
+        Returns the existing alert instance as a list for the given
+        germanium instance. If the alert is not present, then it will
+        return None. If the germanium parameter is not set it will use
+        instead the `germanium.static.get_germanium` instance.
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        return S(self, germanium=germanium).element(*argv, **kw)
+
     def exists(self, *argv, germanium=None, **kw):
         """
         Returns true if an alert is present for the given germanium instance.

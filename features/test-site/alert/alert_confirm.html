@@ -6,13 +6,12 @@
     <title>alert Page</title>
 </head>
 <body>
-    <div id="promptresult"></div>
+    <div id="confirmresult"></div>
     <script type="text/javascript">
-        var result = prompt("prompt alert");
-        if (result != null) {
-            document.getElementById('promptresult').innerHTML = result;
+        if (confirm("confirm dialog")) {
+            document.getElementById('confirmresult').innerHTML = 'CONFIRM ACCEPTED';
         } else {
-            document.getElementById('promptresult').innerHTML = "PROMPT REJECTED";
+            document.getElementById('confirmresult').innerHTML = 'CONFIRM REJECTED';
         }
     </script>
 </body>

@@ -5,6 +5,8 @@ from selenium.webdriver.common.keys import Keys
 
 from .find_germanium_object import find_germanium_object
 from germanium.impl import _filter_one_for_action
+from germanium.impl._alert_exists import _alert_exists
+from germanium.selectors import Alert
 
 MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
 
@@ -51,6 +53,8 @@ def type_keys_g(context, keys_typed, selector=None, *args):
     if selector:
         potential_elements = germanium.S(selector).element_list(only_visible=False)
         selector = _filter_one_for_action(potential_elements)
+    elif _alert_exists(germanium):
+        selector = Alert().element(germanium=germanium)
 
     action_chain = ActionChains(germanium.web_driver)
 

@@ -8,6 +8,9 @@ from germanium.impl import _filter_one_for_action
 from germanium.impl._alert_exists import _alert_exists
 from germanium.selectors import Alert
 
+from selenium.webdriver.common.alert import Alert as WebdriverAlert
+
+
 MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
 
 
@@ -49,26 +52,31 @@ def type_keys_g(context, keys_typed, selector=None, *args):
     """
     germanium = find_germanium_object(context)
     keys_array = transform_to_keys(keys_typed)
+    element = None
 
     if selector:
         potential_elements = germanium.S(selector).element_list(only_visible=False)
-        selector = _filter_one_for_action(potential_elements)
+        if len(potential_elements) == 1 and \
+                isinstance(potential_elements[0], WebdriverAlert):
+            element = potential_elements[0]
+        else:
+            element = _filter_one_for_action(potential_elements)
     elif _alert_exists(germanium):
-        selector = Alert().element(germanium=germanium)
+        element = Alert().element(germanium=germanium)
 
     action_chain = ActionChains(germanium.web_driver)
 
     for key_action in keys_array:
         if isinstance(key_action, BasicKeysAction):
             keys_to_send = ''.join(key_action.keys)
-            if selector:
-                action_chain.send_keys_to_element(selector, keys_to_send)
+            if element:
+                action_chain.send_keys_to_element(element, keys_to_send)
             else:
                 action_chain.send_keys(keys_to_send)
         elif isinstance(key_action, ComboKeyDown):
-            action_chain.key_down(key_action.key, selector)
+            action_chain.key_down(key_action.key, element)
         elif isinstance(key_action, ComboKeyUp):
-            action_chain.key_up(key_action.key, selector)
+            action_chain.key_up(key_action.key, element)
 
     action_chain.perform()
 

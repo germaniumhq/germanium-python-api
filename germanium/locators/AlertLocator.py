@@ -7,15 +7,16 @@ class AlertLocator(object):
     Create a deferred locator that can be used in matching
     elements in wait conditions.
     """
-    def __init__(self, germanium=None):
+    def __init__(self, germanium=None, selector=None):
         self._germanium = germanium
 
     def __call__(self):
         return self.exists()
 
-    def element(self):
+    def element(self, only_visible=True):
         """
         Returns the current alert, or None if no alert is present.
+        :param only_visible: Kept for compatibility with locators API.
         :return:
         """
         try:
@@ -24,10 +25,11 @@ class AlertLocator(object):
         except NoAlertPresentException:
             return None
 
-    def element_list(self):
+    def element_list(self, only_visible=True):
         """
         Returns a list with just this alert, or an empty list if no alert
         is present.
+        :param only_visible: Ignored. Kept for compatibility with locators API.
         :return:
         """
         result = self.element()

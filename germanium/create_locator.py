@@ -85,6 +85,9 @@ def create_locator(germanium, selector, strategy='detect'):
                         'not a string selector, does not inherit from '
                         'AbstractSelector, and is not an Alert.' % (selector, type(selector)))
 
+    if selector == "alert":
+        return AlertLocator(germanium, selector)
+
     # if it starts with // it's probably an XPath locator.
     if selector[0:2] == "//":
         return XPathLocator(germanium, selector)

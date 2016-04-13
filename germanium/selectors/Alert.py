@@ -93,3 +93,36 @@ class Alert(object):
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         alert.dismiss()
+
+    def send_keys(self, text, *argv, germanium=None, **kw):
+        """
+        Types the given keys into the alert.
+        If the germanium parameter is not set it will use instead the
+        `germanium.static.get_germanium` instance.
+        :param text: The text to type into.
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        alert = S(self, germanium=germanium).element(*argv, **kw)
+
+        alert.send_keys(text)
+
+    def authenticate(self, username, password, *argv, germanium=None, **kw):
+        """
+        Fills in the username and password into the alert.
+        If the germanium parameter is not set it will use instead the
+        `germanium.static.get_germanium` instance.
+        :param password:
+        :param username:
+        :param argv:
+        :param germanium:
+        :param kw:
+        :return:
+        """
+        from germanium.static import S
+        alert = S(self, germanium=germanium).element(*argv, **kw)
+
+        alert.autenticate(username, password)

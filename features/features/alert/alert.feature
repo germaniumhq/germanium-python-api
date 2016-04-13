@@ -45,12 +45,51 @@ Scenario: Test an Prompt by reejcting it.
   """
 
 @5
-Scenario: Test an Prompt by setting some value.
+Scenario: Test an Prompt by setting some value using regular type_keys with an Alert.
   Given I open firefox
   When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
   Then there is an alert that exists
   And the text of the alert is "prompt alert"
   When I write into the alert 'prompt input'
+  And I close the alert dialog by ok
+  Then the text of the page is
+  """
+  prompt input
+  """
+
+@6
+Scenario: Test an Prompt by setting some value using type_keys on the alert instance.
+  Given I open firefox
+  When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
+  Then there is an alert that exists
+  And the text of the alert is "prompt alert"
+  When I write into the alert using Alert().send_keys 'prompt input'
+  And I close the alert dialog by ok
+  Then the text of the page is
+  """
+  prompt input
+  """
+
+@7
+Scenario: Test an Prompt by setting some value using type_keys, with an 'alert' Super selector.
+  Given I open firefox
+  When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
+  Then there is an alert that exists
+  And the text of the alert is "prompt alert"
+  When I write into the alert using type_keys(.., 'alert') 'prompt input'
+  And I close the alert dialog by ok
+  Then the text of the page is
+  """
+  prompt input
+  """
+
+@8
+Scenario: Test an Prompt by setting some value using type_keys without a selector, by means of 'alert' detection.
+  Given I open firefox
+  When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
+  Then there is an alert that exists
+  And the text of the alert is "prompt alert"
+  When I type_keys 'prompt input'
   And I close the alert dialog by ok
   Then the text of the page is
   """

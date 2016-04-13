@@ -1,6 +1,6 @@
 import pkg_resources
 
-from .locators import CssLocator, XPathLocator, JsLocator
+from .locators import CssLocator, XPathLocator, JsLocator, AlertLocator
 from .iframe_selector import DefaultIFrameSelector, CallableIFrameSelector
 from .create_locator import create_locator
 from .impl._alert_exists import _alert_exists
@@ -41,7 +41,8 @@ class GermaniumDriver(object):
         self.locator_map = {
             "xpath": XPathLocator,
             "css": CssLocator,
-            "js": JsLocator
+            "js": JsLocator,
+            "alert": AlertLocator
         }
 
         self.select_iframe("default")

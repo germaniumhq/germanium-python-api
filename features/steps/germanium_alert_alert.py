@@ -29,3 +29,13 @@ def step_impl(context):
 @step(u"I write into the alert '(.*?)'")
 def step_impl(context, text):
     type_keys(text, Alert())
+
+
+@step(r"I write into the alert using Alert\(\)\.send_keys '(.*?)'")
+def step_impl(context, text):
+    Alert().send_keys(text)
+
+
+@step(r"I write into the alert using type_keys\(\.\., 'alert'\) '(.*?)'")
+def step_impl(context, text):
+    type_keys(text, 'alert')

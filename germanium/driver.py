@@ -141,8 +141,11 @@ class GermaniumDriver(object):
         """
         self.select_iframe("default")
 
-        wait(lambda: self.js("""return "complete" == document["readyState"]"""),
-             lambda: _alert_exists(self),
+        # Checking for alerts must happen first, because Firefox can't
+        # execute JS if there is an alert present, and it closes the alert
+        # if it has a JS eval error.
+        wait(lambda: _alert_exists(self),
+             lambda: self.js("""return "complete" == document["readyState"]"""),
              timeout=timeout)
 
         if _alert_exists(self):

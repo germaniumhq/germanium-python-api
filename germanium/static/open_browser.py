@@ -35,7 +35,8 @@ def open_browser(browser="Firefox",
         remote_browser = remote_match.group(1)
 
         if remote_browser.lower() == "firefox" or remote_browser.lower() == "ff":
-            remote_capabilities = webdriver.DesiredCapabilities.FIREFOX
+            remote_capabilities = dict(webdriver.DesiredCapabilities.FIREFOX)
+            remote_capabilities["unexpectedAlertBehaviour"] = "ignore"
         elif remote_browser.lower() == "chrome":
             remote_capabilities = webdriver.DesiredCapabilities.CHROME
         elif remote_browser.lower() == "ie":
@@ -47,7 +48,9 @@ def open_browser(browser="Firefox",
         web_driver = webdriver.Remote(command_executor=remote_match.group(2),
                                       desired_capabilities=remote_capabilities)
     elif browser.lower() == "firefox" or browser.lower() == "ff":
-        web_driver = webdriver.Firefox(timeout=timeout)
+        remote_capabilities = dict(webdriver.DesiredCapabilities.FIREFOX)
+        remote_capabilities["unexpectedAlertBehaviour"] = "ignore"
+        web_driver = webdriver.Firefox(timeout=timeout, capabilities=remote_capabilities)
     elif browser.lower() == "chrome":
         web_driver = webdriver.Chrome()
     elif browser.lower() == "ie":

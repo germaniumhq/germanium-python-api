@@ -22,7 +22,13 @@ fi # [[ $RUN_VNC_SERVER -eq 1 ]]
 
 cd /tests
 
-behave --tags ~@no${TEST_BROWSER}
+if [[ $string == *":http"* ]]; then
+    TEST_BROWSER_ABBREVIATION=$(echo $TEST_BROWSER | perl -pe 's/^(.*?):.*/$1/')
+else
+    TEST_BROWSER_ABBREVIATION="$TEST_BROWSER"
+fi
+
+    behave --tags ~@no${TEST_BROWSER_ABBREVIATION}
 
 # kill potentially remaining processes, but don't fail in case
 # stuff can't be killed.

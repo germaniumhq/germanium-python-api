@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+* 2016-04-15  1.7.2
+    - Added alert support, including `Alert` selector, locator, and `type_keys` integration.
+    - IE8 is now part of the test matrix.
+
 * 2016-04-10  1.7.1
     - Added `text()` function to selectors and locators.
     - Added `drag_and_drop()`.

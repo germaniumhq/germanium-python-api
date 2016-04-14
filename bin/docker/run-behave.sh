@@ -22,7 +22,7 @@ fi # [[ $RUN_VNC_SERVER -eq 1 ]]
 
 cd /tests
 
-if [[ $string == *":http"* ]]; then
+if [[ $TEST_BROWSER == *":http"* ]]; then
     TEST_BROWSER_ABBREVIATION=$(echo $TEST_BROWSER | perl -pe 's/^(.*?):.*/$1/')
 else
     TEST_BROWSER_ABBREVIATION="$TEST_BROWSER"

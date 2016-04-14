@@ -73,7 +73,19 @@ parallel python27Firefox: {
                    germanium/germanium-python2.7-tests
         '''
     }
-}, failFast: true
+}, python27Ie8: {
+    node {
+        sh '''
+            docker run --rm \\
+                   -e TEST_REUSE_BROWSER=1 \\
+                   -e RUN_VNC_SERVER=0 \\
+                   -p 8008:8000 \\
+                   -e TEST_HOST=192.168.0.6:8008 \\
+                   -e TEST_BROWSER=ie:http://192.168.0.22:5555/ \\
+                   germanium/germanium-python2.7-tests
+        '''
+    }
+ }, failFast: true
 
 stage "Run Python 3.4 Tests"
 
@@ -91,6 +103,18 @@ parallel python34Firefox: {
             docker run --rm \\
                    -e TEST_REUSE_BROWSER=1 \\
                    -e TEST_BROWSER=chrome \\
+                   germanium/germanium-python3.4-tests
+        '''
+    }
+}, python34Ie8: {
+    node {
+        sh '''
+            docker run --rm \\
+                   -e TEST_REUSE_BROWSER=1 \\
+                   -e RUN_VNC_SERVER=0 \\
+                   -p 8008:8000 \\
+                   -e TEST_HOST=192.168.0.6:8008 \\
+                   -e TEST_BROWSER=ie:http://192.168.0.22:5555/ \\
                    germanium/germanium-python3.4-tests
         '''
     }

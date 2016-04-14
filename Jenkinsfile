@@ -40,6 +40,16 @@ parallel python35Firefox: {
                    germanium/germanium-python3.5-tests
         '''
     }
+}, python35Ie8: {
+   node {
+       sh '''
+           docker run --rm \\
+                  -e TEST_REUSE_BROWSER=1 \\
+                  -e RUN_VNC_SERVER=0 \\
+                  -e TEST_BROWSER=ie:http://192.168.0.22:5555/ \\
+                  germanium/germanium-python3.5-tests
+       '''
+   }
 }, failFast: true
 
 stage "Run Python 2.7 Tests"

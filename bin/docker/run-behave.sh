@@ -28,7 +28,7 @@ else
     TEST_BROWSER_ABBREVIATION="$TEST_BROWSER"
 fi
 
-    behave --tags ~@no${TEST_BROWSER_ABBREVIATION}
+behave --tags ~@no${TEST_BROWSER_ABBREVIATION}
 
 # kill potentially remaining processes, but don't fail in case
 # stuff can't be killed.

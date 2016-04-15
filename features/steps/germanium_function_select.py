@@ -36,6 +36,11 @@ def step_impl(context):
     select("#multilineSelect", index=[1, "3", 5.0])
 
 
+@step(u'I select in the multiline select the entries with indexes 4')
+def step_impl(context):
+    select("#multilineSelect", index=4)
+
+
 @step(u"the value in the first select is '(.*?)'")
 def step_impl(context, expected_value):
     assert_equals(expected_value, get_value("#firstSelect"))
@@ -48,9 +53,14 @@ def step_impl(context):
 
 @step(u"the values in the multiline select are 'b2value', 'b4value' and 'b6value'")
 def step_impl(context):
-    assert_equals(["b2value", "b4value", "b4value"], get_value("#multilineSelect"))
+    assert_equals(["b2value", "b4value", "b6value"], get_value("#multilineSelect"))
 
 
 @step(u"the values in the multiline select are 'b1value', 'b3value' and 'b5value'")
 def step_impl(context):
     assert_equals(["b1value", "b3value", "b5value"], get_value("#multilineSelect"))
+
+
+@step(u"I deselect in the multiline select the entries with indexes 3 and 5")
+def step_impl(context):
+    deselect("#multilineSelect", index=[3, "5"])

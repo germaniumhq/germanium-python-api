@@ -45,3 +45,11 @@ Scenario: On a page with a multiline select, I can select its values by indexes.
   When I select in the multiline select the entries with indexes 1, 3 and 5
   Then the values in the multiline select are 'b1value', 'b3value' and 'b5value'
 
+@7
+Scenario: On a page with a multiline select, I can deselect some elements
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/select.html'
+  When I select in the multiline select the entries with indexes 1, 3 and 5
+  And I deselect in the multiline select the entries with indexes 3 and 5
+  And I select in the multiline select the entries with indexes 4
+  Then the values in the multiline select are 'b1value' and 'b4value'

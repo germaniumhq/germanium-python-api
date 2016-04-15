@@ -5,7 +5,7 @@ from ._element import _element
 from .find_germanium_object import find_germanium_object
 
 
-def deselect_g(context, selector, text=None, *argv, index=None, value=None):
+def deselect_g(context, selector, text=None, *argv, index=None, value=None, **kw):
     germanium = find_germanium_object(context)
     select_element = _element(germanium, selector)
 

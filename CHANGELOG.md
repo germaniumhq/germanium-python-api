@@ -1,6 +1,15 @@
 ChangeLog
 ---------
 
+* 2016-04-17  1.7.3
+    - Added select support (combo boxes), with `select` and `deselect` functions.
+    - Added `get_value` to get the value(s) of selectors.
+    - Callable support in reference selectors (e.g. `.inside(callable)`).
+
+    _Bugfixes_
+
+    - Updated documentation.
+
 * 2016-04-15  1.7.2
     - Added alert support, including `Alert` selector, locator, and `type_keys` integration.
     - IE8 is now part of the test matrix.

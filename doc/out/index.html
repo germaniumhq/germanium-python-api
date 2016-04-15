@@ -438,6 +438,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_hover_selector">hover(selector)</a></li>
 <li><a href="#_double_click_selector">double_click(selector)</a></li>
 <li><a href="#_right_click_selector">right_click(selector)</a></li>
+<li><a href="#_drag_and_drop_from_selector_to_selector">drag_and_drop(from_selector, to_selector)</a></li>
+<li><a href="#_select_selector_text_index_value">select(selector, text?, index?, value?)</a></li>
+<li><a href="#_deselect_selector_text_index_value">deselect(selector, text?, index?, value?)</a></li>
+<li><a href="#_get_value_selector">get_value(selector)</a></li>
 <li><a href="#_get_web_driver">get_web_driver()</a></li>
 <li><a href="#_get_germanium">get_germanium()</a></li>
 <li><a href="#_def_s_argv_kwargs">def S(*argv, **kwargs)</a></li>
@@ -851,6 +855,204 @@ element you want your action to be triggered against.</em></p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python">right_click(Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;table-row&#39;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_drag_and_drop_from_selector_to_selector"><a class="anchor" href="#_drag_and_drop_from_selector_to_selector"></a>drag_and_drop(from_selector, to_selector)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Performs a drag and drop operation from the element matching the <code>from_selector</code>,
+to the element matching the <code>to_selector</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">drag_and_drop</span>(from_selector, <b class="conum">(1)</b>
+                  to_selector) <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>from_selector</em> - What element to use for drag start. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+<li>
+<p><em>to_selector</em> - What element to release the mouse over. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">drag_and_drop(Element(<span style="color: #BA2121">&quot;div&quot;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&quot;old-entry&quot;</span>, index<span style="color: #666666">=2</span>),
+              <span style="color: #BA2121">&quot;#removeContainer&quot;</span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_select_selector_text_index_value"><a class="anchor" href="#_select_selector_text_index_value"></a>select(selector, text?, index?, value?)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Change the value of a <code>&lt;select&gt;</code> element by selecting items from the
+available options.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select</span>(selector, <b class="conum">(1)</b>
+           text<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
+           <span style="color: #666666">*</span>argv,
+           index<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(3)</b>
+           value<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(4)</b>
+           <span style="color: #666666">**</span>kw)</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What select to change its values. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+<li>
+<p><em>text</em> - What text(s) (if any) to use for selection.</p>
+</li>
+<li>
+<p><em>index</em> - What index(es) (if any) to use for selection.</p>
+</li>
+<li>
+<p><em>value</em> - What value(s) (if any) to use for selection.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>One of <code>text</code>, <code>index</code> or <code>value</code> must be present for the selection to function,
+if none are present an <code>Exception</code> will be raised.</p>
+</div>
+<div class="paragraph">
+<p><code>text</code>, <code>index</code> and <code>value</code> can also be arrays, or single values.</p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">select(<span style="color: #BA2121">&quot;#country&quot;</span>, <span style="color: #BA2121">&quot;Austria&quot;</span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deselect_selector_text_index_value"><a class="anchor" href="#_deselect_selector_text_index_value"></a>deselect(selector, text?, index?, value?)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Change the value of a <code>&lt;select&gt;</code> element by deselecting items from the
+available options.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">deselect</span>(selector, <b class="conum">(1)</b>
+             text<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
+             <span style="color: #666666">*</span>argv,
+             index<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(3)</b>
+             value<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(4)</b>
+             <span style="color: #666666">**</span>kw)</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What select to change its values. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+<li>
+<p><em>text</em> - What text(s) (if any) to use for deselection.</p>
+</li>
+<li>
+<p><em>index</em> - What index(es) (if any) to use for deselection.</p>
+</li>
+<li>
+<p><em>value</em> - What value(s) (if any) to use for deselection.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Deselect will deselect all the items from the <code>text</code>, <code>index</code> and
+<code>value</code> parameters. <em>If all the parameters are unset, it will clear the
+selection.</em></p>
+</div>
+<div class="paragraph">
+<p><code>text</code>, <code>index</code> and <code>value</code> can also be arrays, or single values.</p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">deselect(<span style="color: #BA2121">&quot;#products&quot;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">1</span>,<span style="color: #666666">3</span>])</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_value_selector"><a class="anchor" href="#_get_value_selector"></a>get_value(selector)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Gets the value of an input element. Works for: <code>&lt;input&gt;</code> and <code>&lt;select&gt;</code>
+elements.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">get_value(selector) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to return the value for. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>get_value</code> will return the current value of the element.</p>
+</div>
+<div class="paragraph">
+<p>If the element is a multi-select, it will return an array of the values which
+were selected (the <code>value</code> attribute of the <code>&lt;option&gt;</code> elements that are
+selected).</p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> get_value(<span style="color: #BA2121">&#39;#country&#39;</span>) <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;at&#39;</span></code></pre>
 </div>
 </div>
 </div>
@@ -1971,7 +2173,16 @@ inside the browsers:</p>
 <p><code>hover_g</code></p>
 </li>
 <li>
+<p><code>select_g</code></p>
+</li>
+<li>
+<p><code>deselect_g</code></p>
+</li>
+<li>
 <p><code>get_attributes_g</code></p>
+</li>
+<li>
+<p><code>get_value_g</code></p>
 </li>
 <li>
 <p><code>wait</code></p>
@@ -2408,6 +2619,33 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 </div>
 <div class="sect3">
+<h4 id="_select_g_germanium_selector_text_none_argv_value_none_index_none"><a class="anchor" href="#_select_g_germanium_selector_text_none_argv_value_none_index_none"></a>select_g(germanium, selector, text=None, *argv, value=None, index=None)</h4>
+<div class="paragraph">
+<p>Select one or more elements in a HTML <code>&lt;select&gt;</code> element. Can select the
+elements by either, text values, actual values inside the <code>&lt;option&gt;</code>, or by
+index.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">select(<span style="color: #BA2121">&#39;select#country&#39;</span>, value<span style="color: #666666">=</span><span style="color: #BA2121">&#39;at&#39;</span>)
+select(<span style="color: #BA2121">&#39;select#multivalueSelect&#39;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">1</span>,<span style="color: #666666">3</span>,<span style="color: #666666">7</span>,<span style="color: #666666">8</span>])</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deselect_g_germanium_selector_text_none_argv_value_none_index_none"><a class="anchor" href="#_deselect_g_germanium_selector_text_none_argv_value_none_index_none"></a>deselect_g(germanium, selector, text=None, *argv, value=None, index=None)</h4>
+<div class="paragraph">
+<p>Deselects one or more elements in a HTML <code>&lt;select&gt;</code> element. Can deselect the
+elements by either, text values, actual values inside the <code>&lt;option&gt;</code>, or by
+index.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">deselect(<span style="color: #BA2121">&#39;select#multivalueSelect&#39;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">7</span>,<span style="color: #666666">8</span>])</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_get_attributes_g_germanium_selector"><a class="anchor" href="#_get_attributes_g_germanium_selector"></a>get_attributes_g(germanium, selector)</h4>
 <div class="paragraph">
 <p>Return all the attributes of the element matched by the selector as a dictionary
@@ -2432,6 +2670,22 @@ object.</p>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;class&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;modal superb&#39;</span>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;id&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;editor&#39;</span>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;custom-data&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;simple-code&#39;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_get_value_g_germanium_selector"><a class="anchor" href="#_get_value_g_germanium_selector"></a>get_value_g(germanium, selector)</h4>
+<div class="paragraph">
+<p>Returns the current value of the element matched by the selector. Normally
+for inputs it&#8217;s just the string value.</p>
+</div>
+<div class="paragraph">
+<p>In case the selector matches a multiple select, will return an array with the
+values that are currently selected.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> get_value_g(germanium, <span style="color: #BA2121">&#39;select#multivalueSelect&#39;</span>) <span style="color: #666666">==</span> [<span style="color: #666666">1</span>, <span style="color: #666666">3</span>]</code></pre>
 </div>
 </div>
 </div>
@@ -2461,7 +2715,7 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-10 22:45:39 UTC
+Last updated 2016-04-10 22:54:06 UTC
 </div>
 </div>
 </body>

@@ -220,6 +220,140 @@ def right_click(selector) <1>
 right_click(Element('div', css_classes='table-row'))
 -----------------------------------------------------------------------------
 
+== drag_and_drop(from_selector, to_selector)
+
+*Description*
+
+Performs a drag and drop operation from the element matching the `from_selector`,
+to the element matching the `to_selector`.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def drag_and_drop(from_selector, <1>
+                  to_selector) <2>
+-----------------------------------------------------------------------------
+<1> _from_selector_ - What element to use for drag start. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+<2> _to_selector_ - What element to release the mouse over. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+drag_and_drop(Element("div", css_classes="old-entry", index=2),
+              "#removeContainer")
+-----------------------------------------------------------------------------
+
+== select(selector, text?, index?, value?)
+
+*Description*
+
+Change the value of a `<select>` element by selecting items from the
+available options.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def select(selector, <1>
+           text=None, <2>
+           *argv,
+           index=None, <3>
+           value=None, <4>
+           **kw)
+-----------------------------------------------------------------------------
+<1> _selector_ - What select to change its values. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+<2> _text_ - What text(s) (if any) to use for selection.
+<3> _index_ - What index(es) (if any) to use for selection.
+<4> _value_ - What value(s) (if any) to use for selection.
+
+One of `text`, `index` or `value` must be present for the selection to function,
+if none are present an `Exception` will be raised.
+
+`text`, `index` and `value` can also be arrays, or single values.
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+select("#country", "Austria")
+-----------------------------------------------------------------------------
+
+== deselect(selector, text?, index?, value?)
+
+*Description*
+
+Change the value of a `<select>` element by deselecting items from the
+available options.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def deselect(selector, <1>
+             text=None, <2>
+             *argv,
+             index=None, <3>
+             value=None, <4>
+             **kw)
+-----------------------------------------------------------------------------
+<1> _selector_ - What select to change its values. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+<2> _text_ - What text(s) (if any) to use for deselection.
+<3> _index_ - What index(es) (if any) to use for deselection.
+<4> _value_ - What value(s) (if any) to use for deselection.
+
+Deselect will deselect all the items from the `text`, `index` and
+`value` parameters. _If all the parameters are unset, it will clear the
+selection._
+
+`text`, `index` and `value` can also be arrays, or single values.
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+deselect("#products", index=[1,3])
+-----------------------------------------------------------------------------
+
+== get_value(selector)
+
+*Description*
+
+Gets the value of an input element. Works for: `<input>` and `<select>`
+elements.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+get_value(selector) <1>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to return the value for. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+
+`get_value` will return the current value of the element.
+
+If the element is a multi-select, it will return an array of the values which
+were selected (the `value` attribute of the `<option>` elements that are
+selected).
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+assert get_value('#country') == 'at'
+-----------------------------------------------------------------------------
+
 get_web_driver()
 ----------------
 
@@ -265,7 +399,6 @@ the `germanium.driver.GermaniumDriver` instance._
 -----------------------------------------------------------------------------
 g = get_germanium()
 -----------------------------------------------------------------------------
-
 
 def S(*argv, **kwargs)
 ----------------------

@@ -19,7 +19,10 @@ inside the browsers:
     - `double_click_g`
     - `right_click_g`
     - `hover_g`
+    - `select_g`
+    - `deselect_g`
     - `get_attributes_g`
+    - `get_value_g`
     - `wait`
 
 == @iframe - germanium iframe decorator
@@ -352,6 +355,29 @@ Hover the given element.
 hover_g(germanium, 'a.main-menu')
 -----------------------------------------------------------------------------
 
+=== select_g(germanium, selector, text=None, *argv, value=None, index=None)
+
+Select one or more elements in a HTML `<select>` element. Can select the
+elements by either, text values, actual values inside the `<option>`, or by
+index.
+
+[source,python]
+-----------------------------------------------------------------------------
+select('select#country', value='at')
+select('select#multivalueSelect', index=[1,3,7,8])
+-----------------------------------------------------------------------------
+
+=== deselect_g(germanium, selector, text=None, *argv, value=None, index=None)
+
+Deselects one or more elements in a HTML `<select>` element. Can deselect the
+elements by either, text values, actual values inside the `<option>`, or by
+index.
+
+[source,python]
+-----------------------------------------------------------------------------
+deselect('select#multivalueSelect', index=[7,8])
+-----------------------------------------------------------------------------
+
 === get_attributes_g(germanium, selector)
 
 Return all the attributes of the element matched by the selector as a dictionary
@@ -374,6 +400,19 @@ editor_attributes = get_attributes_g(germanium, '#editor')
 assert editor_attributes['class'] == 'modal superb'
 assert editor_attributes['id'] == 'editor'
 assert editor_attributes['custom-data'] == 'simple-code'
+-----------------------------------------------------------------------------
+
+=== get_value_g(germanium, selector)
+
+Returns the current value of the element matched by the selector. Normally
+for inputs it's just the string value.
+
+In case the selector matches a multiple select, will return an array with the
+values that are currently selected.
+
+[source,python]
+-----------------------------------------------------------------------------
+assert get_value_g(germanium, 'select#multivalueSelect') == [1, 3]
 -----------------------------------------------------------------------------
 
 === wait(closure, while_not=None, timeout=10)

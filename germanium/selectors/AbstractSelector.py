@@ -204,26 +204,37 @@ class PositionalFilterSelector(AbstractSelector):
 def _ensure_selectors(items):
     items = _ensure_list(items)
 
+    for i in range(len(items)):
+        items[i] = _ensure_selector(items[i])
+
+    return items
+
+
+def _ensure_selector(item):
     from .JsSelector import JsSelector
     from .XPath import XPath
     from .Css import Css
 
-    for i in range(len(items)):
-        item = items[i]
+    if isinstance(item, AbstractSelector):
+        return item
 
-        if isinstance(item, str):
-            if item.startswith("js:"):
-                items[i] = JsSelector(item[3:])
-            elif item.startswith("xpath:"):
-                items[i] = XPath(item[6:])
-            elif item.startswith("//"):
-                items[i] = XPath(item)
-            elif item.startswith("css"):
-                items[i] = Css(item)
-            else:
-                items[i] = Css(item)
+    if hasattr(item, '__call__'):
+        return _ensure_selector(item())
 
-    return items
+    if isinstance(item, str):
+        if item.startswith("js:"):
+            return JsSelector(item[3:])
+        elif item.startswith("xpath:"):
+            return XPath(item[6:])
+        elif item.startswith("//"):
+            return XPath(item)
+        elif item.startswith("css"):
+            return Css(item)
+        else:
+            return Css(item)
+
+    raise Exception("The element given as a selector %s was not a valid selector"
+                    "for this context." % item)
 
 
 def _get_xpath_selectors(selector_objects):
@@ -235,6 +246,11 @@ def _get_xpath_selectors(selector_objects):
             raise Exception("Positional selectors are not supported, only "
                             "selectors that will return XPath global searches, without positional "
                             "references.")
+
+        if not isinstance(selector, AbstractSelector):
+            raise Exception("The passed selector: %s is not an instance of "
+                            "AbstractSelector, string, or callable that builds an "
+                            "AbstractSelector." % selector)
 
         string_selectors = selector.get_selectors()
 

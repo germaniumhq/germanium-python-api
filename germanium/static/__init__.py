@@ -19,6 +19,8 @@ from .type_keys import type_keys
 from .js import js
 from .get_attributes import get_attributes
 from .drag_and_drop import drag_and_drop
+from .select import select
+from .get_value import get_value
 
 # decorators
 from .iframe import iframe

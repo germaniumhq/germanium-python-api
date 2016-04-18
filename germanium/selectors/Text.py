@@ -10,7 +10,7 @@ class Text(AbstractSelector):
         self._text = text
 
     def get_selectors(self):
-        """ Return the simple selector to find the text """
+        """ Return a JS selector to find the text """
         js_selector = """js:
             var searchedText = "%s";
 

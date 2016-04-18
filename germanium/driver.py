@@ -187,7 +187,7 @@ class GermaniumDriver(object):
 
     def load_support_scripts(self):
         """
-        Since the simple locator script is a bazillion bytes big, it should be loaded independently.
+        Since the support scripts are quite big, they should be loaded independently.
         """
         if self.js("return !window.__GERMANIUM_EXTENSIONS_LOADED"):
             self.load_script('ajax-interceptor.js')

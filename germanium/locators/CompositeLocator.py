@@ -1,5 +1,6 @@
 from .DeferredLocator import DeferredLocator
 
+
 class CompositeLocator(DeferredLocator):
     """
     A locator that will search using the locators it contains.

@@ -12,4 +12,7 @@ def get_text_g(context, selector):
     else:
         element = _element(germanium, selector)
 
-    return element.text
+    result = germanium.js("return arguments[0].innerText || arguments[0].textContent || '';",
+                          element)
+
+    return str(result).replace("\r\n", "\n")

@@ -6,5 +6,6 @@ from .drag_and_drop import drag_and_drop_g
 from .select import select_g
 from .deselect import deselect_g
 from .get_value import get_value_g
+from .get_text import get_text_g
 
 from germanium.impl import wait

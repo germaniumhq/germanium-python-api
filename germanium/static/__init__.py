@@ -22,6 +22,7 @@ from .drag_and_drop import drag_and_drop
 from .select import select
 from .deselect import deselect
 from .get_value import get_value
+from .get_text import get_text
 
 # decorators
 from .iframe import iframe

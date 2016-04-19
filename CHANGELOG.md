@@ -1,6 +1,14 @@
 ChangeLog
 ---------
 
+* 2016-04-19  1.7.4
+    - Added `get_text` support function to get the text from selectors.
+    - Added `highlight` utility function, to aid debugging of tests.
+
+    _Bugfixes_
+
+    - `get_attributes` can return now the attributes also for invisible elements.
+
 * 2016-04-17  1.7.3
     - Added select support (combo boxes), with `select` and `deselect` functions.
     - Added `get_value` to get the value(s) of selectors.

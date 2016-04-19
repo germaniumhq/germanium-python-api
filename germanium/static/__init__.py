@@ -23,6 +23,7 @@ from .select import select
 from .deselect import deselect
 from .get_value import get_value
 from .get_text import get_text
+from .highlight import highlight
 
 # decorators
 from .iframe import iframe

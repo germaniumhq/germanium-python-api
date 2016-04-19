@@ -1,4 +1,4 @@
-
+from ._is_displayed_filter import _is_displayed_filter
 
 def _filter_one_for_action(found_items):
     items = _filter_not_displayed(found_items,
@@ -18,13 +18,7 @@ def _filter_not_displayed(found_items,
     if not only_visible:
         return found_items
 
-    def is_displayed_filter(item):
-        try:
-            return item.is_displayed()
-        except Exception:
-            return False
-
-    result = list(filter(is_displayed_filter, found_items))
+    result = list(filter(_is_displayed_filter, found_items))
 
     if not result and throw_when_empty:
         raise_no_visible_items_found_for_action(found_items)

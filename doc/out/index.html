@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium</title>
+<title>Germanium v1.7.4</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,7 +420,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium</h1>
+<h1>Germanium v1.7.4</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -442,8 +442,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_select_selector_text_index_value">select(selector, text?, index?, value?)</a></li>
 <li><a href="#_deselect_selector_text_index_value">deselect(selector, text?, index?, value?)</a></li>
 <li><a href="#_get_value_selector">get_value(selector)</a></li>
+<li><a href="#_get_text_selector">get_text(selector)</a></li>
 <li><a href="#_get_web_driver">get_web_driver()</a></li>
 <li><a href="#_get_germanium">get_germanium()</a></li>
+<li><a href="#_highlight_selector_show_seconds_2">highlight(selector, show_seconds=2)</a></li>
 <li><a href="#_def_s_argv_kwargs">def S(*argv, **kwargs)</a></li>
 <li><a href="#_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</a></li>
 </ul>
@@ -1057,6 +1059,65 @@ selected).</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_get_text_selector"><a class="anchor" href="#_get_text_selector"></a>get_text(selector)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Gets the text from the element. This is equivalent to the <code>innerText</code>, or
+<code>textContent</code> element attribute of the browser.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">get_text(selector) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to return the text for. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If the selector is a <code>WebElement</code> instance, the filtering of <code>only_visible</code>
+will not be used, and the text from the given element will still be returned.</p>
+</div>
+<div class="paragraph">
+<p>This is in contrast with the default Selenium approach of returning empty
+text for elements that are not visible.</p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">get_text(invisible_element)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> <span style="color: #BA2121">&#39;yay&#39;</span> <span style="color: #666666">==</span> get_text(<span style="color: #BA2121">&#39;.success-message&#39;</span>) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>This might throw exceptions if the <code>.success-message</code> is an element that
+is invisible, or doesn&#8217;t exists.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_get_web_driver"><a class="anchor" href="#_get_web_driver"></a>get_web_driver()</h3>
 <div class="paragraph">
 <p><strong>Description</strong></p>
@@ -1112,9 +1173,82 @@ the <code>germanium.driver.GermaniumDriver</code> instance.</em></p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_highlight_selector_show_seconds_2"><a class="anchor" href="#_highlight_selector_show_seconds_2"></a>highlight(selector, show_seconds=2)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Highlights by blinking the background of the matched selector with a vivid
+green for debugging purposes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">highlight_g</span>(selector, <b class="conum">(1)</b>
+                show_seconds<span style="color: #666666">=2</span>, <b class="conum">(2)</b>
+                <span style="color: #666666">*</span>args,
+                console<span style="color: #666666">=</span><span style="color: #008000">False</span>) <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to alternate the background for. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+<li>
+<p><em>show_seconds</em> - How many seconds should the element blink.</p>
+</li>
+<li>
+<p><em>console</em> - Should the messages be logged to the browser console.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In case the element that is found doesn&#8217;t exist, or is not visible, a
+notification alert will pop up, with information of whether the element
+was not found or since it&#8217;s not visible can&#8217;t be highlighted.</p>
+</div>
+<div class="paragraph">
+<p>In case <code>console</code> is set to <code>True</code> then the alert will not be displayed,
+but instead only the <code>console.log</code> (or <code>console.error</code>) of the browser will
+be used for notifying elements that are not visible, or that can not be found.</p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">highlight(<span style="color: #BA2121">&#39;.hard-to-see-item&#39;</span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_def_s_argv_kwargs"><a class="anchor" href="#_def_s_argv_kwargs"></a>def S(*argv, **kwargs)</h3>
 <div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
 <p>Returns a deferred locator, using the `S`uper locator.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">S</span>(selector, strategy<span style="color: #666666">=</span><span style="color: #BA2121">&#39;default&#39;</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">element <span style="color: #666666">=</span> S(<span style="color: #BA2121">&#39;#editor&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1130,6 +1264,57 @@ the <code>germanium.driver.GermaniumDriver</code> instance.</em></p>
 
 type_keys_into_editor(<span style="color: #BA2121">&#39;hello world&#39;</span>) <span style="color: #408080; font-style: italic"># will switch the iframe to &#39;editor&#39; and back</span>
 click(Button(<span style="color: #BA2121">&quot;Save&quot;</span>))                <span style="color: #408080; font-style: italic"># iframe is &#39;default&#39;</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wait_closure_while_not_none_timeout_10"><a class="anchor" href="#_wait_closure_while_not_none_timeout_10"></a>wait(closure, while_not=None, timeout=10)</h4>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>A function that allows waiting for a condition to happen, monitoring also that
+some other conditions do not happen.</p>
+</div>
+<div class="paragraph">
+<p>In case the timeout expires, or one of the <code>while_not</code> conditions matches until
+the <code>closure</code> is not yet matching then throws an exception.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">wait</span>(closure, <b class="conum">(1)</b>
+         while_not<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
+         timeout<span style="color: #666666">=10</span>) <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>closure</em> is either a callable, either an array of callables. If any of
+them passes, the wait finished successfuly.</p>
+</li>
+<li>
+<p><em>while_not</em> is either a callable, either an array of callables. If any of
+them fail, the wait throws an exception.</p>
+</li>
+<li>
+<p><em>timeout</em> expressed in seconds.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="paragraph">
+<p>Since selectors are callables, they can be used as parameters for <code>wait</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">wait(Text(<span style="color: #BA2121">&quot;document uploaded successfully&quot;</span>),
+    while_not <span style="color: #666666">=</span> Text(<span style="color: #BA2121">&quot;an error occured&quot;</span>))</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1267,7 +1452,7 @@ object and includes utility merhods to get web elements.</p>
 <div class="paragraph">
 <p>A string selector is a selector that can specify what locators to be used. Implicitly,
 the selector is either an XPath if it starts with <code>"//"</code>, either a CSS
-selector, if there is no identifier prefix (<code>"name:..."</code>).</p>
+selector, if there is no identifier prefix (<code>"name:&#8230;&#8203;"</code>).</p>
 </div>
 <div class="paragraph">
 <p>A string selector can also specify its locator strategy, by prefixing the selector
@@ -1953,7 +2138,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>To match the first link that contains the <em>test</em> string, someone can:</p>
+<p>To match the first link that contains the 'test' string, someone can:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2183,6 +2368,12 @@ inside the browsers:</p>
 </li>
 <li>
 <p><code>get_value_g</code></p>
+</li>
+<li>
+<p><code>get_text_g</code></p>
+</li>
+<li>
+<p><code>highlight_g</code></p>
 </li>
 <li>
 <p><code>wait</code></p>
@@ -2690,23 +2881,19 @@ values that are currently selected.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_wait_closure_while_not_none_timeout_10"><a class="anchor" href="#_wait_closure_while_not_none_timeout_10"></a>wait(closure, while_not=None, timeout=10)</h4>
+<h4 id="_get_text_g_germanium_selector"><a class="anchor" href="#_get_text_g_germanium_selector"></a>get_text_g(germanium, selector)</h4>
 <div class="paragraph">
-<p>A function that allows waiting for a condition to happen, monitoring also that
-some other conditions do not happen.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">wait(germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;document uploaded successfully&quot;</span>)),
-    while_not <span style="color: #666666">=</span> germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;an error occured&quot;</span>)))</code></pre>
+<p>Returns the current text of the element matched by the selector. This will
+work also for <code>WebElement</code> instances that are passed as <code>selector</code> values
+even if they are not visible.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_highlight_g_germanium_selector"><a class="anchor" href="#_highlight_g_germanium_selector"></a>highlight_g(germanium, selector)</h4>
 <div class="paragraph">
-<p>In case the timeout expires, or one of the <code>while_not</code> conditions matches until
-the <code>closure</code> is not yet matching then throws an exception.</p>
-</div>
-<div class="paragraph">
-<p><code>while_not</code> is either a closure, either an array of closures.</p>
+<p>Highlights the given selector on the germanium instance for debugging purposes.
+This will make the element blink in the actual browser for easy visual
+identification.</p>
 </div>
 </div>
 </div>
@@ -2715,7 +2902,7 @@ the <code>closure</code> is not yet matching then throws an exception.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-10 22:54:06 UTC
+Last updated 2016-04-19 21:56:44 UTC
 </div>
 </div>
 </body>

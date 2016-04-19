@@ -1,5 +1,4 @@
-Germanium Static
-================
+= Germanium Static
 
 :toc: left
 :experimental:
@@ -8,8 +7,7 @@ The Germanium static package is for creating tests that revolve around
 running a single browser instance at a time, in the whole test process.
 
 
-open_browser()
---------------
+== open_browser()
 
 *Description*
 
@@ -52,9 +50,7 @@ open_browser("ff:http://10.2.1.1:5555/wd/hub")
 -----------------------------------------------------------------------------
 
 
-
-close_browser()
----------------
+== close_browser()
 
 *Description*
 
@@ -74,8 +70,7 @@ def close_browser()
 close_browser()
 -----------------------------------------------------------------------------
 
-go_to(url)
-----------
+== go_to(url)
 
 *Description*
 
@@ -98,8 +93,7 @@ def go_to(url) <1>
 go_to("http://google.com/")
 -----------------------------------------------------------------------------
 
-type_keys(keys, selector)
--------------------------
+== type_keys(keys, selector)
 
 *Description*
 
@@ -128,8 +122,7 @@ type_keys("<tab*2><enter>") <2>
 <1> Type in the input with the `name` attribute equal to `email`.
 <2> Type in the currently active element in the current iframe.
 
-click(selector)
----------------
+== click(selector)
 
 *Description*
 
@@ -151,8 +144,7 @@ def click(selector) <1>
 click(Button('OK'))
 -----------------------------------------------------------------------------
 
-hover(selector)
----------------
+== hover(selector)
 
 *Description*
 
@@ -174,8 +166,7 @@ def hover(selector) <1>
 hover(Element('div', id='menu1'))
 -----------------------------------------------------------------------------
 
-double_click(selector)
-----------------------
+== double_click(selector)
 
 *Description*
 
@@ -197,8 +188,7 @@ def double_click(selector) <1>
 double_click(Element('div', css_classes='table-row'))
 -----------------------------------------------------------------------------
 
-right_click(selector)
----------------------
+== right_click(selector)
 
 *Description*
 
@@ -354,8 +344,46 @@ selected).
 assert get_value('#country') == 'at'
 -----------------------------------------------------------------------------
 
-get_web_driver()
-----------------
+== get_text(selector)
+
+*Description*
+
+Gets the text from the element. This is equivalent to the `innerText`, or
+`textContent` element attribute of the browser.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+get_text(selector) <1>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to return the text for. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+
+If the selector is a `WebElement` instance, the filtering of `only_visible`
+will not be used, and the text from the given element will still be returned.
+
+This is in contrast with the default Selenium approach of returning empty
+text for elements that are not visible.
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+get_text(invisible_element)
+-----------------------------------------------------------------------------
+
+or
+
+[source,python]
+-----------------------------------------------------------------------------
+assert 'yay' == get_text('.success-message')  <1>
+-----------------------------------------------------------------------------
+<1> This might throw exceptions if the `.success-message` is an element that
+is invisible, or doesn't exists.
+
+== get_web_driver()
 
 *Description*
 
@@ -375,8 +403,7 @@ def get_web_driver()
 wd = get_web_driver()
 -----------------------------------------------------------------------------
 
-get_germanium()
----------------
+== get_germanium()
 
 *Description*
 
@@ -400,13 +427,64 @@ the `germanium.driver.GermaniumDriver` instance._
 g = get_germanium()
 -----------------------------------------------------------------------------
 
-def S(*argv, **kwargs)
-----------------------
+== highlight(selector, show_seconds=2)
+
+*Description*
+
+Highlights by blinking the background of the matched selector with a vivid
+green for debugging purposes.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def highlight_g(selector, <1>
+                show_seconds=2, <2>
+                *args,
+                console=False) <3>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to alternate the background for. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+<2> _show_seconds_ - How many seconds should the element blink.
+<3> _console_ - Should the messages be logged to the browser console.
+
+In case the element that is found doesn't exist, or is not visible, a
+notification alert will pop up, with information of whether the element
+was not found or since it's not visible can't be highlighted.
+
+In case `console` is set to `True` then the alert will not be displayed,
+but instead only the `console.log` (or `console.error`) of the browser will
+be used for notifying elements that are not visible, or that can not be found.
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+highlight('.hard-to-see-item')
+-----------------------------------------------------------------------------
+
+== def S(*argv, **kwargs)
+
+*Description*
 
 Returns a deferred locator, using the `S`uper locator.
 
-def iframe(target, keep_new_context = False)
---------------------------------------------
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def S(selector, strategy='default')
+-----------------------------------------------------------------------------
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+element = S('#editor').element()
+-----------------------------------------------------------------------------
+
+== def iframe(target, keep_new_context = False)
 
 Selects the current working iframe with the `target` name.
 
@@ -418,5 +496,39 @@ def type_keys_into_editor(keys):
 
 type_keys_into_editor('hello world') # will switch the iframe to 'editor' and back
 click(Button("Save"))                # iframe is 'default'
+-----------------------------------------------------------------------------
+
+=== wait(closure, while_not=None, timeout=10)
+
+*Description*
+
+A function that allows waiting for a condition to happen, monitoring also that
+some other conditions do not happen.
+
+In case the timeout expires, or one of the `while_not` conditions matches until
+the `closure` is not yet matching then throws an exception.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def wait(closure, <1>
+         while_not=None, <2>
+         timeout=10) <3>
+-----------------------------------------------------------------------------
+<1> _closure_ is either a callable, either an array of callables. If any of
+them passes, the wait finished successfuly.
+<2> _while_not_ is either a callable, either an array of callables. If any of
+them fail, the wait throws an exception.
+<3> _timeout_ expressed in seconds.
+
+*Sample*
+
+Since selectors are callables, they can be used as parameters for `wait`.
+
+[source,python]
+-----------------------------------------------------------------------------
+wait(Text("document uploaded successfully"),
+    while_not = Text("an error occured"))
 -----------------------------------------------------------------------------
 

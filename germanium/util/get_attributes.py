@@ -1,3 +1,5 @@
+from selenium.webdriver.remote.webelement import WebElement
+
 from .find_germanium_object import find_germanium_object
 
 
@@ -11,7 +13,11 @@ def get_attributes_g(context, selector, only_visible=True):
     :return:
     """
     germanium = find_germanium_object(context)
-    element = germanium.S(selector).element(only_visible=only_visible)
+
+    if isinstance(selector, WebElement):
+        element = selector
+    else:
+        element = germanium.S(selector).element(only_visible=only_visible)
 
     if not element:
         raise Exception("Unable to find '%s' to get_attributes." % selector)

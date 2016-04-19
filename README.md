@@ -19,5 +19,5 @@ sleep(5)
 close_browser()
 ```
 
-Here is the usage documentation: [germanium-usage.pdf](https://raw.githubusercontent.com/bmustiata/germanium/master/doc/out/germanium-usage.pdf)
+Here is the usage documentation: [germanium-usage.pdf](https://raw.githubusercontent.com/germaniumhq/germanium/master/doc/out/germanium-usage.pdf)
 

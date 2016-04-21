@@ -282,6 +282,11 @@ def _get_xpath_selectors(selector_objects):
 
                 string_selector = GenericTranslator().css_to_xpath(string_selector)
 
+                # IE8 at least stutters if the descendant-or-self axis appears as a
+                # sub part of the expression. E.g.: //asd/descendant-or-self::test
+
+                string_selector = string_selector.replace("descendant-or-self::", "//")
+
             if string_selector.startswith("xpath://"):
                 string_selector = string_selector[6:]
 

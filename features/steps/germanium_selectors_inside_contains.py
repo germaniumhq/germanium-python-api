@@ -26,18 +26,38 @@ def step_impl(context):
     context.found_element = element
 
 
-@step(u'I search for a div inside a CSS selector')
+@step(u'I search using CSS for an input inside the div#inputTextContainer')
+def step_impl(context):
+    selector = Css("input").inside("div#inputTextContainer")
+    element = S(selector).element()
+
+    assert element
+
+    context.found_element = element
+
+
+@step(u'I search using CSS for a div containing an InputText')
+def step_impl(context):
+    selector = Css("div").containing("input")
+    element = S(selector).element()
+
+    assert element
+
+    context.found_element = element
+
+
+@step(u'I search for a div inside a JS selector')
 def step_impl(context):
     try:
-        selector = Element("div").inside(".what")
+        selector = Element("div").inside("js:return document.body;")
     except Exception as e:
         context.exception = e
 
 
-@step(u'I search for a div containing a CSS selector')
+@step(u'I search for a div containing a JS selector')
 def step_impl(context):
     try:
-        selector = Element("div").containing(".what")
+        selector = Element("div").containing("js:return document.body;")
     except Exception as e:
         context.exception = e
 

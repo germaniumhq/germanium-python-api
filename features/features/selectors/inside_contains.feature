@@ -8,34 +8,48 @@ Scenario: I can find elements inside a specific element.
   Then I find the element with id: 'inputText'
 
 @2
-Scenario: Finding elements that are inside CSS elements raises exceptions.
+Scenario: I can find elements inside a specific element using CSS.
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
-  When I search for a div inside a CSS selector
-  Then it throws an exception
+  When I search using CSS for an input inside the div#inputTextContainer
+  Then I find the element with id: 'inputText'
 
 @3
+Scenario: Finding elements inside non CSS/XPath locators is raising exceptions.
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for a div inside a JS selector
+  Then it throws an exception
+
+@4
 Scenario: I can find elements that contain specific elements.
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div containing an InputText
   Then I find the element with id: 'inputTextContainer'
 
-@4
-Scenario: Finding elements that contain CSS elements raises exceptions.
+@5
+Scenario: I can find elements that contain specific elements using CSS.
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
-  When I search for a div containing a CSS selector
+  When I search using CSS for a div containing an InputText
+  Then I find the element with id: 'inputTextContainer'
+
+@6
+Scenario: Finding elements containing CSS/XPath locators is raising exceptions.
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for a div containing a JS selector
   Then it throws an exception
 
-@5
+@7
 Scenario: Finding elements without children should find only those that actually have no children
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for all the divs without children
   Then I only get the div with id #decoyDiv
 
-@6
+@8
 Scenario: Finding elements without children might also return no elements, even if there are elements with children
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'

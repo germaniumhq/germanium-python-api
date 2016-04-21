@@ -1,4 +1,5 @@
 from germanium.impl import _ensure_list
+from cssselect import GenericTranslator
 
 
 class AbstractSelector(object):
@@ -122,7 +123,7 @@ class XPathInsideFilterSelector(AbstractSelector):
     def __init__(self, parent_selector):
         super(XPathInsideFilterSelector, self).__init__()
 
-        self._selectors = list(parent_selector.get_selectors())
+        self._selectors = _get_xpath_selectors(parent_selector.get_selectors())
 
     def get_selectors(self):
         return self._selectors
@@ -133,7 +134,12 @@ class XPathInsideFilterSelector(AbstractSelector):
 
         for inside_selector in inside_xpath_string_selectors:
             for reference_selector in self._selectors:
-                new_selectors.append(inside_selector + reference_selector)
+                # when concatenating XPath, we need to add a slash if the expression
+                # is an axis navigation.
+                if not reference_selector.startswith("/"):
+                    reference_selector = "/" + reference_selector
+
+                new_selectors.append("xpath:" + inside_selector + reference_selector)
 
         self._selectors = new_selectors
 
@@ -145,7 +151,12 @@ class XPathInsideFilterSelector(AbstractSelector):
 
         for reference_selector in self._selectors:
             for containing_selector in containing_xpath_string_selectors:
-                new_selectors.append("%s[.%s]" % (reference_selector, containing_selector))
+                # when concatenating XPath, we need to add a slash if the expression
+                # is an axis navigation.
+                if not containing_selector.startswith("/"):
+                    containing_selector = "/" + containing_selector
+
+                new_selectors.append("xpath:%s[.%s]" % (reference_selector, containing_selector))
 
         self._selectors = new_selectors
 
@@ -154,8 +165,8 @@ class XPathInsideFilterSelector(AbstractSelector):
     def without_children(self, *argv, **kw):
         new_selectors = []
 
-        for reference_selector in self._selectors:
-            new_selectors.append("%s[count(./*) = 0][string() = '']" % reference_selector)
+        for reference_selector in _get_xpath_selectors(self._selectors):
+            new_selectors.append("xpath:%s[count(./*) = 0][string() = '']" % reference_selector)
 
         self._selectors = new_selectors
 
@@ -228,8 +239,8 @@ def _ensure_selector(item):
             return XPath(item[6:])
         elif item.startswith("//"):
             return XPath(item)
-        elif item.startswith("css"):
-            return Css(item)
+        elif item.startswith("css:"):
+            return Css(item[4:])
         else:
             return Css(item)
 
@@ -255,17 +266,66 @@ def _get_xpath_selectors(selector_objects):
         string_selectors = selector.get_selectors()
 
         for string_selector in string_selectors:
-            if not string_selector.startswith("//") \
-                    and not string_selector.startswith("xpath://"):
-                raise Exception("Only selectors that return XPath are supported "
-                                "calls. Currently `%s` was found. In case you want to use a CSS selector, "
-                                "use instead the `germanium.selectors.Element` selector, since it "
-                                "generates XPath." % string_selector)
+            is_xpath = _is_xpath_selector(string_selector)
+            is_css = _is_css_selector(string_selector)
 
-        for string_selector in string_selectors:
+            if not is_xpath and not is_css:
+                raise Exception("Only selectors that return XPath or CSS are supported "
+                                "calls. Currently `%s` was found. When unsure use instead the "
+                                "`germanium.selectors.Element` selector, since it generates "
+                                "XPath, or CSS selectors, and they will be converted to "
+                                "XPath." % string_selector)
+
+            if is_css:
+                if string_selector.startswith("css:"):
+                    string_selector = string_selector[4:]
+
+                string_selector = GenericTranslator().css_to_xpath(string_selector)
+
             if string_selector.startswith("xpath://"):
                 string_selector = string_selector[6:]
 
             result.append(string_selector)
 
     return result
+
+
+import re
+
+LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?)\:)(.*)', re.MULTILINE|re.DOTALL)
+
+
+def _is_css_selector(selector):
+    if selector == "alert" or selector.startswith("alert:"):
+        return False
+
+    if selector.startswith("//"):
+        return False
+
+    m = LOCATOR_SPECIFIER.match(selector)
+
+    if not m:
+        return True
+
+    if m.group(2) == "css":
+        return True
+
+    return False
+
+
+def _is_xpath_selector(selector):
+    if selector == "alert" or selector.startswith("alert:"):
+        return False
+
+    if selector.startswith("//"):
+        return True
+
+    m = LOCATOR_SPECIFIER.match(selector)
+
+    if not m:
+        return False
+
+    if m.group(2) == "xpath":
+        return True
+
+    return False

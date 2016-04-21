@@ -6,16 +6,25 @@ XPath selectors, but since `Germanium` ships all its provided
 utility selectors as XPath selectors, you can use it for all
 the classes.
 
-In case you will use a `css` or `js` selector, you will get an
-exception informing you about this error. If you want to use
-a CSS locator, your're probably safer with the `Element` provided
-selector.
+Furthermore CSS selectors are automatically converted to
+XPath selectors, so you can use them just as before, just be
+aware that the returned selector is internally XPath.
+
+That means you can write just fine, and it will work:
+
+[source,python]
+-----------------------------------------------------------------------------
+Css('div.label').containing('.warning')
+-----------------------------------------------------------------------------
+
+Other strategies, such as the `js` selector, will raise an
+exception.
 
 == selector.containing(other_selector)
 
 *Description*
 
-Matches nodes that contain the other XPath selectors.
+Matches nodes that contain the other XPath/CSS selectors.
 
 *Signature*
 

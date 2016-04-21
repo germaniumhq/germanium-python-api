@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v1.7.4</title>
+<title>Germanium v1.7.5</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,7 +420,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v1.7.4</h1>
+<h1>Germanium v1.7.5</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -1673,10 +1673,21 @@ utility selectors as XPath selectors, you can use it for all
 the classes.</p>
 </div>
 <div class="paragraph">
-<p>In case you will use a <code>css</code> or <code>js</code> selector, you will get an
-exception informing you about this error. If you want to use
-a CSS locator, your&#8217;re probably safer with the <code>Element</code> provided
-selector.</p>
+<p>Furthermore CSS selectors are automatically converted to
+XPath selectors, so you can use them just as before, just be
+aware that the returned selector is internally XPath.</p>
+</div>
+<div class="paragraph">
+<p>That means you can write just fine, and it will work:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">Css(<span style="color: #BA2121">&#39;div.label&#39;</span>)<span style="color: #666666">.</span>containing(<span style="color: #BA2121">&#39;.warning&#39;</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Other strategies, such as the <code>js</code> selector, will raise an
+exception.</p>
 </div>
 <div class="sect2">
 <h3 id="_selector_containing_other_selector"><a class="anchor" href="#_selector_containing_other_selector"></a>selector.containing(other_selector)</h3>
@@ -1684,7 +1695,7 @@ selector.</p>
 <p><strong>Description</strong></p>
 </div>
 <div class="paragraph">
-<p>Matches nodes that contain the other XPath selectors.</p>
+<p>Matches nodes that contain the other XPath/CSS selectors.</p>
 </div>
 <div class="paragraph">
 <p><strong>Signature</strong></p>
@@ -2902,7 +2913,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-19 21:56:44 UTC
+Last updated 2016-04-21 22:10:39 UTC
 </div>
 </div>
 </body>

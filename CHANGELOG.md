@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2016-04-21  1.7.5
+    - #3 inside/contains filter support now also CSS on AbstractSelector, not only XPath.
+
 * 2016-04-19  1.7.4
     - Added `get_text` support function to get the text from selectors.
     - Added `highlight` utility function, to aid debugging of tests.
@@ -8,6 +11,7 @@ ChangeLog
     _Bugfixes_
 
     - `get_attributes` can return now the attributes also for invisible elements.
+    - #2 Extra check if WebDriver returns single elements.
 
 * 2016-04-17  1.7.3
     - Added select support (combo boxes), with `select` and `deselect` functions.

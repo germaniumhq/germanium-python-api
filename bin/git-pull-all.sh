@@ -3,6 +3,7 @@
 set -e
 
 git checkout master
+git fetch --all
 git pull --rebase
 
 PYTHON_VERSIONS="python2.7 python3.4 python3.5"

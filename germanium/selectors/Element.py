@@ -6,13 +6,15 @@ class Element(AbstractSelector):
     def __init__(self,
                  tag_name=None,
                  *args,
-                 index=-1,
+                 index=None,
                  id=None,
                  exact_text=None,
                  contains_text=None,
                  css_classes=None,
                  exact_attributes=None,
-                 contains_attributes=None):
+                 extra_xpath=None,
+                 contains_attributes=None,
+                 **kw):
         """ A general element selector. """
         super(Element, self).__init__()
 
@@ -44,11 +46,26 @@ class Element(AbstractSelector):
         for k, v in exact_attributes.items():
             xpath_locator += '[@%s = "%s"]' % (k, v)
 
+        # all the unknown attributes can be mapped to the exact attributes.
+        for k, v in kw:
+            xpath_locator += '[@%s = "%s"]' % (k, v)
+
         for k, v in contains_attributes.items():
             xpath_locator += "[contains(normalize-space(@%s), '%s')]" % (k, v)
 
-        if index >= 0:
-            xpath_locator = 'xpath:(%s)[%d]' % (xpath_locator, index)
+        if extra_xpath:
+            xpath_locator += extra_xpath
+
+        if isinstance(index, str):
+            index = int(index)
+
+        if index is not None:
+            if index > 0:
+                xpath_locator = 'xpath:(%s)[%d]' % (xpath_locator, index)
+            else:
+                raise Exception("The number received as an index for selectors was less "
+                                "or equal to 0. These are XPath indexes, so they must "
+                                "start with 1. 1st item, not 0st item.")
 
         self._xpath_locator = xpath_locator
 

@@ -53,14 +53,17 @@ class PositionalFilterLocator(DeferredLocator):
 
         def is_below_all(element):
             for e in below_elements:
-                if e.location['y'] <= element.location['y']:
+                if e.location['y'] + e.size['height'] <= element.location['y']:
                     return True
             return False
 
         if len(below_elements):
             elements = list(filter(is_below_all, elements))
             pivot_x = below_elements[0].location['x']
-            elements = sorted(elements, key=lambda e: abs(e.location['x'] - pivot_x))
+            pivot_y = below_elements[0].location['y']
+            elements = sorted(elements,
+                              key=lambda e: pow(abs(e.location['x'] - pivot_x), 2) +
+                                            abs(e.location['y'] - pivot_y))
         return elements
 
     def _above_filter(self, elements):
@@ -70,14 +73,17 @@ class PositionalFilterLocator(DeferredLocator):
 
         def is_above_all(element):
             for e in above_elements:
-                if e.location['y'] >= element.location['y']:
+                if e.location['y'] >= element.location['y'] + element.size['height']:
                     return True
             return False
 
         if len(above_elements):
             elements = list(filter(is_above_all, elements))
             pivot_x = above_elements[0].location['x']
-            elements = sorted(elements, key=lambda e: abs(e.location['x'] - pivot_x))
+            pivot_y = above_elements[0].location['y']
+            elements = sorted(elements,
+                              key=lambda e: pow(abs(e.location['x'] - pivot_x), 2) +
+                                            abs(e.location['y'] - pivot_y))
         return elements
 
     def _left_of_filter(self, elements):
@@ -87,14 +93,17 @@ class PositionalFilterLocator(DeferredLocator):
 
         def is_left_of_all(element):
             for e in left_of_elements:
-                if e.location['x'] >= element.location['x']:
+                if e.location['x'] >= element.location['x'] + element.size['width']:
                     return True
             return False
 
         if len(left_of_elements):
             elements = list(filter(is_left_of_all, elements))
+            pivot_x = left_of_elements[0].location['x']
             pivot_y = left_of_elements[0].location['y']
-            elements = sorted(elements, key=lambda e: abs(e.location['y'] - pivot_y))
+            elements = sorted(elements,
+                              key=lambda e: pow(abs(e.location['y'] - pivot_y), 2) +
+                                            abs(e.location['x'] - pivot_x))
         return elements
 
     def _right_of_filter(self, elements):
@@ -104,13 +113,16 @@ class PositionalFilterLocator(DeferredLocator):
 
         def is_right_of_all(element):
             for e in right_of_elements:
-                if e.location['x'] <= element.location['x']:
+                if e.location['x'] + e.size['width'] <= element.location['x']:
                     return True
             return False
 
         if len(right_of_elements):
             elements = list(filter(is_right_of_all, elements))
+            pivot_x = right_of_elements[0].location['x']
             pivot_y = right_of_elements[0].location['y']
-            elements = sorted(elements, key=lambda e: abs(e.location['y'] - pivot_y))
+            elements = sorted(elements,
+                              key=lambda e: pow(abs(e.location['y'] - pivot_y), 2) +
+                                            abs(e.location['x'] - pivot_x))
 
         return elements

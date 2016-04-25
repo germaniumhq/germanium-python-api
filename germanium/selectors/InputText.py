@@ -1,23 +1,15 @@
 
-from .AbstractSelector import AbstractSelector
+from .Element import Element
 
 
-class InputText(AbstractSelector):
+class InputText(Element):
     """
     Just a selector that finds an input text by its name.
     """
-    def __init__(self, name=None):
-        super(InputText, self).__init__()
+    def __init__(self, *args, **kw):
+        extra_xpath = "[@type='text' or not(@type)]"
 
-        xpath_selectors = ["//input[@type='text']",
-                           "//input[not(@type)]"]
-
-        if name:
-            for i in range(len(xpath_selectors)):
-                xpath_selectors[i] += "[@name='%s']" % name
-
-        self._xpath_selectors = xpath_selectors
-
-    def get_selectors(self):
-        # CSS selector.
-        return self._xpath_selectors
+        super(InputText, self).__init__("input",
+                                        extra_xpath=extra_xpath,
+                                        *args,
+                                        **kw)

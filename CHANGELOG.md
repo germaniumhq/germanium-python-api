@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+* 2016-04-26  1.7.6
+    - selenium 2.52.2 support.
+    - Better ordering for finding elements positionally.
+    - #7 Allow custom XPath into Elements.
+    - #6 index values in Element should also allow string values.
+
 * 2016-04-21  1.7.5
     - #3 inside/contains filter support now also CSS on AbstractSelector, not only XPath.
 

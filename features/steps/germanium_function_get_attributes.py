@@ -20,6 +20,7 @@ def step_impl(context):
 def step_impl(context, name, value):
     assert_equals(value, context.found_attributes[name])
 
+
 @step("the attribute '(.*?)' contains '(.*?)'")
 def step_impl(context, name, value):
     assert_true(value in context.found_attributes[name])

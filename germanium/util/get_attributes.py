@@ -27,7 +27,9 @@ def get_attributes_g(context, selector, only_visible=True):
         var result = {};
 
         for (var i = 0; i < attributes.length; i++) {
-            result[attributes[i].name] = attributes[i].value;
+            if (attributes[i].specified) {
+                result[attributes[i].name] = attributes[i].value;
+            }
         }
 
         return result;

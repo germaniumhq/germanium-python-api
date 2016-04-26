@@ -33,7 +33,7 @@ Scenario: Test a Confirmation by clicking the CANCEL button
   """
 
 @4
-Scenario: Test an Prompt by reejcting it.
+Scenario: Test an Prompt by rejecting it.
   Given I open firefox
   When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
   Then there is an alert that exists

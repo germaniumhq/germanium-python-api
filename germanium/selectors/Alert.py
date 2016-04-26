@@ -1,4 +1,16 @@
 class Alert(object):
+    def __call__(self, *args, **kwargs):
+        """
+        Return the element list. If germanium is provided, the selector
+        is evaluated using g.S(self).element_list(). If is not
+        provided, this is equivalent to
+        germanium.static.S(self).element_list()
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        return self.exists(*args, **kwargs)
+
     def element(self, *argv, germanium=None, **kw):
         """
         Returns the existing alert instance for the given germanium instance.

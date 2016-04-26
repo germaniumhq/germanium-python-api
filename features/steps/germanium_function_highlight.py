@@ -68,7 +68,7 @@ def step_impl(context):
 
 @step("there is an alert notifying the element as not visible")
 def step_impl(context):
-    assert_true(Alert().exists())
+    wait(Alert())
     assert_equals("GERMANIUM: Element with selector `#invisibleDiv` was found, but is not visible.",
                   Alert().text())
     Alert().accept()
@@ -81,7 +81,7 @@ def step_impl(context):
 
 @step("there is an alert notifying the element as non existing")
 def step_impl(context):
-    assert_true(Alert().exists())
+    wait(Alert())
     assert_equals("GERMANIUM: Unable to find element with selector `#notExistingDiv`.",
                   Alert().text())
     Alert().accept()

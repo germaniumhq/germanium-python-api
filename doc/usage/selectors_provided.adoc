@@ -50,19 +50,25 @@ such as buttons, links or text.
 The most basic of them is called `Element`. There are a lot of more specific selectors
 on top of that, for `Input`s, or `Link`s.
 
-== Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})
+== Element(tag_name=None, ...)
 
-A selector that finds a random element.
+A selector that finds an element by looking at its XPath.
 
 Parameters:
 
 * `tag_name` - the html tag name to find (e.g. `div`, `span`, `li`);
 * `index` - if specified, is the 1 index based result;
+* `id` - If it's specified, is the attribute id of the element;
 * `exact_text` - if specified, the exact text the element must have;
 * `contains_text` - if specified, the exact text the element should contain;
 * `css_classes` - the CSS classes that the element must have;
 * `exact_attributes` - attributes with their values that the element must have;
-* `contains_attributes` - attributes that contain the given values.
+* `contains_attributes` - attributes that contain the given values;
+* `extra_xpath` - extra xpath to be added to the expression, to the previously built expressions.
+
+If the `index` is used, the whole expression is wrapped in paranthesis,
+and the index is applied to the whole result. In case you want multiple
+sub-children, use `extra_xpath` to fetch the elements.
 
 [source,python]
 -----------------------------------------------------------------------------

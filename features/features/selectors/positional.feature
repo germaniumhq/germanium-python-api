@@ -30,17 +30,17 @@ Scenario: I can find elements right of a specific element.
 
 @5
 Scenario: I can find elements right of an element, but also with indexes.
-Given I open firefox
-And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
-When I search for the first input text of the text "Surname"
-Then I find the element with id: 'surnameInput'
-When I search for the second input text of the text "Surname"
-Then I find the element with id: 'surnameInput2'
-When I search for the third input text of the text "Surname"
-Then I find the element with id: 'emailInput'
-When I search for the fourth input text of the text "Surname"
-Then I find the element with id: 'emailInput2'
-When I search for the fifth input text of the text "Surname"
-Then I find the element with id: 'nameInput'
-When I search for the sixth input text of the text "Surname"
-Then I find the element with id: 'nameInput2'
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
+  When I search for the first input text of the text "Surname"
+  Then I find the element with id: 'surnameInput'
+  When I search for the second input text of the text "Surname"
+  Then I find the element with id: 'surnameInput2'
+  When I search for the third input text of the text "Surname"
+  Then I find the element with id: 'emailInput'
+  When I search for the fourth input text of the text "Surname"
+  Then I find the element with id: 'emailInput2'
+  When I search for the fifth input text of the text "Surname"
+  Then I find the element with id: 'nameInput'
+  When I search for the sixth input text of the text "Surname"
+  Then I find the element with id: 'nameInput2'

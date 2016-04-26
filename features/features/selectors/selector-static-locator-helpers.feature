@@ -17,8 +17,7 @@ Scenario: I can find an element list using directly the selector
   Given I open firefox
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search using selectors for all InputText elements
-  Then I find 3 text elements that match
-
+  Then I find 6 text elements that match
 
 @3
 Scenario: I can find if a element exists using directly the selector

@@ -37,7 +37,7 @@ parallel python35Firefox: {
             docker run --rm \\
                    -e TEST_REUSE_BROWSER=1 \\
                    -e TEST_BROWSER=chrome \\
-                   --security-opt seccomp:`pwd`/test/docker/chrome.json \\
+                   --security-opt seccomp:/home/raptor/projects/germanium/test/docker/chrome.json \\
                    germanium/germanium-python3.5-tests
         '''
     }
@@ -71,7 +71,7 @@ parallel python27Firefox: {
             docker run --rm \\
                    -e TEST_REUSE_BROWSER=1 \\
                    -e TEST_BROWSER=chrome \\
-                   --security-opt seccomp:`pwd`/test/docker/chrome.json \\
+                   --security-opt seccomp:/home/raptor/projects/germanium/test/docker/chrome.json \\
                    germanium/germanium-python2.7-tests
         '''
     }
@@ -105,7 +105,7 @@ parallel python34Firefox: {
             docker run --rm \\
                    -e TEST_REUSE_BROWSER=1 \\
                    -e TEST_BROWSER=chrome \\
-                   --security-opt seccomp:`pwd`/test/docker/chrome.json \\
+                   --security-opt seccomp:/home/raptor/projects/germanium/test/docker/chrome.json \\
                    germanium/germanium-python3.4-tests
         '''
     }

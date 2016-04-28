@@ -65,8 +65,15 @@ from `germanium.static.get_germanium()`.
 
 [source,python]
 -----------------------------------------------------------------------------
-def element_list(self, *argv, germanium=None, only_visible=True)
+def element_list(self,
+                 index=None, <1>
+                 *argv,
+                 germanium=None, <2>
+                 only_visible=True) <3>
 -----------------------------------------------------------------------------
+<1> _index_ - When present, the element with the given index will be returned instead of the full list of elements.
+<2> _germanium_ - What instance of germanium to use. If `None` use `germanium.static.get_germanium()`.
+<3> _only_visible_ - If only the visible elements should be selected. Defaults to `True` across Germanium.
 
 *Sample*
 

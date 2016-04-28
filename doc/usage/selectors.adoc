@@ -85,7 +85,7 @@ object and includes utility merhods to get web elements.
 class DeferredLocator {
     +__call__() : list<WebElement>
     +element(only_visible: boolean) : WebElement
-    +element_list(only_visible: boolean) : list<WebElement>
+    +element_list(index: int, only_visible: boolean) : list<WebElement>|WebElement
     +exists(only_visible: boolean) : boolean
     +not_exists(only_visible: boolean) : boolean
     +text(only_visible: boolean) : string

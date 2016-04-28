@@ -383,6 +383,35 @@ assert 'yay' == get_text('.success-message')  <1>
 <1> This might throw exceptions if the `.success-message` is an element that
 is invisible, or doesn't exists.
 
+== get_style(selector, name)
+
+*Description*
+
+Returns a single CSS attribute value for the element that is matched by the
+selector.
+
+*Signature*
+
+-----------------------------------------------------------------------------
+get_style(selector, <1>
+          name) <2>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to return the CSS property for. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+<2> _name_ - The name of the property to return, in camel case.
+
+If the selector is a `WebElement` instance, the filtering of `only_visible`
+will not be used, and the style property from the given element will still
+be returned, even if the element is not visible.
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+get_style('input.red-border', 'borderTopWidth')
+-----------------------------------------------------------------------------
+
 == get_web_driver()
 
 *Description*

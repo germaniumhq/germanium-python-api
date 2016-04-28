@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v1.7.6</title>
+<title>Germanium v1.7.7</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,7 +420,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v1.7.6</h1>
+<h1>Germanium v1.7.7</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_deselect_selector_text_index_value">deselect(selector, text?, index?, value?)</a></li>
 <li><a href="#_get_value_selector">get_value(selector)</a></li>
 <li><a href="#_get_text_selector">get_text(selector)</a></li>
+<li><a href="#_get_style_selector_name">get_style(selector, name)</a></li>
 <li><a href="#_get_web_driver">get_web_driver()</a></li>
 <li><a href="#_get_germanium">get_germanium()</a></li>
 <li><a href="#_highlight_selector_show_seconds_2">highlight(selector, show_seconds=2)</a></li>
@@ -488,7 +489,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_xpath_locator">XPath(locator)</a></li>
 <li><a href="#_jsselector_code">JsSelector(code)</a></li>
 <li><a href="#_provided_selectors">Provided Selectors</a></li>
-<li><a href="#_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes">Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})</a></li>
+<li><a href="#_element_tag_name_none">Element(tag_name=None, &#8230;&#8203;)</a></li>
 <li><a href="#_button_search_text_none_text_none_name_none">Button(search_text = None, text = None, name = None)</a></li>
 <li><a href="#_input_input_name">Input(input_name)</a></li>
 <li><a href="#_inputtext_input_name">InputText(input_name)</a></li>
@@ -1115,6 +1116,50 @@ text for elements that are not visible.</p>
 is invisible, or doesn&#8217;t exists.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_style_selector_name"><a class="anchor" href="#_get_style_selector_name"></a>get_style(selector, name)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Returns a single CSS attribute value for the element that is matched by the
+selector.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>get_style(selector, <b class="conum">(1)</b>
+          name) <b class="conum">(2)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to return the CSS property for. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+<li>
+<p><em>name</em> - The name of the property to return, in camel case.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If the selector is a <code>WebElement</code> instance, the filtering of <code>only_visible</code>
+will not be used, and the style property from the given element will still
+be returned, even if the element is not visible.</p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">get_style(<span style="color: #BA2121">&#39;input.red-border&#39;</span>, <span style="color: #BA2121">&#39;borderTopWidth&#39;</span>)</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1871,8 +1916,25 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">element_list</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">element_list</span>(<span style="color: #008000">self</span>,
+                 index<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(1)</b>
+                 <span style="color: #666666">*</span>argv,
+                 germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
+                 only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>) <b class="conum">(3)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>index</em> - When present, the element with the given index will be returned instead of the full list of elements.</p>
+</li>
+<li>
+<p><em>germanium</em> - What instance of germanium to use. If <code>None</code> use <code>germanium.static.get_germanium()</code>.</p>
+</li>
+<li>
+<p><em>only_visible</em> - If only the visible elements should be selected. Defaults to <code>True</code> across Germanium.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>Sample</strong></p>
@@ -2031,9 +2093,9 @@ on top of that, for `Input`s, or `Link`s.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes"><a class="anchor" href="#_element_tag_name_none_index_1_exact_text_none_contains_text_none_css_classes_exact_attributes_contains_attributes"></a>Element(tag_name=None, index=-1, exact_text=None, contains_text=None, css_classes=[], exact_attributes={}, contains_attributes={})</h3>
+<h3 id="_element_tag_name_none"><a class="anchor" href="#_element_tag_name_none"></a>Element(tag_name=None, &#8230;&#8203;)</h3>
 <div class="paragraph">
-<p>A selector that finds a random element.</p>
+<p>A selector that finds an element by looking at its XPath.</p>
 </div>
 <div class="paragraph">
 <p>Parameters:</p>
@@ -2045,6 +2107,9 @@ on top of that, for `Input`s, or `Link`s.</p>
 </li>
 <li>
 <p><code>index</code> - if specified, is the 1 index based result;</p>
+</li>
+<li>
+<p><code>id</code> - If it&#8217;s specified, is the attribute id of the element;</p>
 </li>
 <li>
 <p><code>exact_text</code> - if specified, the exact text the element must have;</p>
@@ -2059,9 +2124,17 @@ on top of that, for `Input`s, or `Link`s.</p>
 <p><code>exact_attributes</code> - attributes with their values that the element must have;</p>
 </li>
 <li>
-<p><code>contains_attributes</code> - attributes that contain the given values.</p>
+<p><code>contains_attributes</code> - attributes that contain the given values;</p>
+</li>
+<li>
+<p><code>extra_xpath</code> - extra xpath to be added to the expression, to the previously built expressions.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>If the <code>index</code> is used, the whole expression is wrapped in paranthesis,
+and the index is applied to the whole result. In case you want multiple
+sub-children, use <code>extra_xpath</code> to fetch the elements.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2913,7 +2986,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-25 23:00:48 UTC
+Last updated 2016-04-28 22:18:15 UTC
 </div>
 </div>
 </body>

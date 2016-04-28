@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 with open('README.rst') as readme_file:
@@ -6,7 +6,7 @@ with open('README.rst') as readme_file:
 
 setup(
     name='germanium',
-    version='1.7.6',
+    version='1.7.7',
     description='The germanium project: Selenium WebDriver testing API that doesn\'t disappoint.',
     long_description = readme,
     author='Bogdan Mustiata',

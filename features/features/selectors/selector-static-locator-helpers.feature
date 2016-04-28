@@ -32,3 +32,10 @@ Scenario: I can find if a element exists using directly the selector
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search using selectors if an Image above the text "Surname" exists
   Then no, it doesn't exists
+
+@5
+Scenario: I can find an element from the element list using its index.
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
+  When I search using a Css selector for the 3rd 'input'
+  Then I find the element with id: 'surnameCheckbox'

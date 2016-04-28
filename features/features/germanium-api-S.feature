@@ -67,3 +67,10 @@ Scenario: Elements that are evaluated outside the page with is_displayed should 
     # I invalidate the element in the StaticLocator
     When I go to 'http://localhost:8000/features/test-site/inputs.html'
     Then the StaticElementLocator has no elements anymore
+
+@9
+Scenario: Calling S and getting the element_list should allow fetching items by index.
+    Given I open firefox
+    And I go to 'http://localhost:8000/features/test-site/inputs.html'
+    When I search for the 3rd element that is an 'input'
+    Then I find the element with id: 'passwordInputField'

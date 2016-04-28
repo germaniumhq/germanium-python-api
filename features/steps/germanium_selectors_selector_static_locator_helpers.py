@@ -37,3 +37,8 @@ def step_impl(context):
 @step(u"no, it doesn't exists")
 def step_impl(context):
     assert not context.does_element_exist
+
+
+@step(u"I search using a Css selector for the 3rd 'input'")
+def step_impl(context):
+    context.found_element = Css('input').element_list(3)

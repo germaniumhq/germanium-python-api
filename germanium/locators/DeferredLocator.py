@@ -26,12 +26,25 @@ class DeferredLocator(object):
 
         return self._find_element()
 
-    def element_list(self, only_visible=True):
+    def element_list(self, index=None, only_visible=True):
         """
+        :param index: if set, return only the element with the given index.
         :type only_visible: boolean
         """
-        return _filter_not_displayed(self._find_element_list(),
-                                     only_visible=only_visible)
+        result = _filter_not_displayed(self._find_element_list(),
+                                       only_visible=only_visible)
+
+        if index is not None:
+            if not result or index >= len(result):
+                if not result:
+                    raise Exception("Unable to return the element from the element_list with index %s. "
+                                    "The search returned no results." % index)
+                raise Exception("Unable to return the element from the element_list with index %d. "
+                                "The search returned only %d items." % (index, len(result)))
+
+            return result[index]
+
+        return result
 
     def exists(self, only_visible=True):
         """ Return True/False if the currently matched element exists or not

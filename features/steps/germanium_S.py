@@ -55,6 +55,13 @@ def step_impl(context, selector):
     context.found_element = element
 
 
+@step(u"I search for the 3rd element that is an 'input'")
+def step_impl(context):
+    element = S('input').element_list(2)
+
+    context.found_element = element
+
+
 @step(u"I create a StaticElementLocator with a single element: (.*?)")
 def step_impl(context, selector):
     element = S(selector).element()

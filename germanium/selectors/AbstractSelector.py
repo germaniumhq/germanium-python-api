@@ -65,7 +65,7 @@ class AbstractSelector(object):
         from germanium.static import S
         return S(self, germanium=germanium).element(*argv, **kw)
 
-    def element_list(self, *argv, germanium=None, **kw):
+    def element_list(self, index=None, *argv, germanium=None, **kw):
         """
         If the germanium is provided, the selector is evaluated using
         germanium.S. If the germanium attribute is not provided,
@@ -76,7 +76,7 @@ class AbstractSelector(object):
         :return:
         """
         from germanium.static import S
-        return S(self, germanium=germanium).element_list(*argv, **kw)
+        return S(self, germanium=germanium).element_list(index=index, *argv, **kw)
 
     def exists(self, *argv, germanium=None, **kw):
         """

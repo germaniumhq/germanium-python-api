@@ -5,7 +5,7 @@
     function getPixelSize(element, style, property, fontSize) {
         var
             sizeWithSuffix = style[property],
-            size = parseFloat(sizeWithSuffix),
+            size = parseFloat(sizeWithSuffix) || 0,
             suffix = sizeWithSuffix.split(/\d/)[0],
             rootSize;
 

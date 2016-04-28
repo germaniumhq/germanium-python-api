@@ -13,7 +13,7 @@ setup(
     author_email='bogdan.mustiata@gmail.com',
     license='BSD',
 
-    install_requires=['selenium==2.53.2', 'cssselect==0.9.1'],
+    install_requires=['selenium==2.53.2', 'cssselect==0.9.1', 'webcolors==1.5'],
     packages=['germanium',
               'germanium.impl',
               'germanium.locators',

@@ -1,6 +1,7 @@
 
 from germanium.selectors import *
 from germanium.impl import wait
+from germanium.util import Color
 
 # germanium instantiation
 from .open_browser import open_browser
@@ -23,6 +24,7 @@ from .select import select
 from .deselect import deselect
 from .get_value import get_value
 from .get_text import get_text
+from .get_style import get_style
 from .highlight import highlight
 
 # decorators

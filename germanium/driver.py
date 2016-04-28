@@ -192,6 +192,11 @@ class GermaniumDriver(object):
         if self.js("return !window.__GERMANIUM_EXTENSIONS_LOADED"):
             self.load_script('ajax-interceptor.js')
             self.load_script('is-ajax-running.js')
+
+            if self.web_driver.capabilities['browserName'] == 'internet explorer' and \
+                    self.web_driver.capabilities['version'] == '8':
+                self.load_script('germanium-ie8-getComputedStyle.js')
+
             self.load_script('germanium-extensions-loaded.js')
 
         for script_name in self._scripts_to_load:

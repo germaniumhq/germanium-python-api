@@ -1,6 +1,15 @@
 ChangeLog
 ---------
 
+* 2016-05-09  1.7.8
+    - `germanium.util.Color` supports now also `rgba()` values.
+
+    _Bugfixes_
+
+    - Fixed bug in `get_style()` to return the actual style even when the style is set from JS.
+    - #4 Fixed bug in `highlight()` for multiple simultaneous highlights.
+    - #8 Fixed Xpath expression calculated invalid.
+
 * 2016-04-28  1.7.7
     - `get_style` function implemented, to get a single CSS property value
     - `element_list(x)` allows the first parameter as index, to get only an element.

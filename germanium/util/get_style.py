@@ -12,4 +12,10 @@ def get_style_g(context, selector, name):
     else:
         element = _element(germanium, selector)
 
-    return germanium.js("return window.getComputedStyle(arguments[0])[arguments[1]];", element, name)
+    return germanium.js("""
+        if (arguments[0].style && arguments[0].style[arguments[1]]) {
+            return arguments[0].style[arguments[1]];
+        } else {
+            return window.getComputedStyle(arguments[0], null)[arguments[1]];
+        }
+    """, element, name)

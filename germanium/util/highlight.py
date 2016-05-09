@@ -81,7 +81,7 @@ def highlight_g(context,
     germanium.js("""
         var element = arguments[0];
         var index = %d;
-        var originalBorder = element.style.background;
+        var originalBackground = element.style.background;
 
         var interval = setInterval(function() {
             index--;
@@ -89,7 +89,7 @@ def highlight_g(context,
             if (index %% 2 == 1) {
                 element.style.background = '#00ff00';
             } else {
-                element.style.background = originalBorder;
+                element.style.background = originalBackground;
             }
 
             if (index == 0) {

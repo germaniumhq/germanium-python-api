@@ -16,7 +16,10 @@ class Color(object):
         color_definition = definition.lower()
         self.opacity = float(1)
 
-        if color_definition.startswith("rgb("):
+        if color_definition == "transparent":
+            self.opacity = 0.0
+            self.value = '#000000'
+        elif color_definition.startswith("rgb("):
             m = RGB_PARSER.match(color_definition)
             color_rgb =(int(m.group(1)), int(m.group(2)), int(m.group(3)))
             self.value = webcolors.rgb_to_hex(color_rgb)

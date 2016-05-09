@@ -47,3 +47,9 @@ Scenario: Check if highlighting with console.log alerts in the log missing eleme
   Then in the log there is an error message notifying the element as non existing
   And there is no alert present
 
+@7
+Scenario: Check if highlighting the same element twice laves it highlighted
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/highlight.html'
+  When I highlight twice the element '#visibleDiv'
+  Then the element highlight for the '#visibleDiv' is cleared correctly

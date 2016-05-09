@@ -78,10 +78,18 @@ def highlight_g(context,
                      message,
                      element)
 
-    germanium.js("""
+    code = """
+        if (window._germaniumCurrentHighlight) {
+            return;
+        }
+
+        window._germaniumCurrentHighlight = arguments[0];
+
         var element = arguments[0];
         var index = %d;
         var originalBackground = element.style.background;
+
+        element.style.background = '#00ff00';
 
         var interval = setInterval(function() {
             index--;
@@ -93,7 +101,10 @@ def highlight_g(context,
             }
 
             if (index == 0) {
+                delete window._germaniumCurrentHighlight;
                 clearInterval(interval);
             }
-        }, 200)
-    """ % round(show_seconds / blink_duration), element)
+        }, %d);
+    """ % (round(show_seconds / blink_duration), int(blink_duration * 1000))
+
+    germanium.js(code, element)

@@ -1,5 +1,6 @@
 from behave import *
 from selenium.webdriver.remote.webelement import WebElement
+from time import sleep
 
 from features.steps.asserts import *
 from germanium.static import *
@@ -9,7 +10,14 @@ use_step_matcher("re")
 
 @step("I highlight the element '(.*?)'")
 def step_impl(context, selector):
-    highlight(selector, show_seconds=4, blink_duration=1)
+    highlight(selector, show_seconds=3, blink_duration=1)
+
+
+@step("I highlight twice the element '(.*?)'")
+def step_impl(context, selector):
+    highlight(selector, show_seconds=2, blink_duration=1)
+    highlight(selector, show_seconds=2, blink_duration=1)
+    sleep(2)
 
 
 @step("I highlight also in the console the element '(.*?)'")
@@ -29,14 +37,19 @@ def step_impl(context, selector):
 
 @step("the highlighted element is '(.*?)'")
 def step_impl(context, selector):
-    element = S(selector).element(only_visible=False)
+    element = S(selector).element()
 
-    def check_element(e):
-        a = get_attributes(element)
-        print(a)
-        return False
+    def check_element():
+        background_color = get_style(element, 'backgroundColor')
+        return Color("#00ff00") == Color(background_color)
 
-    wait(lambda: check_element)
+    wait(check_element)
+
+
+@step("the element highlight for the '(.*?)' is cleared correctly")
+def step_impl(context, selector):
+    background_color = get_style(selector, "backgroundColor")
+    assert_equals(Color('rgba(0,0,0,0)'), Color(background_color))
 
 
 @step("in the log the highlighted element was notified as found")

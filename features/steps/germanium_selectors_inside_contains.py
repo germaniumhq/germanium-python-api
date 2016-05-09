@@ -69,6 +69,18 @@ def step_impl(context, tag_name):
     context.found_element_list = selector.element_list(only_visible=False)
 
 
+@step(u'I search for the first input in the second div')
+def step_impl(context):
+    selector = Element("input", index="1").\
+        inside(Element("div", index=2))
+
+    element = selector.element()
+
+    assert element
+
+    context.found_element = element
+
+
 @step(u'I only get the div with id #decoyDiv')
 def step_impl(context):
     assert_equals(1, len(context.found_element_list))

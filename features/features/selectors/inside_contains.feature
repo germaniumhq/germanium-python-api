@@ -55,3 +55,10 @@ Scenario: Finding elements without children might also return no elements, even 
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for all the spans without children
   Then I get no elements returned
+
+@9
+Scenario: Finding elements using indexes should construct the correct XPath
+  Given I open firefox
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for the first input in the second div
+  Then I find the element with id: 'inputText'

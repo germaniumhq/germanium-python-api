@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2016-05-19  1.7.9
+    - `iframe_selector` can be changed on the Germanium instance while the instance still runs.
+
 * 2016-05-09  1.7.8
     - `germanium.util.Color` supports now also `rgba()` values.
 

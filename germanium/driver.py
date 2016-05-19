@@ -29,14 +29,13 @@ class GermaniumDriver(object):
                  screenshot_folder="screenshots",
                  scripts=list()):
 
-        if hasattr(iframe_selector, '__call__'):
-            iframe_selector=CallableIFrameSelector(iframe_selector)
-
         self.web_driver = web_driver
         self._screenshot_folder = screenshot_folder
-        self._iframe_selector = iframe_selector
         self._current_iframe = None
         self._scripts_to_load = scripts
+
+        # set the iframe selector using the property
+        self.iframe_selector = iframe_selector
 
         self.locator_map = {
             "xpath": XPathLocator,
@@ -235,6 +234,17 @@ class GermaniumDriver(object):
             self._current_iframe = iframe_name
 
         return self._current_iframe
+
+    @property
+    def iframe_selector(self):
+        return self._iframe_selector
+
+    @iframe_selector.setter
+    def iframe_selector(self, value):
+        if hasattr(value, '__call__'):
+            value=CallableIFrameSelector(value)
+
+        self._iframe_selector = value
 
     def __getattr__(self, item):
         """

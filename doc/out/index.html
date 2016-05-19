@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v1.7.7</title>
+<title>Germanium v1.7.9</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,7 +420,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v1.7.7</h1>
+<h1>Germanium v1.7.9</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -509,6 +509,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#__iframe_germanium_iframe_decorator">@iframe - germanium iframe decorator</a></li>
 <li><a href="#_germanium_instance_functions">germanium Instance Functions</a></li>
+<li><a href="#_germanium_instance_attributes">germanium Instance Attributes</a></li>
 <li><a href="#_germanium_utility_functions">germanium Utility Functions</a></li>
 </ul>
 </li>
@@ -2423,6 +2424,16 @@ inside the browsers:</p>
 </div>
 </li>
 <li>
+<p>germanium instance attributes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>iframe_selector</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p>utility functions:</p>
 <div class="ulist">
 <ul>
@@ -2547,7 +2558,9 @@ WebDriver instance.</p>
 <div class="paragraph">
 <p>The <code>iframe_selector</code> specifies the strategy to use whenever the iframe will
 be changed by the <code>@iframe</code> decorator. This class should have a method named
-<code>select_iframe(self, germanium, iframe_name)</code>.</p>
+<code>select_iframe(self, germanium, iframe_name)</code>, or a method that has two
+parameters <code>(germanium, iframe_name)</code> can be provided and it will be
+wrapped into a decorator class by Germanium itself.</p>
 </div>
 <div class="paragraph">
 <p>Germanium uses <code>"default"</code> for the <code>switch_to_default_content</code>.</p>
@@ -2758,6 +2771,30 @@ germanium<span style="color: #666666">.</span>take_screenshot(<span style="color
 <pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>load_script(<span style="color: #BA2121">&#39;jquery.js&#39;</span>)</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_germanium_instance_attributes"><a class="anchor" href="#_germanium_instance_attributes"></a>germanium Instance Attributes</h3>
+<div class="paragraph">
+<p>Currently there is only one attribute, namely the <code>iframe_selector</code>, that
+allows changing the current iframe selection strategy for the given instance.</p>
+</div>
+<div class="paragraph">
+<p>As in the constructor, it supports both the class, or the callable as values
+for assignment.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">new_iframe_selector</span>(germanium, iframe_name):
+    <span style="color: #408080; font-style: italic"># ...</span>
+
+old_ifame_selector <span style="color: #666666">=</span> get_germanium()<span style="color: #666666">.</span>iframe_selector
+get_germanium()<span style="color: #666666">.</span>iframe_selector <span style="color: #666666">=</span> new_iframe_selector</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is useful for reusing the Germanium instance across tests, without the
+need to recreate it just because you need another <code>iframe_selector</code> strategy.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2986,7 +3023,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-28 22:18:15 UTC
+Last updated 2016-05-19 22:18:50 UTC
 </div>
 </div>
 </body>

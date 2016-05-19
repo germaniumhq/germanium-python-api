@@ -13,7 +13,9 @@ inside the browsers:
     - `js`, `execute_script`
     - `take_screenshot`
     - `load_script`
-3. utility functions:
+3. germanium instance attributes:
+    - `iframe_selector`
+4. utility functions:
     - `type_keys_g`
     - `click_g`
     - `double_click_g`
@@ -100,7 +102,9 @@ WebDriver instance.
 
 The `iframe_selector` specifies the strategy to use whenever the iframe will
 be changed by the `@iframe` decorator. This class should have a method named
-`select_iframe(self, germanium, iframe_name)`.
+`select_iframe(self, germanium, iframe_name)`, or a method that has two
+parameters `(germanium, iframe_name)` can be provided and it will be
+wrapped into a decorator class by Germanium itself.
 
 Germanium uses `"default"` for the `switch_to_default_content`.
 
@@ -266,6 +270,26 @@ Loads the JavaScript code from the file with the given name into the browser.
 -----------------------------------------------------------------------------
 germanium.load_script('jquery.js')
 -----------------------------------------------------------------------------
+
+== germanium Instance Attributes
+
+Currently there is only one attribute, namely the `iframe_selector`, that
+allows changing the current iframe selection strategy for the given instance.
+
+As in the constructor, it supports both the class, or the callable as values
+for assignment.
+
+[source,python]
+-----------------------------------------------------------------------------
+def new_iframe_selector(germanium, iframe_name):
+    # ...
+
+old_ifame_selector = get_germanium().iframe_selector
+get_germanium().iframe_selector = new_iframe_selector
+-----------------------------------------------------------------------------
+
+This is useful for reusing the Germanium instance across tests, without the
+need to recreate it just because you need another `iframe_selector` strategy.
 
 == germanium Utility Functions
 

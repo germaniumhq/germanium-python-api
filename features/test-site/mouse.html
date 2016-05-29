@@ -75,17 +75,32 @@
             });
 
             $('.buttonAboveFarDownElementInThePage').on('click', function(ev) {
+                clicked = true;
                 document.getElementById('textInput').value = 'click:buttonAboveFarDownElementInThePage';
+
                 return false;
             });
 
             $('.buttonAboveFarDownElementInThePage').on('mouseover', function(ev) {
-                document.getElementById('textInput').value = 'mouseover:buttonAboveFarDownElementInThePage';
+                /*
+                 * IE9 gets spurious mouseover events after clicks.
+                 */
+                if (!clicked) {
+                    document.getElementById('textInput').value = 'mouseover:buttonAboveFarDownElementInThePage';
+                }
+
+                return false;
+            });
+
+            $('.bottomDiv').contextmenu(function(ev) {
                 return false;
             });
 
             $('.buttonAboveFarDownElementInThePage').on('mouseout', function(ev) {
-                document.getElementById('textInput').value = 'mouseout:buttonAboveFarDownElementInThePage';
+                if (!clicked) {
+                    document.getElementById('textInput').value = 'mouseout:buttonAboveFarDownElementInThePage';
+                }
+
                 return false;
             });
             })();

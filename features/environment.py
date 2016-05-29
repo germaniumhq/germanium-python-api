@@ -22,10 +22,15 @@ def after_all(context):
     context._httpServer.shutdown()
 
     print("Done shutting down HTTP server")
+    keep_browser = 'TEST_KEEP_BROWSER' in os.environ.keys()
     reuse_browser = 'TEST_REUSE_BROWSER' in os.environ.keys()
 
+    if keep_browser:
+        print("Keeping the browser, since all is done, and TEST_KEEP_BROWSER is set.")
+        return
+
     if reuse_browser:
-        print("Closing the browser, since all is done.")
+        print("Closing the browser, since all is done, and TEST_REUSE_BROWSER is set.")
         close_browser()
 
 

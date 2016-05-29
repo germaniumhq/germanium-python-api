@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+* 2016-05-29  1.7.10
+    - Added more tests on the behavior of Selenium.
+    - Use Ubuntu 16.04 as a base for docker images.
+
 * 2016-05-19  1.7.9
     - `iframe_selector` can be changed on the Germanium instance while the instance still runs.
 

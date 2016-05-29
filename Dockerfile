@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Bogdan Mustiata <bogdan.mustiata@gmail.com>
 
 ENV REFRESHED_AT="2016.03.29-21:10:18"

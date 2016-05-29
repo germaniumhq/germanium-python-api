@@ -16,6 +16,16 @@
 
         <input id="textInput" value="none" type="text">
 
+        <div style="position: absolute; left: 0; top: 6000px">
+            <button class="buttonAboveFarDownElementInThePage"
+                    aria-label="button above far down element">buttonAboveFarDownElementInThePage</button>
+            <br/>
+            <button class="farDownElementInThePage">farDownElementInThePage</button>
+        </div>
+        <div style="position: absolute; left: 0; top: 10000px" class="bottomDiv">
+            extra vertical space
+        </div>
+
         <script type="text/javascript">
             (function() {
                 var clicked = false;
@@ -64,6 +74,20 @@
                 }
             });
 
+            $('.buttonAboveFarDownElementInThePage').on('click', function(ev) {
+                document.getElementById('textInput').value = 'click:buttonAboveFarDownElementInThePage';
+                return false;
+            });
+
+            $('.buttonAboveFarDownElementInThePage').on('mouseover', function(ev) {
+                document.getElementById('textInput').value = 'mouseover:buttonAboveFarDownElementInThePage';
+                return false;
+            });
+
+            $('.buttonAboveFarDownElementInThePage').on('mouseout', function(ev) {
+                document.getElementById('textInput').value = 'mouseout:buttonAboveFarDownElementInThePage';
+                return false;
+            });
             })();
         </script>
     </body>

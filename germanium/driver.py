@@ -8,6 +8,7 @@ from .impl._alert_exists import _alert_exists
 from .impl import wait
 
 from selenium.webdriver.remote.webelement import WebElement
+import selenium
 
 
 class JavaScriptException(Exception):
@@ -54,7 +55,15 @@ class GermaniumDriver(object):
         return create_locator(self, locator, strategy)
 
     def get(self, url, *args, **kwargs):
-        result = self.web_driver.get(url, *args, **kwargs)
+        try:
+            result = self.web_driver.get(url, *args, **kwargs)
+        except selenium.common.exceptions.UnexpectedAlertPresentException:
+            pass
+        except selenium.common.exceptions.WebDriverException as e:
+            if 'unexpected alert open' not in e.msg:
+                raise e
+            print("An unexpected alert exception was caught by Germanium: %s" % e)
+
         self.wait_for_page_to_load()
 
         return result

@@ -56,17 +56,16 @@ class GermaniumDriver(object):
 
     def get(self, url, *args, **kwargs):
         try:
-            result = self.web_driver.get(url, *args, **kwargs)
+            self.web_driver.get(url, *args, **kwargs)
         except selenium.common.exceptions.UnexpectedAlertPresentException:
             pass
         except selenium.common.exceptions.WebDriverException as e:
             if 'unexpected alert open' not in e.msg:
                 raise e
-            print("An unexpected alert exception was caught by Germanium: %s" % e)
+            print("An unexpected alert exception was caught by Germanium "
+                  "while loading the page: %s" % e)
 
         self.wait_for_page_to_load()
-
-        return result
 
     def reload_page(self):
         """

@@ -3,7 +3,7 @@ import pkg_resources
 from .locators import CssLocator, XPathLocator, JsLocator, AlertLocator
 from .iframe_selector import DefaultIFrameSelector, CallableIFrameSelector
 from .create_locator import create_locator
-from .impl._alert_exists import _alert_exists
+from .impl._alert_exists import _alert_exists, allow_alert
 
 from .impl import wait
 
@@ -55,16 +55,11 @@ class GermaniumDriver(object):
         return create_locator(self, locator, strategy)
 
     def get(self, url, *args, **kwargs):
-        try:
+        @allow_alert(self)
+        def get_url():
             self.web_driver.get(url, *args, **kwargs)
-        except selenium.common.exceptions.UnexpectedAlertPresentException:
-            pass
-        except selenium.common.exceptions.WebDriverException as e:
-            if 'unexpected alert open' not in e.msg:
-                raise e
-            print("An unexpected alert exception was caught by Germanium "
-                  "while loading the page: %s" % e)
 
+        get_url()
         self.wait_for_page_to_load()
 
     def reload_page(self):
@@ -128,9 +123,16 @@ class GermaniumDriver(object):
 
             eval_script = wrapper_script
 
-            response = self.web_driver.execute_script(eval_script, *args, **kwargs)
+            @allow_alert(self)
+            def execute_js():
+                return self.web_driver.execute_script(eval_script, *args, **kwargs)
+
+            response = execute_js()
 
             if isinstance(response, WebElement) or isinstance(response, list):
+                return response
+
+            if not isinstance(response, dict):
                 return response
 
             if response['status'] == 'SUCCESS':

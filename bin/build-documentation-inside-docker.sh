@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 asciidoctor -o doc/out/index.html\
+    -s \
     -d book \
     -r asciidoctor-diagram \
     doc/usage/index.adoc

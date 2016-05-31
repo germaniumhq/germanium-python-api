@@ -1,13 +1,22 @@
 
-from time import sleep
+import time
 from germanium.impl import _ensure_list
+
+
+def _current_time_in_millis():
+    return int(round(time.time() * 1000))
 
 
 def wait(closures, *extra_closures, while_not=None, timeout=10):
     """
-    Executes a function given as argument every 400 milliseconds until it returns true. If it goes more than
-    the timeout seconds, then this function throws an exception. If the function throws an exception, then
-    it is assumed it is false.
+    Executes a function given as argument every 400 milliseconds until it returns true.
+
+    If it goes more than the timeout in seconds, then this function throws an exception.
+
+    If the waiting closures throw exception, then it is assumed as a temporary false
+    result, but the wait will continue. This is intentional so you can wait for an element
+    even if the page is still loading.
+
     :param closures:
     :param while_not:
     :param timeout:
@@ -26,10 +35,18 @@ def wait(closures, *extra_closures, while_not=None, timeout=10):
             except Exception as e:
                 print("WARNING: waiting as false since: %s" % e)
 
-    passed_timeout = 0
+    starting_time = _current_time_in_millis()
+    current_time = starting_time
+    delta = float(timeout) * 1000
+
+    if delta <= 0:
+        raise Exception("You need to specify a timeout that is greater than 0. The timeout is expressed in seconds.")
+
     closure_result = False
 
-    while passed_timeout < timeout:
+    while current_time - starting_time < delta:
+        starting_closure_eval_time = current_time
+
         for while_not_closure in while_not:
             try:
                 if while_not_closure():
@@ -42,12 +59,21 @@ def wait(closures, *extra_closures, while_not=None, timeout=10):
         if closure_result:
             break
 
-        passed_timeout += 0.4
+        current_time = _current_time_in_millis()
+        ending_closure_eval_time = current_time
 
-        if passed_timeout >= 2:
+        # Execution times don't count, and must be substracted from the
+        # potential delay.
+        actual_execution_time = ending_closure_eval_time - starting_closure_eval_time
+
+        # we do the sleep only if the execution time is quicker than 400ms,
+        # otherwise we already waited for the response from the server.
+
+        if actual_execution_time < 400:
+            time.sleep(float(400 - actual_execution_time) / 1000.0)
+
+        if current_time - starting_time >= 2000:
             print("Running takes more than 2 seconds.")
-
-        sleep(0.4)
 
     if not closure_result:
         raise Exception("Waiting has failed")

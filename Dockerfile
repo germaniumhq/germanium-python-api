@@ -60,11 +60,13 @@ RUN $PYTHON_BINARY -m ensurepip && \
 #
 # Install remoting apps
 #
-RUN apt-get install -y vnc4server \
+RUN apt-get install -y\
+    vnc4server \
     novnc \
     websockify \
     psmisc \
-    icewm
+    icewm \
+    xdotool
 
 # Setup remoting
 RUN useradd -m germanium

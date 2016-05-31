@@ -28,6 +28,9 @@ else
     TEST_BROWSER_ABBREVIATION="$TEST_BROWSER"
 fi
 
+# Move the mouse to a corner, so it doesn't interfere with any labels.
+xdotool mousemove 0 0
+
 behave --tags ~@no${TEST_BROWSER_ABBREVIATION}
 
 # kill potentially remaining processes, but don't fail in case

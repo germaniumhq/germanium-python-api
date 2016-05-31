@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 asciidoctor -o doc/out/index.html\
-    -s \
     -d book \
     -r asciidoctor-diagram \
     doc/usage/index.adoc
@@ -17,4 +16,3 @@ rm doc/usage/*.svg
 rm doc/out/*.svg.cache
 
 chown raptor:raptor doc/out/*
-

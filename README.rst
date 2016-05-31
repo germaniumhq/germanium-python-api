@@ -1,5 +1,5 @@
-germanium
-=========
+germanium 1.7.11
+================
 
 Germanium is a set of extensions on top of the regular WebDriver API, allowing
 for a super easy creation of tests. It's opensource and free.
@@ -18,5 +18,4 @@ Simply put Germanium is a Web Testing API that doesn't disappoint::
     close_browser()
 
 
-Here is the usage documentation: [germanium-usage.pdf](https://raw.githubusercontent.com/germaniumhq/germanium/master/doc/out/germanium-usage.pdf)
-
+Here is the [usage documentation](http://germaniumhq.com/documentation/).

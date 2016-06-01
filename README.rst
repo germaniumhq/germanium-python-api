@@ -18,4 +18,4 @@ Simply put Germanium is a Web Testing API that doesn't disappoint::
     close_browser()
 
 
-Here is the [usage documentation](http://germaniumhq.com/documentation/).
+Here is the [usage documentation](http://germaniumhq.com/documentation/), or as [PDF](http://germaniumhq.com/documentation/germanium-usage.pdf)

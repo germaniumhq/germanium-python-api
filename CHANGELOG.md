@@ -3,8 +3,7 @@ ChangeLog
 
 * 2016-06-01  1.7.11
     - `wait()` now also takes into account the closure times for timeouts.
-    - Move the mouse in the docker images so the hints don't interfere.
-    - Minor cleanup on the default test. 
+    - Minor cleanup on the default test.
 
 * 2016-05-29  1.7.10
     - Added more tests on the behavior of Selenium.

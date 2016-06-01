@@ -1,8 +1,9 @@
 ChangeLog
 ---------
 
-* 2016-06-01  1.7.11
+* 2016-06-02  1.7.11
     - `wait()` now also takes into account the closure times for timeouts.
+    - Documentation updates.
     - Minor cleanup on the default test.
 
 * 2016-05-29  1.7.10

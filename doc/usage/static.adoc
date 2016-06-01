@@ -383,6 +383,30 @@ assert 'yay' == get_text('.success-message')  <1>
 <1> This might throw exceptions if the `.success-message` is an element that
 is invisible, or doesn't exists.
 
+== get_attributes(selector)
+
+Return all the attributes of the element matched by the selector as a dictionary
+object.
+
+For example for this HTML:
+
+[source,html]
+-----------------------------------------------------------------------------
+<body>
+    <div id='editor' class='modal superb' custom-data='simple-code'></div>
+</body>
+-----------------------------------------------------------------------------
+
+To get all the attributes of the editor div, someone can:
+
+[source,python]
+-----------------------------------------------------------------------------
+editor_attributes = get_attributes_g(germanium, '#editor')
+assert editor_attributes['class'] == 'modal superb'
+assert editor_attributes['id'] == 'editor'
+assert editor_attributes['custom-data'] == 'simple-code'
+-----------------------------------------------------------------------------
+
 == get_style(selector, name)
 
 *Description*
@@ -527,7 +551,7 @@ type_keys_into_editor('hello world') # will switch the iframe to 'editor' and ba
 click(Button("Save"))                # iframe is 'default'
 -----------------------------------------------------------------------------
 
-=== wait(closure, while_not=None, timeout=10)
+== wait(closure, while_not=None, timeout=10)
 
 *Description*
 

@@ -443,12 +443,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_deselect_selector_text_index_value">deselect(selector, text?, index?, value?)</a></li>
 <li><a href="#_get_value_selector">get_value(selector)</a></li>
 <li><a href="#_get_text_selector">get_text(selector)</a></li>
+<li><a href="#_get_attributes_selector">get_attributes(selector)</a></li>
 <li><a href="#_get_style_selector_name">get_style(selector, name)</a></li>
 <li><a href="#_get_web_driver">get_web_driver()</a></li>
 <li><a href="#_get_germanium">get_germanium()</a></li>
 <li><a href="#_highlight_selector_show_seconds_2">highlight(selector, show_seconds=2)</a></li>
 <li><a href="#_def_s_argv_kwargs">def S(*argv, **kwargs)</a></li>
 <li><a href="#_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</a></li>
+<li><a href="#_wait_closure_while_not_none_timeout_10">wait(closure, while_not=None, timeout=10)</a></li>
 </ul>
 </li>
 <li><a href="#_germanium_selectors_and_locators">Germanium Selectors and Locators</a>
@@ -1120,6 +1122,34 @@ is invisible, or doesn&#8217;t exists.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_get_attributes_selector"><a class="anchor" href="#_get_attributes_selector"></a>get_attributes(selector)</h3>
+<div class="paragraph">
+<p>Return all the attributes of the element matched by the selector as a dictionary
+object.</p>
+</div>
+<div class="paragraph">
+<p>For example for this HTML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;body&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&#39;editor&#39;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&#39;modal superb&#39;</span> <span style="color: #7D9029">custom-data=</span><span style="color: #BA2121">&#39;simple-code&#39;</span><span style="color: #008000; font-weight: bold">&gt;&lt;/div&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/body&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get all the attributes of the editor div, someone can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">editor_attributes <span style="color: #666666">=</span> get_attributes_g(germanium, <span style="color: #BA2121">&#39;#editor&#39;</span>)
+<span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;class&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;modal superb&#39;</span>
+<span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;id&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;editor&#39;</span>
+<span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;custom-data&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;simple-code&#39;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_get_style_selector_name"><a class="anchor" href="#_get_style_selector_name"></a>get_style(selector, name)</h3>
 <div class="paragraph">
 <p><strong>Description</strong></p>
@@ -1312,8 +1342,9 @@ type_keys_into_editor(<span style="color: #BA2121">&#39;hello world&#39;</span>)
 click(Button(<span style="color: #BA2121">&quot;Save&quot;</span>))                <span style="color: #408080; font-style: italic"># iframe is &#39;default&#39;</span></code></pre>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_wait_closure_while_not_none_timeout_10"><a class="anchor" href="#_wait_closure_while_not_none_timeout_10"></a>wait(closure, while_not=None, timeout=10)</h4>
+</div>
+<div class="sect2">
+<h3 id="_wait_closure_while_not_none_timeout_10"><a class="anchor" href="#_wait_closure_while_not_none_timeout_10"></a>wait(closure, while_not=None, timeout=10)</h3>
 <div class="paragraph">
 <p><strong>Description</strong></p>
 </div>
@@ -1360,7 +1391,6 @@ them fail, the wait throws an exception.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python">wait(Text(<span style="color: #BA2121">&quot;document uploaded successfully&quot;</span>),
     while_not <span style="color: #666666">=</span> Text(<span style="color: #BA2121">&quot;an error occured&quot;</span>))</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -3023,7 +3053,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-05-31 20:49:50 UTC
+Last updated 2016-05-31 22:47:45 UTC
 </div>
 </div>
 </body>

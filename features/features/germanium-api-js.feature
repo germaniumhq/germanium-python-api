@@ -1,7 +1,7 @@
 Feature: The js API.
 
 Scenario: Call a JS Script with a custom argument.
-    Given I open firefox
+    Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/inputs.html'
     When I execute js with one parameter 'jsparameter'
     """
@@ -16,7 +16,7 @@ Scenario: Call a JS Script with a custom argument.
     Then nothing happens
 
 Scenario: Call a JS Script that returns a list of elements.
-    Given I open firefox
+    Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/inputs.html'
     When I execute js without any parameters
     """

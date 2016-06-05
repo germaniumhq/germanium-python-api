@@ -7,7 +7,7 @@ Feature: get_style utility function.
 
 @1
 Scenario: Check reading CSS values from an element.
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/style.html'
   # the red div checks
   Then the 'borderTopColor' style color from element '.red-div' is '#ff0000'
@@ -22,7 +22,7 @@ Scenario: Check reading CSS values from an element.
 
 @2
 Scenario: Check reading CSS values from an element where the style is set via highlight
-  Given I open firefox
+  Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/style.html'
   When I highlight the element '.default-div'
   Then the 'backgroundColor' style color from element '.default-div' is '#00ff00'

@@ -2,7 +2,7 @@ Feature: Simple alert support should function.
 
 @1
 Scenario: Test a basic alert
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/alert/alert_alert.html'
   Then there is an alert that exists
   And the text of the alert is "alert is present"
@@ -10,7 +10,7 @@ Scenario: Test a basic alert
 
 @2
 Scenario: Test a Confirmation by clicking the OK button
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/alert/alert_confirm.html'
   Then there is an alert that exists
   And the text of the alert is "confirm dialog"
@@ -22,7 +22,7 @@ Scenario: Test a Confirmation by clicking the OK button
 
 @3
 Scenario: Test a Confirmation by clicking the CANCEL button
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/alert/alert_confirm.html'
   Then there is an alert that exists
   And the text of the alert is "confirm dialog"
@@ -34,7 +34,7 @@ Scenario: Test a Confirmation by clicking the CANCEL button
 
 @4
 Scenario: Test an Prompt by rejecting it.
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
   Then there is an alert that exists
   And the text of the alert is "prompt alert"
@@ -46,7 +46,7 @@ Scenario: Test an Prompt by rejecting it.
 
 @5
 Scenario: Test an Prompt by setting some value using regular type_keys with an Alert.
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
   Then there is an alert that exists
   And the text of the alert is "prompt alert"
@@ -59,7 +59,7 @@ Scenario: Test an Prompt by setting some value using regular type_keys with an A
 
 @6
 Scenario: Test an Prompt by setting some value using type_keys on the alert instance.
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
   Then there is an alert that exists
   And the text of the alert is "prompt alert"
@@ -72,7 +72,7 @@ Scenario: Test an Prompt by setting some value using type_keys on the alert inst
 
 @7
 Scenario: Test an Prompt by setting some value using type_keys, with an 'alert' Super selector.
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
   Then there is an alert that exists
   And the text of the alert is "prompt alert"
@@ -85,7 +85,7 @@ Scenario: Test an Prompt by setting some value using type_keys, with an 'alert' 
 
 @8
 Scenario: Test an Prompt by setting some value using type_keys without a selector, by means of 'alert' detection.
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/alert/alert_prompt.html'
   Then there is an alert that exists
   And the text of the alert is "prompt alert"

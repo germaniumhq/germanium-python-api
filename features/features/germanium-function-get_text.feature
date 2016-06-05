@@ -4,7 +4,7 @@ Feature: get_text utility function.
 
 @1
 Scenario: Check reading text from a visible div
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/get-text.html'
   And I get the text from element '#visibleTextDiv'
   Then the text from that element is
@@ -15,7 +15,7 @@ Scenario: Check reading text from a visible div
 
 @2
 Scenario: Check reading text from an invisible div
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/get-text.html'
   And I get the text from element '#displayNoneTextDiv'
   Then the text from that element is
@@ -25,7 +25,7 @@ Scenario: Check reading text from an invisible div
 
 @3
 Scenario: Check reading text from a visible span
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/get-text.html'
   And I get the text from element '#containingVisibleText'
   Then the text from that element is
@@ -35,7 +35,7 @@ Scenario: Check reading text from a visible span
 
 @4
 Scenario: Check reading text from an invisible span
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/get-text.html'
   And I get the text from element '#containingInvisibleText'
   Then the text from that element is
@@ -45,7 +45,7 @@ Scenario: Check reading text from an invisible span
 
 @5
 Scenario: Check reading text from a pre element
-  Given I open firefox
+  Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/get-text.html'
   And I get the text from element '#preElement'
   Then the text from that element is

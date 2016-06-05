@@ -3,7 +3,7 @@ Feature: Germanium needs to allow switching the iframe selector
   same browser instance reused even if the test changes it.
 
 Scenario: Test if changing the iframe selector works while Germanium still runs.
-  Given I open firefox
+  Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/iframe-inputs.html'
   When I search in the default iframe for the 'Just a message in the top frame' text
   Then I find the element with id: 'topFrameMessage'

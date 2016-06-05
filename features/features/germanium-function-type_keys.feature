@@ -10,7 +10,7 @@ Feature: Germanium enabled typing of the keys.
 
     @1
     Scenario: A simple typing test.
-      Given I open firefox
+      Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
       And I click on input#textInput
       When I type_keys 'input test<tab>'
@@ -26,7 +26,7 @@ Feature: Germanium enabled typing of the keys.
 
     @2 @nochrome
     Scenario: Ensure all the keycodes are passed correctly
-      Given I open firefox
+      Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/key_type-support.html'
       And I click on body
       Then I type_keys '<ctrl-a><del>'
@@ -39,7 +39,7 @@ Feature: Germanium enabled typing of the keys.
 
     @3
     Scenario: Ensure that typing in an absolute element outside the current view will scroll the view.
-      Given I open firefox
+      Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
       When in the selector .outsideAbsoluteInput I type_keys 'outside absolute input'
       Then the value for the #outsideAbsoluteInput is 'outside absolute input'
@@ -48,28 +48,28 @@ Feature: Germanium enabled typing of the keys.
     Scenario: Ensure that typing in an element outside the current view will scroll the view.
       This will test the scrolling for elements that are actually lower in the page
       due to the scroll.
-      Given I open firefox
+      Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
       When in the selector .outsideTextFlowedInput I type_keys 'outside text flow input'
       Then the value for the #outsideTextFlowedInput is 'outside text flow input'
 
     @5
     Scenario: Ensure typing in a password element will work.
-      Given I open firefox
+      Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
       When in the selector #passwordInputField I type_keys 'password'
       Then the value for the #passwordInputField is 'password'
 
     @6
     Scenario: Ensure typing in a password element using a locator will work.
-      Given I open firefox
+      Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
       When in the locator #passwordInputField I type_keys 'password'
       Then the value for the #passwordInputField is 'password'
 
     @7 @nofirefox
     Scenario: Ensure typing into an editable section will work.
-      Given I open firefox
+      Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/key_type-support-editable.html'
       When in the locator body I type_keys '<ctrl-a><del>Rewrite<cr>all<cr>text'
       Then the text of the page is

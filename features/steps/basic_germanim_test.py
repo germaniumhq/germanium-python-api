@@ -30,7 +30,7 @@ def instantiate_germanium_webdriver():
                  iframe_selector=iframe_selector)
 
 
-@step("I open (.*?)")
+@step("I open the browser")
 def open_browser_step(context, browser):
     """
     :param context:

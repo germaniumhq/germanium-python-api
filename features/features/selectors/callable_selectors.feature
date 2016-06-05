@@ -6,7 +6,7 @@ Feature: Using selectors as references, should be possible with the constructor
 
 @1
 Scenario: Reference selectors can be passed also as callables.
-  Given I open firefox
+  Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div element using the InputText class as parameter
   Then I find the element with id: 'inputTextContainer'

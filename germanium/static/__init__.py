@@ -22,6 +22,7 @@ from .get_attributes import get_attributes
 from .drag_and_drop import drag_and_drop
 from .select import select
 from .deselect import deselect
+from .parent_node import parent_node
 from .get_value import get_value
 from .get_text import get_text
 from .get_style import get_style

@@ -314,6 +314,84 @@ selection._
 deselect("#products", index=[1,3])
 -----------------------------------------------------------------------------
 
+== parent_node(selector)
+
+*Description*
+
+Gets the parent node of the given selector.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+parent_node(selector) <1>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to return the value for. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+
+This will return a `WebElement`.
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+e = parent_node('#some_element')
+-----------------------------------------------------------------------------
+
+Will return the parent node for the element with the ID `some_element` that will
+be matched by the CSS locator.
+
+== child_nodes(selector, only_elements=True)
+
+*Description*
+
+Gets the child nodes of the element that is matched by selector.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+child_nodes(selector, <1>
+            only_elements=True) <2>
+-----------------------------------------------------------------------------
+<1> _selector_ - What element to return the value for. _See the
+        *Germanium Selectors*, to learn about how you can easily locate the
+        element you want your action to be triggered against._
+<2> _only_elements_ - If to return only elements, or also other node types (text, comment, etc)
+
+This will return a `list` of the found elements, or an empty list if no element was found.
+
+*Sample*
+
+For example for the given HTML:
+
+[source,html]
+-----------------------------------------------------------------------------
+<div id="parent">
+    <div id="child1">..</div>
+    <div id="child2">..</div>
+</div>
+-----------------------------------------------------------------------------
+
+When calling:
+
+[source,python]
+-----------------------------------------------------------------------------
+items = child_nodes("#parent")
+assert len(items) == 2
+-----------------------------------------------------------------------------
+
+This will return a list of 2 elements, with the child1 and child2, since `only_elements` is
+set by default to true. Otherwise if setting the `only_elements` to `False`, the call will
+return 5 elements, since there are 3 whitespace nodes in the `#parent` div.
+
+[source,python]
+-----------------------------------------------------------------------------
+items = child_nodes('#parent', only_elements=False)
+assert len(items) == 5
+-----------------------------------------------------------------------------
+
 == get_value(selector)
 
 *Description*

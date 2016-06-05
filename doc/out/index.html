@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v1.7.11</title>
+<title>Germanium v1.7.12</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,7 +420,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v1.7.11</h1>
+<h1>Germanium v1.7.12</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -441,6 +441,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_drag_and_drop_from_selector_to_selector">drag_and_drop(from_selector, to_selector)</a></li>
 <li><a href="#_select_selector_text_index_value">select(selector, text?, index?, value?)</a></li>
 <li><a href="#_deselect_selector_text_index_value">deselect(selector, text?, index?, value?)</a></li>
+<li><a href="#_parent_node_selector">parent_node(selector)</a></li>
+<li><a href="#_child_nodes_selector_only_elements_true">child_nodes(selector, only_elements=True)</a></li>
 <li><a href="#_get_value_selector">get_value(selector)</a></li>
 <li><a href="#_get_text_selector">get_text(selector)</a></li>
 <li><a href="#_get_attributes_selector">get_attributes(selector)</a></li>
@@ -1016,6 +1018,114 @@ selection.</em></p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python">deselect(<span style="color: #BA2121">&quot;#products&quot;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">1</span>,<span style="color: #666666">3</span>])</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parent_node_selector"><a class="anchor" href="#_parent_node_selector"></a>parent_node(selector)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Gets the parent node of the given selector.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">parent_node(selector) <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to return the value for. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This will return a <code>WebElement</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">e <span style="color: #666666">=</span> parent_node(<span style="color: #BA2121">&#39;#some_element&#39;</span>)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Will return the parent node for the element with the ID <code>some_element</code> that will
+be matched by the CSS locator.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_child_nodes_selector_only_elements_true"><a class="anchor" href="#_child_nodes_selector_only_elements_true"></a>child_nodes(selector, only_elements=True)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Gets the child nodes of the element that is matched by selector.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">child_nodes(selector, <b class="conum">(1)</b>
+            only_elements<span style="color: #666666">=</span><span style="color: #008000">True</span>) <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>selector</em> - What element to return the value for. <em>See the
+<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
+element you want your action to be triggered against.</em></p>
+</li>
+<li>
+<p><em>only_elements</em> - If to return only elements, or also other node types (text, comment, etc)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This will return a <code>list</code> of the found elements, or an empty list if no element was found.</p>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="paragraph">
+<p>For example for the given HTML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&quot;parent&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&quot;child1&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>..<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&quot;child2&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>..<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When calling:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">items <span style="color: #666666">=</span> child_nodes(<span style="color: #BA2121">&quot;#parent&quot;</span>)
+<span style="color: #008000; font-weight: bold">assert</span> <span style="color: #008000">len</span>(items) <span style="color: #666666">==</span> <span style="color: #666666">2</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will return a list of 2 elements, with the child1 and child2, since <code>only_elements</code> is
+set by default to true. Otherwise if setting the <code>only_elements</code> to <code>False</code>, the call will
+return 5 elements, since there are 3 whitespace nodes in the <code>#parent</code> div.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">items <span style="color: #666666">=</span> child_nodes(<span style="color: #BA2121">&#39;#parent&#39;</span>, only_elements<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+<span style="color: #008000; font-weight: bold">assert</span> <span style="color: #008000">len</span>(items) <span style="color: #666666">==</span> <span style="color: #666666">5</span></code></pre>
 </div>
 </div>
 </div>
@@ -3053,7 +3163,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-05-31 22:47:45 UTC
+Last updated 2016-06-05 22:40:43 UTC
 </div>
 </div>
 </body>

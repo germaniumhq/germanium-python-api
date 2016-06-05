@@ -31,7 +31,7 @@ def instantiate_germanium_webdriver():
 
 
 @step("I open the browser")
-def open_browser_step(context, browser):
+def open_browser_step(context):
     """
     :param context:
     :return: void

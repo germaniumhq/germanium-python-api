@@ -6,6 +6,7 @@ from .drag_and_drop import drag_and_drop_g
 from .select import select_g
 from .deselect import deselect_g
 from .parent_node import parent_node_g
+from .child_nodes import child_nodes_g
 from .get_value import get_value_g
 from .get_style import get_style_g
 from .get_text import get_text_g

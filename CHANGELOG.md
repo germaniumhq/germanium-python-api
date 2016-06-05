@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+* 2016-06-06  1.7.12
+    - New function `parent_node()` allows getting the parent node of an element (selector).
+    - New function `child_nodes(only_elements=True)` allows getting the child nodes/elements of a parent element (selector).
+    - Tests refactoring to call _"open the browser"_ instead of the misleading _"open firefox"_, when not actually running firefox.
+    
+
 * 2016-06-02  1.7.11
     - `wait()` now also takes into account the closure times for timeouts.
     - Documentation updates.

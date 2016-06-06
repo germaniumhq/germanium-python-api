@@ -9,8 +9,9 @@ of the selectors. For example:
 click(Css('.tree-plus-icon').left_of(Text('Item 15')))
 -----------------------------------------------------------------------------
 
-The reason behind them is that you can't use positional filtering straight on the
-string themselves.
+The reason behind them is that you can't use positional filtering directly on the
+string themselves. String objects have to be recast to another object type
+(in this case, `AbstractSelector`) that supports the positional filtering methods.
 
 [source,python]
 -----------------------------------------------------------------------------
@@ -58,15 +59,15 @@ Parameters:
 
 * `tag_name` - the html tag name to find (e.g. `div`, `span`, `li`);
 * `index` - if specified, is the 1 index based result;
-* `id` - If it's specified, is the attribute id of the element;
+* `id` - If it's specified, is the id attribute of the element;
 * `exact_text` - if specified, the exact text the element must have;
 * `contains_text` - if specified, the exact text the element should contain;
-* `css_classes` - the CSS classes that the element must have;
-* `exact_attributes` - attributes with their values that the element must have;
-* `contains_attributes` - attributes that contain the given values;
+* `css_classes` - the CSS classes that the element must have (either as a `string`, or `list` of `string`s);
+* `exact_attributes` - attributes with their values that the element must have (`dict`, keys for attribute names, values for expected values);
+* `contains_attributes` - attributes that contain the given values (`dict`, keys for attribute names, values for strings that the attribute values must contain);
 * `extra_xpath` - extra xpath to be added to the expression, to the previously built expressions.
 
-If the `index` is used, the whole expression is wrapped in paranthesis,
+If the `index` is used, the whole expression is wrapped in parenthesis,
 and the index is applied to the whole result. In case you want multiple
 sub-children, use `extra_xpath` to fetch the elements.
 
@@ -87,9 +88,9 @@ Just a selector that finds a button by its label or name:
 This selector will find simultaneously both `input` elements that have the
 `type="button"`, but also `button` elements.
 
-* some of the text, in either the `value` attribute if it's an `input`, either
+* some of the text, in either the `value` attribute if it's an `input`, or
   the text of the `button` (`search_text`)
-* the text, either the `value` attribute if it's an input, either its text if
+* the exact text, either the `value` attribute if it's an input, or its text if
   it's an actual `button` (`text`)
 * its form name (`name`)
 
@@ -123,7 +124,7 @@ Just a selector that finds a link by either:
 * some of its text content (`search_text`)
 * its exact text content(`text`)
 * some of its link location (`search_href`)
-* its link location(`href`)
+* its exact link location(`href`)
 
 To match the first link that contains the 'test' string, someone can:
 
@@ -133,7 +134,7 @@ germanium.S(Link("test"))
 -----------------------------------------------------------------------------
 
 Of course, the text and href search can be combined, so we can do,
-in order to find a link that is on the `ciplogic.com` that has in the
+in order to find a link that is on the `ciplogic.com` website containing the
 text `testing`:
 
 [source,python]
@@ -151,7 +152,7 @@ germanium.S(Text("some text"))
 -----------------------------------------------------------------------------
 
 The selector can find the text even in formatted text. For example the previous
-selector would match the parrent div in such a DOM structure:
+selector would match the parent div in such a DOM structure:
 
 [source,html]
 -----------------------------------------------------------------------------

@@ -1625,7 +1625,7 @@ germanium instance, and the selector itself.</p>
 <div class="paragraph">
 <p>Optionally a custom locator can be defined that extends the base class
 <code>DeferredLocator</code>. <code>DeferredLocator</code> contains a reference to a <code>Germanium</code>
-object and includes utility merhods to get web elements.</p>
+object and includes utility methods to get web elements.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1970,7 +1970,7 @@ exception.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>only the empty node, without text, or other child elements, will be matched.</p>
+<p>only the third <code>&lt;div&gt;</code> child element will be matched.</p>
 </div>
 </div>
 </div>
@@ -1993,7 +1993,7 @@ super locator.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>you can:</p>
+<p>you can write:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2191,8 +2191,9 @@ of the selectors. For example:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The reason behind them is that you can&#8217;t use positional filtering straight on the
-string themselves.</p>
+<p>The reason behind them is that you can&#8217;t use positional filtering directly on the
+string themselves. String objects have to be recast to another object type
+(in this case, <code>AbstractSelector</code>) that supports the positional filtering methods.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2250,7 +2251,7 @@ on top of that, for `Input`s, or `Link`s.</p>
 <p><code>index</code> - if specified, is the 1 index based result;</p>
 </li>
 <li>
-<p><code>id</code> - If it&#8217;s specified, is the attribute id of the element;</p>
+<p><code>id</code> - If it&#8217;s specified, is the id attribute of the element;</p>
 </li>
 <li>
 <p><code>exact_text</code> - if specified, the exact text the element must have;</p>
@@ -2259,13 +2260,13 @@ on top of that, for `Input`s, or `Link`s.</p>
 <p><code>contains_text</code> - if specified, the exact text the element should contain;</p>
 </li>
 <li>
-<p><code>css_classes</code> - the CSS classes that the element must have;</p>
+<p><code>css_classes</code> - the CSS classes that the element must have (either as a <code>string</code>, or <code>list</code> of `string`s);</p>
 </li>
 <li>
-<p><code>exact_attributes</code> - attributes with their values that the element must have;</p>
+<p><code>exact_attributes</code> - attributes with their values that the element must have (<code>dict</code>, keys for attribute names, values for expected values);</p>
 </li>
 <li>
-<p><code>contains_attributes</code> - attributes that contain the given values;</p>
+<p><code>contains_attributes</code> - attributes that contain the given values (<code>dict</code>, keys for attribute names, values for strings that the attribute values must contain);</p>
 </li>
 <li>
 <p><code>extra_xpath</code> - extra xpath to be added to the expression, to the previously built expressions.</p>
@@ -2273,7 +2274,7 @@ on top of that, for `Input`s, or `Link`s.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code>index</code> is used, the whole expression is wrapped in paranthesis,
+<p>If the <code>index</code> is used, the whole expression is wrapped in parenthesis,
 and the index is applied to the whole result. In case you want multiple
 sub-children, use <code>extra_xpath</code> to fetch the elements.</p>
 </div>
@@ -2301,11 +2302,11 @@ a CSS class attached to it named <code>error-message</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>some of the text, in either the <code>value</code> attribute if it&#8217;s an <code>input</code>, either
+<p>some of the text, in either the <code>value</code> attribute if it&#8217;s an <code>input</code>, or
 the text of the <code>button</code> (<code>search_text</code>)</p>
 </li>
 <li>
-<p>the text, either the <code>value</code> attribute if it&#8217;s an input, either its text if
+<p>the exact text, either the <code>value</code> attribute if it&#8217;s an input, or its text if
 it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </li>
 <li>
@@ -2358,7 +2359,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 <p>some of its link location (<code>search_href</code>)</p>
 </li>
 <li>
-<p>its link location(<code>href</code>)</p>
+<p>its exact link location(<code>href</code>)</p>
 </li>
 </ul>
 </div>
@@ -2372,7 +2373,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </div>
 <div class="paragraph">
 <p>Of course, the text and href search can be combined, so we can do,
-in order to find a link that is on the <code>ciplogic.com</code> that has in the
+in order to find a link that is on the <code>ciplogic.com</code> website containing the
 text <code>testing</code>:</p>
 </div>
 <div class="listingblock">
@@ -2393,7 +2394,7 @@ text <code>testing</code>:</p>
 </div>
 <div class="paragraph">
 <p>The selector can find the text even in formatted text. For example the previous
-selector would match the parrent div in such a DOM structure:</p>
+selector would match the parent div in such a DOM structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2463,7 +2464,7 @@ or key combination multiple times.
 </div>
 <div class="paragraph">
 <p>Now you might wonder, why is it <code>&lt;enter&gt;</code> and not <code>&lt;ENTER&gt;</code>? Or <code>&lt;cr&gt;</code>? Or its
-bigger brother <code>&lt;CR&gt;</code>? Or just <code>&lt;Enter&gt;</code>. Actually they are equally resolving to
+bigger brother <code>&lt;CR&gt;</code>? Or just <code>&lt;Enter&gt;</code>. Actually they all resolve to
 the same key, that is the <kbd>ENTER</kbd>. The same holds true for <code>&lt;del&gt;</code> vs <code>&lt;delete&gt;</code>, or
 <code>&lt;bs&gt;</code> vs <code>&lt;backspace&gt;</code>, etc. They will resolve to <kbd>DELETE</kbd>, <kbd>BACKSPACE</kbd>, etc.
 as expected.</p>
@@ -2500,7 +2501,7 @@ automatically understood as <span class="keyseq"><kbd>CTRL</kbd>+<kbd>A</kbd></s
 <div class="sect2">
 <h3 id="_press_release_key"><a class="anchor" href="#_press_release_key"></a>Press-Release Key</h3>
 <div class="paragraph">
-<p>In order to start pressing a key, and release it latter, while still typing other
+<p>In order to start pressing a key, and release it later, while still typing other
 keys, the <code>!</code> and <code>^</code> symbols can be used.
 For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p>
 </div>
@@ -2647,7 +2648,7 @@ such as:</p>
 <p>The <code>@iframe</code> decorator is going to find the current context by scanning the
 parameters of the function for the Germanium instance. If the first parameter
 is an object that contains a property named either: <code>germanium</code> or <code>_germanium</code>
-will be used.</p>
+then this property will be used.</p>
 </div>
 </div>
 </div>
@@ -2783,14 +2784,14 @@ whenever either <code>get()</code>, <code>reload_page()</code> or <code>wait_for
 </div>
 </div>
 <div class="sect4">
-<h5 id="_germanium_s_locator_strategy"><a class="anchor" href="#_germanium_s_locator_strategy"></a>germanium.S(locator, strategy?)</h5>
+<h5 id="_germanium_s_selector_strategy"><a class="anchor" href="#_germanium_s_selector_strategy"></a>germanium.S(selector, strategy?)</h5>
 <div class="paragraph">
 <p><code>S</code> stands for the super locator, and returns an object that can execute
 a locator in the current iframe context of germanium. The letter
-<code>S</code> was chosen since it is looking greatly similar with jquery&#8217;s <code>$</code>.</p>
+<code>S</code> was chosen since it is looking very similar to jquery&#8217;s <code>$</code>.</p>
 </div>
 <div class="paragraph">
-<p>The first parameter, the locator, can be any of the selector objects from the
+<p>The first parameter, the selector, can be any of the selector objects from the
 <a href="selectors.adoc">germanium.selectors</a> package, or a string that will be
 further interpreted on what selector will be used.</p>
 </div>
@@ -2940,13 +2941,12 @@ need to recreate it just because you need another <code>iframe_selector</code> s
 <div class="sect2">
 <h3 id="_germanium_utility_functions"><a class="anchor" href="#_germanium_utility_functions"></a>germanium Utility Functions</h3>
 <div class="paragraph">
-<p>These are just a bunch of utility functions, that can even be used without
-germanium itself.</p>
+<p>Utility functions for Germanium instances.</p>
 </div>
 <div class="sect3">
 <h4 id="_type_keys_g_germanium_keys_typed_element_none"><a class="anchor" href="#_type_keys_g_germanium_keys_typed_element_none"></a>type_keys_g(germanium, keys_typed, element=None)</h4>
 <div class="paragraph">
-<p>Type the current keys into the browser, eventually specifying the element to
+<p>Type the current keys into the browser, optionally specifying the element to
 send the events to.</p>
 </div>
 <div class="listingblock">

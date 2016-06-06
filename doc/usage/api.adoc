@@ -55,7 +55,7 @@ def save_document(germanium):
 The `@iframe` decorator is going to find the current context by scanning the
 parameters of the function for the Germanium instance. If the first parameter
 is an object that contains a property named either: `germanium` or `_germanium`
-will be used.
+then this property will be used.
 
 
 == germanium Instance Functions
@@ -176,13 +176,13 @@ in the current working directory.
 A list of files with JavaScript to be automatically loaded into the page,
 whenever either `get()`, `reload_page()` or `wait_for_page_to_load()` is done.
 
-==== germanium.S(locator, strategy?)
+==== germanium.S(selector, strategy?)
 
 `S` stands for the super locator, and returns an object that can execute
 a locator in the current iframe context of germanium. The letter
-`S` was chosen since it is looking greatly similar with jquery's `$`.
+`S` was chosen since it is looking very similar to jquery's `$`.
 
-The first parameter, the locator, can be any of the selector objects from the
+The first parameter, the selector, can be any of the selector objects from the
 link:selectors.adoc[germanium.selectors] package, or a string that will be
 further interpreted on what selector will be used.
 
@@ -293,12 +293,11 @@ need to recreate it just because you need another `iframe_selector` strategy.
 
 == germanium Utility Functions
 
-These are just a bunch of utility functions, that can even be used without
-germanium itself.
+Utility functions for Germanium instances.
 
 === type_keys_g(germanium, keys_typed, element=None)
 
-Type the current keys into the browser, eventually specifying the element to
+Type the current keys into the browser, optionally specifying the element to
 send the events to.
 
 [source,python]

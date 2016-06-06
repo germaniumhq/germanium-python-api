@@ -78,7 +78,7 @@ germanium.S('css:#testDiv')
 
 Optionally a custom locator can be defined that extends the base class
 `DeferredLocator`. `DeferredLocator` contains a reference to a `Germanium`
-object and includes utility merhods to get web elements.
+object and includes utility methods to get web elements.
 
 [plantuml, germanium-locators-overview, svg]
 ------------------------------------------------------------------------------

@@ -98,5 +98,5 @@ and HTML:
 <div>
 -----------------------------------------------------------------------------
 
-only the empty node, without text, or other child elements, will be matched.
+only the third `<div>` child element will be matched.
 

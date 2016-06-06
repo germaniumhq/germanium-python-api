@@ -42,7 +42,7 @@ Using `*` in special keys or combined macros, allows you to type the same key,
 or key combination multiple times.
 
 Now you might wonder, why is it `<enter>` and not `<ENTER>`? Or `<cr>`? Or its
-bigger brother `<CR>`? Or just `<Enter>`. Actually they are equally resolving to
+bigger brother `<CR>`? Or just `<Enter>`. Actually they all resolve to
 the same key, that is the kbd:[ENTER]. The same holds true for `<del>` vs `<delete>`, or
 `<bs>` vs `<backspace>`, etc. They will resolve to kbd:[DELETE], kbd:[BACKSPACE], etc.
 as expected.
@@ -66,7 +66,7 @@ kbd:[s+s] or kbd:[SHIFT+SHIFT].
 Press-Release Key
 -----------------
 
-In order to start pressing a key, and release it latter, while still typing other
+In order to start pressing a key, and release it later, while still typing other
 keys, the `!` and `^` symbols can be used.
 For example to type some keys with kbd:[SHIFT] pressed this can be done:
 

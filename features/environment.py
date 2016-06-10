@@ -1,14 +1,15 @@
 import os
-from http.server import SimpleHTTPRequestHandler
+#from http.server import SimpleHTTPRequestHandler
 from socketserver import ThreadingTCPServer
 from threading import Thread
 
 from germanium.static import *
+from features.PostHttpRequestHandler import PostHttpRequestHandler
 
 
 def before_all(context):
     ThreadingTCPServer.allow_reuse_address = True
-    Handler = SimpleHTTPRequestHandler
+    Handler = PostHttpRequestHandler
     context._httpServer = ThreadingTCPServer(("0.0.0.0", 8000), Handler)
 
     print("started server on 0.0.0.0:8000")

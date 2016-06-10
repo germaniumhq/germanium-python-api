@@ -10,6 +10,7 @@ from .Input import Input
 from .CheckBox import CheckBox
 from .Image import Image
 from .InputText import InputText
+from .InputFile import InputFile
 from .Link import Link
 from .Text import Text
 from .TableCell import TableCell

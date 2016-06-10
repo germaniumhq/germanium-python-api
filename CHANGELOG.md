@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+* 2016-06-10  1.7.13
+    - New function `file_select()` allows selecting the file to be uploaded into a file input.
+    - `InputFile` selector added.
+
 * 2016-06-06  1.7.12
     - New function `parent_node()` allows getting the parent node of an element (selector).
     - New function `child_nodes(only_elements=True)` allows getting the child nodes/elements of a parent element (selector).

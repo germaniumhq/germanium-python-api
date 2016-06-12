@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+* 2016-06-12  1.7.14
+    - `file_select()` renamed to `select_file()`.
+    - Documentation update.
+
 * 2016-06-10  1.7.13
     - New function `file_select()` allows selecting the file to be uploaded into a file input.
     - `InputFile` selector added.

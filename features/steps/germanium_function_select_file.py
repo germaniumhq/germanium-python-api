@@ -7,11 +7,11 @@ from germanium.static import *
 def step_impl(context):
 
     if get_web_driver().capabilities['browserName'] == "internet explorer":
-        file_select(InputFile(),
+        select_file(InputFile(),
                     r"c:\features\steps\test-data\upload_test_file.txt",
                     path_check=False)
     else:
-        file_select(InputFile(),
+        select_file(InputFile(),
                     'features/steps/test-data/upload_test_file.txt')
 
     click(Button())

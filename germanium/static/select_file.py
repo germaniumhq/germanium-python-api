@@ -1,8 +1,8 @@
-from germanium.util import file_select_g
+from germanium.util import select_file_g
 from .global_germanium_instance import *
 
 
-def file_select(selector, file_path, path_check=True):
+def select_file(selector, file_path, path_check=True):
     """
     Select the given path in the file input that is matched by the selector.
     :param selector:
@@ -12,4 +12,4 @@ def file_select(selector, file_path, path_check=True):
     if not get_instance():
         raise Exception("You need to start a browser first with open_browser()")
 
-    file_select_g(get_instance(), selector, file_path, path_check=path_check)
+    select_file_g(get_instance(), selector, file_path, path_check=path_check)

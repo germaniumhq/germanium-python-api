@@ -22,7 +22,7 @@ from .get_attributes import get_attributes
 from .drag_and_drop import drag_and_drop
 from .select import select
 from .deselect import deselect
-from .file_select import file_select
+from .select_file import select_file
 
 from .parent_node import parent_node
 from .child_nodes import child_nodes

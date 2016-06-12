@@ -5,7 +5,7 @@ from .type_keys import type_keys_g
 from .drag_and_drop import drag_and_drop_g
 from .select import select_g
 from .deselect import deselect_g
-from .file_select import file_select_g
+from .select_file import select_file_g
 
 from .parent_node import parent_node_g
 from .child_nodes import child_nodes_g

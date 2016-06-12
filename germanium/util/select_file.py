@@ -4,7 +4,7 @@ from ._element import _element
 from .find_germanium_object import find_germanium_object
 
 
-def file_select_g(context, selector, file_path, path_check=True):
+def select_file_g(context, selector, file_path, path_check=True):
     absolute_path = abspath(file_path)
 
     if path_check and not exists(absolute_path):

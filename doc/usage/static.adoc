@@ -707,6 +707,6 @@ Since selectors are callables, they can be used as parameters for `wait`.
 [source,python]
 -----------------------------------------------------------------------------
 wait(Text("document uploaded successfully"),
-    while_not = Text("an error occured"))
+    while_not = Text("an error occurred"))
 -----------------------------------------------------------------------------
 

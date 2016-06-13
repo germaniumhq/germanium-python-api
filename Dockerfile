@@ -30,14 +30,15 @@ RUN apt-get update -y && \
     apt-get install -y software-properties-common
 
 #
-# Actual python installation required programs
+# Actual python installation required programs, and general dependencies.
 #
 RUN apt-get install -y \
     wget \
     libssl-dev \
     openssl \
     build-essential \
-    unzip
+    unzip \
+    bzip2
 
 RUN mkdir /build && \
     cd /build && \
@@ -83,9 +84,21 @@ ADD bin/docker/xstartup /home/germanium/.vnc/xstartup
 ENV BROWSERS_REFRESHED_AT="2016.03.30-22:12:13"
 
 #
-# Install firefox
+# Install firefox, and its webdriver
 #
-RUN apt-get install -y firefox
+# Currently v47 is super broken with their implementation of WebDriver, so we're using v46
+#
+RUN cd /opt && \
+    wget 'https://download.mozilla.org/?product=firefox-46.0-SSL&os=linux64&lang=en-US' -O firefox.tar.bz2 && \
+    tar -jxvf firefox.tar.bz2 && \
+    rm /opt/firefox.tar.bz2 && \
+    cd /usr/local/bin && \
+    wget https://github.com/mozilla/geckodriver/releases/download/v0.8.0/geckodriver-0.8.0-linux64.gz && \
+    gunzip geckodriver*.gz && \
+    chmod +x geckodriver* && \
+    mv geckodriver* wires
+
+ENV PATH /opt/firefox:$PATH
 
 #
 # install chrome, and its webdriver

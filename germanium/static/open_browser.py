@@ -46,7 +46,13 @@ def open_browser(browser="Firefox",
         web_driver = webdriver.Remote(command_executor=remote_match.group(2),
                                       desired_capabilities=remote_capabilities)
     elif browser.lower() == "firefox" or browser.lower() == "ff":
-        web_driver = webdriver.Firefox(timeout=timeout)
+        firefox_capabilities = webdriver.DesiredCapabilities.FIREFOX
+        # Normally from firefox 47 this should be used, but since marionette is
+        # completely broken, it will have to wait.
+        # firefox_capabilities['marionette'] = True
+
+        web_driver = webdriver.Firefox(capabilities=firefox_capabilities,
+                                       timeout=timeout)
     elif browser.lower() == "chrome":
         web_driver = webdriver.Chrome()
     elif browser.lower() == "ie":

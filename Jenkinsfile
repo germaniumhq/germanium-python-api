@@ -1,4 +1,12 @@
 
+PYTHON_27 = Boolean.valueOf(PYTHON_27)
+PYTHON_34 = Boolean.valueOf(PYTHON_34)
+PYTHON_35 = Boolean.valueOf(PYTHON_35)
+
+RUN_FIREFOX_TESTS = Boolean.valueOf(RUN_FIREFOX_TESTS)
+RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
+RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
+
 def buildSingleVersion(version) {
     node {
         sh """

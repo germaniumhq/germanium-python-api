@@ -75,8 +75,8 @@ RUN cp -R /usr/share/novnc /home/germanium/novnc && \
     echo 'Theme="metal2/default.theme"' > /home/germanium/.icewm/theme && \
     mkdir -p /home/germanium/.vnc
 
-ADD bin/docker/index.html /home/germanium/novnc/
-ADD bin/docker/xstartup /home/germanium/.vnc/xstartup
+COPY bin/docker/index.html /home/germanium/novnc/
+COPY bin/docker/xstartup /home/germanium/.vnc/xstartup
 
 #
 # BROWSERS SECTION
@@ -117,11 +117,11 @@ RUN wget https://chromedriver.storage.googleapis.com/2.21/chromedriver_linux64.z
 #
 # Behave run script
 #
-ADD bin/docker/run-behave.sh /home/germanium/bin/run-behave.sh
+COPY bin/docker/run-behave.sh /home/germanium/bin/run-behave.sh
 
 # add germanium the project only after having the docker binaries in the
 # home folder, to reduce the time to create new docker images
-ADD . /germanium
+COPY . /germanium
 RUN cd /germanium && \
     /python/bin/python setup.py install && \
     rm -fr /germanium

@@ -1,0 +1,5 @@
+*
+!bin/docker/*
+!germanium/*
+!README.rst
+!setup.py

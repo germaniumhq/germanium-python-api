@@ -1,8 +1,9 @@
 ChangeLog
 ---------
 
-* 2016-06-12  1.7.14
-    - selenium 2.52.5 support.
+* 2016-06-14  1.7.14
+    - Firefox 46 support.
+    - selenium 2.52.4 support.
     - `file_select()` renamed to `select_file()`.
     - Documentation update.
 

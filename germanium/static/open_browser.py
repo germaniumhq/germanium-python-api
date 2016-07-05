@@ -1,15 +1,37 @@
 import re
 
+import germaniumdrivers
 from selenium import webdriver
 
 from germanium.driver import GermaniumDriver
 from germanium.iframe_selector import DefaultIFrameSelector
+from germanium.impl._workaround import workaround
+from germanium.wa.firefox_open_browser_with_marionette import \
+    _is_use_marionette_evironment_var_set, \
+    _open_local_firefox_with_marionette
 from .global_germanium_instance import *
-
-import germaniumdrivers
 
 
 REMOTE_ADDRESS = re.compile(r"^(\w+?):(.*?)$")
+
+
+@workaround(_is_use_marionette_evironment_var_set,
+            _open_local_firefox_with_marionette)
+def _open_local_firefox(timeout):
+    firefox_capabilities = webdriver.DesiredCapabilities.FIREFOX
+
+    return webdriver.Firefox(capabilities=firefox_capabilities,
+                             timeout=timeout)
+
+
+def _open_local_chrome(timeout):
+    germaniumdrivers.ensure_driver("chrome")
+    return webdriver.Chrome()
+
+
+def _open_local_ie(timeout):
+    germaniumdrivers.ensure_driver("ie")
+    return webdriver.Ie(timeout=timeout)
 
 
 def open_browser(browser="Firefox",
@@ -49,19 +71,11 @@ def open_browser(browser="Firefox",
         web_driver = webdriver.Remote(command_executor=remote_match.group(2),
                                       desired_capabilities=remote_capabilities)
     elif browser.lower() == "firefox" or browser.lower() == "ff":
-        germaniumdrivers.ensure_driver("firefox")
-
-        firefox_capabilities = webdriver.DesiredCapabilities.FIREFOX
-        firefox_capabilities['marionette'] = True
-
-        web_driver = webdriver.Firefox(capabilities=firefox_capabilities,
-                                       timeout=timeout)
+        web_driver = _open_local_firefox(timeout)
     elif browser.lower() == "chrome":
-        germaniumdrivers.ensure_driver("chrome")
-        web_driver = webdriver.Chrome()
+        web_driver = _open_local_chrome(timeout)
     elif browser.lower() == "ie":
-        germaniumdrivers.ensure_driver("ie")
-        web_driver = webdriver.Ie(timeout=timeout)
+        web_driver = _open_local_ie(timeout)
     else:
         raise Exception("Unknown browser: %s, only firefox, "
                         "chrome and ie are supported." % browser)

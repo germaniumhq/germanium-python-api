@@ -81,7 +81,7 @@ COPY bin/docker/xstartup /home/germanium/.vnc/xstartup
 #
 # BROWSERS SECTION
 #
-ENV BROWSERS_REFRESHED_AT="2016.03.30-22:12:13"
+ENV BROWSERS_REFRESHED_AT="2016.07.05-23:17:13"
 
 #
 # Install firefox, and its webdriver
@@ -89,14 +89,9 @@ ENV BROWSERS_REFRESHED_AT="2016.03.30-22:12:13"
 # Currently v47 is super broken with their implementation of WebDriver, so we're using v46
 #
 RUN cd /opt && \
-    wget 'https://download.mozilla.org/?product=firefox-46.0-SSL&os=linux64&lang=en-US' -O firefox.tar.bz2 && \
+    wget 'https://download.mozilla.org/?product=firefox-47.0.1-SSL&os=linux64&lang=en-US' -O firefox.tar.bz2 && \
     tar -jxvf firefox.tar.bz2 && \
-    rm /opt/firefox.tar.bz2 && \
-    cd /usr/local/bin && \
-    wget https://github.com/mozilla/geckodriver/releases/download/v0.8.0/geckodriver-0.8.0-linux64.gz && \
-    gunzip geckodriver*.gz && \
-    chmod +x geckodriver* && \
-    mv geckodriver* wires
+    rm /opt/firefox.tar.bz2
 
 ENV PATH /opt/firefox:$PATH
 
@@ -107,12 +102,6 @@ RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sou
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     apt-get update -y && \
     apt-get install -y google-chrome-stable
-
-RUN wget https://chromedriver.storage.googleapis.com/2.21/chromedriver_linux64.zip && \
-    unzip chromedriver_linux64.zip && \
-    mv chromedriver /usr/local/bin && \
-    chmod +x /usr/local/bin/chromedriver && \
-    rm chromedriver_linux64.zip
 
 #
 # Behave run script

@@ -6,19 +6,25 @@ with open('README.rst') as readme_file:
 
 setup(
     name='germanium',
-    version='1.7.14',
+    version='1.8.0',
     description='The germanium project: Selenium WebDriver testing API that doesn\'t disappoint.',
     long_description = readme,
     author='Bogdan Mustiata',
     author_email='bogdan.mustiata@gmail.com',
     license='BSD',
 
-    install_requires=['selenium==2.53.4', 'cssselect==0.9.1', 'webcolors==1.5'],
+    install_requires=[
+        'germaniumdrivers==1.8.0',
+        'selenium==2.53.6',
+        'cssselect==0.9.2',
+        'webcolors==1.5']
+    ,
     packages=['germanium',
               'germanium.impl',
               'germanium.locators',
               'germanium.selectors',
               'germanium.static',
-              'germanium.util'],
+              'germanium.util',
+              'germanium.wa'],
     package_data={'germanium': ['*.js']}
 )

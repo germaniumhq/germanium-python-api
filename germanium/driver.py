@@ -6,9 +6,10 @@ from .create_locator import create_locator
 from .impl._alert_exists import _alert_exists, allow_alert
 
 from .impl import wait
+from .impl._workaround import workaround
+from .wa.ie_eq_8_load_support_scripts import _is_ie_8, _ie_8_load_support_scripts
 
 from selenium.webdriver.remote.webelement import WebElement
-import selenium
 
 
 class JavaScriptException(Exception):
@@ -194,6 +195,7 @@ class GermaniumDriver(object):
 
         wait(lambda: self.js(wrapper_script), timeout=timeout)
 
+    @workaround(_is_ie_8, _ie_8_load_support_scripts)
     def load_support_scripts(self):
         """
         Since the support scripts are quite big, they should be loaded independently.
@@ -201,10 +203,6 @@ class GermaniumDriver(object):
         if self.js("return !window.__GERMANIUM_EXTENSIONS_LOADED"):
             self.load_script('ajax-interceptor.js')
             self.load_script('is-ajax-running.js')
-
-            if self.web_driver.capabilities['browserName'] == 'internet explorer' and \
-                    self.web_driver.capabilities['version'] == '8':
-                self.load_script('germanium-ie8-getComputedStyle.js')
 
             self.load_script('germanium-extensions-loaded.js')
 

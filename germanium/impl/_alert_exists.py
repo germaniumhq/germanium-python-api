@@ -1,28 +1,19 @@
-from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import UnexpectedAlertPresentException
+from selenium.common.exceptions import WebDriverException
+
+from germanium.wa.firefox_le_46_alert import _is_firefox_without_marionette, _alert_exists_firefox
+from ._workaround import workaround
 
 
+@workaround(_is_firefox_without_marionette, _alert_exists_firefox)
 def _alert_exists(germanium):
-    if germanium.web_driver.name == "firefox":
-        return _alert_exists_firefox(germanium)
-    return _alert_exists_default(germanium)
-
-
-def _alert_exists_default(germanium):
     try:
         alert = germanium.web_driver.switch_to.alert
         alert.text
         return alert
     except NoAlertPresentException:
         return False
-
-
-def _alert_exists_firefox(germanium):
-    try:
-        germanium.web_driver.execute_script("1 == 1")
-    except UnexpectedAlertPresentException as e:
-        return True
 
 
 def allow_alert(germanium):

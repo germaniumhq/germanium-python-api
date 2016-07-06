@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+* 2016-07-06  1.8.0
+    - Firefox 47.0.1 support.
+    - selenium 2.52.6 support.
+    - Allow instantiation of Firefox with or without marionette.
+    - Use drivers that are already packed in the `germaniumdrivers`.
+
 * 2016-06-14  1.7.14
     - Firefox 46 support.
     - selenium 2.52.4 support.

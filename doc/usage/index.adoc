@@ -1,4 +1,4 @@
-= Germanium v1.7.14
+= Germanium v1.8.0
 Web Testing API that doesn't disappoint
 :toc: left
 :experimental:
@@ -9,6 +9,8 @@ Web Testing API that doesn't disappoint
 :leveloffset: +1
 
 include::basic-sample.adoc[]
+
+include::germanium-drivers-environment.adoc[]
 
 include::static.adoc[]
 

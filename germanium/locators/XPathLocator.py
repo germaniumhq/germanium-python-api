@@ -37,6 +37,9 @@ class XPathLocator(DeferredLocator):
             if isinstance(result, WebElement):
                 return [result]
 
+            if result is None:
+                return []
+
             raise Exception("Expected an iterable, but found instead %s with type %s as "
                             "a return for `web_driver.find_elements_by_xpath('%s'), on "
                             "locator %s." %

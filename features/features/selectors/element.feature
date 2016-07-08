@@ -31,13 +31,20 @@ Scenario: Find an element by multiple class names
   Then I find the element with id: 'editableText2'
 
 @5
+Scenario: Find an element by multiple class names
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/element.html'
+  When I look for a 'div' element with class 'formatted-text-extra formatted-text'
+  Then I find the element with id: 'editableText2'
+
+@6
 Scenario: Find an element by a part of an attribute
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/element.html'
   When I look for a 'div' element with a matching 'contenteditable=ru' attribute
   Then I find the element with id: 'editableDiv'
 
-@6
+@7
 Scenario: Find an element with an index.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/element.html'

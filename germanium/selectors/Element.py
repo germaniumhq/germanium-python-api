@@ -1,5 +1,5 @@
 from .AbstractSelector import AbstractSelector
-from germanium.impl import _ensure_list
+import collections
 
 
 class Element(AbstractSelector):
@@ -39,7 +39,14 @@ class Element(AbstractSelector):
         if exact_text:
             xpath_locator += "[string() = '%s']" % exact_text
 
-        css_classes = _ensure_list(css_classes)
+        if css_classes is None:
+            css_classes = []
+        elif isinstance(css_classes, str):
+            css_classes = css_classes.split()
+        elif not isinstance(css_classes, collections.Iterable):
+            raise Exception("A css_classes attribute was sent that is not an `iterable` nor "
+                            "`string` object. It was a `%s` with value: `%s`" % (type(css_classes), css_classes))
+
         for css_class in css_classes:
             xpath_locator += '[contains(concat(" ", @class, " "), " %s ")]' % css_class
 

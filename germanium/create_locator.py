@@ -12,7 +12,7 @@ from germanium.locators import \
     AlertLocator
 from germanium.selectors import AbstractSelector, PositionalFilterSelector, Alert
 
-LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?)\:)(.*)', re.MULTILINE|re.DOTALL)
+LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?):)(.*)', re.MULTILINE | re.DOTALL)
 
 
 def create_locator(germanium, selector, strategy='detect'):
@@ -31,7 +31,8 @@ def create_locator(germanium, selector, strategy='detect'):
 
     if isinstance(selector, DeferredLocator):
         if strategy is not 'detect':
-            raise Exception('The locator is already constructed, but a strategy is also defined: "%s"' % strategy)
+            raise Exception('The locator is already constructed, but a strategy is also defined: "%s"' %
+                            strategy)
 
         return selector
 
@@ -99,4 +100,3 @@ def create_locator(germanium, selector, strategy='detect'):
             return locator_constructor(germanium, m.group(3))
 
     return CssLocator(germanium, selector)
-

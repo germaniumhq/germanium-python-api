@@ -68,8 +68,8 @@ if (PYTHON_35) {
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
                            -p 8008:8000 \\
-                           -e TEST_HOST=192.168.0.6:8008 \\
-                           -e TEST_BROWSER=ie:http://192.168.0.22:5555/ \\
+                           -e TEST_HOST=192.168.56.101:8008 \\
+                           -e TEST_BROWSER=ie:http://192.168.56.101:5555/ \\
                            germanium/germanium-python3.5-tests
                 '''
             }
@@ -110,8 +110,8 @@ if (PYTHON_27) {
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
                            -p 8008:8000 \\
-                           -e TEST_HOST=192.168.0.6:8008 \\
-                           -e TEST_BROWSER=ie:http://192.168.0.22:5555/ \\
+                           -e TEST_HOST=192.168.56.101:8008 \\
+                           -e TEST_BROWSER=ie:http://192.168.56.101:5555/ \\
                            germanium/germanium-python2.7-tests
                 '''
             }
@@ -152,8 +152,8 @@ if (PYTHON_34) {
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
                            -p 8008:8000 \\
-                           -e TEST_HOST=192.168.0.6:8008 \\
-                           -e TEST_BROWSER=ie:http://192.168.0.22:5555/ \\
+                           -e TEST_HOST=192.168.56.101:8008 \\
+                           -e TEST_BROWSER=ie:http://192.168.56.101:5555/ \\
                            germanium/germanium-python3.4-tests
                 '''
             }

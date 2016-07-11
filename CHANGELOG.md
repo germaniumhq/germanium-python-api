@@ -1,6 +1,15 @@
 ChangeLog
 ---------
 
+* 2016-07-12  1.8.1
+    - Updated documentation.
+    - Python upgrades: 3.5.2, 3.4.5, 2.7.12
+    - Allow space separated CSS classes in the `Element` locator.
+
+    _Bugfixes_
+
+    - Don't die when WebDriver returns `None` instead of empty list.
+
 * 2016-07-06  1.8.0
     - Firefox 47.0.1 support.
     - selenium 2.52.6 support.

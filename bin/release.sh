@@ -35,7 +35,7 @@ if [[ "$VERSION" != "" ]]; then
     python setup.py bdist_wheel upload -r pypitest
     python setup.py bdist_wheel upload -r pypi
 
-    py default
+    py 2
     git checkout python2.7
     python setup.py bdist_wheel upload -r pypitest
     python setup.py bdist_wheel upload -r pypi

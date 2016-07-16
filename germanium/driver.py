@@ -201,13 +201,10 @@ class GermaniumDriver(object):
         Since the support scripts are quite big, they should be loaded independently.
         """
         if self.js("return !window.__GERMANIUM_EXTENSIONS_LOADED"):
-            self.load_script('ajax-interceptor.js')
-            self.load_script('is-ajax-running.js')
+            for script_name in self._scripts_to_load:
+                self.load_script(script_name)
 
             self.load_script('germanium-extensions-loaded.js')
-
-        for script_name in self._scripts_to_load:
-            self.load_script(script_name)
 
     def load_script(self, script_name):
         """

@@ -166,19 +166,6 @@ class GermaniumDriver(object):
         else:
             self.load_support_scripts()
 
-    def wait_for_action_to_complete(self, throttle=0):
-        """
-        Waits for all the AJAX and Page calls to finish.
-        """
-        self.wait_for_ajax_to_complete(throttle)
-        self.wait_for_page_to_load()
-
-    def wait_for_ajax_to_complete(self, throttle=0):
-        """
-        Waits for the action calls to complete.
-        """
-        self.wait_for_javascript("""window.AJAX_OPERATION_TIMEOUT = %s; return (!XMLHttpRequest.isAjaxRunning || ! XMLHttpRequest.isAjaxRunning()) && "complete" == document["readyState"];""" % throttle)
-
     def wait_for_javascript(self, script, timeout = 60):
         """
         Executes a script every 400 milliseconds until it returns true. If it goes more than timeout seconds, then this

@@ -50,6 +50,7 @@ def create_locator(germanium, selector, strategy='detect'):
                             selector.below_filters)
 
         return PositionalFilterLocator(
+            germanium=germanium,
             locator=create_locator(germanium, selector.selector),
             left_of_filters=left_of_filters,
             right_of_filters=right_of_filters,

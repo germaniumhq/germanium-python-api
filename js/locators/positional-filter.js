@@ -1,22 +1,3 @@
-if (!window.console) {
-    window._items = [];
-    window.console = {
-        log : function() {
-            var value = "", i;
-
-            for (i = 0; i < arguments.length; i++) {
-                value += " " + arguments[i];
-            }
-
-            window._items.push(value);
-        }
-    };
-
-    window.dump = function() {
-        console.log(window._items.join("\n"));
-    };
-}
-
 //noinspection JSAnnotator,JSUnresolvedVariable,JSReferencingArgumentsOutsideOfFunction,ThisExpressionReferencesGlobalObjectJS
 return (function() {
     var aboveElements = [],
@@ -33,8 +14,6 @@ return (function() {
     for (i = 0; i < arguments.length; i++) {
         args.push(arguments[i]);
     }
-
-    console.log("Running on: " + args);
 
     function readElements(targetArray) {
         count = args.shift();
@@ -88,11 +67,6 @@ return (function() {
     readElements(belowElements);
     readElements(leftOfElements);
     readElements(elements);
-
-    console.log("above" + aboveElements);
-    console.log("rightOf" + rightOfElements);
-    console.log("below" + belowElements);
-    console.log("leftOf" + leftOfElements);
 
     // The above filtering tries to make sure the elements we're
     // finding are above the reference elements in the `aboveElements`

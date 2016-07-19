@@ -1,3 +1,22 @@
+if (!window.console) {
+    window._items = [];
+    window.console = {
+        log : function() {
+            var value = "", i;
+
+            for (i = 0; i < arguments.length; i++) {
+                value += " " + arguments[i];
+            }
+
+            window._items.push(value);
+        }
+    };
+
+    window.dump = function() {
+        console.log(window._items.join("\n"));
+    };
+}
+
 //noinspection JSAnnotator,JSUnresolvedVariable,JSReferencingArgumentsOutsideOfFunction,ThisExpressionReferencesGlobalObjectJS
 return (function() {
     var aboveElements = [],
@@ -5,12 +24,17 @@ return (function() {
         rightOfElements = [],
         leftOfElements = [],
         elements = [],
+        topReference,
         i, j,
         count,
         args;
 
-    args = Array.prototype.splice.call(arguments, 0);
-    // console.log("Running on: " + args);
+    args = [];
+    for (i = 0; i < arguments.length; i++) {
+        args.push(arguments[i]);
+    }
+
+    console.log("Running on: " + args);
 
     function readElements(targetArray) {
         count = args.shift();
@@ -65,11 +89,13 @@ return (function() {
     readElements(leftOfElements);
     readElements(elements);
 
-    // console.log("above", aboveElements);
-    // console.log("rightOf", rightOfElements);
-    // console.log("below", belowElements);
-    // console.log("leftOf", leftOfElements);
+    console.log("above" + aboveElements);
+    console.log("rightOf" + rightOfElements);
+    console.log("below" + belowElements);
+    console.log("leftOf" + leftOfElements);
 
+    // The above filtering tries to make sure the elements we're
+    // finding are above the reference elements in the `aboveElements`
     for (i = elements.length - 1; i >= 0; i--) {
         for (j = 0; j < aboveElements.length; j++) {
             if (bottom(elements[i]) >= top(aboveElements[j])) {
@@ -78,6 +104,8 @@ return (function() {
         }
     }
 
+    // The below filtering makes sure that the elements we're finding
+    // are below the reference elements in the `belowElements`
     for (i = elements.length - 1; i >= 0; i--) {
         for (j = 0; j < belowElements.length; j++) {
             if (top(elements[i]) <= bottom(belowElements[j])) {
@@ -92,32 +120,32 @@ return (function() {
                 elements.splice(i, 1)
             }
         }
-
-        if (leftOfElements.length) {
-            var topReference = top(leftOfElements[0]);
-
-            elements.sort(function(e1, e2) {
-                return Math.pow(Math.abs(topReference - top(e1)), 2) -
-                    Math.pow(Math.abs(topReference - top(e2)), 2);
-            });
-        }
     }
 
+    if (leftOfElements.length) {
+        topReference = top(leftOfElements[0]);
+
+        elements.sort(function(e1, e2) {
+            return Math.pow(Math.abs(topReference - top(e1)), 2) -
+                Math.pow(Math.abs(topReference - top(e2)), 2);
+        });
+    }
+     
     for (i = elements.length - 1; i >= 0; i--) {
         for (j = 0; j < rightOfElements.length; j++) {
             if (left(elements[i]) <= right(rightOfElements[j])) {
                 elements.splice(i, 1)
             }
         }
+    }
 
-        if (rightOfElements.length) {
-            var topReference = top(rightOfElements[0]);
+    if (rightOfElements.length) {
+        topReference = top(rightOfElements[0]);
 
-            elements.sort(function(e1, e2) {
-                return Math.pow(Math.abs(topReference - top(e1)), 2) -
-                    Math.pow(Math.abs(topReference - top(e2)), 2);
-            });
-        }
+        elements.sort(function(e1, e2) {
+            return Math.pow(Math.abs(topReference - top(e1)), 2) -
+                Math.pow(Math.abs(topReference - top(e2)), 2);
+        });
     }
 
     return elements;

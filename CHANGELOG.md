@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2016-07-19  1.8.2
+    - Rewrote the positional filtering. Blazing fast.
+
 * 2016-07-12  1.8.1
     - Updated documentation.
     - Python upgrades: 3.5.2, 3.4.5, 2.7.12

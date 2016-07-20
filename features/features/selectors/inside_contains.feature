@@ -19,7 +19,7 @@ Scenario: Finding elements inside non CSS/XPath locators is raising exceptions.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div inside a JS selector
-  Then it throws an exception
+  Then I find the element with id: 'inputTextContainer'
 
 @4
 Scenario: I can find elements that contain specific elements.
@@ -40,7 +40,7 @@ Scenario: Finding elements containing CSS/XPath locators is raising exceptions.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div containing a JS selector
-  Then it throws an exception
+  Then I find the element with id: 'inputTextContainer'
 
 @7
 Scenario: Finding elements without children should find only those that actually have no children

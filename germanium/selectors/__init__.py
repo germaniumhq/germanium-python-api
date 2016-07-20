@@ -1,4 +1,4 @@
-from .AbstractSelector import AbstractSelector, PositionalFilterSelector
+from .AbstractSelector import AbstractSelector, PositionalFilterSelector, InsideFilterSelector
 
 from .Css import Css
 from .XPath import XPath

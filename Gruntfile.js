@@ -9,14 +9,16 @@ module.exports = function(grunt) {
                 sourceMap: false
             },
             "positional-filter" : {
-                files: [
-                    {
-                        src: [
-                            "js/locators/positional-filter.js"
-                        ],
-                        dest: "germanium/locators/positional-filter.js"
-                    }
-                ]
+                files: [{
+                    src: ["js/locators/positional-filter.js"],
+                    dest: "germanium/locators/positional-filter.js"
+                }]
+            },
+            "inside-filter" : {
+                files: [{
+                    src: ["js/locators/inside-filter.js"],
+                    dest: "germanium/locators/inside-filter.js"
+                }]
             }
         },
 
@@ -30,6 +32,13 @@ module.exports = function(grunt) {
                 files: {
                     "germanium/locators/positional-filter.min.js" : [
                         "germanium/locators/positional-filter.js"
+                    ]
+                }
+            },
+            "inside-filter" : {
+                files: {
+                    "germanium/locators/inside-filter.min.js" : [
+                        "germanium/locators/inside-filter.js"
                     ]
                 }
             }

@@ -53,26 +53,27 @@ return (function() {
 
     if (insideElements.length) {
         nextI:
-            for (i = elements.length - 1; i >= 0; i--) {
-                for (j = 0; j < insideElements.length; j++) {
-                    if (isInside(insideElements[j], elements[i])) {
-                        continue nextI;
-                    }
+        for (i = elements.length - 1; i >= 0; i--) {
+            for (j = 0; j < insideElements.length; j++) {
+                if (isInside(insideElements[j], elements[i])) {
+                    continue nextI;
                 }
-
-                elements.splice(i, 1);
             }
+
+            elements.splice(i, 1);
+        }
     }
 
     if (containingElements.length) {
         nextI:
         for (i = elements.length - 1; i >= 0; i--) {
             for (j = 0; j < containingElements.length; j++) {
-                if (!isInside(elements[i], containingElements[j])) {
-                    elements.splice(i, 1);
+                if (isInside(elements[i], containingElements[j])) {
                     continue nextI;
                 }
             }
+
+            elements.splice(i, 1);
         }
     }
 

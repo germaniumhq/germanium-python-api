@@ -191,8 +191,9 @@ class AbstractSelector {
     +PositionalFilterSelector below(selector)
     +PositionalFilterSelector above(selector)
     -- parent/child filtering --
-    +XPathInsideFilterSelector inside(selector)
-    +XPathInsideFilterSelector containing(selector)
+    +InsideFilterSelector inside(selector)
+    +InsideFilterSelector containing(selector)
+    +InsideFilterSelector without_children()
 }
 
 class PositionalFilterSelector {
@@ -202,16 +203,13 @@ class PositionalFilterSelector {
     +PositionalFilterSelector above(selector)
 }
 
-class XPathInsideFilterSelector {
-    +XPathInsideFilterSelector inside(selector)
-    +XPathInsideFilterSelector containing(selector)
+class InsideFilterSelector {
+    +InsideFilterSelector inside(selector)
+    +InsideFilterSelector containing(selector)
+    +InsideFilterSelector without_children
 }
 
 AbstractSelector <|-- PositionalFilterSelector
-AbstractSelector <|-- XPathInsideFilterSelector
+AbstractSelector <|-- InsideFilterSelector
 ------------------------------------------------------------------------------
-
-[WARN]
-Please take note that in order to use `inside` and `containing` filtering,
-the selector must return all its expressions as XPath selectors.
 

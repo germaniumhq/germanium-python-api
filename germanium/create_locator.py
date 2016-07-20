@@ -9,8 +9,14 @@ from germanium.locators import \
     DeferredLocator, \
     StaticElementLocator, \
     PositionalFilterLocator, \
+    InsideFilterLocator, \
     AlertLocator
-from germanium.selectors import AbstractSelector, PositionalFilterSelector, Alert
+
+from germanium.selectors import \
+    AbstractSelector, \
+    InsideFilterSelector, \
+    PositionalFilterSelector, \
+    Alert
 
 LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?):)(.*)', re.MULTILINE | re.DOTALL)
 
@@ -56,6 +62,21 @@ def create_locator(germanium, selector, strategy='detect'):
             right_of_filters=right_of_filters,
             above_filters=above_filters,
             below_filters=below_filters
+        )
+
+    if isinstance(selector, InsideFilterSelector):
+        inside_filters = map(lambda x: create_locator(germanium, x),
+                              selector.inside_filters)
+
+        containing_filters = map(lambda x: create_locator(germanium, x),
+                                 selector.containing_filters)
+
+        return InsideFilterLocator(
+            germanium=germanium,
+            locator=create_locator(germanium, selector.selector),
+            inside_filters=inside_filters,
+            containing_filters=containing_filters,
+            without_children=selector.without_children_elements
         )
 
     if isinstance(selector, AbstractSelector):

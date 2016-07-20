@@ -1833,12 +1833,8 @@ document.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-abstract-selector.svg" alt="germanium abstract selector" width="539" height="330">
+<img src="germanium-abstract-selector.svg" alt="germanium abstract selector" width="509" height="341">
 </div>
-</div>
-<div class="paragraph">
-<p>Please take note that in order to use <code>inside</code> and <code>containing</code> filtering,
-the selector must return all its expressions as XPath selectors.</p>
 </div>
 </div>
 </div>
@@ -1978,27 +1974,7 @@ returned by the other_selector.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>DOM Filtering selectors work by selecting only specific nodes
-in relations with other nodes in the DOM. This works only with
-XPath selectors, but since <code>Germanium</code> ships all its provided
-utility selectors as XPath selectors, you can use it for all
-the classes.</p>
-</div>
-<div class="paragraph">
-<p>Furthermore CSS selectors are automatically converted to
-XPath selectors, so you can use them just as before, just be
-aware that the returned selector is internally XPath.</p>
-</div>
-<div class="paragraph">
-<p>That means you can write just fine, and it will work:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python">Css(<span style="color: #BA2121">&#39;div.label&#39;</span>)<span style="color: #666666">.</span>containing(<span style="color: #BA2121">&#39;.warning&#39;</span>)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Other strategies, such as the <code>js</code> selector, will raise an
-exception.</p>
+in relations with other nodes in the DOM.</p>
 </div>
 <div class="sect2">
 <h3 id="_selector_containing_other_selector"><a class="anchor" href="#_selector_containing_other_selector"></a>selector.containing(other_selector)</h3>
@@ -3288,7 +3264,11 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
+<<<<<<< 229134380f5c30482133634729969caf53458445
 Last updated 2016-07-25 17:28:08 UTC
+=======
+Last updated 2016-07-19 20:14:45 UTC
+>>>>>>> Removed the XPath limitations messages.
 </div>
 </div>
 </body>

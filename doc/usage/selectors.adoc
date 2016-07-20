@@ -206,7 +206,7 @@ class PositionalFilterSelector {
 class InsideFilterSelector {
     +InsideFilterSelector inside(selector)
     +InsideFilterSelector containing(selector)
-    +InsideFilterSelector without_children
+    +InsideFilterSelector without_children()
 }
 
 AbstractSelector <|-- PositionalFilterSelector

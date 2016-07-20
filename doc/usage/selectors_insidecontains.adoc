@@ -1,24 +1,7 @@
 = Selectors DOM Filtering
 
 DOM Filtering selectors work by selecting only specific nodes
-in relations with other nodes in the DOM. This works only with
-XPath selectors, but since `Germanium` ships all its provided
-utility selectors as XPath selectors, you can use it for all
-the classes.
-
-Furthermore CSS selectors are automatically converted to
-XPath selectors, so you can use them just as before, just be
-aware that the returned selector is internally XPath.
-
-That means you can write just fine, and it will work:
-
-[source,python]
------------------------------------------------------------------------------
-Css('div.label').containing('.warning')
------------------------------------------------------------------------------
-
-Other strategies, such as the `js` selector, will raise an
-exception.
+in relations with other nodes in the DOM.
 
 == selector.containing(other_selector)
 

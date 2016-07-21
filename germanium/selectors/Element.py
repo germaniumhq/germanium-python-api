@@ -68,7 +68,7 @@ class Element(AbstractSelector):
 
         if index is not None:
             if index > 0:
-                xpath_locator = '%s[%d]' % (xpath_locator, index)
+                xpath_locator = 'xpath:(%s)[%d]' % (xpath_locator, index)
             else:
                 raise Exception("The number received as an index for selectors was less "
                                 "or equal to 0. These are XPath indexes, so they must "

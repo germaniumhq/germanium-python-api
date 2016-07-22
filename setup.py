@@ -16,7 +16,6 @@ setup(
     install_requires=[
         'germaniumdrivers==1.8.0',
         'selenium==2.53.6',
-        'cssselect==0.9.2',
         'webcolors==1.5']
     ,
     packages=['germanium',

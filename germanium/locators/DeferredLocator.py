@@ -6,11 +6,16 @@ class DeferredLocator(object):
     Create a deferred locator that can be used in matching
     elements in wait conditions.
     """
-    def __init__(self, germanium=None):
+    def __init__(self, germanium=None, root_element=None):
         self._germanium = germanium
+        self._root_element = root_element
 
     def __call__(self):
         return self.element_list()
+
+    def set_root_element(self, root_element):
+        self._root_element = root_element
+        return self
 
     def element(self, only_visible=True):
         """ Return the current matched element.

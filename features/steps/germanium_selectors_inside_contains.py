@@ -75,6 +75,18 @@ def step_impl(context):
     context.found_element = element
 
 
+@step(u'I search for a div that contains both an input and a span')
+def search_for_a_div_that_contains_both_an_input_and_a_span(context):
+    selector = Element("div").containing_all(
+        Input, Text("only with content")
+    )
+
+    element = selector.element()
+
+    assert element
+
+    context.found_element = element
+
 @step(u'I only get the div with id #decoyDiv')
 def step_impl(context):
     assert_equals(1, len(context.found_element_list))

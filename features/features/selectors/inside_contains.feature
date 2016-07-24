@@ -15,7 +15,7 @@ Scenario: I can find elements inside a specific element using CSS.
   Then I find the element with id: 'inputText'
 
 @3
-Scenario: Finding elements inside non CSS/XPath locators is raising exceptions.
+Scenario: Finding elements inside non CSS/XPath locators returns correctly
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div inside a JS selector
@@ -36,7 +36,7 @@ Scenario: I can find elements that contain specific elements using CSS.
   Then I find the element with id: 'inputTextContainer'
 
 @6
-Scenario: Finding elements containing CSS/XPath locators is raising exceptions.
+Scenario: Finding elements containing CSS/XPath locators is working correctly.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div containing a JS selector
@@ -62,3 +62,10 @@ Scenario: Finding elements using indexes should construct the correct XPath
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for the first input in the second div
   Then I find the element with id: 'inputText'
+
+@10
+Scenario: Finding elements that contain _ALL_ the searched internal elements works correctly.
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for a div that contains both an input and a span
+  Then I find the element with id: 'inputTextWithOtherDivContainer'

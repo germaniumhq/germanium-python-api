@@ -1,16 +1,20 @@
 from germanium.impl._load_script import load_script
-from .DeferredLocator import DeferredLocator
+from .FilterLocator import FilterLocator
 
 
-class InsideFilterLocator(DeferredLocator):
+class InsideFilterLocator(FilterLocator):
     def __init__(self,
                  germanium,
                  locator,
+                 root_element=None,
                  inside_filters=None,
                  containing_filters=None,
+                 containing_all_filters=None,
                  without_children=False):
 
-        super(InsideFilterLocator, self).__init__(germanium=germanium)
+        super(InsideFilterLocator, self).__init__(germanium=germanium,
+                                                  root_element=root_element,
+                                                  locator=locator)
 
         if not inside_filters:
             inside_filters = []
@@ -18,9 +22,12 @@ class InsideFilterLocator(DeferredLocator):
         if not containing_filters:
             containing_filters = []
 
-        self.locator = locator
+        if not containing_all_filters:
+            containing_all_filters = []
+
         self.inside_filters = inside_filters
         self.containing_filters = containing_filters
+        self.containing_all_filters = containing_all_filters
         self.without_children = without_children
 
     def _find_element(self):
@@ -31,17 +38,57 @@ class InsideFilterLocator(DeferredLocator):
         return None
 
     def _find_element_list(self):
-        elements = self.locator._find_element_list()
+        # Since the inside/contains/without children works with the DOM
+        # structure, it might be used to find invisible elements. So
+        # we need to get the raw list of elements.
 
         inside_elements = set()
         for selector in self.inside_filters:
             for inside_element in selector.element_list():
                 inside_elements.add(inside_element)
 
+        # in case there are no inside_elements, we just use the regular
+        # find_element_by... on the selenium instance
+        if not inside_elements:
+            inside_elements = set()
+            inside_elements.add(None)
+
+        elements = set()
+        for inside_element in inside_elements:
+            self._locator.set_root_element(inside_element)
+            for element in self._locator._find_element_list():
+                elements.add(element)
+        elements = list(elements)
+
         containing_elements = set()
         for selector in self.containing_filters:
             for containing_element in selector.element_list():
                 containing_elements.add(containing_element)
+
+        # `containing_all` needs to create groups for each selector
+        # and then filter the resulting elements against the
+        # groups.
+        #
+        # We will create a dictionary that holds all the elements,
+        # linked with all the group indexes they belong to, as a
+        # string CSV.
+        #
+        # The search will remove all the elements that don't contain
+        # all the groups.
+
+        group_index = -1
+        containing_all_elements = dict()
+        for selector in self.containing_all_filters:
+            group_index += 1
+            for containing_all_element in selector.element_list():
+                # if the same selector for a group returns the same element multiple times,
+                # make sure it's in our map only once.
+                if containing_all_element in containing_all_elements:
+                    containing_all_elements[containing_all_element].add(str(group_index))
+                    continue
+                items = set()
+                items.add(str(group_index))
+                containing_all_elements[containing_all_element] = items
 
         js_arguments = []
 
@@ -49,12 +96,18 @@ class InsideFilterLocator(DeferredLocator):
 
         js_arguments.append(code)
         js_arguments.append(1 if self.without_children else 0)
-        js_arguments.append(len(inside_elements))
-        for inside_element in inside_elements:
-            js_arguments.append(inside_element)
+        js_arguments.append(0)  # FIXME: remove
         js_arguments.append(len(containing_elements))
+
         for containing_element in containing_elements:
             js_arguments.append(containing_element)
+
+        js_arguments.append(len(list(self.containing_all_filters)))  # groupCount
+        js_arguments.append(len(containing_all_elements))
+        for containing_all_element in containing_all_elements:
+            js_arguments.append(containing_all_element)
+            js_arguments.append(",".join(containing_all_elements[containing_all_element]))
+
         js_arguments.append(len(elements))
         for element in elements:
             js_arguments.append(element)

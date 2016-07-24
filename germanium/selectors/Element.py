@@ -31,7 +31,7 @@ class Element(AbstractSelector):
             raise Exception("Having the exact text to be matched, "
                             "and a partial text to be searched is not supported.")
 
-        xpath_locator = '//' + tag_name
+        xpath_locator = './/' + tag_name
 
         if contains_text:
             xpath_locator += "[contains(normalize-space(string()), '%s')]" % contains_text
@@ -68,13 +68,13 @@ class Element(AbstractSelector):
 
         if index is not None:
             if index > 0:
-                xpath_locator = 'xpath:(%s)[%d]' % (xpath_locator, index)
+                xpath_locator = '(%s)[%d]' % (xpath_locator, index)
             else:
                 raise Exception("The number received as an index for selectors was less "
                                 "or equal to 0. These are XPath indexes, so they must "
                                 "start with 1. 1st item, not 0st item.")
 
-        self._xpath_locator = xpath_locator
+        self._xpath_locator = 'xpath:' + xpath_locator
 
     def get_selectors(self):
         return [self._xpath_locator]

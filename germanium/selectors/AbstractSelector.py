@@ -35,6 +35,10 @@ class AbstractSelector(object):
         return InsideFilterSelector(self) \
             .containing(*argv, **kw)
 
+    def containing_all(self, *argv, **kw):
+        return InsideFilterSelector(self) \
+            .containing_all(*argv, **kw)
+
     def without_children(self, *argv, **kw):
         return InsideFilterSelector(self) \
             .without_children(*argv, **kw)
@@ -126,6 +130,7 @@ class InsideFilterSelector(AbstractSelector):
 
         self.inside_filters = []
         self.containing_filters = []
+        self.containing_all_filters = []
         self.without_children_elements = False
 
     def inside(self, *argv, **kw):
@@ -137,6 +142,12 @@ class InsideFilterSelector(AbstractSelector):
     def containing(self, *argv, **kw):
         other_selector = _ensure_selectors(argv)
         self.containing_filters.extend(other_selector)
+
+        return self
+
+    def containing_all(self, *argv, **kw):
+        other_selector = _ensure_selectors(argv)
+        self.containing_all_filters.extend(other_selector)
 
         return self
 

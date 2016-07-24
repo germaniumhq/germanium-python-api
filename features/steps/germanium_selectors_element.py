@@ -7,7 +7,8 @@ use_step_matcher("re")
 
 @step(u"I look for a '(.*?)' element with '(.*?)' text in it")
 def step_impl(context, element_name, contained_text):
-    element = S(Element(element_name, contains_text=contained_text)).element()
+    selector = Element(element_name, contains_text=contained_text)
+    element = S(selector).element()
 
     context.found_element = element
 

@@ -1,17 +1,20 @@
-from .DeferredLocator import DeferredLocator
+from .FilterLocator import FilterLocator
 from germanium.impl._load_script import load_script
 
 
-class PositionalFilterLocator(DeferredLocator):
+class PositionalFilterLocator(FilterLocator):
     def __init__(self,
                  germanium,
                  locator,
+                 root_element=None,
                  left_of_filters=None,
                  right_of_filters=None,
                  above_filters=None,
                  below_filters=None):
 
-        super(PositionalFilterLocator, self).__init__(germanium=germanium)
+        super(PositionalFilterLocator, self).__init__(germanium=germanium,
+                                                      root_element=root_element,
+                                                      locator=locator)
 
         if not left_of_filters:
             left_of_filters = []
@@ -39,6 +42,9 @@ class PositionalFilterLocator(DeferredLocator):
         return None
 
     def _find_element_list(self):
+        # Since this filter sorts elements that would appear visually right of
+        # or left of things, we don't need to get the raw element list using
+        # `_find_element_list` but we can work with the filtered list.
         elements = self.locator.element_list()
 
         left_of_elements = set()

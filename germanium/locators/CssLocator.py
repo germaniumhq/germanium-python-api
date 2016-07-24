@@ -10,17 +10,19 @@ class CssLocator(DeferredLocator):
     """
     A CSS Deferred locator.
     """
-    def __init__(self, germanium, locator):
-        super(CssLocator, self).__init__(germanium)
+    def __init__(self, germanium, selector, root_element=None):
+        super(CssLocator, self).__init__(germanium, root_element=root_element)
 
-        self._locator = locator
+        self._selector = selector
 
     def _find_element(self):
         """
         Find an element using the CSS locator provided at creation.
         """
         try:
-            return self._germanium.find_element_by_css_selector(self._locator)
+            if self._root_element:
+                return self._root_element.find_element_by_css_selector(self._selector)
+            return self._germanium.find_element_by_css_selector(self._selector)
         except NoSuchElementException as e:
             return None
 
@@ -29,7 +31,9 @@ class CssLocator(DeferredLocator):
         Find an element using the CSS locator provided at creation.
         """
         try:
-            result = self._germanium.find_elements_by_css_selector(self._locator)
+            if self._root_element:
+                return self._root_element.find_elements_by_css_selector(self._selector)
+            result = self._germanium.find_elements_by_css_selector(self._selector)
 
             if isinstance(result, collections.Iterable):
                 return result
@@ -45,7 +49,7 @@ class CssLocator(DeferredLocator):
                             "locator %s." %
                             (result,
                              type(result),
-                             self._locator,
+                             self._selector,
                              self))
         except NoSuchElementException as e:
             return None

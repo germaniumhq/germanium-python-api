@@ -2,9 +2,11 @@
 return (function() {
     var insideElements = [],
         containingElements = [],
+        groupCount,
+        containingAllElements = [],
         withoutChildren,
         elements = [],
-        i, j,
+        i, j, k,
         count,
         args;
 
@@ -13,17 +15,37 @@ return (function() {
         args.push(arguments[i]);
     }
 
-    function readElements(targetArray) {
+    console.log(args.slice(0));
+
+    function readElements(targetArray, itemsPerElement) {
         count = args.shift();
+        itemsPerElement = itemsPerElement ? itemsPerElement : 1;
         while (count--) {
             targetArray.push(args.shift());
+            if (itemsPerElement == 2) {
+                var groups = args.shift().split(","),
+                    groupIndexes = [];
+
+                for (var k = 0; k < groups.length; k++) {
+                    groupIndexes.push(parseInt(groups[k]));
+                }
+
+                targetArray.push(groupIndexes);
+            }
         }
     }
 
     withoutChildren = args.shift();
     readElements(insideElements);
     readElements(containingElements);
+    groupCount = args.shift(); // the number of groups, aka selectors passed to contains_all
+    readElements(containingAllElements, 2);
     readElements(elements);
+
+    console.log("withoutChildren", withoutChildren);
+    console.log("elements", elements.slice(0));
+    console.log("containingAllElements", containingAllElements.slice(0));
+    console.log("groupCount", groupCount);
 
     function isInside(parentNode, childNode) {
         if (!childNode || !parentNode) {
@@ -74,6 +96,40 @@ return (function() {
             }
 
             elements.splice(i, 1);
+        }
+    }
+
+    if (containingAllElements.length) {
+        nextI:
+        for (i = elements.length - 1; i >= 0; i--) {
+            var missingGroups = {};
+            for (k = 0; k < groupCount; k++) {
+                missingGroups[k] = true;
+            }
+
+            for (j = 0; j < containingAllElements.length; j+=2) {
+                // if we already match the group, we can skip the
+                // elements in the same group.
+                if (!missingGroups[containingAllElements[j + 1]]) {
+                    continue;
+                }
+
+                // if the element contains an element, mark all the
+                // groups as matched.
+                if (isInside(elements[i], containingAllElements[j])) {
+                    for (k = 0; k < containingAllElements[j + 1].length; k++) {
+                        delete missingGroups[k];
+                    }
+                }
+            }
+
+            // if is there any group missing, then our element is out.
+            for (k = 0; k < groupCount; k++) {
+                if (missingGroups[k]) {
+                    elements.splice(i, 1);
+                    continue nextI;
+                }
+            }
         }
     }
 

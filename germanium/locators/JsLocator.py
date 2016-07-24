@@ -8,8 +8,8 @@ class JsLocator(DeferredLocator):
     A JS Deferred locator. This locator will execute some JavaScript
     code in order to find the elements.
     """
-    def __init__(self, germanium, code):
-        super(JsLocator, self).__init__(germanium)
+    def __init__(self, germanium, code, root_element=None):
+        super(JsLocator, self).__init__(germanium, root_element)
 
         self._code = code
 
@@ -25,7 +25,7 @@ class JsLocator(DeferredLocator):
         """
         Finds a single element using the given code.
         """
-        elements = self._germanium.js(self._code)
+        elements = self._germanium.js(self._code, self._root_element)
 
         if not elements:
             return []

@@ -27,7 +27,7 @@ class InsideFilterLocator(FilterLocator):
 
         self.inside_filters = inside_filters
         self.containing_filters = containing_filters
-        self.containing_all_filters = containing_all_filters
+        self.containing_all_filters = list(containing_all_filters)
         self.without_children = without_children
 
     def _find_element(self):
@@ -102,7 +102,7 @@ class InsideFilterLocator(FilterLocator):
         for containing_element in containing_elements:
             js_arguments.append(containing_element)
 
-        js_arguments.append(len(list(self.containing_all_filters)))  # groupCount
+        js_arguments.append(len(self.containing_all_filters))  # groupCount
         js_arguments.append(len(containing_all_elements))
         for containing_all_element in containing_all_elements:
             js_arguments.append(containing_all_element)

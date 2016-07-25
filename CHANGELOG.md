@@ -1,6 +1,11 @@
 ChangeLog
 ---------
 
+* 2016-07-25  1.8.3
+    _Bugfixes_
+
+    - Sort the elements vertically/horizontally on the positional filtering.
+
 * 2016-07-19  1.8.2
     - Rewrote the positional filtering. Blazing fast.
 

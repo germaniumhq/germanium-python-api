@@ -32,15 +32,33 @@ Scenario: I can find elements right of a specific element.
 Scenario: I can find elements right of an element, but also with indexes.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
-  When I search for the first input text of the text "Surname"
+  When I search for all the input texts right of the text "Surname"
+  Then I find 6 elements that match
+  When I search for the first input text right of the text "Surname"
   Then I find the element with id: 'surnameInput'
-  When I search for the second input text of the text "Surname"
+  When I search for the second input text right of the text "Surname"
   Then I find the element with id: 'surnameInput2'
-  When I search for the third input text of the text "Surname"
+  When I search for the third input text right of the text "Surname"
   Then I find the element with id: 'emailInput'
-  When I search for the fourth input text of the text "Surname"
+  When I search for the fourth input text right of the text "Surname"
   Then I find the element with id: 'emailInput2'
-  When I search for the fifth input text of the text "Surname"
+  When I search for the fifth input text right of the text "Surname"
   Then I find the element with id: 'nameInput'
-  When I search for the sixth input text of the text "Surname"
+  When I search for the sixth input text right of the text "Surname"
   Then I find the element with id: 'nameInput2'
+
+@6
+Scenario: I can find elements above an element, but also with indexes.
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
+  When I search for all the input texts above the text "E-Mail"
+  Then I find 4 elements that match
+  When I search for the first input text above the text "E-Mail"
+  Then I find the element with id: 'surnameInput'
+  When I search for the second input text above the text "E-Mail"
+  Then I find the element with id: 'surnameInput2'
+  When I search for the third input text above the text "E-Mail"
+  Then I find the element with id: 'nameInput'
+  When I search for the fourth input text above the text "E-Mail"
+  Then I find the element with id: 'nameInput2'
+

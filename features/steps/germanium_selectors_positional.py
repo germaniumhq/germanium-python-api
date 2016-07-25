@@ -25,7 +25,7 @@ def step_impl(context, text):
     context.found_element = element
 
 
-@step(u'I search for the (.*?) input text of the text "(.*?)"')
+@step(u'I search for the (.*?) input text right of the text "(.*?)"')
 def step_impl(context, index, text):
     indexes = {
         "first": 0,
@@ -37,6 +37,35 @@ def step_impl(context, index, text):
     }
 
     selector = InputText().right_of(Text(text)).element_list()[indexes[index]]
+    element = S(selector).element()
+
+    assert element
+
+    context.found_element = element
+
+
+@step(u'I search for all the input texts above the text "(.*?)"')
+def step_impl(context, text):
+    context.found_elements = InputText().above(Text(text)).element_list()
+
+
+@step(u'I search for all the input texts right of the text "(.*?)"')
+def step_impl(context, text):
+    context.found_elements = InputText().right_of(Text(text)).element_list()
+
+
+@step(u'I search for the (.*?) input text above the text "(.*?)"')
+def step_impl(context, index, text):
+    indexes = {
+        "first": 0,
+        "second": 1,
+        "third": 2,
+        "fourth": 3,
+        "fifth": 4,
+        "sixth": 5
+    }
+
+    selector = InputText().above(Text(text)).element_list()[indexes[index]]
     element = S(selector).element()
 
     assert element

@@ -78,6 +78,17 @@ return (function() {
         }
     }
 
+    // we sort them by the distance from the elements that we
+    // are above of, to the bottom of our elements.
+    if (aboveElements.length) {
+        topReference = top(aboveElements[0]);
+
+        elements.sort(function(e1, e2) {
+            return Math.abs(topReference - bottom(e1)) -
+                Math.abs(topReference - bottom(e2));
+        });
+    }
+
     // The below filtering makes sure that the elements we're finding
     // are below the reference elements in the `belowElements`
     for (i = elements.length - 1; i >= 0; i--) {
@@ -86,6 +97,34 @@ return (function() {
                 elements.splice(i, 1)
             }
         }
+    }
+
+    // we sort them by the distance from the bottom of the element
+    // we're under, to the top of our element.
+    if (belowElements.length) {
+        topReference = bottom(belowElements[0]);
+
+        elements.sort(function(e1, e2) {
+            return Math.abs(topReference - top(e1)) -
+                Math.abs(topReference - top(e2));
+        });
+    }
+
+    for (i = elements.length - 1; i >= 0; i--) {
+        for (j = 0; j < rightOfElements.length; j++) {
+            if (left(elements[i]) <= right(rightOfElements[j])) {
+                elements.splice(i, 1)
+            }
+        }
+    }
+
+    if (rightOfElements.length) {
+        topReference = top(rightOfElements[0]);
+
+        elements.sort(function(e1, e2) {
+            return Math.pow(Math.abs(topReference - top(e1)), 2) -
+                Math.pow(Math.abs(topReference - top(e2)), 2);
+        });
     }
 
     for (i = elements.length - 1; i >= 0; i--) {
@@ -105,22 +144,5 @@ return (function() {
         });
     }
      
-    for (i = elements.length - 1; i >= 0; i--) {
-        for (j = 0; j < rightOfElements.length; j++) {
-            if (left(elements[i]) <= right(rightOfElements[j])) {
-                elements.splice(i, 1)
-            }
-        }
-    }
-
-    if (rightOfElements.length) {
-        topReference = top(rightOfElements[0]);
-
-        elements.sort(function(e1, e2) {
-            return Math.pow(Math.abs(topReference - top(e1)), 2) -
-                Math.pow(Math.abs(topReference - top(e2)), 2);
-        });
-    }
-
     return elements;
 }.apply(this, arguments));

@@ -1,6 +1,8 @@
 from germanium.impl._load_script import load_script
 from .FilterLocator import FilterLocator
 
+from collections import OrderedDict
+
 
 class InsideFilterLocator(FilterLocator):
     def __init__(self,
@@ -42,28 +44,29 @@ class InsideFilterLocator(FilterLocator):
         # structure, it might be used to find invisible elements. So
         # we need to get the raw list of elements.
 
-        inside_elements = set()
+        inside_elements = OrderedDict()
         for selector in self.inside_filters:
             for inside_element in selector.element_list():
-                inside_elements.add(inside_element)
+                #inside_elements.put(inside_element, 1)
+                inside_elements[inside_element] = 1
 
         # in case there are no inside_elements, we just use the regular
         # find_element_by... on the selenium instance
         if not inside_elements:
-            inside_elements = set()
-            inside_elements.add(None)
+            inside_elements = OrderedDict()
+            inside_elements[None] = None
 
-        elements = set()
+        elements = OrderedDict()
         for inside_element in inside_elements:
             self._locator.set_root_element(inside_element)
             for element in self._locator._find_element_list():
-                elements.add(element)
+                elements[element] = 1
         elements = list(elements)
 
-        containing_elements = set()
+        containing_elements = OrderedDict()
         for selector in self.containing_filters:
             for containing_element in selector.element_list():
-                containing_elements.add(containing_element)
+                containing_elements[containing_element] = 1
 
         # `containing_all` needs to create groups for each selector
         # and then filter the resulting elements against the
@@ -77,7 +80,7 @@ class InsideFilterLocator(FilterLocator):
         # all the groups.
 
         group_index = -1
-        containing_all_elements = dict()
+        containing_all_elements = OrderedDict()
         for selector in self.containing_all_filters:
             group_index += 1
             for containing_all_element in selector.element_list():

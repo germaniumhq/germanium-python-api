@@ -5,7 +5,7 @@ return (function() {
         rightOfElements = [],
         leftOfElements = [],
         elements = [],
-        topReference,
+        topReference, belowReference, leftReference, rightReference,
         i, j,
         count,
         args;
@@ -82,10 +82,13 @@ return (function() {
     // are above of, to the bottom of our elements.
     if (aboveElements.length) {
         topReference = top(aboveElements[0]);
+        leftReference = left(aboveElements[0]);
 
         elements.sort(function(e1, e2) {
-            return Math.abs(topReference - bottom(e1)) -
-                Math.abs(topReference - bottom(e2));
+            return Math.pow(topReference - bottom(e1), 3) -
+                   Math.pow(topReference - bottom(e2), 3) +
+                   Math.abs(leftReference - left(e1)) -
+                   Math.abs(leftReference - left(e2));
         });
     }
 
@@ -102,11 +105,14 @@ return (function() {
     // we sort them by the distance from the bottom of the element
     // we're under, to the top of our element.
     if (belowElements.length) {
-        topReference = bottom(belowElements[0]);
+        belowReference = bottom(belowElements[0]);
+        leftReference = left(belowReference[0]);
 
         elements.sort(function(e1, e2) {
-            return Math.abs(topReference - top(e1)) -
-                Math.abs(topReference - top(e2));
+            return Math.pow(belowReference - top(e1), 3) -
+                   Math.pow(belowReference - top(e2), 3) +
+                   Math.abs(leftReference - left(e1)) -
+                   Math.abs(leftReference - left(e2));
         });
     }
 
@@ -120,10 +126,13 @@ return (function() {
 
     if (rightOfElements.length) {
         topReference = top(rightOfElements[0]);
+        rightReference = right(rightOfElements[0]);
 
         elements.sort(function(e1, e2) {
-            return Math.pow(Math.abs(topReference - top(e1)), 2) -
-                Math.pow(Math.abs(topReference - top(e2)), 2);
+            return Math.pow(rightReference - left(e1), 3) -
+                   Math.pow(rightReference - left(e2), 3) +
+                   Math.abs(topReference - top(e1)) -
+                   Math.abs(topReference - top(e2));
         });
     }
 
@@ -137,10 +146,13 @@ return (function() {
 
     if (leftOfElements.length) {
         topReference = top(leftOfElements[0]);
+        leftReference = left(leftOfElements[0]);
 
         elements.sort(function(e1, e2) {
-            return Math.pow(Math.abs(topReference - top(e1)), 2) -
-                Math.pow(Math.abs(topReference - top(e2)), 2);
+            return Math.pow(leftReference - right(e1), 3) -
+                   Math.pow(leftReference - right(e2), 3) +
+                   Math.abs(topReference - top(e1)) -
+                   Math.abs(topReference - top(e2));
         });
     }
      

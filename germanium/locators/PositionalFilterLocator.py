@@ -1,6 +1,8 @@
 from .FilterLocator import FilterLocator
 from germanium.impl._load_script import load_script
 
+from collections import OrderedDict
+
 
 class PositionalFilterLocator(FilterLocator):
     def __init__(self,
@@ -47,25 +49,25 @@ class PositionalFilterLocator(FilterLocator):
         # `_find_element_list` but we can work with the filtered list.
         elements = self.locator.element_list()
 
-        left_of_elements = set()
+        left_of_elements = OrderedDict()
         for selector in self.left_of_filters:
             for left_of_element in selector.element_list():
-                left_of_elements.add(left_of_element)
+                left_of_elements[left_of_element] = 1
 
-        right_of_elements = set()
+        right_of_elements = OrderedDict()
         for selector in self.right_of_filters:
             for right_of_element in selector.element_list():
-                right_of_elements.add(right_of_element)
+                right_of_elements[right_of_element] = 1
 
-        above_elements = set()
+        above_elements = OrderedDict()
         for selector in self.above_filters:
             for above_element in selector.element_list():
-                above_elements.add(above_element)
+                above_elements[above_element] = 1
 
-        below_elements = set()
+        below_elements = OrderedDict()
         for selector in self.below_filters:
             for below_element in selector.element_list():
-                below_elements.add(below_element)
+                below_elements[below_element] = 1
 
         js_arguments = []
 

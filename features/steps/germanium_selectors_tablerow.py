@@ -8,8 +8,8 @@ use_step_matcher("re")
 @step(u'I search for a TableRow with a CheckBox left of text "Surname"')
 def step_impl(context):
     selector = TableRow() \
-        .containing(TableCell("Surname")) \
-        .containing(CheckBox())
+        .containing_all(TableCell("Surname")) \
+        .containing_all(CheckBox())
 
     element = S(selector).element()
 

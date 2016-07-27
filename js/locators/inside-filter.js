@@ -15,8 +15,6 @@ return (function() {
         args.push(arguments[i]);
     }
 
-    console.log(args.slice(0));
-
     function readElements(targetArray, itemsPerElement) {
         count = args.shift();
         itemsPerElement = itemsPerElement ? itemsPerElement : 1;
@@ -41,13 +39,6 @@ return (function() {
     groupCount = args.shift(); // the number of groups, aka selectors passed to contains_all
     readElements(containingAllElements, 2);
     readElements(elements);
-
-    console.log("withoutChildren", withoutChildren);
-    console.log("elements", elements.slice(0));
-    console.log("containingAllElements", containingAllElements.slice(0));
-    console.log("groupCount", groupCount);
-
-    window.containingAllElements = containingAllElements.slice(0);
 
     function isInside(parentNode, childNode) {
         if (!childNode || !parentNode) {
@@ -128,7 +119,6 @@ return (function() {
             // if is there any group missing, then our element is out.
             for (k = 0; k < groupCount; k++) {
                 if (missingGroups[k]) {
-                    console.log("For element ", elements[i], " group ", k, " is missing.");
                     elements.splice(i, 1);
                     continue nextI;
                 }

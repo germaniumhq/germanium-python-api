@@ -40,7 +40,7 @@ A selector that finds the given XPath expression.
 
 == JsSelector(code)
 
-A selector that finds an element by evaluating the given JavaScript code.
+A selector that finds an element by evaluating the given JavaScript code. `arguments[0]` is the element used for subtree searches, and can be `null` if searches are made for the full document.
 
 Provided Selectors
 ------------------

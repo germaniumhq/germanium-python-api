@@ -193,6 +193,7 @@ class AbstractSelector {
     -- parent/child filtering --
     +InsideFilterSelector inside(selector)
     +InsideFilterSelector containing(selector)
+    +InsideFilterSelector containing_all(selector)
     +InsideFilterSelector without_children()
 }
 
@@ -206,6 +207,7 @@ class PositionalFilterSelector {
 class InsideFilterSelector {
     +InsideFilterSelector inside(selector)
     +InsideFilterSelector containing(selector)
+    +InsideFilterSelector containing_all(selector)
     +InsideFilterSelector without_children()
 }
 

@@ -3,7 +3,7 @@
 DOM Filtering selectors work by selecting only specific nodes
 in relations with other nodes in the DOM.
 
-== selector.containing(other_selector)
+== selector.containing(selector..)
 
 *Description*
 
@@ -13,7 +13,7 @@ Matches nodes that contain the other XPath/CSS selectors.
 
 [source,python]
 -----------------------------------------------------------------------------
-def containing(self, other_selector)
+def containing(self, selector..)
 -----------------------------------------------------------------------------
 
 *Sample*
@@ -22,21 +22,49 @@ def containing(self, other_selector)
 -----------------------------------------------------------------------------
 row = Element("tr").containing(
         Element("td", contains_text="User 1"),
-        Element("td", exact_text="user1@server.com")
+        Element("td", contains_text="User 2")
       ).element()
 -----------------------------------------------------------------------------
 
-== selector.inside(other_selector)
+This will match a `<tr>` element that contains any of the `<td>` elements with
+the `"User 1"` or `"User 2"` text.
+
+== selector.containing_all(selector..)
 
 *Description*
 
-Matches nodes that are inside other XPath selectors.
+Matches nodes that contain all the given selectors inside their tree structure.
 
 *Signature*
 
 [source,python]
 -----------------------------------------------------------------------------
-def inside(self, other_selector)
+def containing_all(selector..)
+-----------------------------------------------------------------------------
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+row = Element("tr").containing_all(
+        Element("td", contains_text="user@sample.com"),
+        Text("User A")
+    ).element()
+-----------------------------------------------------------------------------
+
+This will match a `<tr>` element that contains a `<td>` with the text `user@sample.com` and some other text, named `"User A"`
+
+== selector.inside(selector..)
+
+*Description*
+
+Matches nodes that are inside any of the other selectors.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def inside(self, selector)
 -----------------------------------------------------------------------------
 
 *Sample*

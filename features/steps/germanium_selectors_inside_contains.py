@@ -56,6 +56,7 @@ def step_impl(context):
     selector = Element("div").containing("js:return [document.getElementById('inputText')];")
     context.found_element = selector.element()
 
+
 @step(u'I search for all the (.*?)s without children')
 def step_impl(context, tag_name):
     selector = Element(tag_name).without_children()
@@ -86,6 +87,7 @@ def search_for_a_div_that_contains_both_an_input_and_a_span(context):
     assert element
 
     context.found_element = element
+
 
 @step(u'I only get the div with id #decoyDiv')
 def step_impl(context):

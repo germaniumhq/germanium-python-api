@@ -47,6 +47,8 @@ return (function() {
     console.log("containingAllElements", containingAllElements.slice(0));
     console.log("groupCount", groupCount);
 
+    window.containingAllElements = containingAllElements.slice(0);
+
     function isInside(parentNode, childNode) {
         if (!childNode || !parentNode) {
             return false;
@@ -118,7 +120,7 @@ return (function() {
                 // groups as matched.
                 if (isInside(elements[i], containingAllElements[j])) {
                     for (k = 0; k < containingAllElements[j + 1].length; k++) {
-                        delete missingGroups[k];
+                        delete missingGroups[containingAllElements[j + 1][k]];
                     }
                 }
             }
@@ -126,6 +128,7 @@ return (function() {
             // if is there any group missing, then our element is out.
             for (k = 0; k < groupCount; k++) {
                 if (missingGroups[k]) {
+                    console.log("For element ", elements[i], " group ", k, " is missing.");
                     elements.splice(i, 1);
                     continue nextI;
                 }

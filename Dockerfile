@@ -81,12 +81,10 @@ COPY bin/docker/xstartup /home/germanium/.vnc/xstartup
 #
 # BROWSERS SECTION
 #
-ENV BROWSERS_REFRESHED_AT="2016.07.05-23:17:13"
+ENV BROWSERS_REFRESHED_AT="2016.07.28-23:55:25"
 
 #
 # Install firefox, and its webdriver
-#
-# Currently v47 is super broken with their implementation of WebDriver, so we're using v46
 #
 RUN cd /opt && \
     wget 'https://download.mozilla.org/?product=firefox-47.0.1-SSL&os=linux64&lang=en-US' -O firefox.tar.bz2 && \

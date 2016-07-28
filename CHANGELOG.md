@@ -1,6 +1,15 @@
 ChangeLog
 ---------
 
+* 2016-07-29  1.9.0
+    - Completely rewrote `inside`/`contains`/`without_elements` as filters. This extends from only XPath selectors that can be used as filters to _any_ kind of selector (CSS, JS, or custom `AbstractSelector` class).
+    - Added `contains_all` to match elements that contain all the given selectors.
+    - Documentation updates.
+
+    _Bugfixes_
+    - Positional filtering sorting fixes, now preffering elements that overlap.
+    - XPath `Element` indexes, if they happen also on nested elements using `containing`, works as expected.
+
 * 2016-07-25  1.8.3
     _Bugfixes_
 

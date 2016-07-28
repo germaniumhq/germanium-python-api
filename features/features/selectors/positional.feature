@@ -41,9 +41,9 @@ Scenario: I can find elements right of an element, but also with indexes.
   When I search for the third input text right of the text "Surname"
   Then I find the element with id: 'emailInput'
   When I search for the fourth input text right of the text "Surname"
-  Then I find the element with id: 'emailInput2'
-  When I search for the fifth input text right of the text "Surname"
   Then I find the element with id: 'nameInput'
+  When I search for the fifth input text right of the text "Surname"
+  Then I find the element with id: 'emailInput2'
   When I search for the sixth input text right of the text "Surname"
   Then I find the element with id: 'nameInput2'
 

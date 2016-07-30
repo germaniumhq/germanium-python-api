@@ -89,6 +89,18 @@ def search_for_a_div_that_contains_both_an_input_and_a_span(context):
     context.found_element = element
 
 
+@step(u"I search for a div that contains a span, that contains a text '(.*?)'")
+def search_for_a_text_deep_inside_a_div_and_span(context, text):
+    selector = Element("div").containing(
+        Css("span").containing(
+            Text(text)
+        )
+    )
+
+    context.found_element = selector.element()
+    context.found_element_list = selector.element_list()
+
+
 @step(u'I only get the div with id #decoyDiv')
 def step_impl(context):
     assert_equals(1, len(context.found_element_list))

@@ -46,8 +46,14 @@ class InsideFilterLocator(FilterLocator):
 
         inside_elements = OrderedDict()
         for selector in self.inside_filters:
-            for inside_element in selector.element_list():
-                #inside_elements.put(inside_element, 1)
+            element_list = selector.element_list()
+
+            # if we have an inside element that itself can't be found,
+            # don't bother to search the elements further
+            if not element_list:
+                return []
+
+            for inside_element in element_list:
                 inside_elements[inside_element] = 1
 
         # in case there are no inside_elements, we just use the regular
@@ -65,7 +71,16 @@ class InsideFilterLocator(FilterLocator):
 
         containing_elements = OrderedDict()
         for selector in self.containing_filters:
-            for containing_element in selector.element_list():
+            element_list = selector.element_list()
+
+            # if we don't have any elements that we're supposed to
+            # contain, it means the selector isn't matching, so don't
+            # bother, trying to find further, otherwise we will match
+            # a lot of false positives.
+            if not element_list:
+                return []
+
+            for containing_element in element_list:
                 containing_elements[containing_element] = 1
 
         # `containing_all` needs to create groups for each selector
@@ -83,7 +98,16 @@ class InsideFilterLocator(FilterLocator):
         containing_all_elements = OrderedDict()
         for selector in self.containing_all_filters:
             group_index += 1
-            for containing_all_element in selector.element_list():
+            element_list = selector.element_list()
+
+            # if we have things we need to contain, but the selectors
+            # don't return the elements, we don't bother so we don't
+            # get false positives. eg A().contains(Text("missing")) will
+            # match all A elements otherwise, the contains becomes bogus.
+            if not element_list:
+                return []
+
+            for containing_all_element in element_list:
                 # if the same selector for a group returns the same element multiple times,
                 # make sure it's in our map only once.
                 if containing_all_element in containing_all_elements:

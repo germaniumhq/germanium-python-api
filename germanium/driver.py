@@ -247,4 +247,8 @@ class GermaniumDriver(object):
         if "current_iframe" == item:
             return self._current_iframe
 
+        if not hasattr(self.web_driver, item):
+            raise Exception("Attribute `%s` doesn't exist on either the Germanium instance, nor "
+                            "on the WebDriver instance." % item)
+
         return getattr(self.web_driver, item)

@@ -7,9 +7,5 @@ Scenario: Test if the window changes the context to the specified window.
     When I select the window with the title 'inputs window'
     And I type 'name1 text' into input.name1
     And I select the default window
-    And I get the text from element '#name1Target'
-    Then the text from that element is
-    """
-    name1 text
-    """
+    Then I wait for the text in '#name1Target' to be 'name1 text'
 

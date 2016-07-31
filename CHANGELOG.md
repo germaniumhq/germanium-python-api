@@ -1,9 +1,17 @@
 ChangeLog
 ---------
 
+* 2016-08-01  1.9.1
+    - Added `use_window` to permit selecting the active window that we're working with.
+
+    _Bugfixes_
+
+    - Added `inside`/`containing`/`containing_all` checks for empty nodes, so `Element("div").containing(Text("missing")) will return empty, instead of all the divs.
+    - Throw meaningful error messages if the property is not defined on the Germanium/WebDriver instance.
+
 * 2016-07-29  1.9.0
-    - Completely rewrote `inside`/`contains`/`without_elements` as filters. This extends from only XPath selectors that can be used as filters to _any_ kind of selector (CSS, JS, or custom `AbstractSelector` class).
-    - Added `contains_all` to match elements that contain all the given selectors.
+    - Completely rewrote `inside`/`containing`/`without_elements` as filters. This extends from only XPath selectors that can be used as filters to _any_ kind of selector (CSS, JS, or custom `AbstractSelector` class).
+    - Added `containing_all` to match elements that contain all the given selectors.
     - Documentation updates.
 
     _Bugfixes_
@@ -83,7 +91,7 @@ ChangeLog
     - #6 index values in Element should also allow string values.
 
 * 2016-04-21  1.7.5
-    - #3 inside/contains filter support now also CSS on AbstractSelector, not only XPath.
+    - #3 inside/containing filter support now also CSS on AbstractSelector, not only XPath.
 
 * 2016-04-19  1.7.4
     - Added `get_text` support function to get the text from selectors.
@@ -134,7 +142,7 @@ ChangeLog
 * 2016-04-02  1.6.12  Python 2.7 tests all pass. Implemented `without_children` for selectors. Better error reporting.
 * 2016-04-01  1.6.11  Fixed `bdist_wheel` release for Python 2.7.
 * 2016-04-01  1.6.10  Bugfixes. Chrome tests. Selectors can return `element`, `element_list`, `exists`, `not_exists`, and callable.
-* 2016-03-22  1.6.9  Bugfixes. `inside`/`contains` on selectors. Multiple selectors support.
+* 2016-03-22  1.6.9  Bugfixes. `inside`/`containing` on selectors. Multiple selectors support.
 * 2016-03-22  1.6.8  Bugfixes. Check for element arrays in `js`, `wait` on multiple functions, `locators` as `selectors`.
 * 2016-03-21  1.6.7  `only_visible` filtering by default. Selenium 2.53.1 support. `not_exists` check for deferred locators.
 * 2016-03-18  1.6.6  Test matrix runs end-to-end tests for all python versions.

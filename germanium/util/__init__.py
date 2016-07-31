@@ -14,6 +14,8 @@ from .get_style import get_style_g
 from .get_text import get_text_g
 from .highlight import highlight_g
 
+from .use_window import use_window_g
+
 from .Color import Color
 
 from germanium.impl import wait

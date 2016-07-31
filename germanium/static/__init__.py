@@ -31,5 +31,7 @@ from .get_text import get_text
 from .get_style import get_style
 from .highlight import highlight
 
+from .use_window import use_window
+
 # decorators
 from .iframe import iframe

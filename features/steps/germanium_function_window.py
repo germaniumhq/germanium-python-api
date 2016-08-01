@@ -1,6 +1,5 @@
 from behave import *
 
-from germanium import wait
 from germanium.static import *
 
 use_step_matcher("re")
@@ -9,6 +8,7 @@ use_step_matcher("re")
 @step("I select the window with the title '(.*?)'")
 def i_select_the_window_named(context, window_title):
     use_window(window_title)
+    wait(Css('input.name1'))
 
 
 @step("I select the default window")

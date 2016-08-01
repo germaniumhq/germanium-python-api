@@ -6,6 +6,7 @@ Scenario: Test if the window changes the context to the specified window.
     And I click on #open-window-link
     When I select the window with the title 'inputs window'
     And I type 'name1 text' into input.name1
+    And I click on #send-data-to-parent
     And I select the default window
     Then I wait for the text in '#name1Target' to be 'name1 text'
 

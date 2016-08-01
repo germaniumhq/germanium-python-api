@@ -15,7 +15,13 @@
         <script type="text/javascript">
             $('#open-window-link').on('click', function(ev) {
             	var newWindow = window.open('window-inputs-internal.html');
-                newWindow._parentdoc = document;
+
+                var setParentDoc = setInterval(function() {
+                    if (newWindow.document['readyState'] == "complete") {
+                        newWindow._parentdoc = document;
+                        clearInterval(setParentDoc);
+                    }
+                }, 10);
             });
         </script>
     </body>

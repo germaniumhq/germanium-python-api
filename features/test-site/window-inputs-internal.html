@@ -7,15 +7,25 @@
         <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
     </head>
     <body>
-        <span>
-            Name 1:
-        </span>
-        <input id="name1" name="name1" class="name1">
+        <div id="page-content" style="display: none">
+            <span>
+                Name 1:
+            </span>
+            <input id="name1" name="name1" class="name1">
+            <button id="send-data-to-parent">send data to parent</button>
+        </div>
 
         <script type="text/javascript">
-            $('#name1').on('keyup', function(ev) {
+            var interval = setInterval(function() {
+                if (window._parentdoc) {
+                    $('#page-content').show();
+                    clearInterval(interval);
+                }
+            });
+
+            $('#send-data-to-parent').on('click', function() {
                 $(window._parentdoc.getElementById('name1Target'))
-                    .text(this.value);
+                        .text($('#name1')[0].value);
             });
         </script>
     </body>

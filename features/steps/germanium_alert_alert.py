@@ -8,7 +8,7 @@ use_step_matcher("re")
 
 @step(u'there is an alert that exists')
 def step_impl(context):
-    assert_true(Alert().exists())
+    wait(Alert().exists)
 
 
 @step(u'the text of the alert is "(.*?)"')

@@ -74,7 +74,7 @@ if (PYTHON_35) {
                 '''
             }
         }
-    }, failFast: true
+    }, failFast: false
 }
 
 stage "Run Python 2.7 Tests"
@@ -116,7 +116,7 @@ if (PYTHON_27) {
                 '''
             }
         }
-    }, failFast: true
+    }, failFast: false
 }
 
 stage "Run Python 3.4 Tests"
@@ -158,5 +158,5 @@ if (PYTHON_34) {
                 '''
             }
         }
-    }, failFast: true
+    }, failFast: false
 }

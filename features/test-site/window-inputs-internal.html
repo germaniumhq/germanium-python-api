@@ -7,7 +7,7 @@
         <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
     </head>
     <body>
-        <div id="page-content" style="display: none">
+        <div id="page-content">
             <span>
                 Name 1:
             </span>
@@ -16,16 +16,8 @@
         </div>
 
         <script type="text/javascript">
-            var interval = setInterval(function() {
-                if (window._parentdoc) {
-                    $('#page-content').show();
-                    clearInterval(interval);
-                }
-            });
-
             $('#send-data-to-parent').on('click', function() {
-                $(window._parentdoc.getElementById('name1Target'))
-                        .text($('#name1')[0].value);
+                localStorage.setItem("germanium_internal_window_text", $('#name1')[0].value);
             });
         </script>
     </body>

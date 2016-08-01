@@ -14,13 +14,11 @@
 
         <script type="text/javascript">
             $('#open-window-link').on('click', function(ev) {
-            	var newWindow = window.open('window-inputs-internal.html');
+                localStorage.setItem("germanium_internal_window_text", "");
+                var newWindow = window.open('window-inputs-internal.html');
 
-                var setParentDoc = setInterval(function() {
-                    if (newWindow.document['readyState'] == "complete") {
-                        newWindow._parentdoc = document;
-                        clearInterval(setParentDoc);
-                    }
+                var timer = setInterval(function() {
+                    $('#name1Target').text(localStorage.getItem("germanium_internal_window_text"))
                 }, 10);
             });
         </script>

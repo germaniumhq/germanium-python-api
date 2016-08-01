@@ -1,4 +1,4 @@
-Feature: Test the `@window` decorator.
+Feature: Test the `use_window` function.
 
 Scenario: Test if the window changes the context to the specified window.
     Given I open the browser

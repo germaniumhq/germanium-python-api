@@ -13,7 +13,7 @@ def i_select_the_window_named(context, window_title):
 
 @step("I select the default window")
 def i_select_the_default_window(context):
-    use_window(index=0)
+    use_window('Window Page')
 
 
 @step("I wait for the text in '#name1Target' to be 'name1 text'")

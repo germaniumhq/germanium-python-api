@@ -14,12 +14,7 @@
 
         <script type="text/javascript">
             $('#open-window-link').on('click', function(ev) {
-                localStorage.setItem("germanium_internal_window_text", "");
-                var newWindow = window.open('window-inputs-internal.html');
-
-                var timer = setInterval(function() {
-                    $('#name1Target').text(localStorage.getItem("germanium_internal_window_text"))
-                }, 10);
+                window.open('window-inputs-internal.html');
             });
         </script>
     </body>

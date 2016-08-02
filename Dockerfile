@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER Bogdan Mustiata <bogdan.mustiata@gmail.com>
 
-ENV REFRESHED_AT="2016.08.02-00:51:58"
+ENV REFRESHED_AT="2016.08.02-22:59:45"
 
 # allowed options are firefox, chrome.
 ENV TEST_BROWSER=firefox

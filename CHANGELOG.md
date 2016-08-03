@@ -1,7 +1,9 @@
 ChangeLog
 ---------
 
-* 2016-08-03  1.9.2
+* 2016-08-04  1.9.2
+    - Added `Window` selector, and `WindowLocator`, to easily find windows.
+
     _Bugfixes_
     - All the default selectors are returning relative XPaths.
     - Cleaned up legacy code.

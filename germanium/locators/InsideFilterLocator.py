@@ -65,8 +65,14 @@ class InsideFilterLocator(FilterLocator):
         elements = OrderedDict()
         for inside_element in inside_elements:
             self._locator.set_root_element(inside_element)
-            for element in self._locator._find_element_list():
+            inside_found_elements = self._locator._find_element_list()
+
+            if not inside_found_elements:
+                inside_found_elements = []
+
+            for element in inside_found_elements:
                 elements[element] = 1
+
         elements = list(elements)
 
         containing_elements = OrderedDict()

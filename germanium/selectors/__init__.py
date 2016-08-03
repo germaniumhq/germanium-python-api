@@ -15,3 +15,5 @@ from .Link import Link
 from .Text import Text
 
 from .Alert import Alert
+
+from .Window import Window

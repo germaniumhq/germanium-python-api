@@ -7,6 +7,7 @@ use_step_matcher("re")
 
 @step("I select the window with the title '(.*?)'")
 def i_select_the_window_named(context, window_title):
+    wait(Window(window_title))
     use_window(window_title)
     wait(Css('input.name1'))
 

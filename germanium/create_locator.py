@@ -10,13 +10,15 @@ from germanium.locators import \
     StaticElementLocator, \
     PositionalFilterLocator, \
     InsideFilterLocator, \
-    AlertLocator
+    AlertLocator, \
+    WindowLocator
 
 from germanium.selectors import \
     AbstractSelector, \
     InsideFilterSelector, \
     PositionalFilterSelector, \
-    Alert
+    Alert, \
+    Window
 
 LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?):)(.*)', re.MULTILINE | re.DOTALL)
 
@@ -102,6 +104,9 @@ def create_locator(germanium, selector, strategy='detect'):
 
     if isinstance(selector, Alert):
         return AlertLocator(germanium)
+
+    if isinstance(selector, Window):
+        return WindowLocator(germanium, selector)
 
     if hasattr(selector, '__call__'):
         return create_locator(germanium, selector())

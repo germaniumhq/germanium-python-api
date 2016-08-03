@@ -10,3 +10,4 @@ from .PositionalFilterLocator import PositionalFilterLocator
 from .InsideFilterLocator import InsideFilterLocator
 
 from .AlertLocator import AlertLocator
+from .WindowLocator import WindowLocator

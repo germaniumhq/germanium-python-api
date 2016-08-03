@@ -17,8 +17,8 @@ class Button(AbstractSelector):
 
     def get_selectors(self):
         """ Return the CSS selector to find the button. """
-        button_selector = "//button"
-        input_selector = "//input[@type='button']"
+        button_selector = "xpath:.//button"
+        input_selector = "xpath:.//input[@type='button']"
 
         if self._name:
             button_selector += "[@name='%s']" % self._name
@@ -33,4 +33,3 @@ class Button(AbstractSelector):
             input_selector += "[contains(@value, \"%s\")]" % self._search_text
 
         return [input_selector, button_selector]
-

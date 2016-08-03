@@ -12,7 +12,7 @@ class CheckBox(AbstractSelector):
 
     def get_selectors(self):
         # CSS selector.
-        xpath_selector = "//input[@type='checkbox']"
+        xpath_selector = "xpath:.//input[@type='checkbox']"
 
         if self._input_name:
             xpath_selector += "[@name='%s']" % self._input_name

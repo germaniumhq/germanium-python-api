@@ -13,7 +13,5 @@ from .InputText import InputText
 from .InputFile import InputFile
 from .Link import Link
 from .Text import Text
-from .TableCell import TableCell
-from .TableRow import TableRow
 
 from .Alert import Alert

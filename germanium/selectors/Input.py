@@ -12,9 +12,9 @@ class Input(AbstractSelector):
 
     def get_selectors(self):
         # CSS selector.
-        css_selector = "//input"
+        xpath_selector = "xpath:.//input"
 
         if self._input_name:
-            css_selector += "[@name='%s']" % self._input_name
+            xpath_selector += "[@name='%s']" % self._input_name
 
-        return [css_selector]
+        return [xpath_selector]

@@ -22,10 +22,3 @@ Scenario: I can find table rows with xpath selectors that have xpath:// in the p
   And I go to 'http://localhost:8000/features/test-site/selectors/tablerow.html'
   When I search for a TableRow with a custom XPath that is //input[@id='nameInput']
   Then I find the element with id: 'row1'
-
-@4
-Scenario: Using a positional locator should raise an error in table rows.
-  Given I open the browser
-  And I go to 'http://localhost:8000/features/test-site/selectors/tablerow.html'
-  When I search for a TableRow with positional locator CheckBox left of "Surname"
-  Then it throws an exception

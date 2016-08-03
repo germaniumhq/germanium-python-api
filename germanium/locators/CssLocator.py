@@ -32,8 +32,9 @@ class CssLocator(DeferredLocator):
         """
         try:
             if self._root_element:
-                return self._root_element.find_elements_by_css_selector(self._selector)
-            result = self._germanium.find_elements_by_css_selector(self._selector)
+                result = self._root_element.find_elements_by_css_selector(self._selector)
+            else:
+                result = self._germanium.find_elements_by_css_selector(self._selector)
 
             if isinstance(result, collections.Iterable):
                 return result

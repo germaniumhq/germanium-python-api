@@ -1,6 +1,13 @@
 ChangeLog
 ---------
 
+* 2016-08-03  1.9.2
+    _Bugfixes_
+    - All the default selectors are returning relative XPaths.
+    - Cleaned up legacy code.
+    - Deal with `None` returned sometimes by Selenium in relative CSS searches.
+    - InsideFilterLocator can accept now locators that return `None` instead of empty list.
+
 * 2016-08-01  1.9.1
     - Added `use_window` to permit selecting the active window that we're working with.
 

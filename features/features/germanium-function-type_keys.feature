@@ -12,7 +12,7 @@ Feature: Germanium enabled typing of the keys.
     Scenario: A simple typing test.
       Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/inputs.html'
-      And I click on input#textInput
+      And I click on 'input#textInput'
       When I type_keys 'input test<tab>'
       Then the value for the input#textInput is 'input test'
       And I type_keys 'another input teST<bs><bs>st'
@@ -28,7 +28,7 @@ Feature: Germanium enabled typing of the keys.
     Scenario: Ensure all the keycodes are passed correctly
       Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/key_type-support.html'
-      And I click on body
+      And I click on 'body'
       Then I type_keys '<ctrl-a><del>'
       And I type_keys 'qw<CR>as<CR>'
       And I type_keys '<up><home><right><!shift><right><right><^shift>'

@@ -21,12 +21,14 @@ setup(
     packages=['germanium',
               'germanium.impl',
               'germanium.locators',
+              'germanium.points',
               'germanium.selectors',
               'germanium.static',
               'germanium.util',
               'germanium.wa'],
     package_data={
         'germanium': ['*.js'],
-        'germanium.locators': ['*.js']
+        'germanium.locators': ['*.js'],
+        'germanium.points': ['*.js']
     }
 )

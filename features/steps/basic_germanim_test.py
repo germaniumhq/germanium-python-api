@@ -89,7 +89,7 @@ def type_keys_impl(context, selector, keys):
     type_keys(keys, S(selector))
 
 
-@step(u'I click on (?P<selector>.*)')
+@step(u"I click on '(.*)'")
 def step_impl(context, selector):
     click(selector)
 

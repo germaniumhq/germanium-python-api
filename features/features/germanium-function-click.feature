@@ -10,7 +10,7 @@ Feature: Using germanium should be easy to right click, click or double click.
 Scenario: Basic click
       Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/mouse.html'
-      When I click on .eventTargetDiv
+      When I click on '.eventTargetDiv'
       Then the value for the input#textInput is 'click'
 
 @2
@@ -40,7 +40,7 @@ Scenario: Hover with scrolling and clicks should work.
   And I go to 'http://localhost:8000/features/test-site/mouse.html'
   When I mouse over on .bottomDiv
   And I mouse over on .farDownElementInThePage
-  And I click on .buttonAboveFarDownElementInThePage
+  And I click on '.buttonAboveFarDownElementInThePage'
   Then the value for the input#textInput is 'click:buttonAboveFarDownElementInThePage'
 
 @6
@@ -48,7 +48,7 @@ Scenario: Using another mouse action (click) should send a mouse out for hovered
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/mouse.html'
   When I mouse over on .buttonAboveFarDownElementInThePage
-  And I click on .bottomDiv
+  And I click on '.bottomDiv'
   Then the value for the input#textInput is 'mouseout:buttonAboveFarDownElementInThePage'
 
 @7

@@ -49,6 +49,11 @@ def step_impl(context, text):
     context.found_elements = InputText().above(Text(text)).element_list()
 
 
+@step(u'I search for all the elements left of all the elements')
+def search_all_div_elements_under_table(context):
+    context.found_elements = Element("*").left_of(Element("*")).element_list()
+
+
 @step(u'I search for all the input texts right of the text "(.*?)"')
 def step_impl(context, text):
     context.found_elements = InputText().right_of(Text(text)).element_list()

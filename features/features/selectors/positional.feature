@@ -62,3 +62,11 @@ Scenario: I can find elements above an element, but also with indexes.
   When I search for the fourth input text above the text "E-Mail"
   Then I find the element with id: 'nameInput2'
 
+@7
+Scenario: Filtering elements works even if hidden elements are also matched.
+  This is a regression test for offsetParent that can be null in certain scenarios.
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
+  When I search for all the elements left of all the elements
+  Then there are no elements found
+

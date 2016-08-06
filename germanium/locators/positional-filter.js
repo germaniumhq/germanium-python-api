@@ -43,6 +43,10 @@ return (function() {
     }
 
     function right(element) {
+        if (!element || typeof element.offsetWidth == "undefined") {
+            return -1;
+        }
+
         var result = element.offsetWidth;
         while (element && element != document.body) {
             result += element.offsetLeft;
@@ -53,6 +57,10 @@ return (function() {
     }
 
     function bottom(element) {
+        if (!element || typeof element.offsetHeight == "undefined") {
+            return -1;
+        }
+
         var result = element.offsetHeight;
         while (element && element != document.body) {
             result += element.offsetTop;

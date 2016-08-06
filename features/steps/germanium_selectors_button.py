@@ -55,6 +55,11 @@ def step_impl(context):
     assert not context.found_element
 
 
+@step(u'there are no elements found')
+def step_impl(context):
+    assert not context.found_elements
+
+
 @step(u'I find (\d+) elements that match')
 @step(u'I find (\d+) text elements that match')
 def step_impl(context, count):

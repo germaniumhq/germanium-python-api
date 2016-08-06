@@ -14,11 +14,20 @@ class Box(object):
         return Point(self._box['left'],
                      self._box['top'])
 
+    def top_right(self):
+        if not self._box:
+            self.get_element_box()
+
+        return Point(self._box['right'],
+                     self._box['top'])
+
     def get_element_box(self):
         from germanium.static import S, js
         code = load_script(__name__, 'box.min.js')
 
         top, right, bottom, left = js(code, S(self._selector).element())
+
+        right -= 1
 
         self._box = {
             "top": top,

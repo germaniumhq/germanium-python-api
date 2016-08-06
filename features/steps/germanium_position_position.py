@@ -1,7 +1,7 @@
 from behave import *
-from germanium.static import *
 
 from features.steps.asserts import *
+from germanium.static import *
 
 use_step_matcher("re")
 
@@ -11,6 +11,11 @@ def i_click_on_top_left_corner(context, selector):
     click(Box(selector).top_left())
 
 
+@step("I click on the top right corner of '(.*?)'")
+def i_click_on_top_left_corner(context, selector):
+    click(Box(selector).top_right())
+
+
 @step("the text of the '(.*?)' is '(.*?)'")
 def verify_text(context, selector, expected_text):
-    assert get_text(selector) == expected_text
+    assert_equals(expected_text, get_text(selector))

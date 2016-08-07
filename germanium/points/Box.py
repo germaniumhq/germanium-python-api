@@ -14,6 +14,13 @@ class Box(object):
         return Point(self._box['left'],
                      self._box['top'])
 
+    def top_center(self):
+        if not self._box:
+            self.get_element_box()
+
+        return Point(self._box['center'],
+                     self._box['top'])
+
     def top_right(self):
         if not self._box:
             self.get_element_box()
@@ -21,11 +28,32 @@ class Box(object):
         return Point(self._box['right'],
                      self._box['top'])
 
+    def middle_left(self):
+        if not self._box:
+            self.get_element_box()
+
+        return Point(self._box['left'],
+                     self._box['middle'])
+
+    def middle_right(self):
+        if not self._box:
+            self.get_element_box()
+
+        return Point(self._box['right'],
+                     self._box['middle'])
+
     def bottom_left(self):
         if not self._box:
             self.get_element_box()
 
         return Point(self._box['left'],
+                     self._box['bottom'])
+
+    def bottom_center(self):
+        if not self._box:
+            self.get_element_box()
+
+        return Point(self._box['center'],
                      self._box['bottom'])
 
     def bottom_right(self):

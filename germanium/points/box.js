@@ -48,5 +48,18 @@ return (function() {
 
     var element = arguments[0];
 
-    return [top(element), right(element), bottom(element), left(element)];
+    var _top = top(element),
+        _right = right(element),
+        _bottom = bottom(element),
+        _left = left(element),
+        _width = _right - _left,
+        _height = _bottom - _top;
+
+    // the right and the bottom values need to be adjusted to be inside
+    // the box.
+    
+    _right -= 1;
+    _bottom -= 1;
+
+    return [_top, _right, _bottom, _left, _width, _height];
 }.apply(this, arguments));

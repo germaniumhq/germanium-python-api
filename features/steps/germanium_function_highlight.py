@@ -40,7 +40,7 @@ def step_impl(context, selector):
     element = S(selector).element()
 
     def check_element():
-        background_color = get_style(element, 'backgroundColor')
+        background_color = get_style(element, 'outlineColor')
         return Color("#00ff00") == Color(background_color)
 
     wait(check_element)
@@ -48,8 +48,8 @@ def step_impl(context, selector):
 
 @step("the element highlight for the '(.*?)' is cleared correctly")
 def step_impl(context, selector):
-    background_color = get_style(selector, "backgroundColor")
-    assert_equals(Color('rgba(0,0,0,0)'), Color(background_color))
+    outline_style = get_style(selector, "outlineStyle")
+    assert_equals("none", outline_style)
 
 
 @step("in the log the highlighted element was notified as found")

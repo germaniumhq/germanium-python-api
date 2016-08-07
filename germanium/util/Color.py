@@ -9,7 +9,7 @@ class Color(object):
     A class that supports parsing of colors, that are most likely
     returned by a get_style() call.
     """
-    def __init__(self, definition):
+    def __init__(self, definition, opacity=None):
         if not isinstance(definition, str):
             raise Exception("Unable to parse color %s" % definition)
 
@@ -32,6 +32,9 @@ class Color(object):
             self.value = webcolors.normalize_hex(color_definition)
         else:
             self.value = webcolors.rgb_to_hex(webcolors.html5_parse_legacy_color(color_definition))
+
+        if opacity is not None:
+            self.opacity = opacity
 
     def __eq__(self, other):
         """

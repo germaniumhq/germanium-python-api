@@ -1,7 +1,7 @@
 from selenium.webdriver.remote.webelement import WebElement
 
-from .find_germanium_object import find_germanium_object
 from germanium.impl import _filter_not_displayed, _is_displayed_filter
+from .find_germanium_object import find_germanium_object
 
 
 def highlight_g(context,
@@ -87,17 +87,17 @@ def highlight_g(context,
 
         var element = arguments[0];
         var index = %d;
-        var originalBackground = element.style.background;
+        var originalOutline = element.style.outline;
 
-        element.style.background = '#00ff00';
+        element.style.outline = '#00ff00 2px solid';
 
         var interval = setInterval(function() {
             index--;
 
             if (index %% 2 == 1) {
-                element.style.background = '#00ff00';
+                element.style.outline = '#00ff00 2px solid';
             } else {
-                element.style.background = originalBackground;
+                element.style.outline = originalOutline;
             }
 
             if (index == 0) {

@@ -102,6 +102,11 @@ RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sou
     apt-get install -y google-chrome-stable
 
 #
+# install parcellite to get the clipboard manager
+#
+RUN apt-get install -y parcellite
+
+#
 # Behave run script
 #
 COPY bin/docker/run-behave.sh /home/germanium/bin/run-behave.sh

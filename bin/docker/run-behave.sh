@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+echo '                                          _'
+echo '   ____ ____  _________ ___  ____ _____  (_)_  ______ ___'
+echo '  / __ `/ _ \/ ___/ __ `__ \/ __ `/ __ \/ / / / / __ `__ \'
+echo ' / /_/ /  __/ /  / / / / / / /_/ / / / / / /_/ / / / / / /'
+echo ' \__, /\___/_/  /_/ /_/ /_/\__,_/_/ /_/_/\__,_/_/ /_/ /_/'
+echo '/____/ 1.9.3'
+
 set -e
 
 # First things first, use the python virtual env
@@ -11,6 +18,7 @@ cd /python/bin
 if [[ $RUN_VNC_SERVER -eq 1 ]]; then
     echo -e "$VNC_PASSWORD\n$VNC_PASSWORD\n" | vnc4server -geometry ${VNC_SERVER_WIDTH}x${VNC_SERVER_HEIGHT} -depth ${VNC_SERVER_BPP}
     export DISPLAY=:1
+    parcellite 1>/dev/null 2>&1 &
 
     #
     # WebSockify proxying of the port.

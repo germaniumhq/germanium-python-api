@@ -35,17 +35,27 @@ class Box(object):
         return Point(self._box['right'],
                      self._box['bottom'])
 
+    def center(self):
+        if not self._box:
+            self.get_element_box()
+
+        return Point(self._box['center'],
+                     self._box['middle'])
+
     def get_element_box(self):
         from germanium.static import S, js
         code = load_script(__name__, 'box.min.js')
 
-        top, right, bottom, left, width, height = js(code, S(self._selector).element())
+        top, right, bottom, left, \
+        center, middle, width, height = js(code, S(self._selector).element())
 
         self._box = {
             "top": top,
             "right": right,
             "bottom": bottom,
             "left": left,
+            "center": center,
+            "middle": middle,
             "width": width,
             "height": height
         }

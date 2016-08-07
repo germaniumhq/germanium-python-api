@@ -6,22 +6,32 @@ from germanium.static import *
 use_step_matcher("re")
 
 
-@step("I click on the top left corner of '(.*?)'")
+@step("I click on the exact element of '(.*?)'")
+def i_click_on_top_left_corner(context, selector):
+    click(selector)
+
+
+@step("I click on the center of '(.*?)'")
+def i_click_on_top_left_corner(context, selector):
+    click(Box(selector).center())
+
+
+@step("I click on the top left of '(.*?)'")
 def i_click_on_top_left_corner(context, selector):
     click(Box(selector).top_left())
 
 
-@step("I click on the top right corner of '(.*?)'")
+@step("I click on the top right of '(.*?)'")
 def i_click_on_top_left_corner(context, selector):
     click(Box(selector).top_right())
 
 
-@step("I click on the bottom left corner of '(.*?)'")
+@step("I click on the bottom left of '(.*?)'")
 def i_click_on_top_left_corner(context, selector):
     click(Box(selector).bottom_left())
 
 
-@step("I click on the bottom right corner of '(.*?)'")
+@step("I click on the bottom right of '(.*?)'")
 def i_click_on_top_left_corner(context, selector):
     click(Box(selector).bottom_right())
 

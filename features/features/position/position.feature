@@ -1,10 +1,24 @@
 Feature: Positional access to elements.
 
+  @0
+  Scenario Outline: clicking on the <Point Location> works as expected (<Div Id>, <Point Location>)
+    Given I open the browser
+    And I go to 'http://localhost:8000/features/test-site/position/position.html'
+    When I click on the <Point Location> of '<Div Id>'
+    Then the text of the '#messagesDiv' is '<Expected Message>'
+    Examples:
+      | Div Id       | Point Location | Expected Message       |
+      | #inlineDiv   | exact element  | inline x: 149 y: 100   |
+      | #absoluteDiv | exact element  | absolute x: 150 y: 100 |
+      | #inlineDiv   | center         | inline x: 150 y: 100   |
+      | #absoluteDiv | center         | absolute x: 150 y: 100 |
+
+
   @1
   Scenario Outline: clicking on the top left of an item works as expected (<Div Id>, <Point Location>)
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'
-    When I click on the <Point Location> corner of '<Div Id>'
+    When I click on the <Point Location> of '<Div Id>'
     Then the text of the '#messagesDiv' is '<Expected Message>'
     Examples:
       | Div Id       | Point Location | Expected Message   |
@@ -15,7 +29,7 @@ Feature: Positional access to elements.
   Scenario Outline: clicking on the top right of an item works as expected (<Div Id>, <Point Location>)
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'
-    When I click on the <Point Location> corner of '<Div Id>'
+    When I click on the <Point Location> of '<Div Id>'
     Then the text of the '#messagesDiv' is '<Expected Message>'
     Examples:
       | Div Id       | Point Location | Expected Message     |
@@ -27,7 +41,7 @@ Feature: Positional access to elements.
   Scenario Outline: clicking on the bottom left of an item works as expected (<Div Id>, <Point Location>)
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'
-    When I click on the <Point Location> corner of '<Div Id>'
+    When I click on the <Point Location> of '<Div Id>'
     Then the text of the '#messagesDiv' is '<Expected Message>'
     Examples:
       | Div Id       | Point Location | Expected Message     |
@@ -38,7 +52,7 @@ Feature: Positional access to elements.
   Scenario Outline: clicking on the bottom right of an item works as expected (<Div Id>, <Point Location>)
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'
-    When I click on the <Point Location> corner of '<Div Id>'
+    When I click on the <Point Location> of '<Div Id>'
     Then the text of the '#messagesDiv' is '<Expected Message>'
     Examples:
       | Div Id       | Point Location | Expected Message       |

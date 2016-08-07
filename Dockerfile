@@ -62,6 +62,7 @@ RUN $PYTHON_BINARY -m ensurepip && \
 # Install remoting apps
 #
 RUN apt-get install -y vnc4server \
+    parcellite \
     novnc \
     websockify \
     psmisc \
@@ -81,13 +82,13 @@ COPY bin/docker/xstartup /home/germanium/.vnc/xstartup
 #
 # BROWSERS SECTION
 #
-ENV BROWSERS_REFRESHED_AT="2016.07.28-23:55:25"
+ENV BROWSERS_REFRESHED_AT="2016.08.08-00:11:03"
 
 #
 # Install firefox, and its webdriver
 #
 RUN cd /opt && \
-    wget 'https://download.mozilla.org/?product=firefox-47.0.1-SSL&os=linux64&lang=en-US' -O firefox.tar.bz2 && \
+    wget 'https://download.mozilla.org/?product=firefox-48.0-SSL&os=linux64&lang=en-US' -O firefox.tar.bz2 && \
     tar -jxvf firefox.tar.bz2 && \
     rm /opt/firefox.tar.bz2
 
@@ -100,11 +101,6 @@ RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sou
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     apt-get update -y && \
     apt-get install -y google-chrome-stable
-
-#
-# install parcellite to get the clipboard manager
-#
-RUN apt-get install -y parcellite
 
 #
 # Behave run script

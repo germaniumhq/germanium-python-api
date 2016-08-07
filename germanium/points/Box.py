@@ -7,70 +7,70 @@ class Box(object):
         self._selector = selector
         self._box = None
 
-    def top_left(self):
+    def top_left(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['left'],
-                     self._box['top'])
+        return Point(self._box['left'] + adjust_x,
+                     self._box['top'] + adjust_y)
 
-    def top_center(self):
+    def top_center(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['center'],
-                     self._box['top'])
+        return Point(self._box['center'] + adjust_x,
+                     self._box['top'] + adjust_y)
 
-    def top_right(self):
+    def top_right(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['right'],
-                     self._box['top'])
+        return Point(self._box['right'] + adjust_x,
+                     self._box['top'] + adjust_y)
 
-    def middle_left(self):
+    def middle_left(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['left'],
-                     self._box['middle'])
+        return Point(self._box['left'] + adjust_x,
+                     self._box['middle'] + adjust_y)
 
-    def middle_right(self):
+    def middle_right(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['right'],
-                     self._box['middle'])
+        return Point(self._box['right'] + adjust_x,
+                     self._box['middle'] + adjust_y)
 
-    def bottom_left(self):
+    def bottom_left(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['left'],
-                     self._box['bottom'])
+        return Point(self._box['left'] + adjust_x,
+                     self._box['bottom'] + adjust_y)
 
-    def bottom_center(self):
+    def bottom_center(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['center'],
-                     self._box['bottom'])
+        return Point(self._box['center'] + adjust_x,
+                     self._box['bottom'] + adjust_y)
 
-    def bottom_right(self):
+    def bottom_right(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['right'],
-                     self._box['bottom'])
+        return Point(self._box['right'] + adjust_x,
+                     self._box['bottom'] + adjust_y)
 
-    def center(self):
+    def center(self, adjust_x=0, adjust_y=0):
         if not self._box:
-            self.get_element_box()
+            self.get_box()
 
-        return Point(self._box['center'],
-                     self._box['middle'])
+        return Point(self._box['center'] + adjust_x,
+                     self._box['middle'] + adjust_y)
 
-    def get_element_box(self):
+    def get_box(self):
         from germanium.static import S, js
         code = load_script(__name__, 'box.min.js')
 
@@ -88,6 +88,4 @@ class Box(object):
             "height": height
         }
 
-        print("found box %s " % self._box)
-
-        return self._box
+        return self

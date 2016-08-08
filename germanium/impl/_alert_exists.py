@@ -32,7 +32,8 @@ def allow_alert(germanium):
             except UnexpectedAlertPresentException:
                 pass
             except WebDriverException as e:
-                if 'unexpected alert open' not in e.msg:
+                if 'unexpected alert open' not in e.msg\
+                        and 'COM method IWebBrowser2::Navigate2()' not in e.msg:
                     raise e
                 print("An unexpected alert exception was caught by Germanium "
                       "while loading the page: %s" % e)

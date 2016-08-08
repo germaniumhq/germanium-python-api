@@ -9,7 +9,7 @@ Feature: Positional access to elements.
     Examples:
       | Div Id       | Point Location | Expected Message       |
       | #inlineDiv   | exact element  | inline x: 149 y: 100   |
-      | #absoluteDiv | exact element  | absolute x: 150 y: 100 |
+      | #absoluteDiv | exact element  | absolute x: 149 y: 100 |
       | #inlineDiv   | center         | inline x: 150 y: 100   |
       | #absoluteDiv | center         | absolute x: 150 y: 100 |
 

@@ -70,6 +70,18 @@ class Box(object):
         return Point(self._box['center'] + adjust_x,
                      self._box['middle'] + adjust_y)
 
+    def width(self):
+        if not self._box:
+            self.get_box()
+
+        return self._box['width']
+
+    def height(self):
+        if not self._box:
+            self.get_box()
+
+        return self._box['height']
+
     def get_box(self):
         from germanium.static import S, js
         code = load_script(__name__, 'box.min.js')

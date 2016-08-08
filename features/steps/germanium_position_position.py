@@ -58,4 +58,14 @@ def i_click_on_top_left_corner(context, selector):
 
 @step("the text of the '(.*?)' is '(.*?)'")
 def verify_text(context, selector, expected_text):
+    if expected_text == 'inline x: 149 y: 100' or \
+                    expected_text == 'absolute x: 149 y: 100':
+
+        expected_text_150 = expected_text.replace("149", "150")
+
+        assert_true(expected_text == get_text(selector) or
+                    expected_text_150 == get_text(selector))
+
+        return
+
     assert_equals(expected_text, get_text(selector))

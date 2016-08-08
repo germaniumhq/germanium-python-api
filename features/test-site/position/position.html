@@ -19,12 +19,10 @@
             var messageDiv = $('#messagesDiv');
 
             $('#inlineDiv').click(function(ev) {
-                console.log("inline", ev);
                 messageDiv.text("inline x: " + ev.offsetX + " y: " + ev.offsetY);
             });
 
             $('#absoluteDiv').click(function(ev) {
-                console.log("absolute", ev);
                 messageDiv.text("absolute x: " + ev.offsetX + " y: " + ev.offsetY);
             });
         })(jQuery);

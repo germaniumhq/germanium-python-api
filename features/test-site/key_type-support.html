@@ -20,8 +20,6 @@
 
         var keyIndex = 0;
 
-        console.log("Expected event count: " + expectedEvents.length);
-
         document.body.addEventListener("keydown", function(ev) {
             recordedEvents.push({
                 eventType: "keydown",

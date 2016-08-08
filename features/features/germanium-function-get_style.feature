@@ -25,4 +25,4 @@ Scenario: Check reading CSS values from an element where the style is set via hi
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/style.html'
   When I highlight the element '.default-div'
-  Then the 'backgroundColor' style color from element '.default-div' is '#00ff00'
+  Then the 'outlineColor' style color from element '.default-div' is '#00ff00'

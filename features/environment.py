@@ -32,7 +32,8 @@ def after_all(context):
 
     if reuse_browser:
         print("Closing the browser, since all is done, and TEST_REUSE_BROWSER is set.")
-        close_browser()
+        if get_germanium():
+            close_browser()
 
 
 def after_scenario(context, scenario):

@@ -3,8 +3,26 @@ import time
 from germanium.impl import _ensure_list
 
 
+MAX_CLOSURE_RESOLVES=5
+
+
 def _current_time_in_millis():
     return int(round(time.time() * 1000))
+
+
+def _resolve_closure(closure):
+    original_closure = closure
+
+    for i in range(MAX_CLOSURE_RESOLVES):
+        result = closure()
+
+        if not hasattr(result, '__call__'):
+            return result
+
+        closure = result
+
+    raise Exception("Unable to resolve function: %s in %s tries. Too much recursion." %
+                    (original_closure, MAX_CLOSURE_RESOLVES))
 
 
 def wait(closures, *extra_closures, while_not=None, timeout=10):
@@ -29,7 +47,7 @@ def wait(closures, *extra_closures, while_not=None, timeout=10):
     def closure_try_catch():
         for closure in closures:
             try:
-                result = closure()
+                result = _resolve_closure(closure)
                 if result:
                     return result
             except Exception as e:

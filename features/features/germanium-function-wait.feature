@@ -31,3 +31,8 @@ Scenario: Test multiple wait callback as vararg
   Given I open the browser
   When I go to 'http://localhost:8000/features/test-site/wait-error.html'
   Then waiting for error or success to happen should pass with multiarg callbacks
+
+@5
+Scenario: Test having wait on a closure that returns a closure does the resolving correctly
+  When I wait on a closure that returns a closure that returns False
+  Then the wait function call failed

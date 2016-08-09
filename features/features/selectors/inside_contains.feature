@@ -83,3 +83,10 @@ Scenario: Finding elements that contain selectors that do return, will return co
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div that contains a span, that contains a text 'text inside divs and spans'
   Then I find the element with id: 'divContainingASpanAndAnotherSpan'
+
+@13
+Scenario: Finding elements that contain invisible elements, will return correctly.
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for a div that contains a br
+  Then I find the element with id: 'divWithABr'

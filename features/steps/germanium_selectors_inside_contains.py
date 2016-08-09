@@ -101,6 +101,12 @@ def search_for_a_text_deep_inside_a_div_and_span(context, text):
     context.found_element_list = selector.element_list()
 
 
+@step(u'I search for a div that contains a br')
+def search_for_a_div_that_contains_a_br(context):
+    selector = Element("div").containing("br")
+    context.found_element = selector.element()
+
+
 @step(u'I only get the div with id #decoyDiv')
 def step_impl(context):
     assert_equals(1, len(context.found_element_list))

@@ -77,7 +77,7 @@ class InsideFilterLocator(FilterLocator):
 
         containing_elements = OrderedDict()
         for selector in self.containing_filters:
-            element_list = selector.element_list()
+            element_list = selector._find_element_list()
 
             # if we don't have any elements that we're supposed to
             # contain, it means the selector isn't matching, so don't
@@ -104,7 +104,7 @@ class InsideFilterLocator(FilterLocator):
         containing_all_elements = OrderedDict()
         for selector in self.containing_all_filters:
             group_index += 1
-            element_list = selector.element_list()
+            element_list = selector._find_element_list()
 
             # if we have things we need to contain, but the selectors
             # don't return the elements, we don't bother so we don't

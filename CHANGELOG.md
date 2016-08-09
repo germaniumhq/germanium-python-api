@@ -15,6 +15,7 @@ click(Box(Css('div.title')).bottom_right(2, 10))
     - Recursively resolve callables inside `wait()` calls.
     - inside/contains filters can now filter against invisible elements as well. `assert Css("p").containing("br").exists()`.
     - show the current version in the docker log.
+    - Alert handling fixes.
 
 * 2016-08-04  1.9.2
     - Added `Window` selector, and `WindowLocator`, to easily find windows.

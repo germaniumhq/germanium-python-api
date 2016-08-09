@@ -107,7 +107,7 @@ class AbstractSelector(object):
         from germanium.static import S
         return S(self, germanium=germanium).not_exists(*argv, **kw)
 
-    def text(self, *argv, germanium=None, **kw):
+    def text(self, *argv, germanium=None, only_visible=True, **kw):
         """
         Returns the text of the `element()` returned by this selector.
         If the germanium is provided, the selector is evaluated using

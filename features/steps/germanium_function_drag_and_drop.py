@@ -12,4 +12,4 @@ def i_drag_and_drop_from_start_to_end(context):
 @step(u'the drag and drop events correspond')
 def check_drag_and_drop_events(context):
     assert_equals("startDiv mousedown\nendDiv mouseup",
-                  Css('#messages').text())
+                  Css('#messages').text(only_visible=False))

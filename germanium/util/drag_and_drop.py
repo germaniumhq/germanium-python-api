@@ -1,14 +1,15 @@
-from selenium.webdriver import ActionChains
-from ._element import _element
 from .find_germanium_object import find_germanium_object
 
+from .mouse_actions import _move_mouse
 
-def drag_and_drop_g(context, from_selector, to_selector):
+
+def drag_and_drop_g(context, from_selector, to_selector, from_point=None, to_point=None):
     germanium = find_germanium_object(context)
-    from_element = _element(germanium, from_selector)
-    to_element = _element(germanium, to_selector)
 
-    action = ActionChains(germanium.web_driver)
+    action = _move_mouse(germanium, from_selector, from_point, move_mouse_over=True) \
+                .click_and_hold()
 
-    action.drag_and_drop(from_element, to_element)\
-          .perform()
+    _move_mouse(germanium, to_selector, to_point, move_mouse_over=True, action=action)\
+        .release()
+
+    action.perform()

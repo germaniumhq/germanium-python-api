@@ -24,10 +24,13 @@ def use_window_g(context,
         found_titles = []
 
         for window_handle in germanium.web_driver.window_handles:
-            germanium.switch_to.window(window_handle)
-            page_title = germanium.title
-            if page_title == title:
-                return
+            try:
+                germanium.switch_to.window(window_handle)
+                page_title = germanium.title
+                if page_title == title:
+                    return
+            except Exception as e:
+                page_title = "?unable-to-read-title: %s?" % e
 
             found_titles.append(page_title)
 

@@ -86,10 +86,12 @@ class Alert(object):
         :param kw:
         :return:
         """
-        from germanium.static import S
+        from germanium.static import S, get_germanium
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         alert.accept()
+        germanium = germanium if germanium else get_germanium()
+        germanium.select_iframe("default")
 
     def dismiss(self, *argv, germanium=None, **kw):
         """
@@ -101,10 +103,12 @@ class Alert(object):
         :param kw:
         :return:
         """
-        from germanium.static import S
+        from germanium.static import S, get_germanium
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         alert.dismiss()
+        germanium = germanium if germanium else get_germanium()
+        germanium.select_iframe("default")
 
     def send_keys(self, text, *argv, germanium=None, **kw):
         """
@@ -134,7 +138,9 @@ class Alert(object):
         :param kw:
         :return:
         """
-        from germanium.static import S
+        from germanium.static import S, get_germanium
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         alert.autenticate(username, password)
+        germanium = germanium if germanium else get_germanium()
+        germanium.select_iframe("default")

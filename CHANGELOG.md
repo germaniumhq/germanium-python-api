@@ -1,6 +1,21 @@
 ChangeLog
 ---------
 
+* 2016-08-09  1.9.3
+    - Added `Box`, and `Point` support, to able to easily click at custom point positions. E.g.
+```py
+click(Box(Css('div.title')).bottom_right(2, 10))
+```
+
+    _Bugfixes_
+    - Use `outline` instead of `background-color` to do highlights.
+    - Install parcellite on the docker instance, to have a clipboard across browser instances.
+    - Update the drivers for chrome, and firefox. On docker we still use Firefox 47.0.1, since 48.0 has yet again broken selenium support.
+    - Fixed the `get_text()` on IE9 returning sometimes a different `string` than the Chrome/FF conterpart.
+    - Recursively resolve callables inside `wait()` calls.
+    - inside/contains filters can now filter against invisible elements as well. `assert Css("p").containing("br").exists()`.
+    - show the current version in the docker log.
+
 * 2016-08-04  1.9.2
     - Added `Window` selector, and `WindowLocator`, to easily find windows.
 

@@ -14,7 +14,7 @@ setup(
     license='BSD',
 
     install_requires=[
-        'germaniumdrivers==1.9.3',
+        'germaniumdrivers==1.9.3.1',
         'selenium==2.53.6',
         'webcolors==1.5']
     ,

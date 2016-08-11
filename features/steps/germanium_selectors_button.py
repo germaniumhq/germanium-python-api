@@ -5,17 +5,20 @@ from features.steps.asserts import *
 
 use_step_matcher("re")
 
+
 @step(u'I look for a button with the text: \'(.*?)\'')
 def step_impl(context, expected_text):
     element = S(Button(expected_text)).element()
 
     context.found_element = element
 
+
 @step(u'I look for a button with the exact text: \'(.*?)\'')
 def step_impl(context, expected_text):
     element = S(Button(text=expected_text)).element()
 
     context.found_element = element
+
 
 @step(u'I look for a button with the name: \'(.*?)\'')
 def step_impl(context, expected_name):

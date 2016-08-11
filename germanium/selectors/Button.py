@@ -18,7 +18,7 @@ class Button(AbstractSelector):
     def get_selectors(self):
         """ Return the CSS selector to find the button. """
         button_selector = "xpath:.//button"
-        input_selector = "xpath:.//input[@type='button']"
+        input_selector = "xpath:.//input[@type='button' or @type='submit']"
 
         if self._name:
             button_selector += "[@name='%s']" % self._name

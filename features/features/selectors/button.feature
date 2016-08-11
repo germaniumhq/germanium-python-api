@@ -43,7 +43,14 @@ Scenario: Find a real button by name.
     Then I find the element with id: 'realButton'
 
 @7
-Scenario: Not finding elemenets should be ok.
+Scenario: Find a button that is actually a submit button
+    Given I open the browser
+    And I go to 'http://localhost:8000/features/test-site/selectors/button.html'
+    When I look for a button with the name: 'submitButton'
+    Then I find the element with id: 'submitButton'
+
+@8
+Scenario: Not finding elements should be ok.
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/selectors/button.html'
     When I look for a button with the text: 'not existing button'

@@ -18,7 +18,7 @@ def step_impl(context):
 
 @step(u'I search for a div containing an InputText')
 def step_impl(context):
-    selector = Element("div").containing(InputText(id="inputText"))
+    selector = Element("div").containing(InputText("inputTextPlaceholder"))
     element = S(selector).element()
 
     assert element

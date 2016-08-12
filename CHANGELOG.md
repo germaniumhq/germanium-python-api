@@ -3,6 +3,7 @@ ChangeLog
 
 * 2016-08-13  1.9.4
     - Added `left`, `right`, `top`, `bottom` functions to get the values.
+    - Added `germanium.version` package to get the version numbers.
 
     _Bugfixes_
     - Match also submit buttons on the `Button` selector: `input[type='submit']`

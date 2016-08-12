@@ -8,6 +8,7 @@ ChangeLog
     _Bugfixes_
     - Match also submit buttons on the `Button` selector: `input[type='submit']`
     - InputText searches for the placeholder if it's present.
+    - Fixed a timing issue in alert closing on IE, where alerts would still be reported as present by selenium, even after closing them.
 
 * 2016-08-09  1.9.3
     - Added `Box`, and `Point` support, to able to easily click at custom point positions. E.g.

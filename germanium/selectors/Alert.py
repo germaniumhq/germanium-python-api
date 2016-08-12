@@ -93,6 +93,7 @@ class Alert(object):
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         wait(lambda: alert.accept() or True, timeout=1)
+        wait(self.not_exists)
 
     def dismiss(self, *argv, germanium=None, **kw):
         """
@@ -108,6 +109,7 @@ class Alert(object):
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         wait(lambda: alert.dismiss() or True, timeout=1)
+        wait(self.not_exists)
 
     def send_keys(self, text, *argv, germanium=None, **kw):
         """
@@ -141,3 +143,4 @@ class Alert(object):
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         wait(lambda: alert.autenticate(username, password) or True, timeout=1)
+        wait(self.not_exists)

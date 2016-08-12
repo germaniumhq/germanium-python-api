@@ -80,10 +80,11 @@ class Alert(object):
         from germanium.static import S
         return S(self, germanium=germanium).text(*argv, **kw)
 
-    def accept(self, *argv, germanium=None, **kw):
+    def accept(self, wait_disappear=True, *argv, germanium=None, **kw):
         """
         Accepts the current alert from the germanium instance. If the germanium parameter
         is not set it will use instead the `germanium.static.get_germanium` instance.
+        :param wait_disappear: Wait for the alert to not exist anymore.
         :param argv:
         :param germanium:
         :param kw:
@@ -93,13 +94,16 @@ class Alert(object):
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         wait(lambda: alert.accept() or True, timeout=1)
-        wait(self.not_exists)
 
-    def dismiss(self, *argv, germanium=None, **kw):
+        if wait_disappear:
+            wait(self.not_exists)
+
+    def dismiss(self, wait_disappear=True, *argv, germanium=None, **kw):
         """
         Dismisses (i.e. cancels) the current alert from the germanium instance.
         If the germanium parameter is not set it will use instead the
         `germanium.static.get_germanium` instance.
+        :param wait_disappear: Wait for the alert to not exist anymore.
         :param argv:
         :param germanium:
         :param kw:
@@ -109,7 +113,9 @@ class Alert(object):
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         wait(lambda: alert.dismiss() or True, timeout=1)
-        wait(self.not_exists)
+
+        if wait_disappear:
+            wait(self.not_exists)
 
     def send_keys(self, text, *argv, germanium=None, **kw):
         """
@@ -127,11 +133,12 @@ class Alert(object):
 
         alert.send_keys(text)
 
-    def authenticate(self, username, password, *argv, germanium=None, **kw):
+    def authenticate(self, username, password, wait_disappear=True, *argv, germanium=None, **kw):
         """
         Fills in the username and password into the alert.
         If the germanium parameter is not set it will use instead the
         `germanium.static.get_germanium` instance.
+        :param wait_disappear: Wait for the alert to not exist anymore.
         :param password:
         :param username:
         :param argv:
@@ -143,4 +150,6 @@ class Alert(object):
         alert = S(self, germanium=germanium).element(*argv, **kw)
 
         wait(lambda: alert.autenticate(username, password) or True, timeout=1)
-        wait(self.not_exists)
+
+        if wait_disappear:
+            wait(self.not_exists)

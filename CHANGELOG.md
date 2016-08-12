@@ -1,6 +1,13 @@
 ChangeLog
 ---------
 
+* 2016-08-13  1.9.4
+    - Added `left`, `right`, `top`, `bottom` functions to get the values.
+
+    _Bugfixes_
+    - Match also submit buttons on the `Button` selector: `input[type='submit']`
+    - InputText searches for the placeholder if it's present.
+
 * 2016-08-09  1.9.3
     - Added `Box`, and `Point` support, to able to easily click at custom point positions. E.g.
 ```py

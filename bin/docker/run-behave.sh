@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
 
-echo '                                          _'
-echo '   ____ ____  _________ ___  ____ _____  (_)_  ______ ___'
-echo '  / __ `/ _ \/ ___/ __ `__ \/ __ `/ __ \/ / / / / __ `__ \'
-echo ' / /_/ /  __/ /  / / / / / / /_/ / / / / / /_/ / / / / / /'
-echo ' \__, /\___/_/  /_/ /_/ /_/\__,_/_/ /_/_/\__,_/_/ /_/ /_/'
-echo '/____/ 1.9.3'
-
 set -e
 
 # First things first, use the python virtual env
 cd /python/bin
 . activate
+
+python -m germanium.version
 
 # This will run the tests from the /tests folder.
 

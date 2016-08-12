@@ -82,6 +82,30 @@ class Box(object):
 
         return self._box['height']
 
+    def left(self):
+        if not self._box:
+            self.get_box()
+
+        return self._box['left']
+
+    def right(self):
+        if not self._box:
+            self.get_box()
+
+        return self._box['right']
+
+    def top(self):
+        if not self._box:
+            self.get_box()
+
+        return self._box['top']
+
+    def bottom(self):
+        if not self._box:
+            self.get_box()
+
+        return self._box['bottom']
+
     def get_box(self):
         from germanium.static import S, js
         code = load_script(__name__, 'box.min.js')

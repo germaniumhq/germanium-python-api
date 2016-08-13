@@ -122,21 +122,19 @@ type_keys("<tab*2><enter>") <2>
 <1> Type in the input with the `name` attribute equal to `email`.
 <2> Type in the currently active element in the current iframe.
 
-== click(selector)
+== click(selector_or_point)
 
 *Description*
 
-Click the element with the given selector.
+Click the element with the given selector, or at the specified point position.
 
 *Signature*
 
 [source,python]
 -----------------------------------------------------------------------------
-def click(selector) <1>
+def click(selector_or_point) <1>
 -----------------------------------------------------------------------------
-<1> _selector_ - What element to click. _See the
-        *Germanium Selectors*, to learn about how you can easily locate the
-        element you want your action to be triggered against._
+<1> _selector_or_point_ - What element to click. _See the *Germanium Selectors* and *Point Support*, to learn about how you can easily locate the element you want your action to be triggered against._
 
 *Sample*
 [source,python]
@@ -144,21 +142,19 @@ def click(selector) <1>
 click(Button('OK'))
 -----------------------------------------------------------------------------
 
-== hover(selector)
+== hover(selector_or_point)
 
 *Description*
 
-Hovers (sends a mouse over) the element with the given selector.
+Hovers (sends a mouse over) the element with the given selector, or at the specified point position.
 
 *Signature*
 
 [source,python]
 -----------------------------------------------------------------------------
-def hover(selector) <1>
+def hover(selector_or_point) <1>
 -----------------------------------------------------------------------------
-<1> _selector_ - What element to hover. _See the
-        *Germanium Selectors*, to learn about how you can easily locate the
-        element you want your action to be triggered against._
+<1> _selector_or_point_ - What element to hover. _See the *Germanium Selectors* and *Point Support*, to learn about how you can easily locate the element you want your action to be triggered against._
 
 *Sample*
 [source,python]
@@ -166,21 +162,19 @@ def hover(selector) <1>
 hover(Element('div', id='menu1'))
 -----------------------------------------------------------------------------
 
-== double_click(selector)
+== double_click(selector_or_point)
 
 *Description*
 
-Double clicks the element with the given selector.
+Double clicks the element with the given selector, or at the specified point position.
 
 *Signature*
 
 [source,python]
 -----------------------------------------------------------------------------
-def double_click(selector) <1>
+def double_click(selector_or_point) <1>
 -----------------------------------------------------------------------------
-<1> _selector_ - What element to double click. _See the
-        *Germanium Selectors*, to learn about how you can easily locate the
-        element you want your action to be triggered against._
+<1> _selector_or_point_ - What element to double click. _See the *Germanium Selectors* and *Point Support*, to learn about how you can easily locate the element you want your action to be triggered against._
 
 *Sample*
 [source,python]
@@ -188,21 +182,19 @@ def double_click(selector) <1>
 double_click(Element('div', css_classes='table-row'))
 -----------------------------------------------------------------------------
 
-== right_click(selector)
+== right_click(selector_or_point)
 
 *Description*
 
-Right clicks the element with the given selector.
+Right clicks the element with the given selector, or at the specified point position.
 
 *Signature*
 
 [source,python]
 -----------------------------------------------------------------------------
-def right_click(selector) <1>
+def right_click(selector_or_point) <1>
 -----------------------------------------------------------------------------
-<1> _selector_ - What element to right click. _See the
-        *Germanium Selectors*, to learn about how you can easily locate the
-        element you want your action to be triggered against._
+<1> _selector_or_point_ - What element to right click. _See the *Germanium Selectors* and *Point Support*, to learn about how you can easily locate the element you want your action to be triggered against._
 
 *Sample*
 [source,python]
@@ -210,26 +202,23 @@ def right_click(selector) <1>
 right_click(Element('div', css_classes='table-row'))
 -----------------------------------------------------------------------------
 
-== drag_and_drop(from_selector, to_selector)
+== drag_and_drop(from_selector_or_point, to_selector_or_point)
 
 *Description*
 
-Performs a drag and drop operation from the element matching the `from_selector`,
-to the element matching the `to_selector`.
+Performs a drag and drop operation from the element matching the `from_selector_or_point`, to the element matching the `to_selector_or_point`.
+
+Both `from_selector_or_point` and `to_selector_or_point` can as the name suggest be either selectors, or point locations, and are not required to have the same type. You can start a drag from a selector, to a point, or vice-versa.
 
 *Signature*
 
 [source,python]
 -----------------------------------------------------------------------------
-def drag_and_drop(from_selector, <1>
-                  to_selector) <2>
+def drag_and_drop(from_selector_or_point, <1>
+                  to_selector_or_point) <2>
 -----------------------------------------------------------------------------
-<1> _from_selector_ - What element to use for drag start. _See the
-        *Germanium Selectors*, to learn about how you can easily locate the
-        element you want your action to be triggered against._
-<2> _to_selector_ - What element to release the mouse over. _See the
-        *Germanium Selectors*, to learn about how you can easily locate the
-        element you want your action to be triggered against._
+<1> _from_selector_or_point_ - What element to use for drag start. _See the *Germanium Selectors* and *Point Support*, to learn about how you can easily locate the element you want your action to be triggered against._
+<2> _to_selector_or_point_ - What element to release the mouse over. _See the *Germanium Selectors* and *Point Support*, to learn about how you can easily locate the element you want your action to be triggered against._
 
 *Sample*
 

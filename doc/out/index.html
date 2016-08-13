@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v1.9.2</title>
+<title>Germanium v1.9.4</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,7 +420,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v1.9.2</h1>
+<h1>Germanium v1.9.4</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -441,11 +441,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_close_browser">close_browser()</a></li>
 <li><a href="#_go_to_url">go_to(url)</a></li>
 <li><a href="#_type_keys_keys_selector">type_keys(keys, selector)</a></li>
-<li><a href="#_click_selector">click(selector)</a></li>
-<li><a href="#_hover_selector">hover(selector)</a></li>
-<li><a href="#_double_click_selector">double_click(selector)</a></li>
-<li><a href="#_right_click_selector">right_click(selector)</a></li>
-<li><a href="#_drag_and_drop_from_selector_to_selector">drag_and_drop(from_selector, to_selector)</a></li>
+<li><a href="#_click_selector_or_point">click(selector_or_point)</a></li>
+<li><a href="#_hover_selector_or_point">hover(selector_or_point)</a></li>
+<li><a href="#_double_click_selector_or_point">double_click(selector_or_point)</a></li>
+<li><a href="#_right_click_selector_or_point">right_click(selector_or_point)</a></li>
+<li><a href="#_drag_and_drop_from_selector_or_point_to_selector_or_point">drag_and_drop(from_selector_or_point, to_selector_or_point)</a></li>
 <li><a href="#_select_selector_text_index_value">select(selector, text?, index?, value?)</a></li>
 <li><a href="#_deselect_selector_text_index_value">deselect(selector, text?, index?, value?)</a></li>
 <li><a href="#_select_file_selector_file_path_path_check_true">select_file(selector, file_path, path_check=True)</a></li>
@@ -510,6 +510,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_text_text">Text(text)</a></li>
 </ul>
 </li>
+<li><a href="#_point_support">Point Support</a>
+<ul class="sectlevel2">
+<li><a href="#_point_x_y">Point(x, y)</a></li>
+<li><a href="#_box_selector">Box(selector)</a></li>
+</ul>
+</li>
 <li><a href="#_germanium_keys_support">Germanium Keys Support</a>
 <ul class="sectlevel2">
 <li><a href="#_regular_typing">Regular Typing</a></li>
@@ -542,6 +548,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
+<p>You don&#8217;t need any binary drivers installed, or any other dependencies, since they are bundled (and tested) by Germanium itself.</p>
+</div>
+<div class="paragraph">
 <p>Writing a test then becomes as easy as:</p>
 </div>
 <div class="listingblock">
@@ -561,6 +570,22 @@ close_browser()</code></pre>
 <div class="paragraph">
 <p>Germanium supports Python 2.7, 3.4 and 3.5, and is already used in
 production tests.</p>
+</div>
+<div class="paragraph">
+<p>Browsers supported are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>IE 8+</p>
+</li>
+<li>
+<p>Chrome</p>
+</li>
+<li>
+<p>Firefox</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -792,27 +817,25 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 </div>
 <div class="sect2">
-<h3 id="_click_selector"><a class="anchor" href="#_click_selector"></a>click(selector)</h3>
+<h3 id="_click_selector_or_point"><a class="anchor" href="#_click_selector_or_point"></a>click(selector_or_point)</h3>
 <div class="paragraph">
 <p><strong>Description</strong></p>
 </div>
 <div class="paragraph">
-<p>Click the element with the given selector.</p>
+<p>Click the element with the given selector, or at the specified point position.</p>
 </div>
 <div class="paragraph">
 <p><strong>Signature</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">click</span>(selector) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <ol>
 <li>
-<p><em>selector</em> - What element to click. <em>See the
-<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
-element you want your action to be triggered against.</em></p>
+<p><em>selector_or_point</em> - What element to click. <em>See the <strong>Germanium Selectors</strong> and <strong>Point Support</strong>, to learn about how you can easily locate the element you want your action to be triggered against.</em></p>
 </li>
 </ol>
 </div>
@@ -826,27 +849,25 @@ element you want your action to be triggered against.</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_hover_selector"><a class="anchor" href="#_hover_selector"></a>hover(selector)</h3>
+<h3 id="_hover_selector_or_point"><a class="anchor" href="#_hover_selector_or_point"></a>hover(selector_or_point)</h3>
 <div class="paragraph">
 <p><strong>Description</strong></p>
 </div>
 <div class="paragraph">
-<p>Hovers (sends a mouse over) the element with the given selector.</p>
+<p>Hovers (sends a mouse over) the element with the given selector, or at the specified point position.</p>
 </div>
 <div class="paragraph">
 <p><strong>Signature</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">hover</span>(selector) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">hover</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <ol>
 <li>
-<p><em>selector</em> - What element to hover. <em>See the
-<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
-element you want your action to be triggered against.</em></p>
+<p><em>selector_or_point</em> - What element to hover. <em>See the <strong>Germanium Selectors</strong> and <strong>Point Support</strong>, to learn about how you can easily locate the element you want your action to be triggered against.</em></p>
 </li>
 </ol>
 </div>
@@ -860,27 +881,25 @@ element you want your action to be triggered against.</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_double_click_selector"><a class="anchor" href="#_double_click_selector"></a>double_click(selector)</h3>
+<h3 id="_double_click_selector_or_point"><a class="anchor" href="#_double_click_selector_or_point"></a>double_click(selector_or_point)</h3>
 <div class="paragraph">
 <p><strong>Description</strong></p>
 </div>
 <div class="paragraph">
-<p>Double clicks the element with the given selector.</p>
+<p>Double clicks the element with the given selector, or at the specified point position.</p>
 </div>
 <div class="paragraph">
 <p><strong>Signature</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">double_click</span>(selector) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">double_click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <ol>
 <li>
-<p><em>selector</em> - What element to double click. <em>See the
-<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
-element you want your action to be triggered against.</em></p>
+<p><em>selector_or_point</em> - What element to double click. <em>See the <strong>Germanium Selectors</strong> and <strong>Point Support</strong>, to learn about how you can easily locate the element you want your action to be triggered against.</em></p>
 </li>
 </ol>
 </div>
@@ -894,27 +913,25 @@ element you want your action to be triggered against.</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_right_click_selector"><a class="anchor" href="#_right_click_selector"></a>right_click(selector)</h3>
+<h3 id="_right_click_selector_or_point"><a class="anchor" href="#_right_click_selector_or_point"></a>right_click(selector_or_point)</h3>
 <div class="paragraph">
 <p><strong>Description</strong></p>
 </div>
 <div class="paragraph">
-<p>Right clicks the element with the given selector.</p>
+<p>Right clicks the element with the given selector, or at the specified point position.</p>
 </div>
 <div class="paragraph">
 <p><strong>Signature</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">right_click</span>(selector) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">right_click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <ol>
 <li>
-<p><em>selector</em> - What element to right click. <em>See the
-<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
-element you want your action to be triggered against.</em></p>
+<p><em>selector_or_point</em> - What element to right click. <em>See the <strong>Germanium Selectors</strong> and <strong>Point Support</strong>, to learn about how you can easily locate the element you want your action to be triggered against.</em></p>
 </li>
 </ol>
 </div>
@@ -928,34 +945,32 @@ element you want your action to be triggered against.</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_drag_and_drop_from_selector_to_selector"><a class="anchor" href="#_drag_and_drop_from_selector_to_selector"></a>drag_and_drop(from_selector, to_selector)</h3>
+<h3 id="_drag_and_drop_from_selector_or_point_to_selector_or_point"><a class="anchor" href="#_drag_and_drop_from_selector_or_point_to_selector_or_point"></a>drag_and_drop(from_selector_or_point, to_selector_or_point)</h3>
 <div class="paragraph">
 <p><strong>Description</strong></p>
 </div>
 <div class="paragraph">
-<p>Performs a drag and drop operation from the element matching the <code>from_selector</code>,
-to the element matching the <code>to_selector</code>.</p>
+<p>Performs a drag and drop operation from the element matching the <code>from_selector_or_point</code>, to the element matching the <code>to_selector_or_point</code>.</p>
+</div>
+<div class="paragraph">
+<p>Both <code>from_selector_or_point</code> and <code>to_selector_or_point</code> can as the name suggest be either selectors, or point locations, and are not required to have the same type. You can start a drag from a selector, to a point, or vice-versa.</p>
 </div>
 <div class="paragraph">
 <p><strong>Signature</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">drag_and_drop</span>(from_selector, <b class="conum">(1)</b>
-                  to_selector) <b class="conum">(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">drag_and_drop</span>(from_selector_or_point, <b class="conum">(1)</b>
+                  to_selector_or_point) <b class="conum">(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <ol>
 <li>
-<p><em>from_selector</em> - What element to use for drag start. <em>See the
-<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
-element you want your action to be triggered against.</em></p>
+<p><em>from_selector_or_point</em> - What element to use for drag start. <em>See the <strong>Germanium Selectors</strong> and <strong>Point Support</strong>, to learn about how you can easily locate the element you want your action to be triggered against.</em></p>
 </li>
 <li>
-<p><em>to_selector</em> - What element to release the mouse over. <em>See the
-<strong>Germanium Selectors</strong>, to learn about how you can easily locate the
-element you want your action to be triggered against.</em></p>
+<p><em>to_selector_or_point</em> - What element to release the mouse over. <em>See the <strong>Germanium Selectors</strong> and <strong>Point Support</strong>, to learn about how you can easily locate the element you want your action to be triggered against.</em></p>
 </li>
 </ol>
 </div>
@@ -2544,6 +2559,108 @@ selector would match the parent div in such a DOM structure:</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_point_support"><a class="anchor" href="#_point_support"></a>Point Support</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+While Germanium <em>does</em> support IE8+, point support is supported only from IE9+. This is the only Germanium API that is not supported in IE8, and is actually caused by Selenium itself.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In Germanium, point actions are supported for all the mouse actions, and can be used instead of selectors, namely:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>click()</code></p>
+</li>
+<li>
+<p><code>right_click()</code></p>
+</li>
+<li>
+<p><code>double_click()</code></p>
+</li>
+<li>
+<p><code>hover()</code></p>
+</li>
+<li>
+<p><code>drag_and_drop()</code></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_point_x_y"><a class="anchor" href="#_point_x_y"></a>Point(x, y)</h3>
+<div class="paragraph">
+<p><em>Points are not selectors and don&#8217;t specify an exact element</em>, but rather as the name implies a location on the screen where we want to interact. The point location is computed from the top/left of the page itself, and is specified with <code>x</code> and <code>y</code> coordinates.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="germanium-point-class-uml.svg" alt="germanium point class uml" width="180" height="108">
+</div>
+</div>
+<div class="paragraph">
+<p>Points can be adjusted, so you can have the value changed without always summing up values in a one liner.</p>
+</div>
+<div class="paragraph">
+<p>In order to easily obtain points, a utility class is also provided that can obtain points relative to the bounding box of an element. The corners, middle of the top/left/right/bottom segments, and the center are offered as points. The class is named <code>Box</code>, and its constructor accepts a selector as an argument.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_box_selector"><a class="anchor" href="#_box_selector"></a>Box(selector)</h3>
+<div class="imageblock">
+<div class="content">
+<img src="germanium-box-class-uml.svg" alt="germanium box class uml" width="235" height="454">
+</div>
+</div>
+<div class="paragraph">
+<p>A <code>Box</code> instance will keep the sizes the first time it will be called, because we don&#8217;t want to call it every time. In order to refresh it, the <code>get_box()</code> method is offered that will refresh the <code>Box</code> coordinates with the new data.</p>
+</div>
+<div class="paragraph">
+<p>In <code>wait</code> conditions you can chain it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">box <span style="color: #666666">=</span> Box(Css(<span style="color: #BA2121">&#39;.resizing-div&#39;</span>))
+wait(<span style="color: #008000; font-weight: bold">lambda</span>: box<span style="color: #666666">.</span>get_box()<span style="color: #666666">.</span>width() <span style="color: #666666">==</span> <span style="color: #666666">100</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since points are not selectors, you can click two pixels right of an element, without exactly specifying the target element like so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Box(<span style="color: #BA2121">&#39;span.custom-text&#39;</span>)<span style="color: #666666">.</span>middle_right(<span style="color: #666666">2</span>, <span style="color: #666666">0</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To click two pixels left of an element, we can just adjust with a negative value:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(Box(<span style="color: #BA2121">&#39;span.custom-text&#39;</span>)<span style="color: #666666">.</span>middle_left(<span style="color: #666666">-2</span>, <span style="color: #666666">0</span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Assuming a canvas is more than 10x10 pixels, we could also do a drag and drop from the top left corner, to the bottom right, keeping a 5 pixel margin:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">canvas_box <span style="color: #666666">=</span> Box(<span style="color: #BA2121">&#39;canvas.drawing&#39;</span>)
+drag_and_drop(canvas_box<span style="color: #666666">.</span>top_left(<span style="color: #666666">5</span>, <span style="color: #666666">5</span>),
+        canvas_box<span style="color: #666666">.</span>bottom_right(<span style="color: #666666">-5</span>, <span style="color: #666666">-5</span>))</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_germanium_keys_support"><a class="anchor" href="#_germanium_keys_support"></a>Germanium Keys Support</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -3300,7 +3417,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-08-03 20:29:17 UTC
+Last updated 2016-08-13 21:11:06 UTC
 </div>
 </div>
 </body>

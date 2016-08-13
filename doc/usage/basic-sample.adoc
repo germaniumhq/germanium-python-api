@@ -9,6 +9,8 @@ To install it just run:
 pip install germanium
 -----------------------------------------------------------------------------
 
+You don't need any binary drivers installed, or any other dependencies, since they are bundled (and tested) by Germanium itself.
+
 Writing a test then becomes as easy as:
 
 [source,python]
@@ -27,4 +29,10 @@ close_browser()
 
 Germanium supports Python 2.7, 3.4 and 3.5, and is already used in
 production tests.
+
+Browsers supported are:
+
+* IE 8+
+* Chrome
+* Firefox
 

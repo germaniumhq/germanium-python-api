@@ -24,6 +24,8 @@ include::selectors_static.adoc[]
 
 include::selectors_provided.adoc[]
 
+include::point_support.adoc[]
+
 include::keys_support.adoc[]
 
 include::api.adoc[]

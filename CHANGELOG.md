@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+* 2016-08-15  1.9.5
+    - InputText allows as `type` all the HTML5 types that generate inputs that allow typing.
+    - Firefox 48 support.
+
 * 2016-08-13  1.9.4
     - Added `left`, `right`, `top`, `bottom` functions to get the values.
     - Added `germanium.version` package to get the version numbers.

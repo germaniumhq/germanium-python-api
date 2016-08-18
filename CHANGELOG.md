@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2016-08-19  1.9.6
+    - Firefox 48.0.1 support.
+
 * 2016-08-15  1.9.5
     - InputText allows as `type` all the HTML5 types that generate inputs that allow typing.
 

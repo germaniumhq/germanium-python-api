@@ -93,7 +93,7 @@ def go_to(url) <1>
 go_to("http://google.com/")
 -----------------------------------------------------------------------------
 
-== type_keys(keys, selector)
+== type_keys(keys, selector, delay)
 
 *Description*
 
@@ -104,13 +104,16 @@ Type the keys specified into the element, or the currently active element.
 [source,python]
 -----------------------------------------------------------------------------
 def type_keys(keys, <1>
-              selector) <2>
+              selector=None, <2>
+              delay=0) <3>
 -----------------------------------------------------------------------------
 <1> _keys_ - the keys to press. _See the *Germanium Keys Support*, to learn
         about having multiple keypresses, combo key presses, or repetitions._
-<2> _selector_ - _optional_ For what element to send the keys. _See the
+<2> _selector_ - _optional_ For what element to send the keys. In case it's
+        missing, sends the keys to the active element. _See the
         *Germanium Selectors*, to learn about how you can easily locate the
         element you want your action to be triggered against._
+<3> _delay_ - _optional_ Delay in seconds between each keypress.
 
 *Sample*
 

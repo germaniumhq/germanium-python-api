@@ -295,10 +295,10 @@ need to recreate it just because you need another `iframe_selector` strategy.
 
 Utility functions for Germanium instances.
 
-=== type_keys_g(germanium, keys_typed, element=None)
+=== type_keys_g(germanium, keys_typed, element=None, delay=0)
 
 Type the current keys into the browser, optionally specifying the element to
-send the events to.
+send the events to, and/or delay between keypresses.
 
 [source,python]
 -----------------------------------------------------------------------------

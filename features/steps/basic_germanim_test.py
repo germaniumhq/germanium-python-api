@@ -89,6 +89,11 @@ def type_keys_impl(context, selector, keys):
     type_keys(keys, S(selector))
 
 
+@step(u"in the locator (.*?) I type_keys '(.*?)' with 200ms delay")
+def type_keys_impl(context, selector, keys):
+    type_keys(keys, S(selector), delay=0.2)
+
+
 @step(u"I click on '(.*)'")
 def step_impl(context, selector):
     click(selector)

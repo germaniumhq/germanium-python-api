@@ -67,7 +67,14 @@ Feature: Germanium enabled typing of the keys.
       When in the locator #passwordInputField I type_keys 'password'
       Then the value for the #passwordInputField is 'password'
 
-    @7 @nofirefox
+    @7
+    Scenario: Ensure typing in an input with a delay between keys
+      Given I open the browser
+      And I go to 'http://localhost:8000/features/test-site/inputs.html'
+      When in the locator #textInput I type_keys 'abc' with 200ms delay
+      Then the value for the #textInput is 'abc'
+
+    @8 @nofirefox
     Scenario: Ensure typing into an editable section will work.
       Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/key_type-support-editable.html'
@@ -78,4 +85,3 @@ Feature: Germanium enabled typing of the keys.
       all
       text
       """
-

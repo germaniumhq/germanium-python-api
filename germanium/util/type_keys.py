@@ -1,15 +1,14 @@
 import re
+import time
 
-from selenium.webdriver import ActionChains
+from selenium.webdriver.common.alert import Alert as WebdriverAlert
 from selenium.webdriver.common.keys import Keys
 
-from .find_germanium_object import find_germanium_object
+from germanium.impl import ActionChains
 from germanium.impl import _filter_one_for_action
 from germanium.impl._alert_exists import _alert_exists
 from germanium.selectors import Alert
-
-from selenium.webdriver.common.alert import Alert as WebdriverAlert
-
+from .find_germanium_object import find_germanium_object
 
 MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
 
@@ -43,11 +42,12 @@ class ComboKeyUp(object):
         self.key = key
 
 
-def type_keys_g(context, keys_typed, selector=None, *args):
+def type_keys_g(context, keys_typed, selector=None, delay=0, *args):
     """
     :param context:
     :param keys_typed:
     :param selector:
+    :param delay:
     :param args:
     """
     germanium = find_germanium_object(context)
@@ -66,6 +66,20 @@ def type_keys_g(context, keys_typed, selector=None, *args):
 
     action_chain = ActionChains(germanium.web_driver)
 
+    # In case we have delays, we will pass insert after each character a small delay.
+    # This is factored in different functions, since otherwise there would be way
+    # to much ifing to add the delays.
+    # The ActionChains used is extended from the WebDriver one so we can also add
+    # custom callables into the action chain.
+    if delay:
+        add_delayed_keys(action_chain, keys_array, element, delay)
+    else:
+        add_immediate_keys(action_chain, keys_array, element)
+
+    action_chain.perform()
+
+
+def add_immediate_keys(action_chain, keys_array, element):
     for key_action in keys_array:
         if isinstance(key_action, BasicKeysAction):
             keys_to_send = ''.join(key_action.keys)
@@ -78,7 +92,24 @@ def type_keys_g(context, keys_typed, selector=None, *args):
         elif isinstance(key_action, ComboKeyUp):
             action_chain.key_up(key_action.key, element)
 
-    action_chain.perform()
+
+def add_delayed_keys(action_chain, keys_array, element, delay):
+    for key_action in keys_array:
+        if isinstance(key_action, BasicKeysAction):
+            if element:
+                for key in key_action.keys:
+                    action_chain.send_keys_to_element(element, key)
+                    action_chain.add_action(lambda: time.sleep(delay))
+            else:
+                for key in key_action.keys:
+                    action_chain.send_keys(key)
+                    action_chain.add_action(lambda: time.sleep(delay))
+        elif isinstance(key_action, ComboKeyDown):
+            action_chain.key_down(key_action.key, element)
+            action_chain.add_action(lambda: time.sleep(delay))
+        elif isinstance(key_action, ComboKeyUp):
+            action_chain.key_up(key_action.key, element)
+            action_chain.add_action(lambda: time.sleep(delay))
 
 
 def transform_to_keys(keys):

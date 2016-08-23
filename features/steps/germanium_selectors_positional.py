@@ -25,6 +25,16 @@ def step_impl(context, text):
     context.found_element = element
 
 
+@step(u'I search for an table cell right of the text "(.*?)"')
+def step_impl(context, text):
+    selector = Element("td").right_of(Text(text))
+    element = S(selector).element()
+
+    assert element
+
+    context.found_element = element
+
+
 @step(u'I search for the (.*?) input text right of the text "(.*?)"')
 def step_impl(context, index, text):
     indexes = {

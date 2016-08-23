@@ -47,7 +47,7 @@ return (function() {
             return -1;
         }
 
-        var result = element.offsetWidth;
+        var result = element.offsetWidth - 1;
         while (element && element != document.body) {
             result += element.offsetLeft;
             element = element.offsetParent;
@@ -61,7 +61,7 @@ return (function() {
             return -1;
         }
 
-        var result = element.offsetHeight;
+        var result = element.offsetHeight - 1;
         while (element && element != document.body) {
             result += element.offsetTop;
             element = element.offsetParent;

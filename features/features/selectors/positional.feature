@@ -29,6 +29,13 @@ Scenario: I can find elements right of a specific element.
   Then I find the element with id: 'surnameInput'
 
 @5
+Scenario: I can find td elements right of a specific element.
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
+  When I search for an table cell right of the text "Surname"
+  Then I find the element with id: 'td22'
+
+@6
 Scenario: I can find elements right of an element, but also with indexes.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
@@ -47,7 +54,7 @@ Scenario: I can find elements right of an element, but also with indexes.
   When I search for the sixth input text right of the text "Surname"
   Then I find the element with id: 'nameInput2'
 
-@6
+@7
 Scenario: I can find elements above an element, but also with indexes.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
@@ -62,7 +69,7 @@ Scenario: I can find elements above an element, but also with indexes.
   When I search for the fourth input text above the text "E-Mail"
   Then I find the element with id: 'nameInput2'
 
-@7
+@8
 Scenario: Filtering elements works even if hidden elements are also matched.
   This is a regression test for offsetParent that can be null in certain scenarios.
   Given I open the browser

@@ -1,4 +1,4 @@
-germanium 1.9.6
+germanium 1.9.7
 ===============
 
 Germanium is a set of extensions on top of the regular WebDriver API, allowing

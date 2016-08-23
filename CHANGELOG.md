@@ -1,6 +1,14 @@
 ChangeLog
 ---------
 
+* 2016-08-23  1.9.7
+    - Removed Firefox support back to 47.0.1. Seems Firefox abandoned Selenium 2, and dived straight into 3-beta.
+    - `type_keys` has now a `delay` parameter, to allow a delay between key presses.
+
+    _Bugfixes_
+
+    - Fixed bug in positional filtering where elements bordering on the left/right, or top-bottom, were marked as overlapping.
+
 * 2016-08-19  1.9.6
     - Firefox 48.0.1 support.
 

@@ -66,7 +66,7 @@ def type_keys_with_selector(context, keys, selector):
 def step_impl(context, selector, value):
     element = S(selector).element()
 
-    assert_equals(value, element.get_attribute("value"))
+    assert_equals(value, get_value(element))
 
 
 @step("the title of the page equals '(?P<what>.*?)'")

@@ -6,7 +6,7 @@ with open('README.rst') as readme_file:
 
 setup(
     name='germanium',
-    version='1.9.7',
+    version='1.9.8',
     description='The germanium project: Selenium WebDriver testing API that doesn\'t disappoint.',
     long_description = readme,
     author='Bogdan Mustiata',
@@ -14,7 +14,7 @@ setup(
     license='BSD',
 
     install_requires=[
-        'germaniumdrivers==1.9.3.1',
+        'germaniumdrivers==1.9.8',
         'selenium==2.53.6',
         'webcolors==1.5']
     ,

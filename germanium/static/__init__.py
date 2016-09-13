@@ -1,7 +1,7 @@
 
 from germanium.selectors import *
 from germanium.points import *
-from germanium.impl import wait
+from germanium.impl import wait, waited
 from germanium.util import Color
 
 # germanium instantiation

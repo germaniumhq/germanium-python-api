@@ -1,3 +1,4 @@
+import collections
 import re
 
 from selenium.webdriver.remote.webelement import WebElement
@@ -12,7 +13,6 @@ from germanium.locators import \
     InsideFilterLocator, \
     AlertLocator, \
     WindowLocator
-
 from germanium.selectors import \
     AbstractSelector, \
     InsideFilterSelector, \
@@ -21,6 +21,14 @@ from germanium.selectors import \
     Window
 
 LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?):)(.*)', re.MULTILINE | re.DOTALL)
+
+
+def _raise_bad_selector_type(selector):
+    raise Exception('Unable to build locator from the selector. '
+                    'The selector: %s, that is of type: %s is '
+                    'not a string selector, does not inherit from '
+                    'AbstractSelector, is not an Alert, nor even a '
+                    'selenium WebElement or WebElement list.' % (selector, type(selector)))
 
 
 def create_locator(germanium, selector, strategy='detect'):
@@ -111,11 +119,15 @@ def create_locator(germanium, selector, strategy='detect'):
     if hasattr(selector, '__call__'):
         return create_locator(germanium, selector())
 
+    if isinstance(selector, collections.Iterable) and not isinstance(selector, str):
+        for item in selector:
+            if not isinstance(item, WebElement):
+                _raise_bad_selector_type(selector)
+
+        return StaticElementLocator(selector)
+
     if not isinstance(selector, str):
-        raise Exception('Unable to build locator from the selector. '
-                        'The selector: %s, that is of type: %s is '
-                        'not a string selector, does not inherit from '
-                        'AbstractSelector, and is not an Alert.' % (selector, type(selector)))
+        _raise_bad_selector_type(selector)
 
     if selector == "alert":
         return AlertLocator(germanium, selector)

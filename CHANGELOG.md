@@ -1,6 +1,15 @@
 ChangeLog
 ---------
 
+* 2016-09-13  1.9.8
+    - `waited` function call. You can write now `click(waited(Text(..)))` that will also wait.
+    - Made the static selector alow also lists of elements for locators.
+
+    _Bugfixes_
+
+    - Improved `S`/`create_locator` to deal with lists of elements.
+    - Updated the chrome driver to 2.24.
+
 * 2016-08-23  1.9.7
     - Removed Firefox support back to 47.0.1. Seems Firefox abandoned Selenium 2, and dived straight into 3-beta.
     - `type_keys` has now a `delay` parameter, to allow a delay between key presses.

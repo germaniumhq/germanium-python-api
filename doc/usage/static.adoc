@@ -702,3 +702,36 @@ wait(Text("document uploaded successfully"),
     while_not = Text("an error occurred"))
 -----------------------------------------------------------------------------
 
+== waited(closure, while_not=None, timeout=10)
+
+*Description*
+
+A function that allows waiting for a condition to happen, monitoring also that
+some other conditions do not happen.
+
+In case the timeout expires, or one of the `while_not` conditions matches, before
+the `closure` matched then it returns `None`.
+
+Otherwise it returns the value that the closure returned.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def waited(closure, <1>
+           while_not=None, <2>
+           timeout=10) <3>
+-----------------------------------------------------------------------------
+<1> _closure_ is either a callable, either an array of callables. If any of
+them passes, the wait finished successfuly.
+<2> _while_not_ is either a callable, either an array of callables. If any of
+them fail, the wait throws an exception.
+<3> _timeout_ expressed in seconds.
+
+*Sample*
+
+[source,python]
+-----------------------------------------------------------------------------
+click(waited(Button("Ok")))
+-----------------------------------------------------------------------------
+

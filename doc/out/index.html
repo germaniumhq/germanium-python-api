@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v1.9.7</title>
+<title>Germanium v1.9.8</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,7 +420,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v1.9.7</h1>
+<h1>Germanium v1.9.8</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -461,6 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_def_s_argv_kwargs">def S(*argv, **kwargs)</a></li>
 <li><a href="#_def_iframe_target_keep_new_context_false">def iframe(target, keep_new_context = False)</a></li>
 <li><a href="#_wait_closure_while_not_none_timeout_10">wait(closure, while_not=None, timeout=10)</a></li>
+<li><a href="#_waited_closure_while_not_none_timeout_10">waited(closure, while_not=None, timeout=10)</a></li>
 </ul>
 </li>
 <li><a href="#_germanium_selectors_and_locators">Germanium Selectors and Locators</a>
@@ -1647,6 +1648,56 @@ them fail, the wait throws an exception.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python">wait(Text(<span style="color: #BA2121">&quot;document uploaded successfully&quot;</span>),
     while_not <span style="color: #666666">=</span> Text(<span style="color: #BA2121">&quot;an error occurred&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_waited_closure_while_not_none_timeout_10"><a class="anchor" href="#_waited_closure_while_not_none_timeout_10"></a>waited(closure, while_not=None, timeout=10)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>A function that allows waiting for a condition to happen, monitoring also that
+some other conditions do not happen.</p>
+</div>
+<div class="paragraph">
+<p>In case the timeout expires, or one of the <code>while_not</code> conditions matches, before
+the <code>closure</code> matched then it returns <code>None</code>.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise it returns the value that the closure returned.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">waited</span>(closure, <b class="conum">(1)</b>
+           while_not<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
+           timeout<span style="color: #666666">=10</span>) <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><em>closure</em> is either a callable, either an array of callables. If any of
+them passes, the wait finished successfuly.</p>
+</li>
+<li>
+<p><em>while_not</em> is either a callable, either an array of callables. If any of
+them fail, the wait throws an exception.</p>
+</li>
+<li>
+<p><em>timeout</em> expressed in seconds.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">click(waited(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>)))</code></pre>
 </div>
 </div>
 </div>
@@ -3422,7 +3473,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-08-23 19:41:35 UTC
+Last updated 2016-09-13 20:40:52 UTC
 </div>
 </div>
 </body>

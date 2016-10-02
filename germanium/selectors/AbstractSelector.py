@@ -1,3 +1,5 @@
+from selenium.webdriver.remote.webelement import WebElement
+
 from germanium.impl import _ensure_list
 
 
@@ -227,6 +229,9 @@ def _ensure_selector(item):
             return Css(item[4:])
         else:
             return Css(item)
+
+    if isinstance(item, WebElement):
+        return item
 
     raise Exception("The element given as a selector %s was not a valid selector"
                     "for this context." % item)

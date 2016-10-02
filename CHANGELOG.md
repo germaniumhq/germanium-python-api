@@ -1,6 +1,11 @@
 ChangeLog
 ---------
 
+* 2016-10-03  1.9.9
+    _Bugfixes_
+
+    - Allow using a `WebElement` instance for filtering.
+
 * 2016-09-13  1.9.8
     - `waited` function call. You can write now `click(waited(Text(..)))` that will also wait.
     - Made the static selector alow also lists of elements for locators.

@@ -77,3 +77,10 @@ Scenario: Filtering elements works even if hidden elements are also matched.
   When I search for all the elements left of all the elements
   Then there are no elements found
 
+@9
+Scenario: I can find elements left of a given element using WebElement references.
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
+  When I search for an Input left of the text element "Surname"
+  Then I find the element with id: 'surnameCheckbox'
+

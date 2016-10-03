@@ -15,6 +15,17 @@ def step_impl(context, text):
     context.found_element = element
 
 
+@step(u'I search for an Input left of the text element "(.*?)"')
+def step_impl(context, text):
+    text_element = Text(text)
+    selector = Input().left_of(text_element)
+    element = S(selector).element()
+
+    assert element
+
+    context.found_element = element
+
+
 @step(u'I search for an Input right of the text "(.*?)"')
 def step_impl(context, text):
     selector = Input().right_of(Text(text))

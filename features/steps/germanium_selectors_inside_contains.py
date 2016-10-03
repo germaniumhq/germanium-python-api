@@ -1,7 +1,7 @@
 from behave import *
+from steps.asserts import assert_equals, assert_false
 
 from germanium.static import *
-from steps.asserts import assert_equals, assert_false
 
 use_step_matcher("re")
 
@@ -9,6 +9,17 @@ use_step_matcher("re")
 @step(u'I search for an InputText inside the div with id inputTextContainer')
 def step_impl(context):
     selector = InputText().inside(Element("div", id="inputTextContainer"))
+    element = S(selector).element()
+
+    assert element
+
+    context.found_element = element
+
+
+@step(u'I search for an InputText inside the div element with id inputTextContainer')
+def step_impl(context):
+    container_div_element = Element("div", id="inputTextContainer").element()
+    selector = InputText().inside(container_div_element)
     element = S(selector).element()
 
     assert element

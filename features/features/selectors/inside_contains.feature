@@ -90,3 +90,10 @@ Scenario: Finding elements that contain invisible elements, will return correctl
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for a div that contains a br
   Then I find the element with id: 'divWithABr'
+
+@14
+Scenario: Finding elements that use an inside reference a WebElement, will work
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for an InputText inside the div element with id inputTextContainer
+  Then I find the element with id: 'inputText'

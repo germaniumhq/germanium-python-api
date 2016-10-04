@@ -7,7 +7,7 @@ RUN_FIREFOX_TESTS = Boolean.valueOf(RUN_FIREFOX_TESTS)
 RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
 RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
 
-// GIT_SERVER
+// GIT_SERVER - the URL of the git server
 
 def buildSingleVersion(version) {
     node {

@@ -12,8 +12,9 @@ RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
 def buildSingleVersion(version) {
     node {
         sh """
+        echo "Cloning from $GIT_SERVER"
         rm -fr $version
-        git clone $GIT_SERVER $version
+        git clone "$GIT_SERVER" $version
         cd $version
         git checkout remotes/origin/$version
         bin/build-docker-instance.sh

@@ -7,11 +7,13 @@ RUN_FIREFOX_TESTS = Boolean.valueOf(RUN_FIREFOX_TESTS)
 RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
 RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
 
+// GIT_SERVER
+
 def buildSingleVersion(version) {
     node {
         sh """
         rm -fr $version
-        git clone /home/raptor/projects/germanium $version
+        git clone $GIT_SERVER $version
         cd $version
         git checkout remotes/origin/$version
         bin/build-docker-instance.sh

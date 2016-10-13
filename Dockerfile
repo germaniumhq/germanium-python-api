@@ -106,6 +106,21 @@ RUN cd /tmp && \
 #
 COPY bin/docker/run-behave.sh /home/germanium/bin/run-behave.sh
 
+# Allow configuring the Python Package Index location, to speed up builds,
+# and validate germaniumdrivers pacakge updates, before publishing them to
+# the real pypi.
+
+# PYPI repository location
+ARG pypi_url=https://pypi.python.org/
+# PYPI index location
+ARG pypi_index_url=https://pypi.python.org/simple
+
+RUN mdkir ~/.pip && \
+    echo "[global]" > ~/.pip/pip.conf && \
+    echo "index = $pypy_url" >> ~/.pip/pip.conf && \
+    echo "index-url = $pypy_index_url" >> ~/.pip/pip.conf && \
+    chown -R germanium:germanium ~/.pip
+
 # add germanium the project only after having the docker binaries in the
 # home folder, to reduce the time to create new docker images
 COPY . /germanium

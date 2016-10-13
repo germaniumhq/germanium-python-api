@@ -7,11 +7,19 @@ RUN_FIREFOX_TESTS = Boolean.valueOf(RUN_FIREFOX_TESTS)
 RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
 RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
 
+// PYPI_URL - the URL to use for PYPI
+// PYPI_INDEX_URL - the index URL to use for PYPI
+
 // GIT_SERVER - the URL of the git server
 
 def buildSingleVersion(version) {
     node {
         sh """
+        echo "Setting PYPI_URL as $PYPI_URL"
+        export PYPI_URL="$PYPI_URL"
+        echo "Setting PYPI_INDEX_URL as PYPI_INDEX_URL"
+        export PYPI_INDEX_URL="$PYPI_INDEX_URL"
+
         echo "Cloning from $GIT_SERVER"
         rm -fr $version
         git clone "$GIT_SERVER" $version

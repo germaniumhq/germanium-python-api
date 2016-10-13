@@ -12,13 +12,11 @@ setup(
     author='Bogdan Mustiata',
     author_email='bogdan.mustiata@gmail.com',
     license='BSD',
-
     install_requires=[
         'germaniumdrivers==1.9.8',
         'selenium==2.53.6',
         'webcolors==1.5']
     ,
-
     packages=['germanium',
               'germanium.impl',
               'germanium.locators',

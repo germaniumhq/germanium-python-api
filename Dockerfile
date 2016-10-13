@@ -123,7 +123,7 @@ RUN mkdir ~/.pip && \
     echo "index-url = $pypi_index_url" >> ~/.pip/pip.conf && \
     echo "trusted-host = $(echo $pypi_url | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> ~/.pip/pip.conf
 
-COPY ./requirements.txt /root/requirements.txt && \
+COPY requirements.txt /root/requirements.txt && \
     /python/bin/pip install -r /root/requirements.txt && \
     rm /root/requirements.txt
 

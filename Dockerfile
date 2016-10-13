@@ -115,11 +115,10 @@ ARG pypi_url=https://pypi.python.org/
 # PYPI index location
 ARG pypi_index_url=https://pypi.python.org/simple
 
-RUN mkdir /home/germanium/.pip && \
-    echo "[global]" > /home/germanium/.pip/pip.conf && \
-    echo "index = $pypy_url" >> /home/germanium/.pip/pip.conf && \
-    echo "index-url = $pypy_index_url" >> /home/germanium/.pip/pip.conf && \
-    chown -R germanium:germanium /home/germanium/.pip
+RUN mkdir ~/.pip && \
+    echo "[global]" > ~/.pip/pip.conf && \
+    echo "index = $pypy_url" >> ~/.pip/pip.conf && \
+    echo "index-url = $pypy_index_url" >> ~/.pip/pip.conf
 
 # add germanium the project only after having the docker binaries in the
 # home folder, to reduce the time to create new docker images

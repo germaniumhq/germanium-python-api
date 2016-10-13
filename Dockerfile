@@ -124,7 +124,8 @@ RUN mkdir ~/.pip && \
     echo "trusted-host = $(echo $pypi_url | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> ~/.pip/pip.conf
 
 COPY requirements.txt /root/requirements.txt && \
-    /python/bin/pip install -r /root/requirements.txt && \
+    cd /root && \
+    /python/bin/pip install -r requirements.txt && \
     rm /root/requirements.txt
 
 # add germanium the project only after having the docker binaries in the

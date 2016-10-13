@@ -124,6 +124,7 @@ RUN mkdir ~/.pip && \
 # home folder, to reduce the time to create new docker images
 COPY . /germanium
 RUN cd /germanium && \
+    pip install -r requirements.txt && \
     /python/bin/python setup.py install && \
     rm -fr /germanium
 

@@ -16,16 +16,14 @@ def buildSingleVersion(version) {
     node {
         sh """
         echo "Setting PYPI_URL as $PYPI_URL"
-        export PYPI_URL="$PYPI_URL"
-        echo "Setting PYPI_INDEX_URL as PYPI_INDEX_URL"
-        export PYPI_INDEX_URL="$PYPI_INDEX_URL"
+        echo "Setting PYPI_INDEX_URL as $PYPI_INDEX_URL"
 
         echo "Cloning from $GIT_SERVER"
         rm -fr $version
         git clone "$GIT_SERVER" $version
         cd $version
         git checkout remotes/origin/$version
-        . bin/build-docker-instance.sh
+        PYPI_URL="$PYPI_URL" PYPI_INDEX_URL="$PYPI_INDEX_URL" bin/build-docker-instance.sh
         """
     }
 }

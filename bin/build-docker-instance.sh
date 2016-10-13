@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# This script can't be sourced since it depends on its
+# location to find other scripts.
+
 set -e
 
 GERMANIUM_FOLDER=$(readlink -f $(dirname $0)/..)

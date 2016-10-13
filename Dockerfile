@@ -123,11 +123,14 @@ RUN mkdir ~/.pip && \
     echo "index-url = $pypi_index_url" >> ~/.pip/pip.conf && \
     echo "trusted-host = $(echo $pypi_url | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> ~/.pip/pip.conf
 
+COPY ./requirements.txt /tmp/requirements.txt && \
+    /python/bin/pip install -r /tmp/requirements.txt && \
+    rm /tmp/requirements.txt
+
 # add germanium the project only after having the docker binaries in the
 # home folder, to reduce the time to create new docker images
 COPY . /germanium
 RUN cd /germanium && \
-    /python/bin/pip install -r requirements.txt && \
     /python/bin/python setup.py install && \
     rm -fr /germanium
 

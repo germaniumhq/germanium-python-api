@@ -6,7 +6,7 @@
 set -e
 
 PIPY_URL=$1
-PYPI_INDEX_URL=$2
+PIPY_INDEX_URL=$2
 
 GERMANIUM_FOLDER=$(readlink -f $(dirname $0)/..)
 TAG_VERSION=$($GERMANIUM_FOLDER/bin/version/python-version.sh --tag)
@@ -20,7 +20,7 @@ echo "pypi_index_url is $PIPY_INDEX_URL"
 docker build \
     -t germanium/germanium-$TAG_VERSION \
     --build-arg pypi_url=$PIPY_URL \
-    --build-arg pypi_index_url=$PYPI_INDEX_URL \
+    --build-arg pypi_index_url=$PIPY_INDEX_URL \
     .
 
 cd $GERMANIUM_FOLDER/features

@@ -18,6 +18,7 @@ setup(
         'selenium==2.53.6',
         'webcolors==1.5']
     ,
+
     packages=['germanium',
               'germanium.impl',
               'germanium.locators',

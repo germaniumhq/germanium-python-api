@@ -25,7 +25,7 @@ def buildSingleVersion(version) {
         git clone "$GIT_SERVER" $version
         cd $version
         git checkout remotes/origin/$version
-        bin/build-docker-instance.sh
+        . bin/build-docker-instance.sh
         """
     }
 }

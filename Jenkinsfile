@@ -23,7 +23,7 @@ def buildSingleVersion(version) {
         git clone "$GIT_SERVER" $version
         cd $version
         git checkout remotes/origin/$version
-        PYPI_URL="$PYPI_URL" PYPI_INDEX_URL="$PYPI_INDEX_URL" bin/build-docker-instance.sh
+        bin/build-docker-instance.sh "$PYPI_URL" "PYPI_INDEX_URL"
         """
     }
 }

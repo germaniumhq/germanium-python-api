@@ -5,6 +5,9 @@
 
 set -e
 
+PIPY_URL=$1
+PYPI_INDEX_URL=$2
+
 GERMANIUM_FOLDER=$(readlink -f $(dirname $0)/..)
 TAG_VERSION=$($GERMANIUM_FOLDER/bin/version/python-version.sh --tag)
 

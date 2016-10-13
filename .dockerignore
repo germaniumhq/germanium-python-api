@@ -3,4 +3,5 @@
 !bin/docker/*
 !germanium/*
 !README.rst
+!requirements.txt
 !setup.py

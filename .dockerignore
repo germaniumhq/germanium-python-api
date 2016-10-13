@@ -1,4 +1,5 @@
 *
+!bin/build-docker-instance.sh
 !bin/docker/*
 !germanium/*
 !README.rst

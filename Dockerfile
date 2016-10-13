@@ -115,10 +115,13 @@ ARG pypi_url=https://pypi.python.org/
 # PYPI index location
 ARG pypi_index_url=https://pypi.python.org/simple
 
+# the funky looking regexp just extracts the hostname, excluding port
+# to be used as a trusted-host.
 RUN mkdir ~/.pip && \
     echo "[global]" > ~/.pip/pip.conf && \
     echo "index = $pypi_url" >> ~/.pip/pip.conf && \
-    echo "index-url = $pypi_index_url" >> ~/.pip/pip.conf
+    echo "index-url = $pypi_index_url" >> ~/.pip/pip.conf && \
+    echo "trusted-host = $(echo $pypi_url | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> ~/.pip/pip.conf
 
 # add germanium the project only after having the docker binaries in the
 # home folder, to reduce the time to create new docker images

@@ -13,6 +13,8 @@ RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
 
 // GIT_SERVER - the URL of the git server
 
+// TEST_HOST = "192.168.0.6:8008"  # where are the tests running.
+
 def buildSingleVersion(version) {
     node {
         sh """
@@ -78,7 +80,7 @@ if (PYTHON_35) {
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
                            -p 8008:8000 \\
-                           -e TEST_HOST=192.168.0.23:8008 \\
+                           -e TEST_HOST=$TEST_HOST \\
                            -e TEST_BROWSER=$IE_GERMANIUM_URL \\
                            germanium/germanium-python3.5-tests
                 """
@@ -120,7 +122,7 @@ if (PYTHON_27) {
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
                            -p 8008:8000 \\
-                           -e TEST_HOST=192.168.0.23:8008 \\
+                           -e TEST_HOST=$TEST_HOST \\
                            -e TEST_BROWSER=$IE_GERMANIUM_URL \\
                            germanium/germanium-python2.7-tests
                 """
@@ -162,7 +164,7 @@ if (PYTHON_34) {
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
                            -p 8008:8000 \\
-                           -e TEST_HOST=192.168.0.23:8008 \\
+                           -e TEST_HOST=$TEST_HOST \\
                            -e TEST_BROWSER=$IE_GERMANIUM_URL \\
                            germanium/germanium-python3.4-tests
                 """

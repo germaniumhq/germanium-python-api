@@ -138,4 +138,3 @@ RUN perl -pi -e "s/germanium:x:1000:1000/germanium:x:$UID:$GID/" /etc/passwd && 
 USER germanium
 
 CMD /home/germanium/bin/run-behave.sh
-

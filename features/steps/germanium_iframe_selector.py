@@ -40,8 +40,8 @@ def step_impl(context):
     get_germanium().iframe_selector = context.current_iframe_selector
 
 
-@step("I find the element with id: '(.*?)' in iframe '(.*?)'")
-def step_impl(context, expected_id, iframe_name):
+@step("I find in iframe '(.*?)' the element with id: '(.*?)'")
+def step_impl(context, iframe_name, expected_id):
     @iframe(iframe_name)
     def check_element():
         assert_true(context.found_element, "No element was found.")

@@ -6,28 +6,29 @@ Feature: Selectors should provide some means of getting the
   assert S(Text('whatever')).exists()
 
 @1
-Scenario: I can find a single element using directly the selector
+Scenario: I can find a single text input above above a text using a static selector.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search using selectors for an InputText above the text "Surname"
   Then I find the element with id: 'nameInput'
 
 @2
-Scenario: I can find an element list using directly the selector
+Scenario: I can find all the elements using the static selectors directly.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search using selectors for all InputText elements
   Then I find 6 text elements that match
 
 @3
-Scenario: I can find if a element exists using directly the selector
+Scenario: I can find if a element exists above a text using directly the selector.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search using selectors if an InputText above the text "Surname" exists
   Then yes, it exists
 
 @4
-Scenario: I can find if a element exists using directly the selector
+Scenario: I can check if elements that don't exist
+          are correctly reported as such, directly from the selector.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search using selectors if an Image above the text "Surname" exists

@@ -115,7 +115,7 @@ ARG pypi_url=https://pypi.python.org/
 # PYPI index location
 ARG pypi_index_url=https://pypi.python.org/simple
 
-RUN mdkir ~/.pip && \
+RUN mkdir ~/.pip && \
     echo "[global]" > ~/.pip/pip.conf && \
     echo "index = $pypy_url" >> ~/.pip/pip.conf && \
     echo "index-url = $pypy_index_url" >> ~/.pip/pip.conf && \

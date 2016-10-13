@@ -10,6 +10,10 @@ TAG_VERSION=$($GERMANIUM_FOLDER/bin/version/python-version.sh --tag)
 
 cd $GERMANIUM_FOLDER
 
+echo "Sending arguments to the docker build:"
+echo "pypi_url is $PIPY_URL"
+echo "pypi_index_url is $PIPY_INDEX_URL"
+
 docker build \
     -t germanium/germanium-$TAG_VERSION \
     --build-arg pypi_url=$PIPY_URL \

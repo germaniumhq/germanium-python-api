@@ -85,3 +85,13 @@ Feature: Germanium enabled typing of the keys.
       all
       text
       """
+
+    @9
+    Scenario: Typing shouldn't be abysmally slow.
+      Given I open the browser
+      And I go to 'http://localhost:8000/features/test-site/inputs.html'
+      When I start timing the passed time
+      And in the locator #passwordInputField I type_keys 'thisisaquitelongertext<left*100><right*100>a'
+      Then the passed time is less than ten seconds
+      And the value for the #passwordInputField is 'thisisaquitelongertexta'
+

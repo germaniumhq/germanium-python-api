@@ -31,7 +31,9 @@ def _open_local_chrome(timeout):
 
 def _open_local_ie(timeout):
     germaniumdrivers.ensure_driver("ie")
-    return webdriver.Ie(timeout=timeout)
+    capabilities = {"requireWindowFocus": True}
+    return webdriver.Ie(timeout=timeout,
+                        capabilities=capabilities)
 
 
 def open_browser(browser="Firefox",
@@ -63,7 +65,8 @@ def open_browser(browser="Firefox",
         elif remote_browser.lower() == "chrome":
             remote_capabilities = webdriver.DesiredCapabilities.CHROME
         elif remote_browser.lower() == "ie":
-            remote_capabilities = webdriver.DesiredCapabilities.INTERNETEXPLORER
+            remote_capabilities = dict(webdriver.DesiredCapabilities.INTERNETEXPLORER)
+            remote_capabilities["requireWindowFocus"] = True
         else:
             raise Exception("Unknown browser: %s, only firefox, "
                             "chrome and ie are supported." % browser)

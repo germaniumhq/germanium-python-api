@@ -20,4 +20,4 @@ def step_impl(context):
 
 @step(u'the file is uploaded successfully')
 def step_impl(context):
-    assert Text("Uploaded 'upload_test_file.txt'.").exists()
+    assert "Uploaded '" in get_text('body')

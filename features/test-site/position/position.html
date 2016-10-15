@@ -19,11 +19,11 @@
             var messageDiv = $('#messagesDiv');
 
             $('#inlineDiv').click(function(ev) {
-                messageDiv.text("inline x: " + ev.offsetX + " y: " + ev.offsetY);
+                messageDiv.text("inline x: " + parseInt(ev.offsetX) + " y: " + parseInt(ev.offsetY));
             });
 
             $('#absoluteDiv').click(function(ev) {
-                messageDiv.text("absolute x: " + ev.offsetX + " y: " + ev.offsetY);
+                messageDiv.text("absolute x: " + parseInt(ev.offsetX) + " y: " + parseInt(ev.offsetY));
             });
         })(jQuery);
         </script>

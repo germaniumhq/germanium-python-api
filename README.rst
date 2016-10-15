@@ -1,5 +1,5 @@
-germanium 1.9.9
-===============
+germanium 1.9.10
+================
 
 Germanium is a set of extensions on top of the regular WebDriver API, allowing
 for a super easy creation of tests. It's opensource and free.

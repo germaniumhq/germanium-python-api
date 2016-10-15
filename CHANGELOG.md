@@ -1,6 +1,13 @@
 ChangeLog
 ---------
 
+* 2016-10-15  1.9.10
+    _Bugfixes_
+
+    - `requireWindowFocus` by default on IE profiles, so typing keys in IE11 it's not abysmally slow.
+    - Updated marionette drivers (for Firefox)
+    - Refactored some tests towards Germanium 2.0
+
 * 2016-10-03  1.9.9
     _Bugfixes_
 
@@ -8,7 +15,7 @@ ChangeLog
 
 * 2016-09-13  1.9.8
     - `waited` function call. You can write now `click(waited(Text(..)))` that will also wait.
-    - Made the static selector alow also lists of elements for locators.
+    - Made the static selector allow also lists of elements for locators.
 
     _Bugfixes_
 

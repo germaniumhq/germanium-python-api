@@ -36,6 +36,11 @@ def _open_local_ie(timeout):
                         capabilities=capabilities)
 
 
+def _open_local_edge(timeout):
+    germaniumdrivers.ensure_driver("edge")
+    return webdriver.Edge()
+
+
 def open_browser(browser="Firefox",
                  wd=None,
                  iframe_selector=DefaultIFrameSelector(),
@@ -67,6 +72,8 @@ def open_browser(browser="Firefox",
         elif remote_browser.lower() == "ie":
             remote_capabilities = dict(webdriver.DesiredCapabilities.INTERNETEXPLORER)
             remote_capabilities["requireWindowFocus"] = True
+        elif remote_browser.lower() == "edge":
+            remote_capabilities = webdriver.DesiredCapabilities.EDGE
         else:
             raise Exception("Unknown browser: %s, only firefox, "
                             "chrome and ie are supported." % browser)
@@ -79,6 +86,8 @@ def open_browser(browser="Firefox",
         web_driver = _open_local_chrome(timeout)
     elif browser.lower() == "ie":
         web_driver = _open_local_ie(timeout)
+    elif browser.lower() == "edge":
+        web_driver = _open_local_edge(timeout)
     else:
         raise Exception("Unknown browser: %s, only firefox, "
                         "chrome and ie are supported." % browser)

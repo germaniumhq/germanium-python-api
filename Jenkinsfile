@@ -6,7 +6,9 @@ PYTHON_35 = Boolean.valueOf(PYTHON_35)
 RUN_FIREFOX_TESTS = Boolean.valueOf(RUN_FIREFOX_TESTS)
 RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
 RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
+RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
 // IE_GERMANIUM_URL = "ie:http://192.168.0.27:5555/"
+// EDGE_GERMANIUM_URL = "edge:http://192.168.0.2:5555/"
 
 // PYPI_URL - the URL to use for PYPI
 // PYPI_INDEX_URL - the index URL to use for PYPI
@@ -86,6 +88,20 @@ if (PYTHON_35) {
                 """
             }
         }
+    }, python35Edge: {
+        if (RUN_EDGE_TESTS) {
+            node {
+                sh """
+                    docker run --rm \\
+                           -e TEST_REUSE_BROWSER=1 \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p 8008:8000 \\
+                           -e TEST_HOST=$TEST_HOST \\
+                           -e TEST_BROWSER=$EDGE_GERMANIUM_URL \\
+                           germanium/germanium-python3.5-tests
+                """
+            }
+        }
     }, failFast: false
 }
 
@@ -128,6 +144,20 @@ if (PYTHON_27) {
                 """
             }
         }
+    }, python27Edge: {
+        if (RUN_EDGE_TESTS) {
+            node {
+                sh """
+                    docker run --rm \\
+                           -e TEST_REUSE_BROWSER=1 \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p 8008:8000 \\
+                           -e TEST_HOST=$TEST_HOST \\
+                           -e TEST_BROWSER=$EDGE_GERMANIUM_URL \\
+                           germanium/germanium-python2.7-tests
+                """
+            }
+        }
     }, failFast: false
 }
 
@@ -166,6 +196,20 @@ if (PYTHON_34) {
                            -p 8008:8000 \\
                            -e TEST_HOST=$TEST_HOST \\
                            -e TEST_BROWSER=$IE_GERMANIUM_URL \\
+                           germanium/germanium-python3.4-tests
+                """
+            }
+        }
+    }, python34Edge: {
+        if (RUN_EDGE_TESTS) {
+            node {
+                sh """
+                    docker run --rm \\
+                           -e TEST_REUSE_BROWSER=1 \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p 8008:8000 \\
+                           -e TEST_HOST=$TEST_HOST \\
+                           -e TEST_BROWSER=$EDGE_GERMANIUM_URL \\
                            germanium/germanium-python3.4-tests
                 """
             }

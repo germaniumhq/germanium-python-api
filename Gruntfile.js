@@ -20,6 +20,12 @@ module.exports = function(grunt) {
                     dest: "germanium/locators/inside-filter.js"
                 }]
             },
+            "util/child-nodes" : {
+                files: [{
+                    src: ["js/util/child-nodes.js"],
+                    dest: "germanium/util/child-nodes.js"
+                }]
+            },
             "points/box" : {
                 files: [{
                     src: ["js/points/box.js"],
@@ -45,6 +51,13 @@ module.exports = function(grunt) {
                 files: {
                     "germanium/locators/inside-filter.min.js" : [
                         "germanium/locators/inside-filter.js"
+                    ]
+                }
+            },
+            "util/child-nodes" : {
+                files: {
+                    "germanium/util/child-nodes.min.js" : [
+                        "germanium/util/child-nodes.js"
                     ]
                 }
             },

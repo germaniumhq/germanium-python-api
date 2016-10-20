@@ -6,7 +6,8 @@ class CompositeLocator(DeferredLocator):
     A locator that will search using the locators it contains.
     """
     def __init__(self, locators, root_element=None):
-        super(CompositeLocator, self).__init__(None, root_element=root_element)
+        super(CompositeLocator, self).__init__(locators[0]._germanium,
+                                               root_element=root_element)
 
         self._locators = locators
 

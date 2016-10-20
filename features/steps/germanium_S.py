@@ -65,7 +65,7 @@ def step_impl(context):
 @step(u"I create a StaticElementLocator with a single element: (.*?)")
 def step_impl(context, selector):
     element = S(selector).element()
-    context.static_element_locator = StaticElementLocator(element)
+    context.static_element_locator = StaticElementLocator(get_germanium(), element)
 
 
 @step(u"the StaticElementLocator has one element")

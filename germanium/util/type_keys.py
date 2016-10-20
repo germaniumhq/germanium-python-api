@@ -60,7 +60,7 @@ def type_keys_g(context, keys_typed, selector=None, delay=0, *args):
                 isinstance(potential_elements[0], WebdriverAlert):
             element = potential_elements[0]
         else:
-            element = _filter_one_for_action(potential_elements)
+            element = _filter_one_for_action(germanium, potential_elements)
     elif _alert_exists(germanium):
         element = Alert().element(germanium=germanium)
 

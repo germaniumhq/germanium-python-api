@@ -12,6 +12,6 @@ def _element(germanium, selector):
 
     if selector:
         items = germanium.S(selector).element_list(only_visible=False)
-        element = _filter_one_for_action(items)
+        element = _filter_one_for_action(germanium, items)
 
     return element

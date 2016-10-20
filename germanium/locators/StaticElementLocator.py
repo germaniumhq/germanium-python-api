@@ -4,9 +4,9 @@ from .DeferredLocator import DeferredLocator
 
 
 class StaticElementLocator(DeferredLocator):
-    def __init__(self, element):
+    def __init__(self, germanium, element):
         """ Just holds a static reference to the elements. """
-        super(StaticElementLocator, self).__init__(None)
+        super(StaticElementLocator, self).__init__(germanium)
 
         if not isinstance(element, collections.Iterable):
             self._element = [element]

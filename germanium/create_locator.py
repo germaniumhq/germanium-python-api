@@ -108,7 +108,7 @@ def create_locator(germanium, selector, strategy='detect'):
         return CompositeLocator(locator_list)
 
     if isinstance(selector, WebElement):
-        return StaticElementLocator(selector)
+        return StaticElementLocator(germanium, selector)
 
     if isinstance(selector, Alert):
         return AlertLocator(germanium)
@@ -124,7 +124,7 @@ def create_locator(germanium, selector, strategy='detect'):
             if not isinstance(item, WebElement):
                 _raise_bad_selector_type(selector)
 
-        return StaticElementLocator(selector)
+        return StaticElementLocator(germanium, selector)
 
     if not isinstance(selector, str):
         _raise_bad_selector_type(selector)

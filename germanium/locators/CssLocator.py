@@ -1,6 +1,6 @@
 import collections
 
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote.webelement import WebElement
 
 from .DeferredLocator import DeferredLocator
@@ -23,7 +23,7 @@ class CssLocator(DeferredLocator):
             if self._root_element:
                 return self._root_element.find_element_by_css_selector(self._selector)
             return self._germanium.find_element_by_css_selector(self._selector)
-        except NoSuchElementException as e:
+        except WebDriverException:
             return None
 
     def _find_element_list(self):
@@ -52,5 +52,5 @@ class CssLocator(DeferredLocator):
                              type(result),
                              self._selector,
                              self))
-        except NoSuchElementException as e:
+        except WebDriverException:
             return None

@@ -8,6 +8,12 @@ module.exports = function(grunt) {
             options: {
                 sourceMap: false
             },
+            "impl/filter-not-displayed" : {
+                files: [{
+                    src: ["js/impl/filter-not-displayed.js"],
+                    dest: "germanium/impl/filter-not-displayed.js"
+                }]
+            },
             "locators/positional-filter" : {
                 files: [{
                     src: ["js/locators/positional-filter.js"],
@@ -39,6 +45,13 @@ module.exports = function(grunt) {
                 bare_returns: true,
                 mangle: true,
                 compress: true
+            },
+            "impl/filter-not-displayed" : {
+                files: {
+                    "germanium/impl/filter-not-displayed.min.js" : [
+                        "germanium/impl/filter-not-displayed.js"
+                    ]
+                }
             },
             "locators/positional-filter" : {
                 files: {

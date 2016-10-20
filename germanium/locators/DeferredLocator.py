@@ -36,7 +36,8 @@ class DeferredLocator(object):
         :param index: if set, return only the element with the given index.
         :type only_visible: boolean
         """
-        result = _filter_not_displayed(self._find_element_list(),
+        result = _filter_not_displayed(self._germanium,
+                                       self._find_element_list(),
                                        only_visible=only_visible)
 
         if index is not None:

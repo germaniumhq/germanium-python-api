@@ -24,7 +24,7 @@ Feature: Germanium enabled typing of the keys.
       And I type_keys '<ctrl-shift-left><bs>test'
       Then the value for the input#anotherTextInput is 'another input test'
 
-    @2 @nochrome @noie
+    @2 @nochrome @noie @noedge
     Scenario: Ensure all the keycodes are passed correctly
       Given I open the browser
       And I go to 'http://localhost:8000/features/test-site/key_type-support.html'

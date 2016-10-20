@@ -30,7 +30,7 @@ def highlight_g(context,
     else:
         items = germanium.S(selector).element_list(only_visible=False)
         is_element_visible = True
-        elements = _filter_not_displayed(items, throw_when_empty=False)
+        elements = _filter_not_displayed(germanium, items, throw_when_empty=False)
 
         if not elements:
             elements = items

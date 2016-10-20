@@ -39,6 +39,7 @@ def open_browser_step(context):
     if not get_germanium():
         instantiate_germanium_webdriver()
 
+
 @step("I go to '(?P<page>.*?)'")
 @step("I navigate to '(?P<page>.*?)'")
 def navigate_to_page(context, page):

@@ -1,13 +1,18 @@
-from ._is_displayed_filter import _is_displayed_filter
+from selenium.common.exceptions import StaleElementReferenceException
 
-def _filter_one_for_action(found_items):
-    items = _filter_not_displayed(found_items,
+from ._load_script import load_script
+
+
+def _filter_one_for_action(germanium, found_items):
+    items = _filter_not_displayed(germanium,
+                                  found_items,
                                   only_visible=True,
                                   throw_when_empty=True)
     return items[0]
 
 
-def _filter_not_displayed(found_items,
+def _filter_not_displayed(germanium,
+                          found_items,
                           only_visible=True,
                           throw_when_empty=False):
     if not found_items:
@@ -18,7 +23,17 @@ def _filter_not_displayed(found_items,
     if not only_visible:
         return found_items
 
-    result = list(filter(_is_displayed_filter, found_items))
+    js_arguments = []
+
+    code = load_script(__name__, 'filter-not-displayed.min.js')
+
+    js_arguments.append(code)
+    js_arguments.extend(found_items)
+
+    try:
+        result = germanium.js(*js_arguments)
+    except StaleElementReferenceException:
+        result = []
 
     if not result and throw_when_empty:
         raise_no_visible_items_found_for_action(found_items)

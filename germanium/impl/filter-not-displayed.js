@@ -3,8 +3,14 @@ return (function() {
     var i,
         result = [];
 
+    var style = document.body.currentStyle ||
+        window.getComputedStyle(document.body);
+
+    var bodyMarginTop = parseInt(style.marginTop),
+        bodyMarginLeft = parseInt(style.marginLeft);
+
     function left(element) {
-        var result = 0;
+        var result = - bodyMarginLeft;
         while (element && element != document.body) {
             result += element.offsetLeft;
             element = element.offsetParent;
@@ -14,7 +20,7 @@ return (function() {
     }
 
     function top(element) {
-        var result = 0;
+        var result = - bodyMarginTop;
         while (element && element != document.body) {
             result += element.offsetTop;
             element = element.offsetParent;
@@ -24,11 +30,7 @@ return (function() {
     }
 
     function right(element) {
-        if (!element || typeof element.offsetWidth == "undefined") {
-            return -1;
-        }
-
-        var result = element.offsetWidth - 1;
+        var result = element.offsetWidth - bodyMarginLeft;
         while (element && element != document.body) {
             result += element.offsetLeft;
             element = element.offsetParent;
@@ -38,11 +40,7 @@ return (function() {
     }
 
     function bottom(element) {
-        if (!element || typeof element.offsetHeight == "undefined") {
-            return -1;
-        }
-
-        var result = element.offsetHeight - 1;
+        var result = element.offsetHeight - bodyMarginTop;
         while (element && element != document.body) {
             result += element.offsetTop;
             element = element.offsetParent;

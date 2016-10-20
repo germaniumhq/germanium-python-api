@@ -51,7 +51,7 @@ return (function() {
 
     var getCssProperty = typeof getComputedStyle !== "undefined" ?
         function (element, property) { // anything else
-            return getComputedStyle(element, property);
+            return getComputedStyle(element)[property];
         } :
         function (element, property) { // IE8
             return element.currentStyle[property];
@@ -73,22 +73,22 @@ return (function() {
         }
 
         if (b < 0) { // above the current view
-            console.log("above the current view", element);
             return false;
         }
 
         if (r < 0) { // left of current screen
-            console.log("above the current view", element);
             return false;
         }
 
         if (b - t == 0 || r - l == 0) { // 0px size
-            console.log("0px size", element);
             return false;
         }
 
         if (getCssProperty(element, "display") == "none") {
-            console.log("display is none", element);
+            return false;
+        }
+
+        if (getCssProperty(element, "visibility") == "hidden") {
             return false;
         }
 

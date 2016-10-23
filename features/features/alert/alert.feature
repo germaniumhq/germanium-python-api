@@ -1,3 +1,4 @@
+@noedge
 Feature: Simple alert support should function.
 
 @1

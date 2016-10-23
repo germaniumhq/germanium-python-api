@@ -1,4 +1,4 @@
-from selenium.webdriver import ActionChains
+from germanium.impl import ActionChains
 
 from germanium.points import Point
 from ._element import _element
@@ -8,6 +8,27 @@ from .find_germanium_object import find_germanium_object
 def _element_or_position(germanium, selector):
     if isinstance(selector, Point):
         return selector
+    return _element(germanium, selector)
+
+
+def _element_or_none(germanium, selector, point):
+    """
+    Function to check if the given selector is only a regular
+    element without offset clicking. If that is the case, then we
+    enable the double hovering in the mouse actions, to solve a
+    host of issues with hovering and scrolling, such as elements
+    appearing on mouse in, or edge not hovering correctly.
+    :param germanium:
+    :param selector:
+    :param point:
+    :return:
+    """
+    if isinstance(selector, Point):
+        return None
+
+    if point:
+        return None
+
     return _element(germanium, selector)
 
 
@@ -28,7 +49,7 @@ def _move_mouse(germanium, selector, point, move_mouse_over=False, action=None):
             point.x,
             point.y)
     elif move_mouse_over and selector:
-        action.move_to_element(element)
+        action.move_to_element_with_offset(element, 0, 0)
 
     return action
 
@@ -42,8 +63,19 @@ def click_g(context, selector=None, point=None, move_mouse_over=True):
     """
     germanium = find_germanium_object(context)
 
+    if move_mouse_over:
+        element = _element_or_none(germanium, selector, point)
+
+        if element:
+            _move_mouse(germanium, element, None, move_mouse_over)\
+                .click(on_element=element)\
+                .perform()
+
+            return
+
     _move_mouse(germanium, selector, point, move_mouse_over)\
-        .click().perform()
+        .click()\
+        .perform()
 
 
 def right_click_g(context, selector=None, point=None, move_mouse_over=True):
@@ -55,8 +87,19 @@ def right_click_g(context, selector=None, point=None, move_mouse_over=True):
     """
     germanium = find_germanium_object(context)
 
+    if move_mouse_over:
+        element = _element_or_none(germanium, selector, point)
+
+        if element:
+            _move_mouse(germanium, element, None, move_mouse_over) \
+                .context_click(on_element=element) \
+                .perform()
+
+            return
+
     _move_mouse(germanium, selector, point, move_mouse_over) \
-        .context_click().perform()
+        .context_click() \
+        .perform()
 
 
 def double_click_g(context, selector=None, point=None, move_mouse_over=True):
@@ -68,8 +111,19 @@ def double_click_g(context, selector=None, point=None, move_mouse_over=True):
     """
     germanium = find_germanium_object(context)
 
+    if move_mouse_over:
+        element = _element_or_none(germanium, selector, point)
+
+        if element:
+            _move_mouse(germanium, element, None, move_mouse_over) \
+                .double_click(on_element=element) \
+                .perform()
+
+            return
+
     _move_mouse(germanium, selector, point, move_mouse_over) \
-        .double_click().perform()
+        .double_click() \
+        .perform()
 
 
 def hover_g(context, selector=None, point=None):

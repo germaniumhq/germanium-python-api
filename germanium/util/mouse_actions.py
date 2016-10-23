@@ -5,6 +5,10 @@ from ._element import _element
 from .find_germanium_object import find_germanium_object
 
 
+from germanium.impl._workaround import workaround
+from germanium.wa.edge_move_to_element import \
+    _is_microsoft_edge, _edge_move_to_element_with_offset
+
 def _element_or_position(germanium, selector):
     if isinstance(selector, Point):
         return selector
@@ -32,6 +36,11 @@ def _element_or_none(germanium, selector, point):
     return _element(germanium, selector)
 
 
+@workaround(_is_microsoft_edge, _edge_move_to_element_with_offset)
+def _move_to_element(germanium, action, element):
+    action.move_to_element(element)
+
+
 def _move_mouse(germanium, selector, point, move_mouse_over=False, action=None):
     if not action:
         action = ActionChains(germanium.web_driver)
@@ -49,7 +58,7 @@ def _move_mouse(germanium, selector, point, move_mouse_over=False, action=None):
             point.x,
             point.y)
     elif move_mouse_over and selector:
-        action.move_to_element_with_offset(element, 0, 0)
+        _move_to_element(germanium, action, element)
 
     return action
 

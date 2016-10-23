@@ -8,7 +8,7 @@ RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
 RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
 RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
 // IE_GERMANIUM_URL = "ie:http://192.168.0.27:5555/"
-// EDGE_GERMANIUM_URL = "edge:http://192.168.0.2:5555/"
+// EDGE_GERMANIUM_URL = "edge:http://192.168.0.23:4444/wd/hub"
 
 // PYPI_URL - the URL to use for PYPI
 // PYPI_INDEX_URL - the index URL to use for PYPI

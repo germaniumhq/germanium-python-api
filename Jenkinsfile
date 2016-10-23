@@ -15,7 +15,12 @@ RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
 
 // GIT_SERVER - the URL of the git server
 
-// TEST_HOST = "192.168.0.6:8008"  # where are the tests running.
+// TEST_HOST = "192.168.0.6"  # where are the tests running.
+// Ports that will be used in parallel, since we have the same
+// test host (the docker instance)
+
+TEST_HOST_IE11_PORT=8011  // 8011:8000 -> IE 11
+TEST_HOST_EDGE_PORT=8012  // 8012:8000 -> Edge
 
 def buildSingleVersion(version) {
     node {
@@ -81,8 +86,8 @@ if (PYTHON_35) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
-                           -p 8008:8000 \\
-                           -e TEST_HOST=$TEST_HOST \\
+                           -p $TEST_HOST_IE11_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT \\
                            -e TEST_BROWSER=$IE_GERMANIUM_URL \\
                            germanium/germanium-python3.5-tests
                 """
@@ -95,8 +100,8 @@ if (PYTHON_35) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
-                           -p 8008:8000 \\
-                           -e TEST_HOST=$TEST_HOST \\
+                           -p $TEST_HOST_EDGE_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT \\
                            -e TEST_BROWSER=$EDGE_GERMANIUM_URL \\
                            germanium/germanium-python3.5-tests
                 """
@@ -137,8 +142,8 @@ if (PYTHON_27) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
-                           -p 8008:8000 \\
-                           -e TEST_HOST=$TEST_HOST \\
+                           -p $TEST_HOST_IE11_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT \\
                            -e TEST_BROWSER=$IE_GERMANIUM_URL \\
                            germanium/germanium-python2.7-tests
                 """
@@ -151,8 +156,8 @@ if (PYTHON_27) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
-                           -p 8008:8000 \\
-                           -e TEST_HOST=$TEST_HOST \\
+                           -p $TEST_HOST_EDGE_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT \\
                            -e TEST_BROWSER=$EDGE_GERMANIUM_URL \\
                            germanium/germanium-python2.7-tests
                 """
@@ -193,8 +198,8 @@ if (PYTHON_34) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
-                           -p 8008:8000 \\
-                           -e TEST_HOST=$TEST_HOST \\
+                           -p $TEST_HOST_IE11_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT \\
                            -e TEST_BROWSER=$IE_GERMANIUM_URL \\
                            germanium/germanium-python3.4-tests
                 """
@@ -207,8 +212,8 @@ if (PYTHON_34) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
-                           -p 8008:8000 \\
-                           -e TEST_HOST=$TEST_HOST \\
+                           -p $TEST_HOST_EDGE_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT \\
                            -e TEST_BROWSER=$EDGE_GERMANIUM_URL \\
                            germanium/germanium-python3.4-tests
                 """

@@ -1,6 +1,14 @@
 ChangeLog
 ---------
 
+* 2016-10-24  1.10.0
+    - Edge support (beta).
+
+    _Bugfixes_
+
+    - Performance improvements + better stability on `is_displayed` for multiple elements.
+    - `child-nodes` is now also a minified script (Germanium 2.0)
+
 * 2016-10-15  1.9.10
     _Bugfixes_
 

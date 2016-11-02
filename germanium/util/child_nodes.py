@@ -1,4 +1,4 @@
-from ._element import _element
+from ._action_element_finder import _element
 from .find_germanium_object import find_germanium_object
 from germanium.impl._load_script import load_script
 

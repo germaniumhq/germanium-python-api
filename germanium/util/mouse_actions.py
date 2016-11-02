@@ -1,13 +1,14 @@
 from germanium.impl import ActionChains
 
 from germanium.points import Point
-from ._element import _element
+from ._action_element_finder import _element
 from .find_germanium_object import find_germanium_object
 
 
 from germanium.impl._workaround import workaround
 from germanium.wa.edge_move_to_element import \
     _is_microsoft_edge, _edge_move_to_element_with_offset
+
 
 def _element_or_position(germanium, selector):
     if isinstance(selector, Point):

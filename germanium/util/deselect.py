@@ -1,7 +1,7 @@
 from selenium.webdriver.support.select import Select
 
 from germanium.impl import _ensure_list
-from ._element import _element
+from ._action_element_finder import _element
 from .find_germanium_object import find_germanium_object
 
 

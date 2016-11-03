@@ -1,6 +1,7 @@
 from selenium.webdriver.remote.webelement import WebElement
 
 from .find_germanium_object import find_germanium_object
+from germanium.impl._load_script import load_script
 
 
 def get_attributes_g(context, selector, only_visible=True):
@@ -22,15 +23,6 @@ def get_attributes_g(context, selector, only_visible=True):
     if not element:
         raise Exception("Unable to find '%s' to get_attributes." % selector)
 
-    return germanium.js("""
-        var attributes = arguments[0].attributes;
-        var result = {};
+    code = load_script(__name__, 'get-attributes.min.js')
 
-        for (var i = 0; i < attributes.length; i++) {
-            if (attributes[i].specified) {
-                result[attributes[i].name] = attributes[i].value;
-            }
-        }
-
-        return result;
-    """, element)
+    return germanium.js(code, element)

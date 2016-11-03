@@ -6,7 +6,7 @@ from .mouse_actions import _move_mouse, _element_or_none
 def drag_and_drop_g(context, from_selector, to_selector, from_point=None, to_point=None):
     germanium = find_germanium_object(context)
 
-    from_element = _element_or_none(germanium, from_selector, to_point)
+    from_element = _element_or_none(germanium, from_selector, from_point)
 
     if from_element:
         action = _move_mouse(germanium, from_element, point=None, move_mouse_over=True) \

@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2016-11-06  1.10.1
+    - Updated drivers for Chrome.
+
 * 2016-10-24  1.10.0
     - Edge support (beta).
 

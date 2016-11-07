@@ -2,6 +2,7 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from ._action_element_finder import _element
 from .find_germanium_object import find_germanium_object
+from germanium.impl._load_script import load_script
 
 
 def get_style_g(context, selector, name):
@@ -12,10 +13,6 @@ def get_style_g(context, selector, name):
     else:
         element = _element(germanium, selector)
 
-    return germanium.js("""
-        if (arguments[0].style && arguments[0].style[arguments[1]]) {
-            return arguments[0].style[arguments[1]];
-        } else {
-            return window.getComputedStyle(arguments[0], null)[arguments[1]];
-        }
-    """, element, name)
+    code = load_script(__name__, 'get-style.min.js')
+
+    return germanium.js(code, element, name)

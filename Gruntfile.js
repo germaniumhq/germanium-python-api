@@ -38,6 +38,12 @@ module.exports = function(grunt) {
                     dest: "germanium/util/get-attributes.js"
                 }]
             },
+            "util/get-style" : {
+                files: [{
+                    src: ["js/util/get-style.js"],
+                    dest: "germanium/util/get-style.js"
+                }]
+            },
             "points/box" : {
                 files: [{
                     src: ["js/points/box.js"],
@@ -84,6 +90,13 @@ module.exports = function(grunt) {
                 files: {
                     "germanium/util/get-attributes.min.js" : [
                         "germanium/util/get-attributes.js"
+                    ]
+                }
+            },
+            "util/get-style" : {
+                files: {
+                    "germanium/util/get-style.min.js" : [
+                        "germanium/util/get-style.js"
                     ]
                 }
             },

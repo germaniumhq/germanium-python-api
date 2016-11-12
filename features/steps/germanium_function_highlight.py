@@ -59,7 +59,7 @@ def step_impl(context):
                   js("return window._lastlog_message[0];"))
     element = js("return window._lastlog_message[1]")
     assert_true(isinstance(element, WebElement))
-    assert_equals('visibleDiv', get_attributes(element)['id'])
+    assert_equals("visibleDiv", get_attributes(element)['id'])
 
 
 @step("in the log there is an error message notifying the element is invisible")
@@ -69,7 +69,7 @@ def step_impl(context):
                   js("return window._lasterror_message[0];"))
     element = js("return window._lasterror_message[1]")
     assert_true(isinstance(element, WebElement))
-    assert_equals('invisibleDiv', get_attributes(element)['id'])
+    assert_equals("invisibleDiv", get_attributes(element)['id'])
 
 
 @step("in the log there is an error message notifying the element as non existing")

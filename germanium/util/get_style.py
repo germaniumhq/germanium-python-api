@@ -8,6 +8,7 @@ from germanium.impl._load_script import load_script
 def get_style_g(context, selector, name):
     germanium = find_germanium_object(context)
 
+    # FIXME: get styles from hidden attributes, see get_attributes
     if isinstance(selector, WebElement):
         element = selector
     else:

@@ -678,6 +678,9 @@ some other conditions do not happen.
 In case the timeout expires, or one of the `while_not` conditions matches until
 the `closure` is not yet matching then throws an exception.
 
+Callables of both `closure` and the `while_not` are recursively resolved until
+a non callable _trueish_ value is returned.
+
 *Signature*
 
 [source,python]
@@ -700,6 +703,33 @@ Since selectors are callables, they can be used as parameters for `wait`.
 -----------------------------------------------------------------------------
 wait(Text("document uploaded successfully"),
     while_not = Text("an error occurred"))
+-----------------------------------------------------------------------------
+
+Because callables are recursively resolved, they can be used as strategies for
+waiting:
+
+[source,python]
+-----------------------------------------------------------------------------
+def ButtonOrLink():
+    if some_condition:
+        return Link
+
+    return Button
+
+wait(ButtonOrLink)
+-----------------------------------------------------------------------------
+
+This is roughly equivalent to:
+
+[source,python]
+-----------------------------------------------------------------------------
+def ButtonOrLink():
+    if some_condition:
+        return Link().exists()
+
+    return Button().exists()
+
+wait(ButtonOrLink)
 -----------------------------------------------------------------------------
 
 == waited(closure, while_not=None, timeout=10)

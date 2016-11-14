@@ -36,3 +36,13 @@ Scenario: Test multiple wait callback as vararg
 Scenario: Test having wait on a closure that returns a closure does the resolving correctly
   When I wait on a closure that returns a closure that returns False
   Then the wait function call failed
+
+@6
+Scenario: Test having while_not returning closures, also get resolved recursively.
+  When I wait on a while_not that returns a closure that returns False
+  Then the wait function call passed
+
+@7
+Scenario: Test having while_not returning closures that throw fail the wait.
+  When I wait on a while_not that returns a closure that throws
+  Then the wait function call failed

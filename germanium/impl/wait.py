@@ -67,7 +67,7 @@ def wait(closures, *extra_closures, while_not=None, timeout=10):
 
         for while_not_closure in while_not:
             try:
-                if while_not_closure():
+                if _resolve_closure(while_not_closure()):
                     raise Exception("Waiting failed, since while_not condition matched")
             except Exception as e:
                 raise Exception("Waiting failed, since while_not condition raised exception", e)

@@ -1,6 +1,5 @@
 from behave import *
 
-from germanium import wait
 from germanium.static import *
 
 
@@ -39,14 +38,26 @@ def step_impl(context):
 
 @step(u'I wait on a closure that returns a closure that returns False')
 def wait_on_a_closure_that_returns_a_closure_that_returns_false(context):
-    def return_false():
-        return False
-
-    def return_return_false():
-        return return_false
-
     try:
         wait(return_return_false, timeout=0.5)
+        context.wait_function_call_failed = False
+    except:
+        context.wait_function_call_failed = True
+
+
+@step(u'I wait on a while_not that returns a closure that returns False')
+def wait_on_a_while_not_that_returns_a_closure_that_returns_false(context):
+    try:
+        wait(return_true, while_not=return_return_false)
+        context.wait_function_call_failed = False
+    except:
+        context.wait_function_call_failed = True
+
+
+@step(u'I wait on a while_not that returns a closure that throws')
+def wait_on_a_while_not_that_returns_a_closure_that_returns_false(context):
+    try:
+        wait(return_true, while_not=return_return_throws)
         context.wait_function_call_failed = False
     except:
         context.wait_function_call_failed = True
@@ -55,3 +66,30 @@ def wait_on_a_closure_that_returns_a_closure_that_returns_false(context):
 @step('the wait function call failed')
 def wait_function_call_fails(context):
     assert context.wait_function_call_failed
+
+
+@step('the wait function call passed')
+def wait_function_call_fails(context):
+    assert context.wait_function_call_failed == False
+
+
+# Utility test functions
+def return_false():
+    return False
+
+
+def return_return_false():
+    return return_false
+
+
+def return_true():
+    return True
+
+
+def return_return_throws():
+    return return_throws
+
+
+def return_throws():
+    raise Exception("throw that was returned")
+

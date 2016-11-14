@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2016-11-14  1.10.2
+    - `while_not` has now its results resolving as well, so lambdas are recursively resolved.
+
 * 2016-11-06  1.10.1
     - Updated drivers for Chrome.
 

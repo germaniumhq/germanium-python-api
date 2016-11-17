@@ -11,14 +11,13 @@ def _current_time_in_millis():
 
 
 def _resolve_closure(closure):
-    original_closure = closure
+    result = original_closure = closure
 
     for i in range(MAX_CLOSURE_RESOLVES):
-        result = closure()
-
         if not hasattr(result, '__call__'):
             return result
 
+        result = closure()
         closure = result
 
     raise Exception("Unable to resolve function: %s in %s tries. Too much recursion." %

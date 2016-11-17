@@ -46,3 +46,9 @@ Scenario: Test having while_not returning closures, also get resolved recursivel
 Scenario: Test having while_not returning closures that throw fail the wait.
   When I wait on a while_not that returns a closure that throws
   Then the wait function call failed
+
+@8
+Scenario: Waiting on a while_not using the S function should not fail
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/wait-error.html'
+  When I wait with a while_not that has a CSS locator built with S should pass

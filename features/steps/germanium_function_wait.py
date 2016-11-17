@@ -73,6 +73,11 @@ def wait_function_call_fails(context):
     assert context.wait_function_call_failed == False
 
 
+@step(u'I wait with a while_not that has a CSS locator built with S should pass')
+def step_impl(context):
+    wait(True, while_not=S('div#errorContent'))
+
+
 # Utility test functions
 def return_false():
     return False

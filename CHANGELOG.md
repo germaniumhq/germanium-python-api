@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2016-11-17  1.10.3
+    - `while_not` regression fix.
+
 * 2016-11-14  1.10.2
     - `while_not` has now its results resolving as well, so lambdas are recursively resolved.
 

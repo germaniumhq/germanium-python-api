@@ -1,5 +1,5 @@
 
-current = "1.10.2"
+current = "1.10.3"
 
 
 def display_version():

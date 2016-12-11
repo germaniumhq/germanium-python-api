@@ -66,7 +66,7 @@ if (PYTHON_35) {
     parallel python35Firefox: {
         if (RUN_FIREFOX_TESTS) {
             node {
-                sh '''
+                sh """
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
@@ -74,13 +74,13 @@ if (PYTHON_35) {
                            -e TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT \\
                            -e TEST_BROWSER=$FIREFOX_GERMANIUM_URL \\
                            germanium/germanium-python3.5-tests
-                '''
+                """
             }
         }
     }, python35Chrome: {
         if (RUN_CHROME_TESTS) {
             node {
-                sh '''
+                sh """
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
@@ -88,7 +88,7 @@ if (PYTHON_35) {
                            -e TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT \\
                            -e TEST_BROWSER=$CHROME_GERMANIUM_URL \\
                            germanium/germanium-python3.5-tests
-                '''
+                """
             }
         }
     }, python35Ie8: {
@@ -128,7 +128,7 @@ if (PYTHON_27) {
     parallel python27Firefox: {
         if (RUN_FIREFOX_TESTS) {
             node {
-                sh '''
+                sh """
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
@@ -136,13 +136,13 @@ if (PYTHON_27) {
                            -e TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT \\
                            -e TEST_BROWSER=$FIREFOX_GERMANIUM_URL \\
                            germanium/germanium-python2.7-tests
-                '''
+                """
             }
         }
     }, python27Chrome: {
         if (RUN_CHROME_TESTS) {
             node {
-                sh '''
+                sh """
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
@@ -150,7 +150,7 @@ if (PYTHON_27) {
                            -e TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT \\
                            -e TEST_BROWSER=$CHROME_GERMANIUM_URL \\
                            germanium/germanium-python2.7-tests
-                '''
+                """
             }
         }
     }, python27Ie8: {
@@ -190,7 +190,7 @@ if (PYTHON_34) {
     parallel python34Firefox: {
         if (RUN_FIREFOX_TESTS) {
             node {
-                sh '''
+                sh """
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
@@ -198,13 +198,13 @@ if (PYTHON_34) {
                            -e TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT \\
                            -e TEST_BROWSER=$FIREFOX_GERMANIUM_URL \\
                            germanium/germanium-python3.4-tests
-                '''
+                """
             }
         }
     }, python34Chrome: {
         if (RUN_CHROME_TESTS) {
             node {
-                sh '''
+                sh """
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e RUN_VNC_SERVER=0 \\
@@ -212,7 +212,7 @@ if (PYTHON_34) {
                            -e TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT \\
                            -e TEST_BROWSER=$CHROME_GERMANIUM_URL \\
                            germanium/germanium-python3.4-tests
-                '''
+                """
             }
         }
     }, python34Ie8: {
@@ -245,3 +245,4 @@ if (PYTHON_34) {
         }
     }, failFast: false
 }
+

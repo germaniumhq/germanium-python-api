@@ -9,6 +9,8 @@ RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
 RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
 
 //GERMANIUM_HUB_URL = "http://192.168.0.6:4444/wd/hub
+CHROME_GERMANIUM_URL = "chrome:${GERMANIUM_HUB_URL}"
+FIREFOX_GERMANIUM_URL = "firefox:${GERMANIUM_HUB_URL}"
 IE_GERMANIUM_URL = "ie:${GERMANIUM_HUB_URL}"
 EDGE_GERMANIUM_URL = "edge:${GERMANIUM_HUB_URL}"
 
@@ -21,8 +23,10 @@ EDGE_GERMANIUM_URL = "edge:${GERMANIUM_HUB_URL}"
 // Ports that will be used in parallel, since we have the same
 // test host (the docker instance)
 
-TEST_HOST_IE11_PORT=8011  // 8011:8000 -> IE 11
-TEST_HOST_EDGE_PORT=8012  // 8012:8000 -> Edge
+TEST_HOST_CHROME_PORT=8011   // 8011:8000 -> Chrome
+TEST_HOST_FIREFOX_PORT=8012  // 8011:8000 -> Chrome
+TEST_HOST_IE11_PORT=8013     // 8011:8000 -> IE 11
+TEST_HOST_EDGE_PORT=8014     // 8012:8000 -> Edge
 
 def buildSingleVersion(version) {
     node {
@@ -65,6 +69,10 @@ if (PYTHON_35) {
                 sh '''
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p $TEST_HOST_FIREFOX_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT \\
+                           -e TEST_BROWSER=$FIREFOX_GERMANIUM_URL \\
                            germanium/germanium-python3.5-tests
                 '''
             }
@@ -75,8 +83,10 @@ if (PYTHON_35) {
                 sh '''
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
-                           -e TEST_BROWSER=chrome \\
-                           --security-opt seccomp:test/docker/chrome.json \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p $TEST_HOST_CHROME_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT \\
+                           -e TEST_BROWSER=$CHROME_GERMANIUM_URL \\
                            germanium/germanium-python3.5-tests
                 '''
             }
@@ -121,6 +131,10 @@ if (PYTHON_27) {
                 sh '''
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p $TEST_HOST_FIREFOX_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT \\
+                           -e TEST_BROWSER=$FIREFOX_GERMANIUM_URL \\
                            germanium/germanium-python2.7-tests
                 '''
             }
@@ -131,8 +145,10 @@ if (PYTHON_27) {
                 sh '''
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
-                           -e TEST_BROWSER=chrome \\
-                           --security-opt seccomp:test/docker/chrome.json \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p $TEST_HOST_CHROME_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT \\
+                           -e TEST_BROWSER=$CHROME_GERMANIUM_URL \\
                            germanium/germanium-python2.7-tests
                 '''
             }
@@ -177,6 +193,10 @@ if (PYTHON_34) {
                 sh '''
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p $TEST_HOST_FIREFOX_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT \\
+                           -e TEST_BROWSER=$FIREFOX_GERMANIUM_URL \\
                            germanium/germanium-python3.4-tests
                 '''
             }
@@ -187,8 +207,10 @@ if (PYTHON_34) {
                 sh '''
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
-                           -e TEST_BROWSER=chrome \\
-                           --security-opt seccomp:test/docker/chrome.json \\
+                           -e RUN_VNC_SERVER=0 \\
+                           -p $TEST_HOST_CHROME_PORT:8000 \\
+                           -e TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT \\
+                           -e TEST_BROWSER=$CHROME_GERMANIUM_URL \\
                            germanium/germanium-python3.4-tests
                 '''
             }

@@ -76,7 +76,7 @@ if (PYTHON_35) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e TEST_BROWSER=chrome \\
-                           --security-opt seccomp:/home/raptor/projects/germanium/test/docker/chrome.json \\
+                           --security-opt seccomp:test/docker/chrome.json \\
                            germanium/germanium-python3.5-tests
                 '''
             }
@@ -132,7 +132,7 @@ if (PYTHON_27) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e TEST_BROWSER=chrome \\
-                           --security-opt seccomp:/home/raptor/projects/germanium/test/docker/chrome.json \\
+                           --security-opt seccomp:test/docker/chrome.json \\
                            germanium/germanium-python2.7-tests
                 '''
             }
@@ -188,7 +188,7 @@ if (PYTHON_34) {
                     docker run --rm \\
                            -e TEST_REUSE_BROWSER=1 \\
                            -e TEST_BROWSER=chrome \\
-                           --security-opt seccomp:/home/raptor/projects/germanium/test/docker/chrome.json \\
+                           --security-opt seccomp:test/docker/chrome.json \\
                            germanium/germanium-python3.4-tests
                 '''
             }

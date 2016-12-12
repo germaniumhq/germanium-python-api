@@ -1,4 +1,4 @@
-= Germanium v1.10.3
+= Germanium v1.10.4
 Web Testing API that doesn't disappoint
 :toc: left
 :experimental:

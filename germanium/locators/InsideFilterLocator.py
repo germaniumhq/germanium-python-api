@@ -10,6 +10,7 @@ class InsideFilterLocator(FilterLocator):
                  locator,
                  root_element=None,
                  inside_filters=None,
+                 outside_filters=None,
                  containing_filters=None,
                  containing_all_filters=None,
                  without_children=False):
@@ -21,6 +22,9 @@ class InsideFilterLocator(FilterLocator):
         if not inside_filters:
             inside_filters = []
 
+        if not outside_filters:
+            outside_filters = []
+
         if not containing_filters:
             containing_filters = []
 
@@ -28,6 +32,7 @@ class InsideFilterLocator(FilterLocator):
             containing_all_filters = []
 
         self.inside_filters = inside_filters
+        self.outside_filters = outside_filters
         self.containing_filters = containing_filters
         self.containing_all_filters = list(containing_all_filters)
         self.without_children = without_children
@@ -40,9 +45,10 @@ class InsideFilterLocator(FilterLocator):
         return None
 
     def _find_element_list(self):
-        # Since the inside/contains/without children works with the DOM
-        # structure, it might be used to find invisible elements. So
-        # we need to get the raw list of elements.
+        # Since the inside/outside/contains/without children
+        # works with the DOM structure, it might be used to find
+        # invisible elements. So we need to get the raw list of
+        # elements.
 
         inside_elements = OrderedDict()
         for selector in self.inside_filters:
@@ -75,9 +81,21 @@ class InsideFilterLocator(FilterLocator):
 
         elements = list(elements)
 
+        outside_elements = OrderedDict()
+        for selector in self.outside_filters:
+            element_list = selector.element_list(only_visible=False)
+
+            # if we have an outside element that itself can't be found,
+            # don't bother to search the elements further
+            if not element_list:
+                return []
+
+            for outside_element in element_list:
+                outside_elements[outside_element] = 1
+
         containing_elements = OrderedDict()
         for selector in self.containing_filters:
-            element_list = selector._find_element_list()
+            element_list = selector.element_list(only_visible=False)
 
             # if we don't have any elements that we're supposed to
             # contain, it means the selector isn't matching, so don't
@@ -134,6 +152,10 @@ class InsideFilterLocator(FilterLocator):
 
         for containing_element in containing_elements:
             js_arguments.append(containing_element)
+
+        js_arguments.append(len(outside_elements))
+        for outside_element in outside_elements:
+            js_arguments.append(outside_element)
 
         js_arguments.append(len(self.containing_all_filters))  # groupCount
         js_arguments.append(len(containing_all_elements))

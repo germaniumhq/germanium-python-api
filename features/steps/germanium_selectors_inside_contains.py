@@ -16,6 +16,16 @@ def step_impl(context):
     context.found_element = element
 
 
+@step(u'I search for a span outside a div')
+def step_impl(context):
+    selector = Element("span").outside("div")
+    element = S(selector).element()
+
+    assert element
+
+    context.found_element = element
+
+
 @step(u'I search for an InputText inside the div element with id inputTextContainer')
 def step_impl(context):
     container_div_element = Element("div", id="inputTextContainer").element()

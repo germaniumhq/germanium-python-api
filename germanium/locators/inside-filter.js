@@ -2,6 +2,7 @@
 return (function() {
     var insideElements = [],
         containingElements = [],
+        outsideElements = [],
         groupCount,
         containingAllElements = [],
         withoutChildren,
@@ -36,6 +37,7 @@ return (function() {
     withoutChildren = args.shift();
     readElements(insideElements);
     readElements(containingElements);
+    readElements(outsideElements);
     groupCount = args.shift(); // the number of groups, aka selectors passed to contains_all
     readElements(containingAllElements, 2);
     readElements(elements);
@@ -126,5 +128,18 @@ return (function() {
         }
     }
 
+    nextElement:
+    for (var i = elements.length - 1; i >= 0; i--) {
+        var element = elements[i];
+        for (var j = 0; j < outsideElements.length; j++) {
+            var outsideElement = outsideElements[j];
+            if (isInside(outsideElement, element)) {
+                elements.splice(i, 1);
+                continue nextElement;
+            }
+        }
+    }
+
     return elements;
 }.apply(this, arguments));
+

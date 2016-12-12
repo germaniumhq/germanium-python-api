@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2016-12-12  1.10.4
+    - `outside` filtering for elements added. You can now filter for elements that are `outside` specific elements.
+
 * 2016-11-17  1.10.3
     - `while_not` regression fix.
 

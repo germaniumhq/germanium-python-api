@@ -97,3 +97,10 @@ Scenario: Finding elements that use an inside reference a WebElement, will work
   And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
   When I search for an InputText inside the div element with id inputTextContainer
   Then I find the element with id: 'inputText'
+
+@15
+Scenario: I can find elements outside an element
+  Given I open the browser
+  And I go to 'http://localhost:8000/features/test-site/selectors/inside_contains.html'
+  When I search for a span outside a div
+  Then I find the element with id: 'justATrailingSpanOutsideDivs'

@@ -76,7 +76,9 @@ def create_locator(germanium, selector, strategy='detect'):
 
     if isinstance(selector, InsideFilterSelector):
         inside_filters = map(lambda x: create_locator(germanium, x),
-                              selector.inside_filters)
+                             selector.inside_filters)
+        outside_filters = map(lambda x: create_locator(germanium, x),
+                              selector.outside_filters)
 
         containing_filters = map(lambda x: create_locator(germanium, x),
                                  selector.containing_filters)
@@ -88,6 +90,7 @@ def create_locator(germanium, selector, strategy='detect'):
             germanium=germanium,
             locator=create_locator(germanium, selector.selector),
             inside_filters=inside_filters,
+            outside_filters=outside_filters,
             containing_filters=containing_filters,
             containing_all_filters=containing_all_filters,
             without_children=selector.without_children_elements

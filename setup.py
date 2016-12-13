@@ -13,7 +13,7 @@ setup(
     author_email='bogdan.mustiata@gmail.com',
     license='BSD',
     install_requires=[
-        'germaniumdrivers==1.10.1',
+        'germaniumdrivers==1.10.4',
         'selenium==2.53.6',
         'webcolors==1.5']
     ,

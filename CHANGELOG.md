@@ -3,7 +3,12 @@ ChangeLog
 
 * 2016-12-14  1.10.4
     - `outside` filtering for elements added. You can now filter for elements that are `outside` specific elements.
-    - Updated drivers for Chrome.
+    - `Text()` now accepts both `exact` and `trim` matches.
+    - Updated drivers for Chrome to 2.26.
+
+    _Improvements_
+
+    This version is fully tested on a Germanium provisioned Selenium grid: [https://github.com/germaniumhq/germanium-docker](https://github.com/germaniumhq/germanium-docker).
 
 * 2016-11-17  1.10.3
     - `while_not` regression fix.

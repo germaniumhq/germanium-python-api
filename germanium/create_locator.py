@@ -12,12 +12,14 @@ from germanium.locators import \
     PositionalFilterLocator, \
     InsideFilterLocator, \
     AlertLocator, \
+    TextLocator, \
     WindowLocator
 from germanium.selectors import \
     AbstractSelector, \
     InsideFilterSelector, \
     PositionalFilterSelector, \
     Alert, \
+    Text, \
     Window
 
 LOCATOR_SPECIFIER = re.compile(r'((\w[\w\d]*?):)(.*)', re.MULTILINE | re.DOTALL)
@@ -95,6 +97,12 @@ def create_locator(germanium, selector, strategy='detect'):
             containing_all_filters=containing_all_filters,
             without_children=selector.without_children_elements
         )
+
+    if isinstance(selector, Text):
+        return TextLocator(germanium=germanium,
+                           text=selector.searched_text,
+                           exact=selector.exact_match,
+                           trim=selector.trim_text)
 
     if isinstance(selector, AbstractSelector):
         selectors = selector.get_selectors()

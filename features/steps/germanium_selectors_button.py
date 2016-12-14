@@ -53,6 +53,20 @@ def step_impl(context, text):
     context.found_elements = element_list
 
 
+@step(u"I look for the exact text in multiple elements: '(.*?)'")
+def step_impl(context, text):
+    element_list = S(Text(text, exact=True)).element_list()
+
+    context.found_elements = element_list
+
+
+@step(u"I look for the exact trimmed text in multiple elements: '(.*?)'")
+def step_impl(context, text):
+    element_list = S(Text(text, exact=True, trim=True)).element_list()
+
+    context.found_elements = element_list
+
+
 @step(u'there is no element found')
 def step_impl(context):
     assert not context.found_element

@@ -40,4 +40,18 @@ Scenario: Finding multiple text elements that match across the document.
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/selectors/text.html'
     When I look for some text in multiple elements: 'text'
-    Then I find 5 text elements that match
+    Then I find 7 text elements that match
+
+@7
+Scenario: Finding text elements across the document, that contain the exact text.
+    Given I open the browser
+    And I go to 'http://localhost:8000/features/test-site/selectors/text.html'
+    When I look for the exact text in multiple elements: 'text'
+    Then I find 1 text elements that match
+
+@8
+Scenario: Finding text elements across the document, that contain the exact text, with trimming.
+    Given I open the browser
+    And I go to 'http://localhost:8000/features/test-site/selectors/text.html'
+    When I look for the exact trimmed text in multiple elements: 'text'
+    Then I find 2 text elements that match

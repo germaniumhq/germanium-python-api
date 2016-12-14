@@ -142,7 +142,7 @@ text `testing`:
 germanium.S(Link("testing", search_href="http://ciplogic.com"))
 -----------------------------------------------------------------------------
 
-== Text(text)
+== Text(text, exact=False, trim=False)
 
 Just a selector that finds the element that contains the text in the page.
 
@@ -160,4 +160,7 @@ selector would match the parent div in such a DOM structure:
     some <b>text</b>
 </div>
 -----------------------------------------------------------------------------
+
+The options of `exact` and `trim` can be used to find elements even if they are
+padded, or only the elements that have the exact text that was given for searching.
 

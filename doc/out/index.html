@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v1.10.3</title>
+<title>Germanium v1.10.4</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,7 +420,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v1.10.3</h1>
+<h1>Germanium v1.10.4</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -485,6 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_selector_containing_selector">selector.containing(selector..)</a></li>
 <li><a href="#_selector_containing_all_selector">selector.containing_all(selector..)</a></li>
 <li><a href="#_selector_inside_selector">selector.inside(selector..)</a></li>
+<li><a href="#_selector_outside_selector">selector.outside(selector..)</a></li>
 <li><a href="#_selector_without_children">selector.without_children()</a></li>
 </ul>
 </li>
@@ -508,7 +509,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_input_input_name">Input(input_name)</a></li>
 <li><a href="#_inputtext_input_name">InputText(input_name)</a></li>
 <li><a href="#_link_search_text_text_search_href_href">Link(search_text, text, search_href, href)</a></li>
-<li><a href="#_text_text">Text(text)</a></li>
+<li><a href="#_text_text_exact_false_trim_false">Text(text, exact=False, trim=False)</a></li>
 </ul>
 </li>
 <li><a href="#_point_support">Point Support</a>
@@ -1938,7 +1939,7 @@ document.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-abstract-selector.svg" alt="germanium abstract selector" width="528" height="352">
+<img src="germanium-abstract-selector.svg" alt="germanium abstract selector" width="528" height="374">
 </div>
 </div>
 </div>
@@ -2167,6 +2168,35 @@ the <code>"User 1"</code> or <code>"User 2"</code> text.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python">error_message <span style="color: #666666">=</span> Element(<span style="color: #BA2121">&quot;div&quot;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&quot;label&quot;</span>) \
                     <span style="color: #666666">.</span>inside(Element(<span style="color: #BA2121">&quot;div&quot;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&quot;error-dialog&quot;</span>))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selector_outside_selector"><a class="anchor" href="#_selector_outside_selector"></a>selector.outside(selector..)</h3>
+<div class="paragraph">
+<p><strong>Description</strong></p>
+</div>
+<div class="paragraph">
+<p>Matches nodes that are outside any of the given selectors (don&#8217;t have the
+given selectors as a parent.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">outside</span>(<span style="color: #008000">self</span>, selector)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Sample</strong></p>
+</div>
+<div class="paragraph">
+<p>For example to check if all the `p`aragraphs in the page are inside `div`s, we can:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> Element(<span style="color: #BA2121">&quot;p&quot;</span>)<span style="color: #666666">.</span>outside(<span style="color: #BA2121">&quot;div&quot;</span>)<span style="color: #666666">.</span>not_exists()</code></pre>
 </div>
 </div>
 </div>
@@ -2624,7 +2654,7 @@ text <code>testing</code>:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_text_text"><a class="anchor" href="#_text_text"></a>Text(text)</h3>
+<h3 id="_text_text_exact_false_trim_false"><a class="anchor" href="#_text_text_exact_false_trim_false"></a>Text(text, exact=False, trim=False)</h3>
 <div class="paragraph">
 <p>Just a selector that finds the element that contains the text in the page.</p>
 </div>
@@ -2643,6 +2673,10 @@ selector would match the parent div in such a DOM structure:</p>
     some <span style="color: #008000; font-weight: bold">&lt;b&gt;</span>text<span style="color: #008000; font-weight: bold">&lt;/b&gt;</span>
 <span style="color: #008000; font-weight: bold">&lt;/div&gt;</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The options of <code>exact</code> and <code>trim</code> can be used to find elements even if they are
+padded, or only the elements that have the exact text that was given for searching.</p>
 </div>
 </div>
 </div>
@@ -3506,7 +3540,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-11-17 20:38:25 UTC
+Last updated 2016-12-12 08:16:00 UTC
 </div>
 </div>
 </body>

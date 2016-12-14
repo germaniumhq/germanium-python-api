@@ -75,6 +75,29 @@ error_message = Element("div", css_classes="label") \
                     .inside(Element("div", css_classes="error-dialog"))
 -----------------------------------------------------------------------------
 
+== selector.outside(selector..)
+
+*Description*
+
+Matches nodes that are outside any of the given selectors (don't have the
+given selectors as a parent.
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+def outside(self, selector)
+-----------------------------------------------------------------------------
+
+*Sample*
+
+For example to check if all the `p`aragraphs in the page are inside `div`s, we can:
+
+[source,python]
+-----------------------------------------------------------------------------
+assert Element("p").outside("div").not_exists()
+-----------------------------------------------------------------------------
+
 == selector.without_children()
 
 *Description*

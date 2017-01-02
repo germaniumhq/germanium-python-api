@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+* 2017-01-03  1.10.5
+    - Updated chrome drivers to 2.27.
+
 * 2016-12-14  1.10.4
     - `outside` filtering for elements added. You can now filter for elements that are `outside` specific elements.
     - `Text()` now accepts both `exact` and `trim` matches.

@@ -1,6 +1,6 @@
 {
   "germanium" : {
-    "version": "1.10.4",
+    "version": "1.10.5",
     "files": {
       "README.md": "^(germanium )(.*?)$",
       "README.rst": "^(germanium )(.*?)$",

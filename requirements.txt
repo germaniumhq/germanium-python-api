@@ -1,4 +1,4 @@
-germaniumdrivers==1.10.4
+germaniumdrivers==1.10.5
 selenium==2.53.6
 webcolors==1.5
 

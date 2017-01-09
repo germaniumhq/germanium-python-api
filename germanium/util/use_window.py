@@ -38,5 +38,4 @@ def use_window_g(context,
                         (title, ", ".join(map(lambda x: "`%s`" % x, found_titles))))
 
     raise Exception("When using a window, you need to either specify its `title`, either "
-                    "its `id` that you can obtain from the `germanium.window_handles`, or the "
-                    "index from the `germanium.window_handles`.")
+                    "its `id` that you can obtain from the `germanium.window_handles`.")

@@ -14,8 +14,8 @@ FIREFOX_GERMANIUM_URL = "firefox:${GERMANIUM_HUB_URL}"
 IE_GERMANIUM_URL = "ie:${GERMANIUM_HUB_URL}"
 EDGE_GERMANIUM_URL = "edge:${GERMANIUM_HUB_URL}"
 
-// PYPI_URL - the URL to use for PYPI
-// PYPI_INDEX_URL - the index URL to use for PYPI
+// PYPI_URL - the URL to use for PYPI: http://192.168.0.23:8081/repository/pypi-local/pypi
+// PYPI_INDEX_URL - the index URL to use for PYPI: http://192.168.0.23:8081/repository/pypi-local/simple
 
 // GIT_SERVER - the URL of the git server
 

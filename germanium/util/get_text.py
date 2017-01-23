@@ -1,3 +1,5 @@
+import re
+
 from selenium.webdriver.remote.webelement import WebElement
 
 from ._action_element_finder import _element
@@ -15,4 +17,4 @@ def get_text_g(context, selector):
     result = germanium.js("return arguments[0].textContent || arguments[0].innerText || '';",
                           element)
 
-    return str(result).replace("\r\n ?", "\n")
+    return re.sub("\r\n", "\n", str(result))

@@ -1,5 +1,5 @@
 germanium:
-    version: 1.10.5
+    version: 2.0.0
     files:
       README.md: ^(germanium )(.*)$
       README.rst: ^(germanium )(.*)$
@@ -10,5 +10,5 @@ germanium:
 germaniumdrivers:
     version: parent:../germaniumdrivers@germaniumdrivers
     files:
-      setup.py: \'germaniumdrivers==**VERSION**',
+      setup.py: "'germaniumdrivers==**VERSION**',"
       requirements.txt: germaniumdrivers==**VERSION$$

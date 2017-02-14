@@ -1,5 +1,5 @@
 germanium:
-    version: 2.0.0
+    version: parent:../germanium-build-system@germanium
     files:
       README.md: ^(germanium )(.*)$
       README.rst: ^(germanium )(.*)$

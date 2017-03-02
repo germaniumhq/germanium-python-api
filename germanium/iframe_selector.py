@@ -7,7 +7,7 @@ class DefaultIFrameSelector(object):
         if iframe_name != "default":
             raise Exception("Unknown iframe name: '%s'. Make sure you create an IFrame Selector "
                             "that you will pass when creating the GermaniumDriver, e.g.:\n"
-                            "GermaniumDriver(wd, iframe_selector=MyIFrameSelector())")
+                            "GermaniumDriver(wd, iframe_selector=MyIFrameSelector())" % iframe_name)
 
         germanium.switch_to_default_content()
         return iframe_name

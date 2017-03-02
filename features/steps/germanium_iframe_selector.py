@@ -1,6 +1,7 @@
 from behave import *
 
 from germanium.static import *
+from germanium import iframe_selector
 
 from features.steps.asserts import *
 
@@ -35,7 +36,13 @@ def step_impl(context):
     get_germanium().iframe_selector = custom_iframe_selector
 
 
-@step("when I switch the iframe selector back to the default one")
+@step("I switch the iframe selector to the germanium bundled default selector")
+def step_impl(context):
+    context.current_iframe_selector = get_germanium().iframe_selector
+    get_germanium().iframe_selector = iframe_selector.DefaultIFrameSelector()
+
+
+@step("when I switch the iframe selector back to the tests one")
 def step_impl(context):
     get_germanium().iframe_selector = context.current_iframe_selector
 

@@ -12,6 +12,6 @@ Scenario: Test if changing the iframe selector works while Germanium still runs.
   When I switch the iframe selector to a custom one that handles 'custom-iframe'
   And I search for the element '#textInput' in the @iframe named 'custom-iframe'
   Then I find in iframe 'custom-iframe' the element with id: 'textInput'
-  When when I switch the iframe selector back to the default one
+  When when I switch the iframe selector back to the tests one
   And I search for the element '#textInput' in the @iframe named 'custom-iframe'
   Then there is no element found

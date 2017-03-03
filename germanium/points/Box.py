@@ -110,8 +110,14 @@ class Box(object):
         from germanium.static import S, js
         code = load_script(__name__, 'box.min.js')
 
+        target_element = S(self._selector).element()
+
+        if not target_element:
+            raise Exception("The passed selector (%s) for finding "
+                            "the bounding box didn't matched any elements." % self._selector)
+
         top, right, bottom, left, \
-        center, middle, width, height = js(code, S(self._selector).element())
+        center, middle, width, height = js(code, target_element)
 
         self._box = {
             "top": top,

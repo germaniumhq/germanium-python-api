@@ -69,3 +69,24 @@ def verify_text(context, selector, expected_text):
         return
 
     assert_equals(expected_text, get_text(selector))
+
+
+@when("I try to get the box positions for a selector that doesn't matches")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    try:
+        Box('unknownelement').get_box()
+    except Exception as e:
+        context.exception_message = str(e)
+        return
+
+    assert_false(True, 'Wrong get_box did not threw exception')
+
+
+@then("I get an exception spelling out that my selector didn't matched")
+def step_impl(context):
+    assert_contains(context.exception_message,
+                    "The passed selector (unknownelement) for "
+                    "finding the bounding box didn't matched")

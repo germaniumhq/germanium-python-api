@@ -57,3 +57,22 @@ def assert_false(expected, message = None):
     message = "Expected value to be false. Was instead: %s" % expected
 
     raise AssertionFailedException(message)
+
+
+def assert_contains(parent, contained, message = None):
+    """
+    Checkes if the parent contains the contained element.
+    :param parent:
+    :param contained:
+    :param message:
+    :return:
+    """
+    if contained in parent:
+        return
+
+    if message:
+        raise AssertionFailedException(message)
+
+    message = "Expected '%s' to contain '%s'. It didn't." % (parent, contained)
+
+    raise AssertionFailedException(message)

@@ -12,3 +12,10 @@ germaniumdrivers:
     files:
       setup.py: "'germaniumdrivers==**VERSION**',"
       requirements.txt: germaniumdrivers==**VERSION$$
+
+selenium:
+  version: parent:../germanium-build-system@selenium
+  files:
+    setup.py: "'selenium==**VERSION**',"
+    requirements.txt: selenium==**VERSION$$
+

@@ -1,6 +1,16 @@
 ChangeLog
 ---------
 
+* 2017-04-02  2.0.1
+    - Report the name of the wrong IFrame, if the DefaultIFrame is being called.
+    - Report not found elements in the Box API.
+    - Allow opening browsers with query parameters (e.g. `ie?version=11&wdurl=http://10.10.10.10:4444/wd/hub`).
+
+* 2017-02.01  2.0.0
+    - Java version is available.
+    - Normalize `\n` enters in text for IE8.
+    - Better exception messages.
+
 * 2017-01-03  1.10.5
     - Updated chrome drivers to 2.27.
 

@@ -23,6 +23,7 @@ setup(
               'germanium.points',
               'germanium.selectors',
               'germanium.static',
+              'germanium.static.wdutil',
               'germanium.util',
               'germanium.wa'],
     package_data={

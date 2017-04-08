@@ -42,19 +42,30 @@ def open_browser(browser="Firefox", <1>
 open_browser("firefox")
 -----------------------------------------------------------------------------
 
-This also connecting to remote drivers, for example:
+This also allows connecting to remote selenium instances, for example:
 
 [source,python]
 -----------------------------------------------------------------------------
 open_browser("ff:http://10.2.1.1:5555/wd/hub")
 -----------------------------------------------------------------------------
 
+In case you want to pass capabilities into the remote driver instance,
+Germanium allows that by using simple query strings:
+
+[source,python]
+-----------------------------------------------------------------------------
+open_browser("ie?wdurl=http://10.2.1.1:4444/wd/hub&version=9
+-----------------------------------------------------------------------------
+
+The `wdurl` is the parameter that will specify the WebDriver URL to use when
+connecting to the remote instance.
 
 == close_browser()
 
 *Description*
 
-Close the currently running browser instance that was opened with `open_browser()`
+Close the currently running browser instance that was opened with
+`open_browser()`
 
 *Signature*
 

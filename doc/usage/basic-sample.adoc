@@ -35,4 +35,5 @@ Browsers supported are:
 * IE 8+
 * Chrome
 * Firefox
+* Edge
 

@@ -17,7 +17,7 @@ Opens the given browser instance.
 
 [source,python]
 -----------------------------------------------------------------------------
-def open_browser(browser="Firefox", <1>
+def open_browser(browser="firefox", <1>
                  wd=None, <2>
                  iframe_selector=DefaultIFrameSelector(), <3>
                  screenshot_folder="screenshots", <4>
@@ -54,7 +54,7 @@ Germanium allows that by using simple query strings:
 
 [source,python]
 -----------------------------------------------------------------------------
-open_browser("ie?wdurl=http://10.2.1.1:4444/wd/hub&version=9
+open_browser("ie?wdurl=http://10.2.1.1:4444/wd/hub&version=9")
 -----------------------------------------------------------------------------
 
 The `wdurl` is the parameter that will specify the WebDriver URL to use when

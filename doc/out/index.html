@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v1.10.5</title>
+<title>Germanium v2.0.1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -18,7 +18,6 @@ audio:not([controls]){display:none;height:0}
 [hidden],template{display:none}
 script{display:none!important}
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
-body{margin:0}
 a{background:transparent}
 a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
@@ -53,7 +52,7 @@ textarea{overflow:auto;vertical-align:top}
 table{border-collapse:collapse;border-spacing:0}
 *,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
 html,body{font-size:100%}
-body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
 a:hover{cursor:pointer}
 img,object,embed{max-width:100%;height:auto}
 object,embed{height:100%}
@@ -65,7 +64,6 @@ img{-ms-interpolation-mode:bicubic}
 .text-center{text-align:center!important}
 .text-justify{text-align:justify!important}
 .hide{display:none}
-body{-webkit-font-smoothing:antialiased}
 img,object,svg{display:inline-block;vertical-align:middle}
 textarea{height:auto;min-height:50px}
 select{width:100%}
@@ -120,13 +118,16 @@ table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
 table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
 table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
-body{tab-size:4}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
 h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
 .clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
 .clearfix:after,.float-group:after{clear:both}
-*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+*:not(pre)>code.nobreak{word-wrap:normal}
+*:not(pre)>code.nowrap{white-space:nowrap}
 pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+em em{font-style:normal}
+strong strong{font-weight:400}
 .keyseq{color:rgba(51,51,51,.8)}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
@@ -420,7 +421,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v1.10.5</h1>
+<h1>Germanium v2.0.1</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -587,6 +588,9 @@ production tests.</p>
 <li>
 <p>Firefox</p>
 </li>
+<li>
+<p>Edge</p>
+</li>
 </ul>
 </div>
 </div>
@@ -609,7 +613,7 @@ folder named <code>germanium-drivers</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export </span><span style="color: #19177C">GERMANIUM_DRIVERS_FOLDER</span><span style="color: #666666">=</span>/opt/germanium-drivers</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_DRIVERS_FOLDER</span><span style="color: #666666">=</span>/opt/germanium-drivers</code></pre>
 </div>
 </div>
 </div>
@@ -625,7 +629,7 @@ that Germanium ships.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export </span><span style="color: #19177C">GERMANIUM_USE_PATH_DRIVER</span><span style="color: #666666">=</span>1</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_USE_PATH_DRIVER</span><span style="color: #666666">=1</span></code></pre>
 </div>
 </div>
 </div>
@@ -637,7 +641,7 @@ will implicitly use the 32 bit version.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export </span><span style="color: #19177C">GERMANIUM_USE_IE_DRIVER_FOR_PLATFORM</span><span style="color: #666666">=</span>1</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_USE_IE_DRIVER_FOR_PLATFORM</span><span style="color: #666666">=1</span></code></pre>
 </div>
 </div>
 </div>
@@ -701,12 +705,25 @@ newly loaded.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This also connecting to remote drivers, for example:</p>
+<p>This also allows connecting to remote selenium instances, for example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;ff:http://10.2.1.1:5555/wd/hub&quot;</span>)</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>In case you want to pass capabilities into the remote driver instance,
+Germanium allows that by using simple query strings:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;ie?wdurl=http://10.2.1.1:4444/wd/hub&amp;version=9</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>wdurl</code> is the parameter that will specify the WebDriver URL to use when
+connecting to the remote instance.</p>
 </div>
 </div>
 <div class="sect2">
@@ -715,7 +732,8 @@ newly loaded.</p>
 <p><strong>Description</strong></p>
 </div>
 <div class="paragraph">
-<p>Close the currently running browser instance that was opened with <code>open_browser()</code></p>
+<p>Close the currently running browser instance that was opened with
+<code>open_browser()</code></p>
 </div>
 <div class="paragraph">
 <p><strong>Signature</strong></p>
@@ -1250,10 +1268,10 @@ element you want your action to be triggered against.</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&quot;parent&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
-    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&quot;child1&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>..<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span>
-    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&quot;child2&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>..<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span>
-<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;parent&quot;</span>&gt;
+    &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;child1&quot;</span>&gt;..&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
+    &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;child2&quot;</span>&gt;..&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
+&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1390,9 +1408,9 @@ object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;body&gt;</span>
-    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&#39;editor&#39;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&#39;modal superb&#39;</span> <span style="color: #7D9029">custom-data=</span><span style="color: #BA2121">&#39;simple-code&#39;</span><span style="color: #008000; font-weight: bold">&gt;&lt;/div&gt;</span>
-<span style="color: #008000; font-weight: bold">&lt;/body&gt;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">body</span>&gt;
+    &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;editor&#39;</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;modal superb&#39;</span> <span style="color: #7D9029">custom-data</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;simple-code&#39;</span>&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
+&lt;/<span style="color: #008000; font-weight: bold">body</span>&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2232,12 +2250,12 @@ given selectors as a parent.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;div&gt;</span>
-    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;test&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>a<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span>
-    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;test&quot;</span><span style="color: #008000; font-weight: bold">&gt;&lt;node/&gt;&lt;/div&gt;</span>
-    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;test&quot;</span><span style="color: #008000; font-weight: bold">&gt;&lt;/div&gt;</span> <span style="color: #408080; font-style: italic">&lt;!-- only this node will be matched --&gt;</span>
-    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;test&quot;</span><span style="color: #008000; font-weight: bold">&gt;&lt;node&gt;</span>mix<span style="color: #008000; font-weight: bold">&lt;/node&gt;&lt;/div&gt;</span>
-<span style="color: #008000; font-weight: bold">&lt;div&gt;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">div</span>&gt;
+    &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;test&quot;</span>&gt;a&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
+    &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;test&quot;</span>&gt;&lt;<span style="color: #008000; font-weight: bold">node</span>/&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
+    &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;test&quot;</span>&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt; <span style="color: #408080; font-style: italic">&lt;!-- only this node will be matched --&gt;</span>
+    &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;test&quot;</span>&gt;&lt;<span style="color: #008000; font-weight: bold">node</span>&gt;mix&lt;/<span style="color: #008000; font-weight: bold">node</span>&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
+&lt;<span style="color: #008000; font-weight: bold">div</span>&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2669,9 +2687,9 @@ selector would match the parent div in such a DOM structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;div&gt;</span>
-    some <span style="color: #008000; font-weight: bold">&lt;b&gt;</span>text<span style="color: #008000; font-weight: bold">&lt;/b&gt;</span>
-<span style="color: #008000; font-weight: bold">&lt;/div&gt;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">div</span>&gt;
+    some &lt;<span style="color: #008000; font-weight: bold">b</span>&gt;text&lt;/<span style="color: #008000; font-weight: bold">b</span>&gt;
+&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3485,9 +3503,9 @@ object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html"><span style="color: #008000; font-weight: bold">&lt;body&gt;</span>
-    <span style="color: #008000; font-weight: bold">&lt;div</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&#39;editor&#39;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&#39;modal superb&#39;</span> <span style="color: #7D9029">custom-data=</span><span style="color: #BA2121">&#39;simple-code&#39;</span><span style="color: #008000; font-weight: bold">&gt;&lt;/div&gt;</span>
-<span style="color: #008000; font-weight: bold">&lt;/body&gt;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">body</span>&gt;
+    &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;editor&#39;</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;modal superb&#39;</span> <span style="color: #7D9029">custom-data</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;simple-code&#39;</span>&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
+&lt;/<span style="color: #008000; font-weight: bold">body</span>&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3540,7 +3558,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-01-02 23:27:33 UTC
+Last updated 2017-02-15 07:48:33 UTC
 </div>
 </div>
 </body>

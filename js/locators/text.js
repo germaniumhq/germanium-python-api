@@ -57,25 +57,78 @@ return (function() {
       return null;
   }
 
+  /**
+   * @param {Array<Element>} elements
+   */
+  function removeParents(elements) {
+      var index2 = elements.length - 1;
+
+      NextIndex2:
+      while (index2 > 0) {
+          var index1 = index2 - 1;
+
+          while (index1 >= 0) {
+            // index2 is parent of index1
+            if (isParent(elements[index2], elements[index1])) {
+                elements.splice(index2, 1);
+                index2--;
+                continue NextIndex2;
+            }
+
+            if (isParent(elements[index1], elements[index2])) {
+                elements.splice(index1, 1);
+                index2--; // we shift the index for the next check
+            }
+
+            index1--;
+          }
+
+          index2--;
+      }
+
+      return elements;
+  }
+
+    /**
+     * Checks if the current child is a child of the
+     * given parent.
+     * @param parent
+     * @param child
+     */
+  function isParent(parent, child) {
+      var checkNode = child;
+
+      while (checkNode && checkNode.parentNode != checkNode) {
+          // we go first up, so isParent(node, node) returns false.
+          checkNode = checkNode.parentNode;
+
+          if (parent === checkNode) {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
   var processing_queue = [ rootNode ];
   var result = [];
 
   while (processing_queue.length) {
-      var foundChildElement = false;
       var currentNode = processing_queue.splice(0, 1)[0];
 
       for (var i = 0; i < currentNode.children.length; i++) {
-          if (checkFunction(processText(text(currentNode.children[i])), searchedText)) {
-              foundChildElement = true;
+          var nodeText = processText(text(currentNode.children[i]));
+
+          if (checkFunction(nodeText, searchedText)) {
+              result.push(currentNode.children[i]);
+          }
+
+          if (contains(nodeText, searchedText)) {
               processing_queue.push(currentNode.children[i]);
           }
       }
-
-      if (!foundChildElement) {
-          result.push(currentNode);
-      }
   }
 
-  return result;
+  return removeParents(result);
 }.apply(this, arguments));
 

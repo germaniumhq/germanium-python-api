@@ -55,3 +55,17 @@ Scenario: Finding text elements across the document, that contain the exact text
     And I go to 'http://localhost:8000/features/test-site/selectors/text.html'
     When I look for the exact trimmed text in multiple elements: 'text'
     Then I find 2 text elements that match
+
+@9
+Scenario: Finding text elements across the document, should match inside elements.
+    Given I open the browser
+    And I go to 'http://localhost:8000/features/test-site/selectors/text.html'
+    When I look for the exact text in multiple elements: 'nested'
+    Then I find 2 text elements that match
+
+@10
+Scenario: Finding text elements across the document, should match inside elements, and trim nbsps.
+    Given I open the browser
+    And I go to 'http://localhost:8000/features/test-site/selectors/text.html'
+    When I look for the exact trimmed text in multiple elements: 'nested'
+    Then I find 4 text elements that match

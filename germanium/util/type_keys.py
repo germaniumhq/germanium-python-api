@@ -66,6 +66,14 @@ def type_keys_g(context, keys_typed, selector=None, delay=0, *args):
 
     action_chain = ActionChains(germanium.web_driver)
 
+    # We don't just randomly start sending keys, but we click first
+    # the element so it has focus, then only start typing in case the
+    # element is not focused.
+    if selector and element and \
+            germanium.js('return arguments[0] != document.activeElement;', element):
+        action_chain.click(on_element=element)
+        action_chain.add_action(lambda: time.sleep(0.2))  # wait for the selection to settle
+
     # In case we have delays, we will pass insert after each character a small delay.
     # This is factored in different functions, since otherwise there would be way
     # to much ifing to add the delays.

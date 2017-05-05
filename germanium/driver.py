@@ -60,7 +60,11 @@ class GermaniumDriver(object):
         def get_url():
             self.web_driver.get(url, *args, **kwargs)
 
+        self._current_iframe = 'default'
+        self.switch_to.default_content()
+
         get_url()
+
         self.wait_for_page_to_load()
 
     def reload_page(self):

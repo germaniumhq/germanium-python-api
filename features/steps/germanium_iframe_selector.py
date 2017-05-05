@@ -40,11 +40,13 @@ def step_impl(context):
 def step_impl(context):
     context.current_iframe_selector = get_germanium().iframe_selector
     get_germanium().iframe_selector = iframe_selector.DefaultIFrameSelector()
+    assert get_germanium().iframe_selector != context.current_iframe_selector
 
 
 @step("when I switch the iframe selector back to the tests one")
 def step_impl(context):
     get_germanium().iframe_selector = context.current_iframe_selector
+    assert get_germanium().iframe_selector == context.current_iframe_selector
 
 
 @step("I find in iframe '(.*?)' the element with id: '(.*?)'")

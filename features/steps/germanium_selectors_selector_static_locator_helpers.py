@@ -5,9 +5,9 @@ from germanium.static import *
 use_step_matcher("re")
 
 
-@step(u'I search using selectors for an InputText above the text "(.*?)"')
+@step(u'I search using selectors for an InputText right of the text "(.*?)"')
 def step_impl(context, text):
-    element = InputText().above(Text(text)).element()
+    element = InputText().right_of(Text(text)).element()
 
     assert element
 
@@ -19,9 +19,9 @@ def step_impl(context):
     context.found_elements = InputText().element_list()
 
 
-@step(u'I search using selectors if an InputText above the text "Surname" exists')
+@step(u'I search using selectors if an InputText right of the text "Surname" exists')
 def step_impl(context):
-    context.does_element_exist = InputText().above(Text("Surname")).exists()
+    context.does_element_exist = InputText().right_of(Text("Surname")).exists()
 
 
 @step(u'I search using selectors if an Image above the text "Surname" exists')

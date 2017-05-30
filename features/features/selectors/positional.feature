@@ -40,34 +40,18 @@ Scenario: I can find elements right of an element, but also with indexes.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search for all the input texts right of the text "Surname"
-  Then I find 6 elements that match
+  Then I find 2 elements that match
   When I search for the first input text right of the text "Surname"
   Then I find the element with id: 'surnameInput'
   When I search for the second input text right of the text "Surname"
   Then I find the element with id: 'surnameInput2'
-  When I search for the third input text right of the text "Surname"
-  Then I find the element with id: 'emailInput'
-  When I search for the fourth input text right of the text "Surname"
-  Then I find the element with id: 'nameInput'
-  When I search for the fifth input text right of the text "Surname"
-  Then I find the element with id: 'emailInput2'
-  When I search for the sixth input text right of the text "Surname"
-  Then I find the element with id: 'nameInput2'
 
 @7
 Scenario: I can find elements above an element, but also with indexes.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search for all the input texts above the text "E-Mail"
-  Then I find 4 elements that match
-  When I search for the first input text above the text "E-Mail"
-  Then I find the element with id: 'surnameInput'
-  When I search for the second input text above the text "E-Mail"
-  Then I find the element with id: 'surnameInput2'
-  When I search for the third input text above the text "E-Mail"
-  Then I find the element with id: 'nameInput'
-  When I search for the fourth input text above the text "E-Mail"
-  Then I find the element with id: 'nameInput2'
+  Then there are no elements found
 
 @8
 Scenario: Filtering elements works even if hidden elements are also matched.
@@ -75,7 +59,7 @@ Scenario: Filtering elements works even if hidden elements are also matched.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
   When I search for all the elements left of all the elements
-  Then there are no elements found
+  Then I find 12 elements that match
 
 @9
 Scenario: I can find elements left of a given element using WebElement references.

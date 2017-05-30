@@ -9,8 +9,8 @@ Feature: Selectors should provide some means of getting the
 Scenario: I can find a single text input above above a text using a static selector.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
-  When I search using selectors for an InputText above the text "Surname"
-  Then I find the element with id: 'nameInput'
+  When I search using selectors for an InputText right of the text "Surname"
+  Then I find the element with id: 'surnameInput'
 
 @2
 Scenario: I can find all the elements using the static selectors directly.
@@ -23,7 +23,7 @@ Scenario: I can find all the elements using the static selectors directly.
 Scenario: I can find if a element exists above a text using directly the selector.
   Given I open the browser
   And I go to 'http://localhost:8000/features/test-site/selectors/positional.html'
-  When I search using selectors if an InputText above the text "Surname" exists
+  When I search using selectors if an InputText right of the text "Surname" exists
   Then yes, it exists
 
 @4

@@ -78,11 +78,17 @@ return (function() {
 
     // The above filtering tries to make sure the elements we're
     // finding are above the reference elements in the `aboveElements`
-    for (i = elements.length - 1; i >= 0; i--) {
-        for (j = 0; j < aboveElements.length; j++) {
-            if (bottom(elements[i]) >= top(aboveElements[j])) {
-                elements.splice(i, 1)
+    if (aboveElements.length) {
+        NextI:
+        for (i = elements.length - 1; i >= 0; i--) {
+            for (j = 0; j < aboveElements.length; j++) {
+                if (bottom(elements[i]) < top(aboveElements[j]) &&
+                    overlapX(elements[i], aboveElements[j])) {
+                    continue NextI;
+                }
             }
+
+            elements.splice(i, 1)
         }
     }
 
@@ -126,11 +132,17 @@ return (function() {
 
     // The below filtering makes sure that the elements we're finding
     // are below the reference elements in the `belowElements`
-    for (i = elements.length - 1; i >= 0; i--) {
-        for (j = 0; j < belowElements.length; j++) {
-            if (top(elements[i]) <= bottom(belowElements[j])) {
-                elements.splice(i, 1)
+    if (belowElements.length) {
+        NextI:
+        for (i = elements.length - 1; i >= 0; i--) {
+            for (j = 0; j < belowElements.length; j++) {
+                if (top(elements[i]) > bottom(belowElements[j]) &&
+                    overlapX(elements[i], belowElements[j])) {
+                    continue NextI;
+                }
             }
+
+            elements.splice(i, 1);
         }
     }
 
@@ -160,11 +172,17 @@ return (function() {
         });
     }
 
-    for (i = elements.length - 1; i >= 0; i--) {
-        for (j = 0; j < rightOfElements.length; j++) {
-            if (left(elements[i]) <= right(rightOfElements[j])) {
-                elements.splice(i, 1)
+    if (rightOfElements.length) {
+        NextI:
+        for (i = elements.length - 1; i >= 0; i--) {
+            for (j = 0; j < rightOfElements.length; j++) {
+                if (left(elements[i]) > right(rightOfElements[j]) &&
+                    overlapY(elements[i], rightOfElements[j])) {
+                    continue NextI;
+                }
             }
+
+            elements.splice(i, 1)
         }
     }
 
@@ -192,11 +210,17 @@ return (function() {
         });
     }
 
-    for (i = elements.length - 1; i >= 0; i--) {
-        for (j = 0; j < leftOfElements.length; j++) {
-            if (right(elements[i]) >= left(leftOfElements[j])) {
-                elements.splice(i, 1)
+    if (leftOfElements.length) {
+        NextI:
+        for (i = elements.length - 1; i >= 0; i--) {
+            for (j = 0; j < leftOfElements.length; j++) {
+                if (right(elements[i]) < left(leftOfElements[j]) &&
+                    overlapY(elements[i], leftOfElements[j])) {
+                    continue NextI;
+                }
             }
+
+            elements.splice(i, 1)
         }
     }
 

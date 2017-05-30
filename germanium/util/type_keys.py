@@ -69,7 +69,7 @@ def type_keys_g(context, keys_typed, selector=None, delay=0, *args):
     # We don't just randomly start sending keys, but we click first
     # the element so it has focus, then only start typing in case the
     # element is not focused.
-    if selector and element and \
+    if selector and element and not isinstance(element, WebdriverAlert) and \
             germanium.js('return arguments[0] != document.activeElement;', element):
         action_chain.click(on_element=element)
         action_chain.add_action(lambda: time.sleep(0.2))  # wait for the selection to settle

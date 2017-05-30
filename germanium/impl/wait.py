@@ -89,9 +89,6 @@ def wait(closures, *extra_closures, while_not=None, timeout=10):
         if actual_execution_time < 400:
             time.sleep(float(400 - actual_execution_time) / 1000.0)
 
-        if current_time - starting_time >= 2000:
-            print("Running takes more than 2 seconds.")
-
     if not closure_result:
         raise Exception("Waiting has failed")
 
@@ -161,9 +158,6 @@ def waited(closures, *extra_closures, while_not=None, timeout=10):
 
         if actual_execution_time < 400:
             time.sleep(float(400 - actual_execution_time) / 1000.0)
-
-        if current_time - starting_time >= 2000:
-            print("Running takes more than 2 seconds.")
 
     if not closure_result:
         return None

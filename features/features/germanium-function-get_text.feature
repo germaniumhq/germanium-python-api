@@ -54,3 +54,20 @@ Scenario: Check reading text from a pre element
   text   in   a   pre
   element
   """
+
+@6
+Scenario: get_text() should not return cryptic errors when
+          attempting at finding a null element.
+  Given I open the browser
+  When I go to 'http://localhost:8000/features/test-site/get-text.html'
+  And I get the text for a None selector
+  Then I get an exception saying the selector is not defined
+
+@7
+Scenario: get_text() should not return cryptic errors if the
+          selector passed is not matching anything.
+  Given I open the browser
+  When I go to 'http://localhost:8000/features/test-site/get-text.html'
+  And I get the text for a selector that doesn't matches anything
+  Then I get an exception saying the selector didn't return anything
+

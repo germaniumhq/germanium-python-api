@@ -3,51 +3,38 @@ return (function() {
     var i,
         result = [];
 
-    var style = document.body.currentStyle ||
-        window.getComputedStyle(document.body);
-
-    var bodyMarginTop = parseInt(style.marginTop),
-        bodyMarginLeft = parseInt(style.marginLeft);
-
     function left(element) {
-        var result = - bodyMarginLeft;
-        while (element && element != document.body) {
-            result += element.offsetLeft;
-            element = element.offsetParent;
+        if (!element) {
+            throw new Error('no element in left')
         }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().left) -
+            Math.round(document.body ? document.body.getBoundingClientRect().left: 0);
     }
 
     function top(element) {
-        var result = - bodyMarginTop;
-        while (element && element != document.body) {
-            result += element.offsetTop;
-            element = element.offsetParent;
+        if (!element) {
+            throw new Error('no element in top')
         }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().top) -
+            Math.round(document.body ? document.body.getBoundingClientRect().top : 0);
     }
 
     function right(element) {
-        var result = element.offsetWidth - bodyMarginLeft;
-        while (element && element != document.body) {
-            result += element.offsetLeft;
-            element = element.offsetParent;
+        if (!element) {
+            throw new Error('no element in right')
         }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().right) -
+            Math.round(document.body ? document.body.getBoundingClientRect().left : 0) - 1;
     }
 
     function bottom(element) {
-        var result = element.offsetHeight - bodyMarginTop;
-        while (element && element != document.body) {
-            result += element.offsetTop;
-            element = element.offsetParent;
+        if (!element) {
+            throw new Error('no element in bottom')
         }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().bottom) -
+            Math.round(document.body ? document.body.getBoundingClientRect().top : 0) - 1;
     }
+
 
     var getCssProperty = typeof getComputedStyle !== "undefined" ?
         function (element, property) { // anything else
@@ -63,6 +50,10 @@ return (function() {
      * @param element
      */
     function isDisplayed(element) {
+        if (!element) {
+            return false;
+        }
+
         var l = left(element),
             r = right(element),
             t = top(element),

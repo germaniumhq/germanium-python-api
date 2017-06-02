@@ -7,3 +7,10 @@ Feature: Test the Box API.
     When I try to get the box positions for a selector that doesn't matches
     Then I get an exception spelling out that my selector didn't matched
     # And not a random JS error :)
+
+  @2
+  Scenario: Table cells have different positions
+    Given I open the browser
+    And I go to 'http://localhost:8000/features/test-site/position/box.html'
+    When I get the box positions for the first two rows
+    Then the positions of the 2 boxes are different

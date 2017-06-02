@@ -1,49 +1,23 @@
 //noinspection JSAnnotator,JSReferencingArgumentsOutsideOfFunction,JSUnresolvedVariable,ThisExpressionReferencesGlobalObjectJS
 return (function() {
-    var style = document.body.currentStyle ||
-                window.getComputedStyle(document.body);
-
-    var bodyMarginTop = parseInt(style.marginTop),
-        bodyMarginLeft = parseInt(style.marginLeft);
-
     function left(element) {
-        var result = - bodyMarginLeft;
-        while (element && element != document.body) {
-            result += element.offsetLeft;
-            element = element.offsetParent;
-        }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().left -
+            document.body.getBoundingClientRect().left);
     }
 
     function top(element) {
-        var result = - bodyMarginTop;
-        while (element && element != document.body) {
-            result += element.offsetTop;
-            element = element.offsetParent;
-        }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().top -
+                document.body.getBoundingClientRect().top);
     }
 
     function right(element) {
-        var result = element.offsetWidth - bodyMarginLeft;
-        while (element && element != document.body) {
-            result += element.offsetLeft;
-            element = element.offsetParent;
-        }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().right -
+            document.body.getBoundingClientRect().left);
     }
 
     function bottom(element) {
-        var result = element.offsetHeight - bodyMarginTop;
-        while (element && element != document.body) {
-            result += element.offsetTop;
-            element = element.offsetParent;
-        }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().bottom -
+            document.body.getBoundingClientRect().top);
     }
 
     var element = arguments[0];

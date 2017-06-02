@@ -23,52 +23,37 @@ return (function() {
     }
 
     function left(element) {
-        var result = 0;
-        while (element && element != document.body) {
-            result += element.offsetLeft;
-            element = element.offsetParent;
+        if (!element) {
+            throw new Error('no element in left')
         }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().left) -
+            Math.round(document.body ? document.body.getBoundingClientRect().left: 0);
     }
 
     function top(element) {
-        var result = 0;
-        while (element && element != document.body) {
-            result += element.offsetTop;
-            element = element.offsetParent;
+        if (!element) {
+            throw new Error('no element in top')
         }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().top) -
+            Math.round(document.body ? document.body.getBoundingClientRect().top : 0);
     }
 
     function right(element) {
-        if (!element || typeof element.offsetWidth == "undefined") {
-            return -1;
+        if (!element) {
+            throw new Error('no element in right')
         }
-
-        var result = element.offsetWidth - 1;
-        while (element && element != document.body) {
-            result += element.offsetLeft;
-            element = element.offsetParent;
-        }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().right) -
+            Math.round(document.body ? document.body.getBoundingClientRect().left : 0) - 1;
     }
 
     function bottom(element) {
-        if (!element || typeof element.offsetHeight == "undefined") {
-            return -1;
+        if (!element) {
+            throw new Error('no element in bottom')
         }
-
-        var result = element.offsetHeight - 1;
-        while (element && element != document.body) {
-            result += element.offsetTop;
-            element = element.offsetParent;
-        }
-
-        return result;
+        return Math.round(element.getBoundingClientRect().bottom) -
+            Math.round(document.body ? document.body.getBoundingClientRect().top : 0) - 1;
     }
+
 
     readElements(aboveElements);
     readElements(rightOfElements);
@@ -150,7 +135,7 @@ return (function() {
     // we're under, to the top of our element.
     if (belowElements.length) {
         belowReference = bottom(belowElements[0]);
-        leftReference = left(belowReference[0]);
+        leftReference = left(belowElements[0]);
 
         elements.sort(function(e1, e2) {
             var overlapE1 = overlapX(belowElements[0], e1),

@@ -85,6 +85,18 @@ def step_impl(context):
     assert_false(True, 'Wrong get_box did not threw exception')
 
 
+@step("I get the box positions for the first two rows")
+def step_impl(context):
+    context.first_box = Box(Css('#row11')).get_box()
+    context.second_box = Box(Css('#row21')).get_box()
+    pass
+
+
+@step("the positions of the 2 boxes are different")
+def step_impl(context):
+    assert context.first_box.top() != context.second_box.top()
+
+
 @then("I get an exception spelling out that my selector didn't matched")
 def step_impl(context):
     assert_contains(context.exception_message,

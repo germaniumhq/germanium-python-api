@@ -9,7 +9,7 @@ of the selectors. For example:
 click(Css('.tree-plus-icon').left_of(Text('Item 15')))
 -----------------------------------------------------------------------------
 
-The reason behind them is that you can't use positional filtering directly on the
+The reason behind it is that you can't use positional filtering directly on the
 string themselves. String objects have to be recast to another object type
 (in this case, `AbstractSelector`) that supports the positional filtering methods.
 
@@ -24,10 +24,12 @@ class AbstractSelector
 class Css
 class XPath
 class JsSelector
+class AnyOfSelector
 
 AbstractSelector <|-- Css
 AbstractSelector <|-- XPath
 AbstractSelector <|-- JsSelector
+AbstractSelector <|-- AnyOfSelector
 ------------------------------------------------------------------------------
 
 == Css(locator)
@@ -42,8 +44,13 @@ A selector that finds the given XPath expression.
 
 A selector that finds an element by evaluating the given JavaScript code. `arguments[0]` is the element used for subtree searches, and can be `null` if searches are made for the full document.
 
-Provided Selectors
-------------------
+== AnyOfSelector(selectors...)
+
+A container selector that denotes an element that can be represented in
+multiple ways. The selectors passed into the constructor can also have
+filtering.
+
+= Provided Selectors
 
 Provided selectors are just classes that are generally useful for testing, simple things
 such as buttons, links or text.

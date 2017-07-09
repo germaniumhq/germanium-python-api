@@ -4,6 +4,8 @@ from .Css import Css
 from .XPath import XPath
 from .JsSelector import JsSelector
 
+from .AnyOfSelector import AnyOfSelector
+
 from .Button import Button
 from .Element import Element
 from .Input import Input

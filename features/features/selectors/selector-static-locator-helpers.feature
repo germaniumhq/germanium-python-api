@@ -1,5 +1,5 @@
 Feature: Selectors should provide some means of getting the
-  elements out. For example, when someone wants to get if
+  elements out. For example, when someone wants to check if
   the element exists, it usually wants to check with:
   assert Text('whatever').exists()
   instead of:

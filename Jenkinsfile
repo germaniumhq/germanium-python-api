@@ -76,229 +76,229 @@ def buildSingleVersion(version) {
     }
 }
 
-stage "Build Instances"
+stage('Build Instances') {
+    parallel python27: {
+        if (PYTHON_27) {
+            buildSingleVersion("python2.7")
+        }
+    }, python34: {
+        if (PYTHON_34) {
+            buildSingleVersion("python3.4")
+        }
+    }, python35: {
+        if (PYTHON_35) {
+            buildSingleVersion("python3.5")
+        }
+    }, failFast: true
+}
 
-parallel python27: {
-    if (PYTHON_27) {
-        buildSingleVersion("python2.7")
-    }
-}, python34: {
-    if (PYTHON_34) {
-        buildSingleVersion("python3.4")
-    }
-}, python35: {
+stage('Run Python 3.5 Tests') {
     if (PYTHON_35) {
-        buildSingleVersion("python3.5")
+        parallel python35Firefox: {
+            if (RUN_FIREFOX_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.5-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
+                            "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_FIREFOX_PORT:8000"
+                        ]
+                }
+            }
+        }, python35Chrome: {
+            if (RUN_CHROME_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-pyton3.5-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
+                            "TEST_BROWSER=$CHROME_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_CHROME_PORT:8000"
+                        ]
+                }
+            }
+        }, python35Ie8: {
+            if (RUN_IE_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.5-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
+                            "TEST_BROWSER=$IE_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE11_PORT:8000"
+                        ]
+                }
+            }
+        }, python35Edge: {
+            if (RUN_EDGE_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.5-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
+                            "TEST_BROWSER=$EDGE_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_EDGE_PORT:8000"
+                        ]
+                }
+            }
+        }, failFast: false
     }
-}, failFast: true
-
-stage "Run Python 3.5 Tests"
-
-if (PYTHON_35) {
-    parallel python35Firefox: {
-        if (RUN_FIREFOX_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python3.5-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
-                        "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_FIREFOX_PORT:8000"
-                    ]
-            }
-        }
-    }, python35Chrome: {
-        if (RUN_CHROME_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-pyton3.5-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
-                        "TEST_BROWSER=$CHROME_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_CHROME_PORT:8000"
-                    ]
-            }
-        }
-    }, python35Ie8: {
-        if (RUN_IE_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python3.5-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                        "TEST_BROWSER=$IE_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_IE11_PORT:8000"
-                    ]
-            }
-        }
-    }, python35Edge: {
-        if (RUN_EDGE_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python3.5-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
-                        "TEST_BROWSER=$EDGE_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_EDGE_PORT:8000"
-                    ]
-            }
-        }
-    }, failFast: false
 }
 
-stage "Run Python 2.7 Tests"
-
-if (PYTHON_27) {
-    parallel python27Firefox: {
-        if (RUN_FIREFOX_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python2.7-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
-                        "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_FIREFOX_PORT:8000"
-                    ]
+stage('Run Python 2.7 Tests') {
+    if (PYTHON_27) {
+        parallel python27Firefox: {
+            if (RUN_FIREFOX_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python2.7-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
+                            "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_FIREFOX_PORT:8000"
+                        ]
+                }
             }
-        }
-    }, python27Chrome: {
-        if (RUN_CHROME_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-pyton2.7-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
-                        "TEST_BROWSER=$CHROME_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_CHROME_PORT:8000"
-                    ]
+        }, python27Chrome: {
+            if (RUN_CHROME_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-pyton2.7-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
+                            "TEST_BROWSER=$CHROME_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_CHROME_PORT:8000"
+                        ]
+                }
             }
-        }
-    }, python27Ie8: {
-        if (RUN_IE_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python2.7-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                        "TEST_BROWSER=$IE_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_IE11_PORT:8000"
-                    ]
+        }, python27Ie8: {
+            if (RUN_IE_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python2.7-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
+                            "TEST_BROWSER=$IE_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE11_PORT:8000"
+                        ]
+                }
             }
-        }
-    }, python27Edge: {
-        if (RUN_EDGE_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python2.7-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
-                        "TEST_BROWSER=$EDGE_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_EDGE_PORT:8000"
-                    ]
+        }, python27Edge: {
+            if (RUN_EDGE_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python2.7-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
+                            "TEST_BROWSER=$EDGE_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_EDGE_PORT:8000"
+                        ]
+                }
             }
-        }
-    }, failFast: false
+        }, failFast: false
+    }
 }
 
-stage "Run Python 3.4 Tests"
-
-if (PYTHON_34) {
-    parallel python34Firefox: {
-        if (RUN_FIREFOX_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python3.4-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
-                        "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_FIREFOX_PORT:8000"
-                    ]
+stage('Run Python 3.4 Tests') {
+    if (PYTHON_34) {
+        parallel python34Firefox: {
+            if (RUN_FIREFOX_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.4-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
+                            "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_FIREFOX_PORT:8000"
+                        ]
+                }
             }
-        }
-    }, python34Chrome: {
-        if (RUN_CHROME_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-pyton3.4-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
-                        "TEST_BROWSER=$CHROME_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_CHROME_PORT:8000"
-                    ]
+        }, python34Chrome: {
+            if (RUN_CHROME_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-pyton3.4-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
+                            "TEST_BROWSER=$CHROME_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_CHROME_PORT:8000"
+                        ]
+                }
             }
-        }
-    }, python34Ie8: {
-        if (RUN_IE_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python3.4-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                        "TEST_BROWSER=$IE_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_IE11_PORT:8000"
-                    ]
+        }, python34Ie8: {
+            if (RUN_IE_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.4-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
+                            "TEST_BROWSER=$IE_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE11_PORT:8000"
+                        ]
+                }
             }
-        }
-    }, python34Edge: {
-        if (RUN_EDGE_TESTS) {
-            node {
-                dockerRun image: 'germanium/germanium-python3.4-tests',
-                    remove: true,
-                    env: [
-                        'TEST_REUSE_BROWSER=1',
-                        'RUN_VNC_SERVER=0',
-                        "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
-                        "TEST_BROWSER=$EDGE_GERMANIUM_URL"
-                    ],
-                    ports: [
-                        "$TEST_HOST_EDGE_PORT:8000"
-                    ]
+        }, python34Edge: {
+            if (RUN_EDGE_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.4-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
+                            "TEST_BROWSER=$EDGE_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_EDGE_PORT:8000"
+                        ]
+                }
             }
-        }
-    }, failFast: false
+        }, failFast: false
+    }
 }
 

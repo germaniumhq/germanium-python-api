@@ -113,7 +113,7 @@ stage('Run Python 3.5 Tests') {
         }, python35Chrome: {
             if (RUN_CHROME_TESTS) {
                 node {
-                    dockerRun image: 'germanium/germanium-pyton3.5-tests',
+                    dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
                         env: [
                             'TEST_REUSE_BROWSER=1',
@@ -183,7 +183,7 @@ stage('Run Python 2.7 Tests') {
         }, python27Chrome: {
             if (RUN_CHROME_TESTS) {
                 node {
-                    dockerRun image: 'germanium/germanium-pyton2.7-tests',
+                    dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
                         env: [
                             'TEST_REUSE_BROWSER=1',
@@ -253,7 +253,7 @@ stage('Run Python 3.4 Tests') {
         }, python34Chrome: {
             if (RUN_CHROME_TESTS) {
                 node {
-                    dockerRun image: 'germanium/germanium-pyton3.4-tests',
+                    dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
                         env: [
                             'TEST_REUSE_BROWSER=1',

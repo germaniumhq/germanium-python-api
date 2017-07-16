@@ -24,7 +24,7 @@ properties([
                 description: 'Run the tests against Edge'),
 
         string(name: 'GIT_SERVER',
-                defaultValue: 'http://',
+                defaultValue: 'http://192.168.0.2:10080/germanium/germanium.git',
                 description: 'Git Server location for the project.'),
 
         string(name: 'GERMANIUM_HUB_URL',

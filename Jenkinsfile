@@ -66,6 +66,8 @@ def buildSingleVersion(version) {
         echo "Cloning from $GIT_SERVER"
         rm -fr $version
         git clone "$GIT_SERVER" $version
+        pwd
+        ls -la
         cd $version
         git checkout remotes/origin/$version
         bin/build-docker-instance.sh "$PYPI_URL" "$PYPI_INDEX_URL"

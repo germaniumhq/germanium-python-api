@@ -46,7 +46,8 @@ properties([
 
 CHROME_GERMANIUM_URL = "chrome:${GERMANIUM_HUB_URL}"
 FIREFOX_GERMANIUM_URL = "firefox:${GERMANIUM_HUB_URL}"
-IE_GERMANIUM_URL = "ie:${GERMANIUM_HUB_URL}"
+//IE_GERMANIUM_URL = "ie:${GERMANIUM_HUB_URL}"
+IE_GERMANIUM_URL = "ie?wdurl=${GERMANIUM_HUB_URL}&version=8"
 EDGE_GERMANIUM_URL = "edge:${GERMANIUM_HUB_URL}"
 
 // Ports that will be used in parallel, since we have the same

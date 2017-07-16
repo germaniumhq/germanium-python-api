@@ -2,6 +2,20 @@
 from selenium import webdriver
 
 
+class GermaniumRemote(webdriver.Remote):
+    def __init__(self, *args, **kw):
+        super(GermaniumRemote, self).__init__(*args, **kw)
+
+    def execute(self, driver_command, params=None):
+        if driver_command != 'newSession':
+            return super(GermaniumRemote, self).execute(driver_command, params=params)
+
+        if params:
+            params.pop('capabilities', None)
+
+        return super(GermaniumRemote, self).execute(driver_command, params=params)
+
+
 def create_url_remote_driver(remote_match):
     remote_browser = remote_match.group(1)
 
@@ -18,5 +32,5 @@ def create_url_remote_driver(remote_match):
         raise Exception("Unknown browser: %s, only firefox, "
                         "chrome and ie are supported." % remote_browser)
 
-    return webdriver.Remote(command_executor=remote_match.group(2),
-                            desired_capabilities=remote_capabilities)
+    return GermaniumRemote(command_executor=remote_match.group(2),
+                           desired_capabilities=remote_capabilities)

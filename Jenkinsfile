@@ -140,7 +140,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_IE8_TESTS) {
-            parallelPython35 << "IE8/Python 3.5" : {
+            parallelPython35."IE8/Python 3.5" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -159,7 +159,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_IE9_TESTS) {
-            parallelPython35 << "IE9/Python 3.5" : {
+            parallelPython35."IE9/Python 3.5" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -177,7 +177,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_IE11_TESTS) {
-            parallelPython35 << "IE11/Python 3.5" : {
+            parallelPython35."IE11/Python 3.5" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -195,7 +195,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_EDGE_TESTS) {
-            parallelPython35 << "Edge/Python 3.5" : {
+            parallelPython35."Edge/Python 3.5" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,

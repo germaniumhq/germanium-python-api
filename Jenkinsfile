@@ -122,7 +122,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_CHROME_TESTS) {
-            parallelPython35 << "Chrome/Python 3.5" : {
+            parallelPython35."Chrome/Python 3.5" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,

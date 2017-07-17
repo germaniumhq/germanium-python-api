@@ -174,7 +174,7 @@ stage('Run Python 3.5 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                            "'TEST_BROWSER=$IE11_GERMANIUM_URL'"
+                            "TEST_BROWSER=$IE11_GERMANIUM_URL"
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"
@@ -276,7 +276,7 @@ stage('Run Python 2.7 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                            "'TEST_BROWSER=$IE11_GERMANIUM_URL'"
+                            "TEST_BROWSER=$IE11_GERMANIUM_URL"
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"
@@ -378,7 +378,7 @@ stage('Run Python 3.4 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                            "'TEST_BROWSER=$IE11_GERMANIUM_URL'"
+                            "TEST_BROWSER=$IE11_GERMANIUM_URL"
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"

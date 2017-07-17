@@ -50,9 +50,9 @@ RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
 CHROME_GERMANIUM_URL = "chrome:${GERMANIUM_HUB_URL}"
 FIREFOX_GERMANIUM_URL = "firefox:${GERMANIUM_HUB_URL}"
 //IE_GERMANIUM_URL = "ie:${GERMANIUM_HUB_URL}"
-IE8_GERMANIUM_URL = "ie?wd_url=${GERMANIUM_HUB_URL}&version=8"
-IE9_GERMANIUM_URL = "ie?wd_url=${GERMANIUM_HUB_URL}&version=9"
-IE11_GERMANIUM_URL = "ie?wd_url=${GERMANIUM_HUB_URL}&version=11"
+IE8_GERMANIUM_URL = "ie?wdurl=${GERMANIUM_HUB_URL}&version=8"
+IE9_GERMANIUM_URL = "ie?wdurl=${GERMANIUM_HUB_URL}&version=9"
+IE11_GERMANIUM_URL = "ie?wdurl=${GERMANIUM_HUB_URL}&version=11"
 EDGE_GERMANIUM_URL = "'edge:${GERMANIUM_HUB_URL}'"
 
 // Ports that will be used in parallel, since we have the same

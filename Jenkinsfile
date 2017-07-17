@@ -11,8 +11,12 @@ properties([
                 description: 'Run the tests against Firefox'),
         booleanParam(name: 'RUN_CHROME_TESTS', defaultValue: true,
                 description: 'Run the tests against Chrome'),
-        booleanParam(name: 'RUN_IE_TESTS', defaultValue: true,
-                description: 'Run the tests against IE'),
+        booleanParam(name: 'RUN_IE8_TESTS', defaultValue: true,
+                description: 'Run the tests against IE8'),
+        booleanParam(name: 'RUN_IE9_TESTS', defaultValue: true,
+                description: 'Run the tests against IE9'),
+        booleanParam(name: 'RUN_IE11_TESTS', defaultValue: true,
+                description: 'Run the tests against IE11'),
         booleanParam(name: 'RUN_EDGE_TESTS', defaultValue: true,
                 description: 'Run the tests against Edge'),
 
@@ -38,22 +42,28 @@ PYTHON_35 = Boolean.valueOf(PYTHON_35)
 
 RUN_FIREFOX_TESTS = Boolean.valueOf(RUN_FIREFOX_TESTS)
 RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
-RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
+RUN_IE8_TESTS = Boolean.valueOf(RUN_IE8_TESTS)
+RUN_IE9_TESTS = Boolean.valueOf(RUN_IE9_TESTS)
+RUN_IE11_TESTS = Boolean.valueOf(RUN_IE11_TESTS)
 RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
 
 CHROME_GERMANIUM_URL = "'chrome:${GERMANIUM_HUB_URL}'"
 FIREFOX_GERMANIUM_URL = "'firefox:${GERMANIUM_HUB_URL}'"
 //IE_GERMANIUM_URL = "ie:${GERMANIUM_HUB_URL}"
-IE_GERMANIUM_URL = "'ie?wdurl=${GERMANIUM_HUB_URL}&version=8'"
+IE8_GERMANIUM_URL = "'ie?wdurl=${GERMANIUM_HUB_URL}&version=8'"
+IE9_GERMANIUM_URL = "'ie?wdurl=${GERMANIUM_HUB_URL}&version=9'"
+IE11_GERMANIUM_URL = "'ie?wdurl=${GERMANIUM_HUB_URL}&version=11'"
 EDGE_GERMANIUM_URL = "'edge:${GERMANIUM_HUB_URL}'"
 
 // Ports that will be used in parallel, since we have the same
 // test host (the docker instance)
 
-TEST_HOST_CHROME_PORT=8011   // 8011:8000 -> Chrome
-TEST_HOST_FIREFOX_PORT=8012  // 8011:8000 -> Chrome
-TEST_HOST_IE11_PORT=8013     // 8011:8000 -> IE 11
-TEST_HOST_EDGE_PORT=8014     // 8012:8000 -> Edge
+TEST_HOST_IE8_PORT=8008     // 8008:8000 -> IE 8
+TEST_HOST_IE9_PORT=8009     // 8009:8000 -> IE 9
+TEST_HOST_IE11_PORT=8011     // 8011:8000 -> IE 11
+TEST_HOST_EDGE_PORT=8012     // 8012:8000 -> Edge
+TEST_HOST_CHROME_PORT=8020   // 8011:8000 -> Chrome
+TEST_HOST_FIREFOX_PORT=8021  // 8011:8000 -> Firefox
 
 def buildSingleVersion(version) {
     node {
@@ -124,7 +134,39 @@ stage('Run Python 3.5 Tests') {
                 }
             }
         }, python35Ie8: {
-            if (RUN_IE_TESTS) {
+            if (RUN_IE8_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.5-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE8_PORT",
+                            "TEST_BROWSER=$IE8_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE8_PORT:8000"
+                        ]
+                }
+            }
+        }, python35Ie9: {
+            if (RUN_IE9_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.5-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE9_PORT",
+                            "TEST_BROWSER=$IE9_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE9_PORT:8000"
+                        ]
+                }
+            }
+        }, python35Ie11: {
+            if (RUN_IE11_TESTS) {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -132,7 +174,7 @@ stage('Run Python 3.5 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                            "TEST_BROWSER=$IE_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE11_GERMANIUM_URL"
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"
@@ -194,7 +236,39 @@ stage('Run Python 2.7 Tests') {
                 }
             }
         }, python27Ie8: {
-            if (RUN_IE_TESTS) {
+            if (RUN_IE8_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python2.7-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE8_PORT",
+                            "TEST_BROWSER=$IE8_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE8_PORT:8000"
+                        ]
+                }
+            }
+        }, python27Ie9: {
+            if (RUN_IE9_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python2.7-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE9_PORT",
+                            "TEST_BROWSER=$IE9_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE9_PORT:8000"
+                        ]
+                }
+            }
+        }, python27Ie11: {
+            if (RUN_IE11_TESTS) {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -202,7 +276,7 @@ stage('Run Python 2.7 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                            "TEST_BROWSER=$IE_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE11_GERMANIUM_URL"
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"
@@ -264,7 +338,39 @@ stage('Run Python 3.4 Tests') {
                 }
             }
         }, python34Ie8: {
-            if (RUN_IE_TESTS) {
+            if (RUN_IE8_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.4-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE8_PORT",
+                            "TEST_BROWSER=$IE8_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE8_PORT:8000"
+                        ]
+                }
+            }
+        }, python34Ie9: {
+            if (RUN_IE9_TESTS) {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.4-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=0',
+                            "TEST_HOST=$TEST_HOST:$TEST_HOST_IE9_PORT",
+                            "TEST_BROWSER=$IE9_GERMANIUM_URL"
+                        ],
+                        ports: [
+                            "$TEST_HOST_IE9_PORT:8000"
+                        ]
+                }
+            }
+        }, python34Ie11: {
+            if (RUN_IE11_TESTS) {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -272,7 +378,7 @@ stage('Run Python 3.4 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
-                            "TEST_BROWSER=$IE_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE11_GERMANIUM_URL"
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"

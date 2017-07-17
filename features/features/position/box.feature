@@ -1,6 +1,6 @@
 Feature: Test the Box API.
 
-  @1
+  @1 @noie8
   Scenario: Elements that are not found should be reported nicely
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'
@@ -8,7 +8,7 @@ Feature: Test the Box API.
     Then I get an exception spelling out that my selector didn't matched
     # And not a random JS error :)
 
-  @2
+  @2 @noie8
   Scenario: Table cells have different positions
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/box.html'

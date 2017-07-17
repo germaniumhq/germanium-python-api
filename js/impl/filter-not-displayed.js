@@ -36,7 +36,7 @@ return (function() {
     }
 
 
-    var getCssProperty = typeof getComputedStyle !== "undefined" ?
+    var getCssProperty = !(window.attachEvent && !window.addEventListener) ?
         function (element, property) { // anything else
             return getComputedStyle(element)[property];
         } :

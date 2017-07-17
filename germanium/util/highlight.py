@@ -101,7 +101,10 @@ def highlight_g(context,
             }
 
             if (index == 0) {
-                delete window._germaniumCurrentHighlight;
+                window._germaniumCurrentHighlight = undefined;
+                try {
+                    delete window._germaniumCurrentHighlight;
+                } catch(e) {}
                 clearInterval(interval);
             }
         }, %d);

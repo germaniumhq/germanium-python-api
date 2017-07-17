@@ -104,7 +104,7 @@ stage('Run Python 3.5 Tests') {
         def parallelPython35 = [:]
 
         if (RUN_FIREFOX_TESTS) {
-            parallelPython35 << ["Firefox/Python 3.5" : {
+            parallelPython35."Firefox/Python 3.5" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -118,7 +118,7 @@ stage('Run Python 3.5 Tests') {
                             "$TEST_HOST_FIREFOX_PORT:8000"
                         ]
                 }
-            }]
+            }
         }
 
         if (RUN_CHROME_TESTS) {
@@ -218,8 +218,10 @@ stage('Run Python 3.5 Tests') {
 
 stage('Run Python 2.7 Tests') {
     if (PYTHON_27) {
-        parallel python27Firefox: {
-            if (RUN_FIREFOX_TESTS) {
+        def parallelPython27 = [:]
+
+        if (RUN_FIREFOX_TESTS) {
+            parallelPython27."Firefox/Python 2.7" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -234,8 +236,10 @@ stage('Run Python 2.7 Tests') {
                         ]
                 }
             }
-        }, python27Chrome: {
-            if (RUN_CHROME_TESTS) {
+        }
+
+        if (RUN_CHROME_TESTS) {
+            parallelPython27."Chrome/Python 2.7" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -250,8 +254,10 @@ stage('Run Python 2.7 Tests') {
                         ]
                 }
             }
-        }, python27Ie8: {
-            if (RUN_IE8_TESTS) {
+        }
+
+        if (RUN_IE8_TESTS) {
+            parallelPython27."IE8/Python 2.7" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -267,8 +273,10 @@ stage('Run Python 2.7 Tests') {
                         ]
                 }
             }
-        }, python27Ie9: {
-            if (RUN_IE9_TESTS) {
+        }
+
+        if (RUN_IE9_TESTS) {
+            parallelPython27."IE9/Python 2.7" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -283,8 +291,10 @@ stage('Run Python 2.7 Tests') {
                         ]
                 }
             }
-        }, python27Ie11: {
-            if (RUN_IE11_TESTS) {
+        }
+
+        if (RUN_IE11_TESTS) {
+            parallelPython27."IE11/Python 2.7" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -299,8 +309,10 @@ stage('Run Python 2.7 Tests') {
                         ]
                 }
             }
-        }, python27Edge: {
-            if (RUN_EDGE_TESTS) {
+        }
+
+        if (RUN_EDGE_TESTS) {
+            parallelPython27."Edge/Python 2.7" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -315,14 +327,18 @@ stage('Run Python 2.7 Tests') {
                         ]
                 }
             }
-        }, failFast: false
+        }
+
+        parallel(parallelPython27)
     }
 }
 
 stage('Run Python 3.4 Tests') {
     if (PYTHON_34) {
-        parallel python34Firefox: {
-            if (RUN_FIREFOX_TESTS) {
+        def parallelPython34 = [:]
+
+        if (RUN_FIREFOX_TESTS) {
+            parallelPython34."Firefox/Python 3.4" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -337,8 +353,10 @@ stage('Run Python 3.4 Tests') {
                         ]
                 }
             }
-        }, python34Chrome: {
-            if (RUN_CHROME_TESTS) {
+        }
+
+        if (RUN_CHROME_TESTS) {
+            parallelPython34."Chrome/Python 3.4" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -353,8 +371,10 @@ stage('Run Python 3.4 Tests') {
                         ]
                 }
             }
-        }, python34Ie8: {
-            if (RUN_IE8_TESTS) {
+        }
+
+        if (RUN_IE8_TESTS) {
+            parallelPython34."IE8/Python 3.4" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -370,8 +390,10 @@ stage('Run Python 3.4 Tests') {
                         ]
                 }
             }
-        }, python34Ie9: {
-            if (RUN_IE9_TESTS) {
+        }
+
+        if (RUN_IE9_TESTS) {
+            parallelPython34."IE9/Python 3.4" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -386,8 +408,10 @@ stage('Run Python 3.4 Tests') {
                         ]
                 }
             }
-        }, python34Ie11: {
-            if (RUN_IE11_TESTS) {
+        }
+
+        if (RUN_IE11_TESTS) {
+            parallelPython34."IE11/Python 3.4" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -402,8 +426,10 @@ stage('Run Python 3.4 Tests') {
                         ]
                 }
             }
-        }, python34Edge: {
-            if (RUN_EDGE_TESTS) {
+        }
+
+        if (RUN_EDGE_TESTS) {
+            parallelPython34."Edge/Python 3.4" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -418,7 +444,8 @@ stage('Run Python 3.4 Tests') {
                         ]
                 }
             }
-        }, failFast: false
+        }
+
+        parallel(parallelPython34)
     }
 }
-

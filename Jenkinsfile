@@ -104,7 +104,7 @@ stage('Run Python 3.5 Tests') {
         def parallelPython35 = [:]
 
         if (RUN_FIREFOX_TESTS) {
-            parallelPython35 << "Firefox/Python 3.5" : {
+            parallelPython35 << ["Firefox/Python 3.5" : {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -118,7 +118,7 @@ stage('Run Python 3.5 Tests') {
                             "$TEST_HOST_FIREFOX_PORT:8000"
                         ]
                 }
-            }
+            }]
         }
 
         if (RUN_CHROME_TESTS) {

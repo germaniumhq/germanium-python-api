@@ -142,7 +142,8 @@ stage('Run Python 3.5 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE8_PORT",
-                            "TEST_BROWSER=$IE8_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE8_GERMANIUM_URL",
+                            "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie8"
                         ],
                         ports: [
                             "$TEST_HOST_IE8_PORT:8000"
@@ -244,7 +245,8 @@ stage('Run Python 2.7 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE8_PORT",
-                            "TEST_BROWSER=$IE8_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE8_GERMANIUM_URL",
+                            "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie8"
                         ],
                         ports: [
                             "$TEST_HOST_IE8_PORT:8000"
@@ -346,7 +348,8 @@ stage('Run Python 3.4 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE8_PORT",
-                            "TEST_BROWSER=$IE8_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE8_GERMANIUM_URL",
+                            "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie8"
                         ],
                         ports: [
                             "$TEST_HOST_IE8_PORT:8000"

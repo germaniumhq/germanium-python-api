@@ -1,6 +1,6 @@
 Feature: Positional access to elements.
 
-  @1
+  @1 @noie8
   Scenario Outline: clicking on the <Point Location> works as expected (<Div Id>)
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'
@@ -14,7 +14,7 @@ Feature: Positional access to elements.
       | #absoluteDiv | center         | absolute x: 150 y: 100 |
 
 
-  @2
+  @2 @noie8
   Scenario Outline: clicking on the <Point Location> works as expected (<Div Id>)
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'
@@ -29,7 +29,7 @@ Feature: Positional access to elements.
       | #inlineDiv   | top right      | inline x: 299 y: 0   |
       | #absoluteDiv | top right      | absolute x: 299 y: 0 |
 
-  @2
+  @2 @noie8
   Scenario Outline: clicking on the <Point Location> works as expected (<Div Id>)
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'
@@ -43,7 +43,7 @@ Feature: Positional access to elements.
       | #absoluteDiv | middle right   | absolute x: 299 y: 100 |
 
 
-  @3
+  @3 @noie8
   Scenario Outline: clicking on the <Point Location> works as expected (<Div Id>)
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/position.html'

@@ -2,6 +2,8 @@ import re
 import urllib.parse as urlparse
 
 from selenium import webdriver
+from ._germanium_remote import GermaniumRemote
+
 
 REMOTE_QUERY_PATTERN = re.compile("^(\\w+?)\\?(.*?)$")
 WD_URL = "wdurl"
@@ -65,10 +67,10 @@ def create_query_parameters_remote_driver(browser_string):
         remote_capabilities = webdriver.DesiredCapabilities.EDGE
     else:
         raise Exception("Unknown browser: %s, only firefox, "
-                        "chrome and ie are supported." % remote_browser)
+                        "chrome ie and edge are supported." % remote_browser)
 
     for key, value in browser_specification.desired_capabilities.items():
         remote_capabilities[key] = value
 
-    return webdriver.Remote(command_executor=browser_specification.url,
-                            desired_capabilities=remote_capabilities)
+    return GermaniumRemote(command_executor=browser_specification.url,
+                           desired_capabilities=remote_capabilities)

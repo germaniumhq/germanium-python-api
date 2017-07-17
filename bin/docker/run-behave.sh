@@ -27,6 +27,8 @@ cd /tests
 
 if [[ $TEST_BROWSER == *":http"* ]]; then
     TEST_BROWSER_ABBREVIATION=$(echo $TEST_BROWSER | perl -pe 's/^(.*?):.*/$1/')
+elif [[ $TEST_BROWSER == *"?"* ]]; then
+    TEST_BROWSER_ABBREVIATION=$(echo $TEST_BROWSER | perl -pe 's/^(.*?)\?.*/$1/')
 else
     TEST_BROWSER_ABBREVIATION="$TEST_BROWSER"
 fi

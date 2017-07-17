@@ -1,48 +1,45 @@
 properties([
     parameters([
-        booleanParam(name: 'PYTHON_27',
-                defaultValue: true,
+        booleanParam(name: 'PYTHON_27', defaultValue: true,
                 description: 'Run Python 2.7 tests.'),
-        booleanParam(name: 'PYTHON_34',
-                defaultValue: true,
+        booleanParam(name: 'PYTHON_34', defaultValue: true,
                 description: 'Run Python 3.4 tests'),
-        booleanParam(name: 'PYTHON_35',
-                defaultValue: true,
+        booleanParam(name: 'PYTHON_35', defaultValue: true,
                 description: 'Run Python 3.5 tests'),
 
-        booleanParam(name: 'RUN_FIREFOX_TESTS',
-                defaultValue: true,
+        booleanParam(name: 'RUN_FIREFOX_TESTS', defaultValue: true,
                 description: 'Run the tests against Firefox'),
-        booleanParam(name: 'RUN_CHROME_TESTS',
-                defaultValue: true,
+        booleanParam(name: 'RUN_CHROME_TESTS', defaultValue: true,
                 description: 'Run the tests against Chrome'),
-        booleanParam(name: 'RUN_IE_TESTS',
-                defaultValue: true,
+        booleanParam(name: 'RUN_IE_TESTS', defaultValue: true,
                 description: 'Run the tests against IE'),
-        booleanParam(name: 'RUN_EDGE_TESTS',
-                defaultValue: true,
+        booleanParam(name: 'RUN_EDGE_TESTS', defaultValue: true,
                 description: 'Run the tests against Edge'),
 
-        string(name: 'GIT_SERVER',
-                defaultValue: 'http://192.168.0.2:10080/germanium/germanium.git',
+        string(name: 'GIT_SERVER', defaultValue: 'http://192.168.0.2:10080/germanium/germanium.git',
                 description: 'Git Server location for the project.'),
 
-        string(name: 'GERMANIUM_HUB_URL',
-                defaultValue: 'http://192.168.0.2:4444/wd/hub',
+        string(name: 'GERMANIUM_HUB_URL', defaultValue: 'http://192.168.0.2:4444/wd/hub',
                 description: 'Where is the Germanium HUB running.'),
 
-        string(name: 'PYPI_URL',
-                defaultValue: 'http://192.168.0.2:8081/repository/pypi-local/pypi',
+        string(name: 'PYPI_URL', defaultValue: 'http://192.168.0.2:8081/repository/pypi-local/pypi',
                 description: 'PyPI Location'),
-        string(name: 'PYPI_INDEX_URL',
-                defaultValue: 'http://192.168.0.2:8081/repository/pypi-local/simple',
+        string(name: 'PYPI_INDEX_URL', defaultValue: 'http://192.168.0.2:8081/repository/pypi-local/simple',
                 description: 'Squid proxy to use for fetching resources'),
 
-        string(name: 'TEST_HOST',
-                defaultValue: '192.168.0.2',
+        string(name: 'TEST_HOST', defaultValue: '192.168.0.2',
                 description: 'On what host are the tests exposed.')
     ])
 ])
+
+PYTHON_27 = Boolean.valueOf(PYTHON_27)
+PYTHON_34 = Boolean.valueOf(PYTHON_34)
+PYTHON_35 = Boolean.valueOf(PYTHON_35)
+
+RUN_FIREFOX_TESTS = Boolean.valueOf(RUN_FIREFOX_TESTS)
+RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
+RUN_IE_TESTS = Boolean.valueOf(RUN_IE_TESTS)
+RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
 
 CHROME_GERMANIUM_URL = "'chrome:${GERMANIUM_HUB_URL}'"
 FIREFOX_GERMANIUM_URL = "'firefox:${GERMANIUM_HUB_URL}'"

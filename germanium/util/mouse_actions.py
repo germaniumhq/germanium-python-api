@@ -8,7 +8,8 @@ from .find_germanium_object import find_germanium_object
 from germanium.impl._workaround import workaround
 from germanium.wa.edge_move_to_element import \
     _is_microsoft_edge, _edge_move_to_element_with_offset
-
+from germanium.wa.ie_eq_8_9_move_mouse_check_hover import \
+    _is_older_ie_with_bugs_on_scroll, _ie_move_element_checking_scroll
 
 def _element_or_position(germanium, selector):
     if isinstance(selector, Point):
@@ -38,6 +39,7 @@ def _element_or_none(germanium, selector, point):
 
 
 @workaround(_is_microsoft_edge, _edge_move_to_element_with_offset)
+@workaround(_is_older_ie_with_bugs_on_scroll, _ie_move_element_checking_scroll)
 def _move_to_element(germanium, action, element):
     action.move_to_element(element)
 

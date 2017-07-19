@@ -225,6 +225,7 @@ stage('Run Python 3.5 Tests') {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
+                        privileged: true,
                         env: [
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=1',

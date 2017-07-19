@@ -112,7 +112,7 @@ stage('Run Python 3.5 Tests') {
         def parallelPython35 = [:]
 
         if (RUN_FIREFOX_TESTS) {
-            parallelPython35."Firefox/Python 3.5" = {
+            parallelPython35."Firefox (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -130,7 +130,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_CHROME_TESTS) {
-            parallelPython35."Chrome/Python 3.5" = {
+            parallelPython35."Chrome (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -148,7 +148,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_IE8_TESTS) {
-            parallelPython35."IE8/Python 3.5" = {
+            parallelPython35."IE8 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -167,7 +167,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_IE9_TESTS) {
-            parallelPython35."IE9/Python 3.5" = {
+            parallelPython35."IE9 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -175,7 +175,8 @@ stage('Run Python 3.5 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE9_PORT",
-                            "TEST_BROWSER=$IE9_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE9_GERMANIUM_URL",
+                            "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie9"
                         ],
                         ports: [
                             "$TEST_HOST_IE9_PORT:8000"
@@ -185,7 +186,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_IE11_TESTS) {
-            parallelPython35."IE11/Python 3.5" = {
+            parallelPython35."IE11 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -203,7 +204,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_EDGE_TESTS) {
-            parallelPython35."Edge/Python 3.5" = {
+            parallelPython35."Edge (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -221,7 +222,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_CHROME_LOCAL_TESTS) {
-            parallelPython35."Chrome Local" = {
+            parallelPython35."Chrome (Local)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -239,7 +240,7 @@ stage('Run Python 3.5 Tests') {
         }
 
         if (RUN_FIREFOX_LOCAL_TESTS) {
-            parallelPython35."Firefox Local" = {
+            parallelPython35."Firefox (Local)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.5-tests',
                         remove: true,
@@ -264,7 +265,7 @@ stage('Run Python 2.7 Tests') {
         def parallelPython27 = [:]
 
         if (RUN_FIREFOX_TESTS) {
-            parallelPython27."Firefox/Python 2.7" = {
+            parallelPython27."Firefox (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -282,7 +283,7 @@ stage('Run Python 2.7 Tests') {
         }
 
         if (RUN_CHROME_TESTS) {
-            parallelPython27."Chrome/Python 2.7" = {
+            parallelPython27."Chrome (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -300,7 +301,7 @@ stage('Run Python 2.7 Tests') {
         }
 
         if (RUN_IE8_TESTS) {
-            parallelPython27."IE8/Python 2.7" = {
+            parallelPython27."IE8 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -319,7 +320,7 @@ stage('Run Python 2.7 Tests') {
         }
 
         if (RUN_IE9_TESTS) {
-            parallelPython27."IE9/Python 2.7" = {
+            parallelPython27."IE9 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -327,7 +328,8 @@ stage('Run Python 2.7 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE9_PORT",
-                            "TEST_BROWSER=$IE9_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE9_GERMANIUM_URL",
+                            "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie9"
                         ],
                         ports: [
                             "$TEST_HOST_IE9_PORT:8000"
@@ -337,7 +339,7 @@ stage('Run Python 2.7 Tests') {
         }
 
         if (RUN_IE11_TESTS) {
-            parallelPython27."IE11/Python 2.7" = {
+            parallelPython27."IE11 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -355,7 +357,7 @@ stage('Run Python 2.7 Tests') {
         }
 
         if (RUN_EDGE_TESTS) {
-            parallelPython27."Edge/Python 2.7" = {
+            parallelPython27."Edge (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python2.7-tests',
                         remove: true,
@@ -367,6 +369,41 @@ stage('Run Python 2.7 Tests') {
                         ],
                         ports: [
                             "$TEST_HOST_EDGE_PORT:8000"
+                        ]
+                }
+            }
+        }
+
+        if (RUN_CHROME_LOCAL_TESTS) {
+            parallelPython27."Chrome (Local)" = {
+                node {
+                    dockerRun image: 'germanium/germanium-python2.7-tests',
+                        remove: true,
+                        privileged: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=1',
+                            'TEST_BROWSER=chrome'
+                        ],
+                        ports: [
+                            "25901:5901"
+                        ]
+                }
+            }
+        }
+
+        if (RUN_FIREFOX_LOCAL_TESTS) {
+            parallelPython27."Firefox (Local)" = {
+                node {
+                    dockerRun image: 'germanium/germanium-python2.7-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=1',
+                            'TEST_BROWSER=firefox'
+                        ],
+                        ports: [
+                            "25902:5901"
                         ]
                 }
             }
@@ -381,7 +418,7 @@ stage('Run Python 3.4 Tests') {
         def parallelPython34 = [:]
 
         if (RUN_FIREFOX_TESTS) {
-            parallelPython34."Firefox/Python 3.4" = {
+            parallelPython34."Firefox (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -399,7 +436,7 @@ stage('Run Python 3.4 Tests') {
         }
 
         if (RUN_CHROME_TESTS) {
-            parallelPython34."Chrome/Python 3.4" = {
+            parallelPython34."Chrome (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -417,7 +454,7 @@ stage('Run Python 3.4 Tests') {
         }
 
         if (RUN_IE8_TESTS) {
-            parallelPython34."IE8/Python 3.4" = {
+            parallelPython34."IE8 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -436,7 +473,7 @@ stage('Run Python 3.4 Tests') {
         }
 
         if (RUN_IE9_TESTS) {
-            parallelPython34."IE9/Python 3.4" = {
+            parallelPython34."IE9 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -444,7 +481,8 @@ stage('Run Python 3.4 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE9_PORT",
-                            "TEST_BROWSER=$IE9_GERMANIUM_URL"
+                            "TEST_BROWSER=$IE9_GERMANIUM_URL",
+                            "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie9"
                         ],
                         ports: [
                             "$TEST_HOST_IE9_PORT:8000"
@@ -454,7 +492,7 @@ stage('Run Python 3.4 Tests') {
         }
 
         if (RUN_IE11_TESTS) {
-            parallelPython34."IE11/Python 3.4" = {
+            parallelPython34."IE11 (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -472,7 +510,7 @@ stage('Run Python 3.4 Tests') {
         }
 
         if (RUN_EDGE_TESTS) {
-            parallelPython34."Edge/Python 3.4" = {
+            parallelPython34."Edge (GRID)" = {
                 node {
                     dockerRun image: 'germanium/germanium-python3.4-tests',
                         remove: true,
@@ -484,6 +522,41 @@ stage('Run Python 3.4 Tests') {
                         ],
                         ports: [
                             "$TEST_HOST_EDGE_PORT:8000"
+                        ]
+                }
+            }
+        }
+
+        if (RUN_CHROME_LOCAL_TESTS) {
+            parallelPython34."Chrome (Local)" = {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.4-tests',
+                        remove: true,
+                        privileged: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=1',
+                            'TEST_BROWSER=chrome'
+                        ],
+                        ports: [
+                            "25901:5901"
+                        ]
+                }
+            }
+        }
+
+        if (RUN_FIREFOX_LOCAL_TESTS) {
+            parallelPython34."Firefox (Local)" = {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.4-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=1',
+                            'TEST_BROWSER=firefox'
+                        ],
+                        ports: [
+                            "25902:5901"
                         ]
                 }
             }

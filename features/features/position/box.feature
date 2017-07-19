@@ -8,7 +8,7 @@ Feature: Test the Box API.
     Then I get an exception spelling out that my selector didn't matched
     # And not a random JS error :)
 
-  @2 @noie8
+  @2 @noie8 @noie9
   Scenario: Table cells have different positions
     Given I open the browser
     And I go to 'http://localhost:8000/features/test-site/position/box.html'

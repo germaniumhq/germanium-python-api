@@ -20,6 +20,11 @@ properties([
         booleanParam(name: 'RUN_EDGE_TESTS', defaultValue: true,
                 description: 'Run the tests against Edge'),
 
+        booleanParam(name: 'RUN_CHROME_LOCAL_TESTS', defaultValue: true,
+                description: 'Run the tests on a local Chrome instance.'),
+        booleanParam(name: 'RUN_FIREFOX_LOCAL_TESTS', defaultValue: true,
+                description: 'Run the tests on a local Firefox instance.'),
+
         string(name: 'GIT_SERVER', defaultValue: 'http://192.168.0.2:10080/germanium/germanium.git',
                 description: 'Git Server location for the project.'),
 
@@ -46,6 +51,9 @@ RUN_IE8_TESTS = Boolean.valueOf(RUN_IE8_TESTS)
 RUN_IE9_TESTS = Boolean.valueOf(RUN_IE9_TESTS)
 RUN_IE11_TESTS = Boolean.valueOf(RUN_IE11_TESTS)
 RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
+
+RUN_CHROME_LOCAL_TESTS = Boolean.valueOf(RUN_CHROME_LOCAL_TESTS)
+RUN_FIREFOX_LOCAL_TESTS = Boolean.valueOf(RUN_FIREFOX_LOCAL_TESTS)
 
 CHROME_GERMANIUM_URL = "chrome:${GERMANIUM_HUB_URL}"
 FIREFOX_GERMANIUM_URL = "firefox:${GERMANIUM_HUB_URL}"
@@ -207,6 +215,40 @@ stage('Run Python 3.5 Tests') {
                         ],
                         ports: [
                             "$TEST_HOST_EDGE_PORT:8000"
+                        ]
+                }
+            }
+        }
+
+        if (RUN_CHROME_LOCAL_TESTS) {
+            parallelPython35."Chrome Local" = {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.5-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=1',
+                            'TEST_BROWSER=chrome'
+                        ],
+                        ports: [
+                            "25901:5901"
+                        ]
+                }
+            }
+        }
+
+        if (RUN_FIREFOX_LOCAL_TESTS) {
+            parallelPython35."Firefox Local" = {
+                node {
+                    dockerRun image: 'germanium/germanium-python3.5-tests',
+                        remove: true,
+                        env: [
+                            'TEST_REUSE_BROWSER=1',
+                            'RUN_VNC_SERVER=1',
+                            'TEST_BROWSER=firefox'
+                        ],
+                        ports: [
+                            "25902:5901"
                         ]
                 }
             }

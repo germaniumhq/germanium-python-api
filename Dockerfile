@@ -88,7 +88,7 @@ ENV BROWSERS_REFRESHED_AT="2016.08.08-00:11:03"
 # Install firefox, and its webdriver
 #
 RUN cd /opt && \
-    wget 'https://download.mozilla.org/?product=firefox-47.0.1-SSL&os=linux64&lang=en-US' -O firefox.tar.bz2 && \
+    wget 'https://download.mozilla.org/?product=firefox-54.0.1-SSL&os=linux64&lang=en-US' -O firefox.tar.bz2 && \
     tar -jxvf firefox.tar.bz2 && \
     rm /opt/firefox.tar.bz2
 

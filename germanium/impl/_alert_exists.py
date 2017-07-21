@@ -6,14 +6,16 @@ from germanium.wa.firefox_without_marionette_alert import _is_firefox_without_ma
 from ._workaround import workaround
 
 
-@workaround(_is_firefox_without_marionette, _alert_exists_firefox)
-def _alert_exists(germanium):
+def _get_alert(germanium):
     try:
         alert = germanium.web_driver.switch_to.alert
         alert.text
+
+        germanium._last_alert = alert
+
         return alert
     except NoAlertPresentException:
-        return False
+        return germanium._last_alert
 
 
 def allow_alert(germanium):

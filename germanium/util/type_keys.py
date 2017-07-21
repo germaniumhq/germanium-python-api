@@ -1,13 +1,10 @@
 import re
 import time
 
-from selenium.webdriver.common.alert import Alert as WebdriverAlert
 from selenium.webdriver.common.keys import Keys
 
 from germanium.impl import ActionChains
 from germanium.impl import _filter_one_for_action
-from germanium.impl._alert_exists import _alert_exists
-from germanium.selectors import Alert
 from .find_germanium_object import find_germanium_object
 
 MULTIPLE_TIMES_KEY_PRESS_RE = re.compile("^(.*?)\*(\d+)$")
@@ -56,20 +53,14 @@ def type_keys_g(context, keys_typed, selector=None, delay=0, *args):
 
     if selector:
         potential_elements = germanium.S(selector).element_list(only_visible=False)
-        if len(potential_elements) == 1 and \
-                isinstance(potential_elements[0], WebdriverAlert):
-            element = potential_elements[0]
-        else:
-            element = _filter_one_for_action(germanium, potential_elements)
-    elif _alert_exists(germanium):
-        element = Alert().element(germanium=germanium)
+        element = _filter_one_for_action(germanium, potential_elements)
 
     action_chain = ActionChains(germanium.web_driver)
 
     # We don't just randomly start sending keys, but we click first
     # the element so it has focus, then only start typing in case the
     # element is not focused.
-    if selector and element and not isinstance(element, WebdriverAlert) and \
+    if selector and element and \
             germanium.js('return arguments[0] != document.activeElement;', element):
         action_chain.click(on_element=element)
         action_chain.add_action(lambda: time.sleep(0.2))  # wait for the selection to settle

@@ -1,4 +1,4 @@
-from germanium.impl._alert_exists import _alert_exists
+from germanium.impl._alert_exists import _get_alert
 from selenium.common.exceptions import NoAlertPresentException
 
 
@@ -44,7 +44,7 @@ class AlertLocator(object):
         Returns true if an alert is present.
         :return:
         """
-        return _alert_exists(self._germanium)
+        return _get_alert(self._germanium)
 
     def not_exists(self):
         """
@@ -58,5 +58,4 @@ class AlertLocator(object):
         Returns the text of the current alert.
         :return:
         """
-        alert = self._germanium.web_driver.switch_to.alert
-        return alert.text
+        return _get_alert(self._germanium).text

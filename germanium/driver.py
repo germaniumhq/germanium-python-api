@@ -3,7 +3,7 @@ import pkg_resources
 from .locators import CssLocator, XPathLocator, JsLocator, AlertLocator
 from .iframe_selector import DefaultIFrameSelector, CallableIFrameSelector
 from .create_locator import create_locator
-from .impl._alert_exists import _alert_exists, allow_alert
+from .impl._alert_exists import _get_alert, allow_alert
 
 from .impl import wait
 from .impl._workaround import workaround
@@ -38,6 +38,7 @@ class GermaniumDriver(object):
 
         # set the iframe selector using the property
         self.iframe_selector = iframe_selector
+        self._last_alert = None
 
         self.locator_map = {
             "xpath": XPathLocator,
@@ -158,11 +159,11 @@ class GermaniumDriver(object):
         # Checking for alerts must happen first, because Firefox can't
         # execute JS if there is an alert present, and it closes the alert
         # if it has a JS eval error.
-        wait(lambda: _alert_exists(self),
+        wait(lambda: _get_alert(self),
              lambda: self.js("""return "complete" == document["readyState"]"""),
              timeout=timeout)
 
-        if _alert_exists(self):
+        if _get_alert(self):
             print("WARNING: Since an alert was present, wait_for_page_to_load "
                   "exited prematurely, and the support scripts were not loaded. "
                   "You need to call `get_germanium().load_support_scripts()` "

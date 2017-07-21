@@ -57,7 +57,8 @@ def create_query_parameters_remote_driver(browser_string):
     remote_browser = browser_specification.browser_name
 
     if remote_browser.lower() == "firefox" or remote_browser.lower() == "ff":
-        remote_capabilities = webdriver.DesiredCapabilities.FIREFOX
+        remote_capabilities = dict(webdriver.DesiredCapabilities.FIREFOX)
+        remote_capabilities["marionette"] = True
     elif remote_browser.lower() == "chrome":
         remote_capabilities = webdriver.DesiredCapabilities.CHROME
     elif remote_browser.lower() == "ie":

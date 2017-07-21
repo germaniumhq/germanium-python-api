@@ -13,8 +13,8 @@ from germanium.static.global_germanium_instance import *
 @workaround(_is_use_marionette_evironment_var_set,
             _open_local_firefox_with_marionette)
 def _open_local_firefox(timeout):
-    firefox_capabilities = webdriver.DesiredCapabilities.FIREFOX
-    firefox_capabilities['marionette'] = False
+    firefox_capabilities = dict(webdriver.DesiredCapabilities.FIREFOX)
+    firefox_capabilities['marionette'] = True
 
     return webdriver.Firefox(capabilities=firefox_capabilities,
                              timeout=timeout)

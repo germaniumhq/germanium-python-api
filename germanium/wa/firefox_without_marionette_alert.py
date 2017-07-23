@@ -7,9 +7,9 @@ def _is_firefox_without_marionette(germanium):
            ('marionette' not in capabilities or not capabilities['marionette'])
 
 
-def _alert_exists_firefox(germanium, original_function, *args, **kw):
+def _get_alert_firefox(germanium, original_function, *args, **kw):
     try:
         germanium.web_driver.execute_script("1 == 1")
-        return False
+        return germanium._last_alert
     except UnexpectedAlertPresentException as e:
-        return True
+        return germanium.web_driver.switch_to.alert

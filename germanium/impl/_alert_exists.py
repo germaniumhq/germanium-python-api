@@ -2,10 +2,11 @@ from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.common.exceptions import WebDriverException
 
-from germanium.wa.firefox_without_marionette_alert import _is_firefox_without_marionette, _alert_exists_firefox
+from germanium.wa.firefox_without_marionette_alert import _is_firefox_without_marionette, _get_alert_firefox
 from ._workaround import workaround
 
 
+@workaround(_is_firefox_without_marionette, _get_alert_firefox)
 def _get_alert(germanium):
     try:
         alert = germanium.web_driver.switch_to.alert

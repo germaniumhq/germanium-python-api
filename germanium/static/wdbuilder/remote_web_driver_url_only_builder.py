@@ -1,14 +1,15 @@
 
 from selenium import webdriver
-from ._germanium_remote import GermaniumRemote
+from ._germanium_remote import \
+    GermaniumRemote, \
+    _create_remote_firefox_capabilities
 
 
 def create_url_remote_driver(remote_match):
     remote_browser = remote_match.group(1)
 
     if remote_browser.lower() == "firefox" or remote_browser.lower() == "ff":
-        remote_capabilities = dict(webdriver.DesiredCapabilities.FIREFOX)
-        #remote_capabilities["marionette"] = True
+        remote_capabilities = _create_remote_firefox_capabilities()
     elif remote_browser.lower() == "chrome":
         remote_capabilities = webdriver.DesiredCapabilities.CHROME
     elif remote_browser.lower() == "ie":

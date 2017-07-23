@@ -1,13 +1,10 @@
 import germaniumdrivers
 from selenium import webdriver
 
-from germanium.driver import GermaniumDriver
-from germanium.iframe_selector import DefaultIFrameSelector
 from germanium.impl._workaround import workaround
 from germanium.wa.firefox_open_browser_with_marionette import \
     _is_use_marionette_evironment_var_set, \
     _open_local_firefox_with_marionette
-from germanium.static.global_germanium_instance import *
 
 
 @workaround(_is_use_marionette_evironment_var_set,
@@ -15,6 +12,7 @@ from germanium.static.global_germanium_instance import *
 def _open_local_firefox(timeout):
     firefox_capabilities = dict(webdriver.DesiredCapabilities.FIREFOX)
     firefox_capabilities['marionette'] = False
+    firefox_capabilities["unexpectedAlertBehaviour"] = "ignore"
 
     return webdriver.Firefox(capabilities=firefox_capabilities,
                              timeout=timeout)

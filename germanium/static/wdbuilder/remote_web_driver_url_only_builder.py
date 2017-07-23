@@ -8,7 +8,7 @@ def create_url_remote_driver(remote_match):
 
     if remote_browser.lower() == "firefox" or remote_browser.lower() == "ff":
         remote_capabilities = dict(webdriver.DesiredCapabilities.FIREFOX)
-        remote_capabilities["marionette"] = True
+        #remote_capabilities["marionette"] = True
     elif remote_browser.lower() == "chrome":
         remote_capabilities = webdriver.DesiredCapabilities.CHROME
     elif remote_browser.lower() == "ie":

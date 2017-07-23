@@ -24,7 +24,13 @@ def workaround(browser_check, replacement_code):
     """
     def wrapper(original):
         def original_aspect(*args, **kwargs):
-            germanium = args[0]
+            # Dhis will check if there is actually a germanium instance
+            # passed to be workarounded. Some workarounds are based on
+            # environment variable checks, and don't need a germanium instance.
+            germanium = None
+
+            if args:
+                germanium = args[0]
 
             if browser_check(germanium):
                 return replacement_code(germanium,

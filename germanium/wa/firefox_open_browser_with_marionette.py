@@ -19,7 +19,7 @@ def _open_local_firefox_with_marionette(germanium, original_function, *args, **k
                              timeout=timeout)
 
 
-def _create_remote_firefox_capabilities_with_marionette():
+def _create_remote_firefox_capabilities_with_marionette(germanium, original_function):
     remote_capabilities = dict(webdriver.DesiredCapabilities.FIREFOX)
     remote_capabilities["marionette"] = True
 

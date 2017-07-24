@@ -33,12 +33,12 @@ if [[ "$VERSION" != "" ]]; then
     py 3
     git checkout python3.5
     python setup.py bdist_wheel upload -r pypitest
-    python setup.py bdist_wheel upload -r pypi
+    python setup.py bdist_wheel upload -r pypimain
 
     py 2
     git checkout python2.7
     python setup.py bdist_wheel upload -r pypitest
-    python setup.py bdist_wheel upload -r pypi
+    python setup.py bdist_wheel upload -r pypimain
 
     git checkout master
 fi # [[ "$VERSION" != "" ]]

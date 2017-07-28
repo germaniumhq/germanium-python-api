@@ -17,7 +17,7 @@ for PYTHON_VERSION in $PYTHON_VERSIONS; do
 done
 
 git checkout master
-git push --all -f
+git push origin --all -f
 
 if [[ "$VERSION" != "" ]]; then
     eval $(archer py)
@@ -28,7 +28,7 @@ if [[ "$VERSION" != "" ]]; then
         git tag -f "$VERSION-$PYTHON_VERSION" $PYTHON_VERSION
     done
 
-    git push -f --tags
+    git push origin -f --tags
 
     py 3
     git checkout python3.5

@@ -16,6 +16,7 @@ from germanium.locators import \
     WindowLocator
 from germanium.selectors import \
     AbstractSelector, \
+    StaticElement, \
     InsideFilterSelector, \
     PositionalFilterSelector, \
     Alert, \
@@ -120,6 +121,9 @@ def create_locator(germanium, selector, strategy='detect'):
 
     if isinstance(selector, WebElement):
         return StaticElementLocator(germanium, selector)
+
+    if isinstance(selector, StaticElement):
+        return StaticElementLocator(germanium, selector.static_element)
 
     if isinstance(selector, Alert):
         return AlertLocator(germanium)

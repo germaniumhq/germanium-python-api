@@ -31,7 +31,13 @@ def search_the_static_selector(context):
 
 @step(u"I search the static selector inside a table")
 def search_static_selector_inside_a_table(context):
-    static_selector = context.static_element_selector
-    inside_selector = static_selector.inside(Element('table'))
+    context.found_element = None
+    context.exception = None
 
-    context.found_element = inside_selector.element()
+    try:
+        static_selector = context.static_element_selector
+        inside_selector = static_selector.inside(Element('table'))
+
+        context.found_element = inside_selector.element()
+    except Exception as e:
+        context.exception = e

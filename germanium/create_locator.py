@@ -105,6 +105,9 @@ def create_locator(germanium, selector, strategy='detect'):
                            exact=selector.exact_match,
                            trim=selector.trim_text)
 
+    if isinstance(selector, StaticElement):
+        return StaticElementLocator(germanium, selector.static_element)
+
     if isinstance(selector, AbstractSelector):
         selectors = selector.get_selectors()
 
@@ -121,9 +124,6 @@ def create_locator(germanium, selector, strategy='detect'):
 
     if isinstance(selector, WebElement):
         return StaticElementLocator(germanium, selector)
-
-    if isinstance(selector, StaticElement):
-        return StaticElementLocator(germanium, selector.static_element)
 
     if isinstance(selector, Alert):
         return AlertLocator(germanium)

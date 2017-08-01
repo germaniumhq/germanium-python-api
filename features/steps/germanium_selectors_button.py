@@ -36,7 +36,7 @@ def step_impl(context, expected_id):
 @step(u'I find no element')
 def step_impl(context):
     assert_false(context.found_element)
-    assert_false(context.exception)
+    assert "exception" not in context
 
 
 @step(u'I look for some text: \'(.*)\'')

@@ -11,9 +11,9 @@ def step_impl(context, selector):
     context.found_attributes = get_attributes(selector, False)
 
 
-@step('there are 4 attributes')
-def step_impl(context):
-    assert_equals(4, len(context.found_attributes))
+@step('there are (\\d+) attributes')
+def step_impl(context, attribute_count):
+    assert_equals(int(attribute_count), len(context.found_attributes))
 
 
 @step("the attribute '(.*?)' is '(.*?)'")

@@ -71,3 +71,13 @@ Scenario: get_text() should not return cryptic errors if the
   And I get the text for a selector that doesn't matches anything
   Then I get an exception saying the selector didn't return anything
 
+@8
+Scenario: get_text() should return correct strings when called on
+          unicode strings.
+  Given I open the browser
+  When I go to 'http://localhost:8000/features/test-site/get-text.html'
+  And I get the text from element '#austria'
+  Then the text from that element is
+  """
+  Österreich
+  """

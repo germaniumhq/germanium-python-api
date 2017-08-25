@@ -23,4 +23,4 @@ def get_text_g(context, selector):
     result = germanium.js("return arguments[0].textContent || arguments[0].innerText || '';",
                           element)
 
-    return re.sub("\r\n", "\n", str(result))
+    return re.sub("\r\n", "\n", unicode(result))

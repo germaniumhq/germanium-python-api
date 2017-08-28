@@ -17,6 +17,7 @@ from germanium.locators import \
 from germanium.selectors import \
     AbstractSelector, \
     StaticElement, \
+    AnyOfSelector, \
     InsideFilterSelector, \
     PositionalFilterSelector, \
     Alert, \
@@ -105,6 +106,13 @@ def create_locator(germanium, selector, strategy='detect'):
                            exact=selector.exact_match,
                            trim=selector.trim_text)
 
+    # AnyOfSelector can contain a list of selectors, including
+    # selectors that contain filtering.
+    if isinstance(selector, AnyOfSelector):
+        return create_composite_locator(germanium,
+                                        selector,
+                                        selector.selectors)
+
     if isinstance(selector, StaticElement):
         return StaticElementLocator(germanium, selector.static_element)
 
@@ -115,12 +123,11 @@ def create_locator(germanium, selector, strategy='detect'):
         if len(selectors) == 1:
             return create_locator(germanium, selectors[0])
 
-        # if we have multiple locators, apply the composite locator.
-        locator_list = []
-        for selector in selector.get_selectors():
-            locator_list.append(create_locator(germanium, selector))
-
-        return CompositeLocator(locator_list)
+    # Any custom user selector, that inherits from the AbstractSelector
+    if isinstance(selector, AbstractSelector):
+        return create_composite_locator(germanium,
+                                        selector,
+                                        selector.get_selectors())
 
     if isinstance(selector, WebElement):
         return StaticElementLocator(germanium, selector)
@@ -158,3 +165,16 @@ def create_locator(germanium, selector, strategy='detect'):
             return locator_constructor(germanium, m.group(3))
 
     return CssLocator(germanium, selector)
+
+
+def create_composite_locator(germanium, selector, selectors):
+    # if there is only one locator, don't apply the composite.
+    if len(selectors) == 1:
+        return create_locator(germanium, selectors[0])
+
+    # if we have multiple locators, apply the composite locator.
+    locator_list = []
+    for child_selector in selectors:
+        locator_list.append(create_locator(germanium, child_selector))
+
+    return CompositeLocator(locator_list)

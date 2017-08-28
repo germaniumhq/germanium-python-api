@@ -6,6 +6,8 @@ from .JsSelector import JsSelector
 
 from .StaticElement import StaticElement
 
+from .AnyOfSelector import AnyOfSelector
+
 from .Button import Button
 from .Element import Element
 from .Input import Input

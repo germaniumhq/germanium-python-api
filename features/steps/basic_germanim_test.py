@@ -2,6 +2,7 @@ from behave import *
 from time import sleep
 import os
 import re
+import threading
 
 from germanium.static import *
 
@@ -118,3 +119,14 @@ def step_impl(context, text):
 @step(u'I wait forever')
 def step_impl(context):
     sleep(10000000)
+
+
+@step(u'the I can read from a different thread the title of the page as \'(.*?)\'')
+def step_impl(context, title):
+
+    def check_title():
+        assert_equals(title, get_germanium().title)
+
+    t = threading.Thread(target=check_title)
+    t.start()
+    t.join()

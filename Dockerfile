@@ -139,7 +139,8 @@ RUN perl -pi -e "s/germanium:x:1000:1000/germanium:x:$UID:$GID/" /etc/passwd && 
     perl -pi -e "s/germanium:x:1000:/germanium:x:$GID:/" /etc/group && \
     chown -R germanium:germanium /home/germanium/ /python
 
-RUN locale-gen en_US.UTF-8
+RUN apt-get install -y locales && \
+    locale-gen en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
@@ -147,3 +148,4 @@ ENV LANGUAGE=en_US.UTF-8
 USER germanium
 
 CMD /home/germanium/bin/run-behave.sh
+

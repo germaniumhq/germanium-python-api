@@ -76,14 +76,14 @@ class Element(AbstractSelector):
                             "`string` object. It was a `%s` with value: `%s`" % (type(self.css_classes), self.css_classes))
 
         for css_class in self.css_classes:
-            xpath_locator += '[contains(concat(" ", @class, " "), " %s ")]' % css_class
+            xpath_locator += "[contains(concat(' ', @class, ' '), ' %s ')]" % css_class
 
         for k, v in self.exact_attributes.items():
-            xpath_locator += '[@%s = "%s"]' % (k, v)
+            xpath_locator += "[@%s = '%s']" % (k, v)
 
         # all the unknown attributes can be mapped to the exact attributes.
         for k, v in self._kw:
-            xpath_locator += '[@%s = "%s"]' % (k, v)
+            xpath_locator += "[@%s = '%s']" % (k, v)
 
         for k, v in self.contains_attributes.items():
             xpath_locator += "[contains(normalize-space(@%s), '%s')]" % (k, v)

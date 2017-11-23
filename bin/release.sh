@@ -6,6 +6,7 @@
 #
 
 set -e
+set -x
 
 VERSION=$1
 

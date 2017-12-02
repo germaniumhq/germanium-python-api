@@ -34,7 +34,7 @@ properties([
         string(name: 'PYPI_URL', defaultValue: 'http://nexus:8081/repository/pypi-local/pypi',
                 description: 'PyPI Location'),
         string(name: 'PYPI_INDEX_URL', defaultValue: 'http://nexus:8081/repository/pypi-local/simple',
-                description: 'Squid proxy to use for fetching resources'),
+                description: 'Pypi index URL'),
 
         string(name: 'TEST_HOST', defaultValue: '192.168.0.51',
                 description: 'On what host are the tests exposed.')

@@ -17,6 +17,17 @@ echo "Sending arguments to the docker build:"
 echo "pypi_url is $PIPY_URL"
 echo "pypi_index_url is $PIPY_INDEX_URL"
 
+
+cat << EOM
+Going to RUN:
+docker build \
+    -t germanium/germanium-$TAG_VERSION \
+    --build-arg pypi_url=$PIPY_URL \
+    --build-arg pypi_index_url=$PIPY_INDEX_URL \
+    --network host \
+    .
+EOM
+
 docker build \
     -t germanium/germanium-$TAG_VERSION \
     --build-arg pypi_url=$PIPY_URL \

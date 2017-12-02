@@ -25,18 +25,18 @@ properties([
         booleanParam(name: 'RUN_FIREFOX_LOCAL_TESTS', defaultValue: true,
                 description: 'Run the tests on a local Firefox instance.'),
 
-        string(name: 'GIT_SERVER', defaultValue: 'http://192.168.0.2:10080/germanium/germanium.git',
+        string(name: 'GIT_SERVER', defaultValue: 'http://git-server:10080/germanium/germanium.git',
                 description: 'Git Server location for the project.'),
 
-        string(name: 'GERMANIUM_HUB_URL', defaultValue: 'http://192.168.0.2:4444/wd/hub',
+        string(name: 'GERMANIUM_HUB_URL', defaultValue: 'http://germanium-hub:4444/wd/hub',
                 description: 'Where is the Germanium HUB running.'),
 
-        string(name: 'PYPI_URL', defaultValue: 'http://192.168.0.2:8081/repository/pypi-local/pypi',
+        string(name: 'PYPI_URL', defaultValue: 'http://nexus:8081/repository/pypi-local/pypi',
                 description: 'PyPI Location'),
-        string(name: 'PYPI_INDEX_URL', defaultValue: 'http://192.168.0.2:8081/repository/pypi-local/simple',
+        string(name: 'PYPI_INDEX_URL', defaultValue: 'http://nexus:8081/repository/pypi-local/simple',
                 description: 'Squid proxy to use for fetching resources'),
 
-        string(name: 'TEST_HOST', defaultValue: '192.168.0.2',
+        string(name: 'TEST_HOST', defaultValue: '192.168.0.51',
                 description: 'On what host are the tests exposed.')
     ])
 ])
@@ -122,6 +122,11 @@ stage('Run Python 3.5 Tests') {
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
                             "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_FIREFOX_PORT:8000"
                         ]
@@ -139,6 +144,11 @@ stage('Run Python 3.5 Tests') {
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
                             "TEST_BROWSER=$CHROME_GERMANIUM_URL"
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "$TEST_HOST_CHROME_PORT:8000"
@@ -159,6 +169,11 @@ stage('Run Python 3.5 Tests') {
                             "TEST_BROWSER=$IE8_GERMANIUM_URL",
                             "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie8"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_IE8_PORT:8000"
                         ]
@@ -178,6 +193,11 @@ stage('Run Python 3.5 Tests') {
                             "TEST_BROWSER=$IE9_GERMANIUM_URL",
                             "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie9"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_IE9_PORT:8000"
                         ]
@@ -195,6 +215,11 @@ stage('Run Python 3.5 Tests') {
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
                             "TEST_BROWSER=$IE11_GERMANIUM_URL"
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"
@@ -214,6 +239,11 @@ stage('Run Python 3.5 Tests') {
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
                             "TEST_BROWSER=$EDGE_GERMANIUM_URL"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_EDGE_PORT:8000"
                         ]
@@ -232,6 +262,11 @@ stage('Run Python 3.5 Tests') {
                             'RUN_VNC_SERVER=1',
                             'TEST_BROWSER=chrome'
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "25901:5901"
                         ]
@@ -248,6 +283,11 @@ stage('Run Python 3.5 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=1',
                             'TEST_BROWSER=firefox'
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "25902:5901"
@@ -275,6 +315,11 @@ stage('Run Python 2.7 Tests') {
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
                             "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_FIREFOX_PORT:8000"
                         ]
@@ -292,6 +337,11 @@ stage('Run Python 2.7 Tests') {
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
                             "TEST_BROWSER=$CHROME_GERMANIUM_URL"
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "$TEST_HOST_CHROME_PORT:8000"
@@ -312,6 +362,11 @@ stage('Run Python 2.7 Tests') {
                             "TEST_BROWSER=$IE8_GERMANIUM_URL",
                             "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie8"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_IE8_PORT:8000"
                         ]
@@ -331,6 +386,11 @@ stage('Run Python 2.7 Tests') {
                             "TEST_BROWSER=$IE9_GERMANIUM_URL",
                             "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie9"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_IE9_PORT:8000"
                         ]
@@ -348,6 +408,11 @@ stage('Run Python 2.7 Tests') {
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
                             "TEST_BROWSER=$IE11_GERMANIUM_URL"
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"
@@ -367,6 +432,11 @@ stage('Run Python 2.7 Tests') {
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
                             "TEST_BROWSER=$EDGE_GERMANIUM_URL"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_EDGE_PORT:8000"
                         ]
@@ -385,6 +455,11 @@ stage('Run Python 2.7 Tests') {
                             'RUN_VNC_SERVER=1',
                             'TEST_BROWSER=chrome'
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "25901:5901"
                         ]
@@ -401,6 +476,11 @@ stage('Run Python 2.7 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=1',
                             'TEST_BROWSER=firefox'
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "25902:5901"
@@ -428,6 +508,11 @@ stage('Run Python 3.4 Tests') {
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_FIREFOX_PORT",
                             "TEST_BROWSER=$FIREFOX_GERMANIUM_URL"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_FIREFOX_PORT:8000"
                         ]
@@ -445,6 +530,11 @@ stage('Run Python 3.4 Tests') {
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_CHROME_PORT",
                             "TEST_BROWSER=$CHROME_GERMANIUM_URL"
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "$TEST_HOST_CHROME_PORT:8000"
@@ -465,6 +555,11 @@ stage('Run Python 3.4 Tests') {
                             "TEST_BROWSER=$IE8_GERMANIUM_URL",
                             "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie8"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_IE8_PORT:8000"
                         ]
@@ -484,6 +579,11 @@ stage('Run Python 3.4 Tests') {
                             "TEST_BROWSER=$IE9_GERMANIUM_URL",
                             "EXTRA_BEHAVE_ARGUMENTS=--tags ~noie9"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_IE9_PORT:8000"
                         ]
@@ -501,6 +601,11 @@ stage('Run Python 3.4 Tests') {
                             'RUN_VNC_SERVER=0',
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_IE11_PORT",
                             "TEST_BROWSER=$IE11_GERMANIUM_URL"
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "$TEST_HOST_IE11_PORT:8000"
@@ -520,6 +625,11 @@ stage('Run Python 3.4 Tests') {
                             "TEST_HOST=$TEST_HOST:$TEST_HOST_EDGE_PORT",
                             "TEST_BROWSER=$EDGE_GERMANIUM_URL"
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "$TEST_HOST_EDGE_PORT:8000"
                         ]
@@ -538,6 +648,11 @@ stage('Run Python 3.4 Tests') {
                             'RUN_VNC_SERVER=1',
                             'TEST_BROWSER=chrome'
                         ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
+                        ],
                         ports: [
                             "25901:5901"
                         ]
@@ -554,6 +669,11 @@ stage('Run Python 3.4 Tests') {
                             'TEST_REUSE_BROWSER=1',
                             'RUN_VNC_SERVER=1',
                             'TEST_BROWSER=firefox'
+                        ],
+                        links: [
+                            'nexus',
+                            'git-server',
+                            'germanium-hub'
                         ],
                         ports: [
                             "25902:5901"

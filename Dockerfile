@@ -121,7 +121,9 @@ RUN mkdir ~/.pip && \
     echo "[global]" > ~/.pip/pip.conf && \
     echo "index = $pypi_url" >> ~/.pip/pip.conf && \
     echo "index-url = $pypi_index_url" >> ~/.pip/pip.conf && \
-    echo "trusted-host = $(echo $pypi_url | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> ~/.pip/pip.conf
+    echo "trusted-host = $(echo $pypi_url | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> ~/.pip/pip.conf && \
+    echo "Using pip.conf:" && \
+    cat ~/.pip/pip.conf
 
 COPY requirements.txt /root/requirements.txt
 RUN cd /root && \

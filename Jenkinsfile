@@ -25,7 +25,7 @@ properties([
         booleanParam(name: 'RUN_FIREFOX_LOCAL_TESTS', defaultValue: true,
                 description: 'Run the tests on a local Firefox instance.'),
 
-        string(name: 'GIT_SERVER', defaultValue: 'http://git-server:3000/germanium/germanium.git',
+        string(name: 'GIT_SERVER', defaultValue: 'http://git-server:10080/germanium/germanium.git',
                 description: 'Git Server location for the project.'),
 
         string(name: 'GERMANIUM_HUB_URL', defaultValue: 'http://germanium-hub:4444/wd/hub',

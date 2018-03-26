@@ -111,7 +111,7 @@ class GermaniumDriver(object):
                 var result = {
                     data : (function() {
                         %s
-                    }).apply(this, arguments),
+                    }).apply(this, arguments) || null,
                     status : "SUCCESS"
                 };
 

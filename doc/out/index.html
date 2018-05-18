@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
 <meta name="author" content="Web Testing API that doesn't disappoint">
-<title>Germanium v2.0.5</title>
+<title>Germanium v2.0.10</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -90,13 +90,12 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -132,7 +131,11 @@ strong strong{font-weight:400}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menu{color:rgba(0,0,0,.8)}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -199,7 +202,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon img{max-width:initial}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -255,13 +258,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
-table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
-table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
-table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
-table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
-table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
-table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -282,10 +285,12 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
-ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -302,7 +307,8 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
+.colist>table tr>td:first-of-type img{max-width:initial}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -365,6 +371,7 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -421,7 +428,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Germanium v2.0.5</h1>
+<h1>Germanium v2.0.10</h1>
 <div class="details">
 <span id="author" class="author">Web Testing API that doesn't disappoint</span><br>
 </div>
@@ -504,7 +511,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_css_locator">Css(locator)</a></li>
 <li><a href="#_xpath_locator">XPath(locator)</a></li>
 <li><a href="#_jsselector_code">JsSelector(code)</a></li>
-<li><a href="#_provided_selectors">Provided Selectors</a></li>
+<li><a href="#_anyofselector_selectors">AnyOfSelector(selectors&#8230;&#8203;)</a></li>
+</ul>
+</li>
+<li><a href="#_provided_selectors">Provided Selectors</a>
+<ul class="sectlevel2">
 <li><a href="#_element_tag_name_none">Element(tag_name=None, &#8230;&#8203;)</a></li>
 <li><a href="#_button_search_text_none_text_none_name_none">Button(search_text = None, text = None, name = None)</a></li>
 <li><a href="#_input_input_name">Input(input_name)</a></li>
@@ -529,7 +540,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_germanium_api_documentation">Germanium API Documentation</a>
 <ul class="sectlevel2">
-<li><a href="#__iframe_germanium_iframe_decorator">@iframe - germanium iframe decorator</a></li>
+<li><a href="#_iframe_germanium_iframe_decorator">@iframe - germanium iframe decorator</a></li>
 <li><a href="#_germanium_instance_functions">germanium Instance Functions</a></li>
 <li><a href="#_germanium_instance_attributes">germanium Instance Attributes</a></li>
 <li><a href="#_germanium_utility_functions">germanium Utility Functions</a></li>
@@ -547,7 +558,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="text">pip install germanium</code></pre>
+<pre class="pygments highlight"><code data-lang="text"><span></span>pip install germanium</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -558,7 +569,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">germanium.static</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">germanium.static</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
 <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">time</span> <span style="color: #008000; font-weight: bold">import</span> sleep
 
 open_browser(<span style="color: #BA2121">&quot;ff&quot;</span>)
@@ -613,7 +624,7 @@ folder named <code>germanium-drivers</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_DRIVERS_FOLDER</span><span style="color: #666666">=</span>/opt/germanium-drivers</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_DRIVERS_FOLDER</span><span style="color: #666666">=</span>/opt/germanium-drivers</code></pre>
 </div>
 </div>
 </div>
@@ -629,7 +640,7 @@ that Germanium ships.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_USE_PATH_DRIVER</span><span style="color: #666666">=1</span></code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_USE_PATH_DRIVER</span><span style="color: #666666">=1</span></code></pre>
 </div>
 </div>
 </div>
@@ -641,7 +652,7 @@ will implicitly use the 32 bit version.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_USE_IE_DRIVER_FOR_PLATFORM</span><span style="color: #666666">=1</span></code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span><span style="color: #008000">export</span> <span style="color: #19177C">GERMANIUM_USE_IE_DRIVER_FOR_PLATFORM</span><span style="color: #666666">=1</span></code></pre>
 </div>
 </div>
 </div>
@@ -667,7 +678,7 @@ running a single browser instance at a time, in the whole test process.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">open_browser</span>(browser<span style="color: #666666">=</span><span style="color: #BA2121">&quot;firefox&quot;</span>, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">open_browser</span>(browser<span style="color: #666666">=</span><span style="color: #BA2121">&quot;firefox&quot;</span>, <b class="conum">(1)</b>
                  wd<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
                  iframe_selector<span style="color: #666666">=</span>DefaultIFrameSelector(), <b class="conum">(3)</b>
                  screenshot_folder<span style="color: #666666">=</span><span style="color: #BA2121">&quot;screenshots&quot;</span>, <b class="conum">(4)</b>
@@ -678,6 +689,19 @@ running a single browser instance at a time, in the whole test process.</p>
 <ol>
 <li>
 <p><em>browser</em> - The browser is case insensitive and can be one of:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>"ff" or "firefox" - to start Mozilla Firefox</p>
+</li>
+<li>
+<p>"chrome" - to start Google Chrome</p>
+</li>
+<li>
+<p>"ie" - to start Microsoft Internet Explorer</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p><em>wd</em> - A specific already created WebDriver instance can also be given, and
@@ -701,7 +725,7 @@ newly loaded.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;firefox&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>open_browser(<span style="color: #BA2121">&quot;firefox&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -709,7 +733,7 @@ newly loaded.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;ff:http://10.2.1.1:5555/wd/hub&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>open_browser(<span style="color: #BA2121">&quot;ff:http://10.2.1.1:5555/wd/hub&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -718,7 +742,7 @@ Germanium allows that by using simple query strings:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">open_browser(<span style="color: #BA2121">&quot;ie?wdurl=http://10.2.1.1:4444/wd/hub&amp;version=9&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>open_browser(<span style="color: #BA2121">&quot;ie?wdurl=http://10.2.1.1:4444/wd/hub&amp;version=9&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -740,7 +764,7 @@ connecting to the remote instance.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">close_browser</span>()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">close_browser</span>()</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -748,7 +772,7 @@ connecting to the remote instance.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">close_browser()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>close_browser()</code></pre>
 </div>
 </div>
 </div>
@@ -767,7 +791,7 @@ automatically loaded.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">go_to</span>(url) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">go_to</span>(url) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -782,7 +806,7 @@ automatically loaded.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">go_to(<span style="color: #BA2121">&quot;http://google.com/&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>go_to(<span style="color: #BA2121">&quot;http://google.com/&quot;</span>)</code></pre>
 </div>
 </div>
 </div>
@@ -799,7 +823,7 @@ automatically loaded.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">type_keys</span>(keys, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">type_keys</span>(keys, <b class="conum">(1)</b>
               selector<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
               delay<span style="color: #666666">=0</span>) <b class="conum">(3)</b></code></pre>
 </div>
@@ -826,7 +850,7 @@ element you want your action to be triggered against.</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;john.doe@example.com&#39;</span>, Input(<span style="color: #BA2121">&#39;email&#39;</span>)) <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span>type_keys(<span style="color: #BA2121">&#39;john.doe@example.com&#39;</span>, Input(<span style="color: #BA2121">&#39;email&#39;</span>)) <b class="conum">(1)</b>
 type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>) <b class="conum">(2)</b></code></pre>
 </div>
 </div>
@@ -854,7 +878,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -869,7 +893,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Button(<span style="color: #BA2121">&#39;OK&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Button(<span style="color: #BA2121">&#39;OK&#39;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -886,7 +910,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">hover</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">hover</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -901,7 +925,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">hover(Element(<span style="color: #BA2121">&#39;div&#39;</span>, <span style="color: #008000">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;menu1&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>hover(Element(<span style="color: #BA2121">&#39;div&#39;</span>, <span style="color: #008000">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;menu1&#39;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -918,7 +942,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">double_click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">double_click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -933,7 +957,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">double_click(Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;table-row&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>double_click(Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;table-row&#39;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -950,7 +974,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">right_click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">right_click</span>(selector_or_point) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -965,7 +989,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">right_click(Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;table-row&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>right_click(Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;table-row&#39;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -985,7 +1009,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">drag_and_drop</span>(from_selector_or_point, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">drag_and_drop</span>(from_selector_or_point, <b class="conum">(1)</b>
                   to_selector_or_point) <b class="conum">(2)</b></code></pre>
 </div>
 </div>
@@ -1004,7 +1028,7 @@ type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">drag_and_drop(Element(<span style="color: #BA2121">&quot;div&quot;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&quot;old-entry&quot;</span>, index<span style="color: #666666">=2</span>),
+<pre class="pygments highlight"><code data-lang="python"><span></span>drag_and_drop(Element(<span style="color: #BA2121">&quot;div&quot;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&quot;old-entry&quot;</span>, index<span style="color: #666666">=2</span>),
               <span style="color: #BA2121">&quot;#removeContainer&quot;</span>)</code></pre>
 </div>
 </div>
@@ -1023,7 +1047,7 @@ available options.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select</span>(selector, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select</span>(selector, <b class="conum">(1)</b>
            text<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
            <span style="color: #666666">*</span>argv,
            index<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(3)</b>
@@ -1061,7 +1085,7 @@ if none are present an <code>Exception</code> will be raised.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">select(<span style="color: #BA2121">&quot;#country&quot;</span>, <span style="color: #BA2121">&quot;Austria&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>select(<span style="color: #BA2121">&quot;#country&quot;</span>, <span style="color: #BA2121">&quot;Austria&quot;</span>)</code></pre>
 </div>
 </div>
 </div>
@@ -1079,7 +1103,7 @@ available options.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">deselect</span>(selector, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">deselect</span>(selector, <b class="conum">(1)</b>
              text<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
              <span style="color: #666666">*</span>argv,
              index<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(3)</b>
@@ -1118,7 +1142,7 @@ selection.</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">deselect(<span style="color: #BA2121">&quot;#products&quot;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">1</span>,<span style="color: #666666">3</span>])</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>deselect(<span style="color: #BA2121">&quot;#products&quot;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">1</span>,<span style="color: #666666">3</span>])</code></pre>
 </div>
 </div>
 </div>
@@ -1136,7 +1160,7 @@ on the system where the browser is running.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">select_file(selector, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span>select_file(selector, <b class="conum">(1)</b>
             file_path, <b class="conum">(2)</b>
             path_check<span style="color: #666666">=</span><span style="color: #008000">True</span>) <b class="conum">(3)</b></code></pre>
 </div>
@@ -1172,7 +1196,7 @@ an absolute location only it <code>path_check</code> is set to <code>True</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">select_file(InputFile(),
+<pre class="pygments highlight"><code data-lang="python"><span></span>select_file(InputFile(),
             <span style="color: #BA2121">&#39;features/steps/test-data/upload_test_file.txt&#39;</span>)</code></pre>
 </div>
 </div>
@@ -1181,7 +1205,7 @@ an absolute location only it <code>path_check</code> is set to <code>True</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">select_file(InputFile(),
+<pre class="pygments highlight"><code data-lang="python"><span></span>select_file(InputFile(),
             <span style="color: #BA2121">r&quot;c:\features\steps\test-data\upload_test_file.txt&quot;</span>,
             path_check<span style="color: #666666">=</span><span style="color: #008000">False</span>)</code></pre>
 </div>
@@ -1200,7 +1224,7 @@ an absolute location only it <code>path_check</code> is set to <code>True</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">parent_node(selector) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>parent_node(selector) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1220,7 +1244,7 @@ element you want your action to be triggered against.</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">e <span style="color: #666666">=</span> parent_node(<span style="color: #BA2121">&#39;#some_element&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>e <span style="color: #666666">=</span> parent_node(<span style="color: #BA2121">&#39;#some_element&#39;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1241,7 +1265,7 @@ be matched by the CSS locator.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">child_nodes(selector, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span>child_nodes(selector, <b class="conum">(1)</b>
             only_elements<span style="color: #666666">=</span><span style="color: #008000">True</span>) <b class="conum">(2)</b></code></pre>
 </div>
 </div>
@@ -1268,7 +1292,7 @@ element you want your action to be triggered against.</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;parent&quot;</span>&gt;
+<pre class="pygments highlight"><code data-lang="html"><span></span>&lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;parent&quot;</span>&gt;
     &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;child1&quot;</span>&gt;..&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
     &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;child2&quot;</span>&gt;..&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
 &lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;</code></pre>
@@ -1279,7 +1303,7 @@ element you want your action to be triggered against.</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">items <span style="color: #666666">=</span> child_nodes(<span style="color: #BA2121">&quot;#parent&quot;</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span>items <span style="color: #666666">=</span> child_nodes(<span style="color: #BA2121">&quot;#parent&quot;</span>)
 <span style="color: #008000; font-weight: bold">assert</span> <span style="color: #008000">len</span>(items) <span style="color: #666666">==</span> <span style="color: #666666">2</span></code></pre>
 </div>
 </div>
@@ -1290,7 +1314,7 @@ return 5 elements, since there are 3 whitespace nodes in the <code>#parent</code
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">items <span style="color: #666666">=</span> child_nodes(<span style="color: #BA2121">&#39;#parent&#39;</span>, only_elements<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span>items <span style="color: #666666">=</span> child_nodes(<span style="color: #BA2121">&#39;#parent&#39;</span>, only_elements<span style="color: #666666">=</span><span style="color: #008000">False</span>)
 <span style="color: #008000; font-weight: bold">assert</span> <span style="color: #008000">len</span>(items) <span style="color: #666666">==</span> <span style="color: #666666">5</span></code></pre>
 </div>
 </div>
@@ -1309,7 +1333,7 @@ elements.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">get_value(selector) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>get_value(selector) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1334,7 +1358,7 @@ selected).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> get_value(<span style="color: #BA2121">&#39;#country&#39;</span>) <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;at&#39;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">assert</span> get_value(<span style="color: #BA2121">&#39;#country&#39;</span>) <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;at&#39;</span></code></pre>
 </div>
 </div>
 </div>
@@ -1352,7 +1376,7 @@ selected).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">get_text(selector) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>get_text(selector) <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1377,7 +1401,7 @@ text for elements that are not visible.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">get_text(invisible_element)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>get_text(invisible_element)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1385,7 +1409,7 @@ text for elements that are not visible.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> <span style="color: #BA2121">&#39;yay&#39;</span> <span style="color: #666666">==</span> get_text(<span style="color: #BA2121">&#39;.success-message&#39;</span>) <b class="conum">(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">assert</span> <span style="color: #BA2121">&#39;yay&#39;</span> <span style="color: #666666">==</span> get_text(<span style="color: #BA2121">&#39;.success-message&#39;</span>)  <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1408,7 +1432,7 @@ object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">body</span>&gt;
+<pre class="pygments highlight"><code data-lang="html"><span></span>&lt;<span style="color: #008000; font-weight: bold">body</span>&gt;
     &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;editor&#39;</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;modal superb&#39;</span> <span style="color: #7D9029">custom-data</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;simple-code&#39;</span>&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
 &lt;/<span style="color: #008000; font-weight: bold">body</span>&gt;</code></pre>
 </div>
@@ -1418,7 +1442,7 @@ object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">editor_attributes <span style="color: #666666">=</span> get_attributes_g(germanium, <span style="color: #BA2121">&#39;#editor&#39;</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span>editor_attributes <span style="color: #666666">=</span> get_attributes_g(germanium, <span style="color: #BA2121">&#39;#editor&#39;</span>)
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;class&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;modal superb&#39;</span>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;id&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;editor&#39;</span>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;custom-data&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;simple-code&#39;</span></code></pre>
@@ -1465,7 +1489,7 @@ be returned, even if the element is not visible.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">get_style(<span style="color: #BA2121">&#39;input.red-border&#39;</span>, <span style="color: #BA2121">&#39;borderTopWidth&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>get_style(<span style="color: #BA2121">&#39;input.red-border&#39;</span>, <span style="color: #BA2121">&#39;borderTopWidth&#39;</span>)</code></pre>
 </div>
 </div>
 </div>
@@ -1482,7 +1506,7 @@ be returned, even if the element is not visible.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_web_driver</span>()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_web_driver</span>()</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1490,7 +1514,7 @@ be returned, even if the element is not visible.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">wd <span style="color: #666666">=</span> get_web_driver()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>wd <span style="color: #666666">=</span> get_web_driver()</code></pre>
 </div>
 </div>
 </div>
@@ -1508,7 +1532,7 @@ opened using <code>open_browser()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_germanium</span>()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_germanium</span>()</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1520,7 +1544,7 @@ the <code>germanium.driver.GermaniumDriver</code> instance.</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">g <span style="color: #666666">=</span> get_germanium()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>g <span style="color: #666666">=</span> get_germanium()</code></pre>
 </div>
 </div>
 </div>
@@ -1538,7 +1562,7 @@ green for debugging purposes.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">highlight_g</span>(selector, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">highlight_g</span>(selector, <b class="conum">(1)</b>
                 show_seconds<span style="color: #666666">=2</span>, <b class="conum">(2)</b>
                 <span style="color: #666666">*</span>args,
                 console<span style="color: #666666">=</span><span style="color: #008000">False</span>) <b class="conum">(3)</b></code></pre>
@@ -1574,7 +1598,7 @@ be used for notifying elements that are not visible, or that can not be found.</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">highlight(<span style="color: #BA2121">&#39;.hard-to-see-item&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>highlight(<span style="color: #BA2121">&#39;.hard-to-see-item&#39;</span>)</code></pre>
 </div>
 </div>
 </div>
@@ -1591,7 +1615,7 @@ be used for notifying elements that are not visible, or that can not be found.</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">S</span>(selector, strategy<span style="color: #666666">=</span><span style="color: #BA2121">&#39;default&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">S</span>(selector, strategy<span style="color: #666666">=</span><span style="color: #BA2121">&#39;default&#39;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1599,7 +1623,7 @@ be used for notifying elements that are not visible, or that can not be found.</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">element <span style="color: #666666">=</span> S(<span style="color: #BA2121">&#39;#editor&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>element <span style="color: #666666">=</span> S(<span style="color: #BA2121">&#39;#editor&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
 </div>
 </div>
 </div>
@@ -1610,7 +1634,7 @@ be used for notifying elements that are not visible, or that can not be found.</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;editor&quot;</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;editor&quot;</span>)
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">type_keys_into_editor</span>(keys):
     type_keys(keys)
 
@@ -1641,7 +1665,7 @@ a non callable <em>trueish</em> value is returned.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">wait</span>(closure, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">wait</span>(closure, <b class="conum">(1)</b>
          while_not<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
          timeout<span style="color: #666666">=10</span>) <b class="conum">(3)</b></code></pre>
 </div>
@@ -1669,7 +1693,7 @@ them fail, the wait throws an exception.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">wait(Text(<span style="color: #BA2121">&quot;document uploaded successfully&quot;</span>),
+<pre class="pygments highlight"><code data-lang="python"><span></span>wait(Text(<span style="color: #BA2121">&quot;document uploaded successfully&quot;</span>),
     while_not <span style="color: #666666">=</span> Text(<span style="color: #BA2121">&quot;an error occurred&quot;</span>))</code></pre>
 </div>
 </div>
@@ -1679,7 +1703,7 @@ waiting:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">ButtonOrLink</span>():
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">ButtonOrLink</span>():
     <span style="color: #008000; font-weight: bold">if</span> some_condition:
         <span style="color: #008000; font-weight: bold">return</span> Link
 
@@ -1693,7 +1717,7 @@ wait(ButtonOrLink)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">ButtonOrLink</span>():
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">ButtonOrLink</span>():
     <span style="color: #008000; font-weight: bold">if</span> some_condition:
         <span style="color: #008000; font-weight: bold">return</span> Link()<span style="color: #666666">.</span>exists()
 
@@ -1724,7 +1748,7 @@ the <code>closure</code> matched then it returns <code>None</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">waited</span>(closure, <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">waited</span>(closure, <b class="conum">(1)</b>
            while_not<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
            timeout<span style="color: #666666">=10</span>) <b class="conum">(3)</b></code></pre>
 </div>
@@ -1749,7 +1773,7 @@ them fail, the wait throws an exception.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(waited(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>)))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(waited(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>)))</code></pre>
 </div>
 </div>
 </div>
@@ -1831,10 +1855,10 @@ element_list)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">germanium.util</span> <span style="color: #008000; font-weight: bold">import</span> wait
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">germanium.util</span> <span style="color: #008000; font-weight: bold">import</span> wait
 
 label_divs_locator <span style="color: #666666">=</span> germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;.label&#39;</span>)  <b class="conum">(1)</b>
-wait(label_divs_locator) <b class="conum">(2)</b></code></pre>
+wait(label_divs_locator)                    <b class="conum">(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1860,7 +1884,7 @@ germanium instance, and the selector itself.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;#testDiv&#39;</span>, strategy<span style="color: #666666">=</span><span style="color: #BA2121">&#39;css&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;#testDiv&#39;</span>, strategy<span style="color: #666666">=</span><span style="color: #BA2121">&#39;css&#39;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1868,7 +1892,7 @@ germanium instance, and the selector itself.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;css:#testDiv&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;css:#testDiv&#39;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1878,7 +1902,7 @@ object and includes utility methods to get web elements.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-locators-overview.svg" alt="germanium locators overview" width="1084" height="282">
+<img src="germanium-locators-overview.svg" alt="germanium locators overview" width="1026" height="301">
 </div>
 </div>
 </div>
@@ -1898,7 +1922,7 @@ with the locator strategy name. Currently registered into Germanium are:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;css:div#customID&quot;</span>
+<pre class="pygments highlight"><code data-lang="python"><span></span>selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;css:div#customID&quot;</span>
 
 <span style="color: #408080; font-style: italic"># or without the css prefix, since the string it&#39;s</span>
 <span style="color: #408080; font-style: italic"># not starting with //</span>
@@ -1910,7 +1934,7 @@ selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;xpath://div[@id=&#39;customID&#39;]&quot;</span>
+<pre class="pygments highlight"><code data-lang="python"><span></span>selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;xpath://div[@id=&#39;customID&#39;]&quot;</span>
 
 <span style="color: #408080; font-style: italic"># or without the xpath prefix, since the string it&#39;s</span>
 <span style="color: #408080; font-style: italic"># starting with //</span>
@@ -1922,7 +1946,7 @@ selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;js:return [ document.getElementById(&#39;customID&#39;) ];&quot;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>selector <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;js:return [ document.getElementById(&#39;customID&#39;) ];&quot;</span></code></pre>
 </div>
 </div>
 </div>
@@ -1935,7 +1959,7 @@ The list item can have different locator strategies:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">AbstractSelector</span>(<span style="color: #008000">object</span>):
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">AbstractSelector</span>(<span style="color: #008000">object</span>):
     <span style="color: #408080; font-style: italic"># ...</span>
     <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_selectors</span>(<span style="color: #008000">self</span>):
         <span style="color: #008000; font-weight: bold">raise</span> <span style="color: #D2413A; font-weight: bold">Exception</span>(<span style="color: #BA2121">&quot;Abstract class, not implemented.&quot;</span>) <b class="conum">(1)</b>
@@ -1957,7 +1981,7 @@ document.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-abstract-selector.svg" alt="germanium abstract selector" width="528" height="374">
+<img src="germanium-abstract-selector.svg" alt="germanium abstract selector" width="495" height="406">
 </div>
 </div>
 </div>
@@ -1978,7 +2002,7 @@ These filters can be used to filter otherwise false positive matches when select
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)
         <span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;User Edit Panel&quot;</span>))
         <span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
 </div>
@@ -2001,7 +2025,7 @@ returned by the other_selector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">left_of</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">left_of</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2009,7 +2033,7 @@ returned by the other_selector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Input()<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&quot;User&quot;</span>)))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Input()<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&quot;User&quot;</span>)))</code></pre>
 </div>
 </div>
 </div>
@@ -2027,7 +2051,7 @@ returned by the other_selector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">right_of</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">right_of</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2035,7 +2059,7 @@ returned by the other_selector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Link(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>right_of(Text(<span style="color: #BA2121">&quot;User 11&quot;</span>)))</code></pre>
 </div>
 </div>
 </div>
@@ -2053,7 +2077,7 @@ returned by the other_selector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">above</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">above</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2061,7 +2085,7 @@ returned by the other_selector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Link(<span style="color: #BA2121">&quot;logout&quot;</span>)<span style="color: #666666">.</span>above(<span style="color: #BA2121">&quot;div.toolbar&quot;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Link(<span style="color: #BA2121">&quot;logout&quot;</span>)<span style="color: #666666">.</span>above(<span style="color: #BA2121">&quot;div.toolbar&quot;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -2079,7 +2103,7 @@ returned by the other_selector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">below</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">below</span>(<span style="color: #008000">self</span>, other_selector)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2087,7 +2111,7 @@ returned by the other_selector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Button(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;entry 5&quot;</span>)))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Button(<span style="color: #BA2121">&quot;edit&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;entry 5&quot;</span>)))</code></pre>
 </div>
 </div>
 </div>
@@ -2113,7 +2137,7 @@ in relations with other nodes in the DOM.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">containing</span>(<span style="color: #008000">self</span>, selector<span style="color: #666666">..</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">containing</span>(<span style="color: #008000">self</span>, selector<span style="color: #666666">..</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2121,7 +2145,7 @@ in relations with other nodes in the DOM.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">row <span style="color: #666666">=</span> Element(<span style="color: #BA2121">&quot;tr&quot;</span>)<span style="color: #666666">.</span>containing(
+<pre class="pygments highlight"><code data-lang="python"><span></span>row <span style="color: #666666">=</span> Element(<span style="color: #BA2121">&quot;tr&quot;</span>)<span style="color: #666666">.</span>containing(
         Element(<span style="color: #BA2121">&quot;td&quot;</span>, contains_text<span style="color: #666666">=</span><span style="color: #BA2121">&quot;User 1&quot;</span>),
         Element(<span style="color: #BA2121">&quot;td&quot;</span>, contains_text<span style="color: #666666">=</span><span style="color: #BA2121">&quot;User 2&quot;</span>)
       )<span style="color: #666666">.</span>element()</code></pre>
@@ -2145,7 +2169,7 @@ the <code>"User 1"</code> or <code>"User 2"</code> text.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">containing_all</span>(selector<span style="color: #666666">..</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">containing_all</span>(selector<span style="color: #666666">..</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2153,7 +2177,7 @@ the <code>"User 1"</code> or <code>"User 2"</code> text.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">row <span style="color: #666666">=</span> Element(<span style="color: #BA2121">&quot;tr&quot;</span>)<span style="color: #666666">.</span>containing_all(
+<pre class="pygments highlight"><code data-lang="python"><span></span>row <span style="color: #666666">=</span> Element(<span style="color: #BA2121">&quot;tr&quot;</span>)<span style="color: #666666">.</span>containing_all(
         Element(<span style="color: #BA2121">&quot;td&quot;</span>, contains_text<span style="color: #666666">=</span><span style="color: #BA2121">&quot;user@sample.com&quot;</span>),
         Text(<span style="color: #BA2121">&quot;User A&quot;</span>)
     )<span style="color: #666666">.</span>element()</code></pre>
@@ -2176,7 +2200,7 @@ the <code>"User 1"</code> or <code>"User 2"</code> text.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">inside</span>(<span style="color: #008000">self</span>, selector)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">inside</span>(<span style="color: #008000">self</span>, selector)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2184,7 +2208,7 @@ the <code>"User 1"</code> or <code>"User 2"</code> text.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">error_message <span style="color: #666666">=</span> Element(<span style="color: #BA2121">&quot;div&quot;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&quot;label&quot;</span>) \
+<pre class="pygments highlight"><code data-lang="python"><span></span>error_message <span style="color: #666666">=</span> Element(<span style="color: #BA2121">&quot;div&quot;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&quot;label&quot;</span>) \
                     <span style="color: #666666">.</span>inside(Element(<span style="color: #BA2121">&quot;div&quot;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&quot;error-dialog&quot;</span>))</code></pre>
 </div>
 </div>
@@ -2203,7 +2227,7 @@ given selectors as a parent.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">outside</span>(<span style="color: #008000">self</span>, selector)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">outside</span>(<span style="color: #008000">self</span>, selector)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2214,7 +2238,7 @@ given selectors as a parent.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> Element(<span style="color: #BA2121">&quot;p&quot;</span>)<span style="color: #666666">.</span>outside(<span style="color: #BA2121">&quot;div&quot;</span>)<span style="color: #666666">.</span>not_exists()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">assert</span> Element(<span style="color: #BA2121">&quot;p&quot;</span>)<span style="color: #666666">.</span>outside(<span style="color: #BA2121">&quot;div&quot;</span>)<span style="color: #666666">.</span>not_exists()</code></pre>
 </div>
 </div>
 </div>
@@ -2231,7 +2255,7 @@ given selectors as a parent.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">without_children</span>(<span style="color: #008000">self</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">without_children</span>(<span style="color: #008000">self</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2242,7 +2266,7 @@ given selectors as a parent.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;test&#39;</span>)<span style="color: #666666">.</span>without_children()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>Element(<span style="color: #BA2121">&#39;div&#39;</span>, css_classes<span style="color: #666666">=</span><span style="color: #BA2121">&#39;test&#39;</span>)<span style="color: #666666">.</span>without_children()</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2250,7 +2274,7 @@ given selectors as a parent.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">div</span>&gt;
+<pre class="pygments highlight"><code data-lang="html"><span></span>&lt;<span style="color: #008000; font-weight: bold">div</span>&gt;
     &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;test&quot;</span>&gt;a&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
     &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;test&quot;</span>&gt;&lt;<span style="color: #008000; font-weight: bold">node</span>/&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
     &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;test&quot;</span>&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt; <span style="color: #408080; font-style: italic">&lt;!-- only this node will be matched --&gt;</span>
@@ -2278,7 +2302,7 @@ super locator.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">S(Button(<span style="color: #BA2121">&#39;Ok&#39;</span>))<span style="color: #666666">.</span>element()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>S(Button(<span style="color: #BA2121">&#39;Ok&#39;</span>))<span style="color: #666666">.</span>element()</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2286,7 +2310,7 @@ super locator.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2295,7 +2319,7 @@ it in the element call.</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element(germanium<span style="color: #666666">=</span>my_custom_ge_instance)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element(germanium<span style="color: #666666">=</span>my_custom_ge_instance)</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -2316,7 +2340,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">element</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">element</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2324,7 +2348,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>Button(<span style="color: #BA2121">&#39;Ok&#39;</span>)<span style="color: #666666">.</span>element()</code></pre>
 </div>
 </div>
 </div>
@@ -2346,7 +2370,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">element_list</span>(<span style="color: #008000">self</span>,
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">element_list</span>(<span style="color: #008000">self</span>,
                  index<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(1)</b>
                  <span style="color: #666666">*</span>argv,
                  germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, <b class="conum">(2)</b>
@@ -2371,7 +2395,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">Element(<span style="color: #BA2121">&#39;li&#39;</span>)<span style="color: #666666">.</span>element_list()</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>Element(<span style="color: #BA2121">&#39;li&#39;</span>)<span style="color: #666666">.</span>element_list()</code></pre>
 </div>
 </div>
 </div>
@@ -2393,7 +2417,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">exists</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">exists</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2401,7 +2425,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">wait(Text(<span style="color: #BA2121">&#39;data saved successfuly&#39;</span>)<span style="color: #666666">.</span>exists)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>wait(Text(<span style="color: #BA2121">&#39;data saved successfuly&#39;</span>)<span style="color: #666666">.</span>exists)</code></pre>
 </div>
 </div>
 </div>
@@ -2423,7 +2447,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">not_exists</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">not_exists</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2431,7 +2455,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">wait(Text(<span style="color: #BA2121">&#39;error occurred&#39;</span>)<span style="color: #666666">.</span>not_exists)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>wait(Text(<span style="color: #BA2121">&#39;error occurred&#39;</span>)<span style="color: #666666">.</span>not_exists)</code></pre>
 </div>
 </div>
 </div>
@@ -2453,7 +2477,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">text</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">text</span>(<span style="color: #008000">self</span>, <span style="color: #666666">*</span>argv, germanium<span style="color: #666666">=</span><span style="color: #008000">None</span>, only_visible<span style="color: #666666">=</span><span style="color: #008000">True</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2461,7 +2485,7 @@ from <code>germanium.static.get_germanium()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> Css(<span style="color: #BA2121">&#39;#messages&#39;</span>)<span style="color: #666666">.</span>text() <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;data persisted&#39;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">assert</span> Css(<span style="color: #BA2121">&#39;#messages&#39;</span>)<span style="color: #666666">.</span>text() <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;data persisted&#39;</span></code></pre>
 </div>
 </div>
 </div>
@@ -2476,22 +2500,22 @@ of the selectors. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Css(<span style="color: #BA2121">&#39;.tree-plus-icon&#39;</span>)<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&#39;Item 15&#39;</span>)))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Css(<span style="color: #BA2121">&#39;.tree-plus-icon&#39;</span>)<span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&#39;Item 15&#39;</span>)))</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The reason behind them is that you can&#8217;t use positional filtering directly on the
+<p>The reason behind it is that you can&#8217;t use positional filtering directly on the
 string themselves. String objects have to be recast to another object type
 (in this case, <code>AbstractSelector</code>) that supports the positional filtering methods.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(<span style="color: #BA2121">&#39;.tree-plus-icon&#39;</span><span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&#39;Item 15&#39;</span>))) <span style="color: #408080; font-style: italic"># throws exception</span></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(<span style="color: #BA2121">&#39;.tree-plus-icon&#39;</span><span style="color: #666666">.</span>left_of(Text(<span style="color: #BA2121">&#39;Item 15&#39;</span>))) <span style="color: #408080; font-style: italic"># throws exception</span></code></pre>
 </div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-utility-selectors.svg" alt="germanium utility selectors" width="292" height="173">
+<img src="germanium-utility-selectors.svg" alt="germanium utility selectors" width="418" height="175">
 </div>
 </div>
 <div class="sect2">
@@ -2513,7 +2537,18 @@ string themselves. String objects have to be recast to another object type
 </div>
 </div>
 <div class="sect2">
-<h3 id="_provided_selectors"><a class="anchor" href="#_provided_selectors"></a>Provided Selectors</h3>
+<h3 id="_anyofselector_selectors"><a class="anchor" href="#_anyofselector_selectors"></a>AnyOfSelector(selectors&#8230;&#8203;)</h3>
+<div class="paragraph">
+<p>A container selector that denotes an element that can be represented in
+multiple ways. The selectors passed into the constructor can also have
+filtering.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_provided_selectors"><a class="anchor" href="#_provided_selectors"></a>Provided Selectors</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Provided selectors are just classes that are generally useful for testing, simple things
 such as buttons, links or text.</p>
@@ -2521,7 +2556,6 @@ such as buttons, links or text.</p>
 <div class="paragraph">
 <p>The most basic of them is called <code>Element</code>. There are a lot of more specific selectors
 on top of that, for `Input`s, or `Link`s.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_element_tag_name_none"><a class="anchor" href="#_element_tag_name_none"></a>Element(tag_name=None, &#8230;&#8203;)</h3>
@@ -2569,7 +2603,7 @@ sub-children, use <code>extra_xpath</code> to fetch the elements.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">S(Element(<span style="color: #BA2121">&#39;div&#39;</span>,
+<pre class="pygments highlight"><code data-lang="python"><span></span>S(Element(<span style="color: #BA2121">&#39;div&#39;</span>,
           contains_text<span style="color: #666666">=</span><span style="color: #BA2121">&#39;error has occured&#39;</span>,
           css_classes<span style="color: #666666">=</span>[<span style="color: #BA2121">&#39;error-message&#39;</span>]))</code></pre>
 </div>
@@ -2605,7 +2639,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -2616,7 +2650,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Input(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(Input(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -2627,7 +2661,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(InputText(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(InputText(<span style="color: #BA2121">&#39;q&#39;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -2657,7 +2691,7 @@ it&#8217;s an actual <code>button</code> (<code>text</code>)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;test&quot;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;test&quot;</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2667,7 +2701,7 @@ text <code>testing</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;testing&quot;</span>, search_href<span style="color: #666666">=</span><span style="color: #BA2121">&quot;http://ciplogic.com&quot;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(Link(<span style="color: #BA2121">&quot;testing&quot;</span>, search_href<span style="color: #666666">=</span><span style="color: #BA2121">&quot;http://ciplogic.com&quot;</span>))</code></pre>
 </div>
 </div>
 </div>
@@ -2678,7 +2712,7 @@ text <code>testing</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;some text&quot;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(Text(<span style="color: #BA2121">&quot;some text&quot;</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2687,7 +2721,7 @@ selector would match the parent div in such a DOM structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">div</span>&gt;
+<pre class="pygments highlight"><code data-lang="html"><span></span>&lt;<span style="color: #008000; font-weight: bold">div</span>&gt;
     some &lt;<span style="color: #008000; font-weight: bold">b</span>&gt;text&lt;/<span style="color: #008000; font-weight: bold">b</span>&gt;
 &lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;</code></pre>
 </div>
@@ -2743,7 +2777,7 @@ While Germanium <em>does</em> support IE8+, point support is supported only from
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-point-class-uml.svg" alt="germanium point class uml" width="180" height="108">
+<img src="germanium-point-class-uml.svg" alt="germanium point class uml" width="174" height="117">
 </div>
 </div>
 <div class="paragraph">
@@ -2757,7 +2791,7 @@ While Germanium <em>does</em> support IE8+, point support is supported only from
 <h3 id="_box_selector"><a class="anchor" href="#_box_selector"></a>Box(selector)</h3>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-box-class-uml.svg" alt="germanium box class uml" width="235" height="454">
+<img src="germanium-box-class-uml.svg" alt="germanium box class uml" width="221" height="498">
 </div>
 </div>
 <div class="paragraph">
@@ -2768,7 +2802,7 @@ While Germanium <em>does</em> support IE8+, point support is supported only from
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">box <span style="color: #666666">=</span> Box(Css(<span style="color: #BA2121">&#39;.resizing-div&#39;</span>))
+<pre class="pygments highlight"><code data-lang="python"><span></span>box <span style="color: #666666">=</span> Box(Css(<span style="color: #BA2121">&#39;.resizing-div&#39;</span>))
 wait(<span style="color: #008000; font-weight: bold">lambda</span>: box<span style="color: #666666">.</span>get_box()<span style="color: #666666">.</span>width() <span style="color: #666666">==</span> <span style="color: #666666">100</span>))</code></pre>
 </div>
 </div>
@@ -2777,7 +2811,7 @@ wait(<span style="color: #008000; font-weight: bold">lambda</span>: box<span sty
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Box(<span style="color: #BA2121">&#39;span.custom-text&#39;</span>)<span style="color: #666666">.</span>middle_right(<span style="color: #666666">2</span>, <span style="color: #666666">0</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Box(<span style="color: #BA2121">&#39;span.custom-text&#39;</span>)<span style="color: #666666">.</span>middle_right(<span style="color: #666666">2</span>, <span style="color: #666666">0</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2785,7 +2819,7 @@ wait(<span style="color: #008000; font-weight: bold">lambda</span>: box<span sty
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click(Box(<span style="color: #BA2121">&#39;span.custom-text&#39;</span>)<span style="color: #666666">.</span>middle_left(<span style="color: #666666">-2</span>, <span style="color: #666666">0</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click(Box(<span style="color: #BA2121">&#39;span.custom-text&#39;</span>)<span style="color: #666666">.</span>middle_left(<span style="color: #666666">-2</span>, <span style="color: #666666">0</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2793,7 +2827,7 @@ wait(<span style="color: #008000; font-weight: bold">lambda</span>: box<span sty
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">canvas_box <span style="color: #666666">=</span> Box(<span style="color: #BA2121">&#39;canvas.drawing&#39;</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span>canvas_box <span style="color: #666666">=</span> Box(<span style="color: #BA2121">&#39;canvas.drawing&#39;</span>)
 drag_and_drop(canvas_box<span style="color: #666666">.</span>top_left(<span style="color: #666666">5</span>, <span style="color: #666666">5</span>),
         canvas_box<span style="color: #666666">.</span>bottom_right(<span style="color: #666666">-5</span>, <span style="color: #666666">-5</span>))</code></pre>
 </div>
@@ -2816,7 +2850,7 @@ into a form field you can:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;John&#39;</span>, Input(<span style="color: #BA2121">&#39;firstname&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>type_keys(<span style="color: #BA2121">&#39;John&#39;</span>, Input(<span style="color: #BA2121">&#39;firstname&#39;</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2825,7 +2859,7 @@ has a <code>name</code> attribute equal to <code>"firstname"</code>. An email lo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&#39;john.doe@example.com&#39;</span>, Input(<span style="color: #BA2121">&#39;email&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>type_keys(<span style="color: #BA2121">&#39;john.doe@example.com&#39;</span>, Input(<span style="color: #BA2121">&#39;email&#39;</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2841,7 +2875,7 @@ could type:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>type_keys(<span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -2902,7 +2936,7 @@ For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys(<span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>type_keys(<span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -3015,9 +3049,9 @@ inside the browsers:</p>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="__iframe_germanium_iframe_decorator"><a class="anchor" href="#__iframe_germanium_iframe_decorator"></a>@iframe - germanium iframe decorator</h3>
+<h3 id="_iframe_germanium_iframe_decorator"><a class="anchor" href="#_iframe_germanium_iframe_decorator"></a>@iframe - germanium iframe decorator</h3>
 <div class="sect3">
-<h4 id="__iframe_name_keep_new_context_false"><a class="anchor" href="#__iframe_name_keep_new_context_false"></a>@iframe(name, keep_new_context=False)</h4>
+<h4 id="_iframe_name_keep_new_context_false"><a class="anchor" href="#_iframe_name_keep_new_context_false"></a>@iframe(name, keep_new_context=False)</h4>
 <div class="paragraph">
 <p>Switch the iframe when executing the code of the function. It will use the
 strategy provided when the Germanium instance was created.</p>
@@ -3029,7 +3063,7 @@ such as:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;default&quot;</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #AA22FF">@iframe</span>(<span style="color: #BA2121">&quot;default&quot;</span>)
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">close_dialog</span>(germanium):
     germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&quot;Ok&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;Save dialog&quot;</span>)))<span style="color: #666666">.</span>element()<span style="color: #666666">.</span>click()
 
@@ -3055,7 +3089,7 @@ WebDriver:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="germanium-instance-overview.svg" alt="germanium instance overview" width="145" height="187">
+<img src="germanium-instance-overview.svg" alt="germanium instance overview" width="139" height="191">
 </div>
 </div>
 <div class="paragraph">
@@ -3064,7 +3098,7 @@ are searched into the <code>germanium.web_driver</code> one. For example calling
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">print</span>(germanium<span style="color: #666666">.</span>title)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">print</span>(germanium<span style="color: #666666">.</span>title)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3079,7 +3113,7 @@ object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">GermaniumDriver(web_driver,
+<pre class="pygments highlight"><code data-lang="python"><span></span>GermaniumDriver(web_driver,
                 iframe_selector<span style="color: #666666">=</span>DefaultIFrameSelector(),
                 screenshot_folder<span style="color: #666666">=</span><span style="color: #BA2121">&quot;screenshots&quot;</span>,
                 scripts<span style="color: #666666">=</span><span style="color: #008000">list</span>())</code></pre>
@@ -3106,7 +3140,7 @@ wrapped into a decorator class by Germanium itself.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">DefaultIFrameSelector</span>(<span style="color: #008000">object</span>):
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">DefaultIFrameSelector</span>(<span style="color: #008000">object</span>):
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    An implementation of the IFrameSelector strategy that does nothing.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
@@ -3126,7 +3160,7 @@ do a switch_to_frame on the germanium object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">EditorIFrameSelector</span>(<span style="color: #008000">object</span>):
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">EditorIFrameSelector</span>(<span style="color: #008000">object</span>):
     <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select_iframe</span>(<span style="color: #008000">self</span>, germanium, iframe_name):
         <span style="color: #008000; font-weight: bold">if</span> iframe_name <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;default&quot;</span>:
             germanium<span style="color: #666666">.</span>switch_to_default_content()
@@ -3143,7 +3177,7 @@ be invoked with two parameters <code>germanium</code> and <code>iframe_name</cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select_iframe</span>(germanium, iframe_name):
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">select_iframe</span>(germanium, iframe_name):
     <span style="color: #008000; font-weight: bold">if</span> iframe_name <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;default&quot;</span>:
         germanium<span style="color: #666666">.</span>switch_to_default_content()
     <span style="color: #008000; font-weight: bold">elif</span> iframe_name <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;editor&quot;</span>:
@@ -3158,7 +3192,7 @@ be invoked with two parameters <code>germanium</code> and <code>iframe_name</cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">GermaniumDriver(web_driver,
+<pre class="pygments highlight"><code data-lang="python"><span></span>GermaniumDriver(web_driver,
                 iframe_selector<span style="color: #666666">=</span>select_iframe)</code></pre>
 </div>
 </div>
@@ -3195,7 +3229,7 @@ further interpreted on what selector will be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&#39;OK&#39;</span>))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(Button(<span style="color: #BA2121">&#39;OK&#39;</span>))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3203,7 +3237,7 @@ further interpreted on what selector will be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&quot;input[value&#39;OK&#39;][type=&#39;button&#39;]&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&quot;input[value&#39;OK&#39;][type=&#39;button&#39;]&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3211,7 +3245,7 @@ further interpreted on what selector will be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># implicit strategy detection, will match XPath, due to // start</span>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #408080; font-style: italic"># implicit strategy detection, will match XPath, due to // start</span>
 germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&quot;//input[@value=&#39;OK&#39;][@type=&#39;button&#39;]&quot;</span>)
 <span style="color: #408080; font-style: italic"># or explicit in-string strategy:</span>
 germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&quot;xpath://input[@value=&#39;OK&#39;][@type=&#39;button&#39;]&quot;</span>)
@@ -3238,7 +3272,7 @@ will be used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># will find elements by XPath</span>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #408080; font-style: italic"># will find elements by XPath</span>
 germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;//*[contains(@class, &quot;test&quot;)]&#39;</span>);</code></pre>
 </div>
 </div>
@@ -3251,7 +3285,7 @@ germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#3
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># will find elements by CSS</span>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #408080; font-style: italic"># will find elements by CSS</span>
 germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#39;.test&#39;</span>)</code></pre>
 </div>
 </div>
@@ -3268,7 +3302,7 @@ germanium<span style="color: #666666">.</span>S(<span style="color: #BA2121">&#3
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>js(<span style="color: #BA2121">&#39;return document.title;&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>js(<span style="color: #BA2121">&#39;return document.title;&#39;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -3292,7 +3326,7 @@ folder.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #408080; font-style: italic"># will save a screenshot as `screenshots/test.png`</span>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #408080; font-style: italic"># will save a screenshot as `screenshots/test.png`</span>
 germanium<span style="color: #666666">.</span>take_screenshot(<span style="color: #BA2121">&#39;test&#39;</span>)</code></pre>
 </div>
 </div>
@@ -3304,7 +3338,7 @@ germanium<span style="color: #666666">.</span>take_screenshot(<span style="color
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">germanium<span style="color: #666666">.</span>load_script(<span style="color: #BA2121">&#39;jquery.js&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>germanium<span style="color: #666666">.</span>load_script(<span style="color: #BA2121">&#39;jquery.js&#39;</span>)</code></pre>
 </div>
 </div>
 </div>
@@ -3321,7 +3355,7 @@ for assignment.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">new_iframe_selector</span>(germanium, iframe_name):
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">new_iframe_selector</span>(germanium, iframe_name):
     <span style="color: #408080; font-style: italic"># ...</span>
 
 old_ifame_selector <span style="color: #666666">=</span> get_germanium()<span style="color: #666666">.</span>iframe_selector
@@ -3346,7 +3380,7 @@ send the events to, and/or delay between keypresses.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys_g(germanium, <span style="color: #BA2121">&quot;send data&lt;cr&gt;but &lt;!shift&gt;not&lt;^shift&gt; now.&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>type_keys_g(germanium, <span style="color: #BA2121">&quot;send data&lt;cr&gt;but &lt;!shift&gt;not&lt;^shift&gt; now.&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3356,7 +3390,7 @@ could type:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys_g(germanium, <span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>type_keys_g(germanium, <span style="color: #BA2121">&quot;&lt;tab*2&gt;&lt;enter&gt;&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -3404,7 +3438,7 @@ For example to type some keys with <kbd>SHIFT</kbd> pressed this can be done:</p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">type_keys_g(germanium, <span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>type_keys_g(germanium, <span style="color: #BA2121">&quot;&lt;!shift&gt;shift is down&lt;^shift&gt;, and now is up.&quot;</span>)</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -3428,7 +3462,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">click_g(germanium, Button(<span style="color: #BA2121">&quot;Cancel&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;Delete file?&quot;</span>)))</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>click_g(germanium, Button(<span style="color: #BA2121">&quot;Cancel&quot;</span>)<span style="color: #666666">.</span>below(Text(<span style="color: #BA2121">&quot;Delete file?&quot;</span>)))</code></pre>
 </div>
 </div>
 </div>
@@ -3439,7 +3473,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">double_click_g(germanium, <span style="color: #BA2121">&quot;a.test-label&quot;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>double_click_g(germanium, <span style="color: #BA2121">&quot;a.test-label&quot;</span>)</code></pre>
 </div>
 </div>
 </div>
@@ -3450,7 +3484,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">right_click_g(germanium, webdriver_element)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>right_click_g(germanium, webdriver_element)</code></pre>
 </div>
 </div>
 </div>
@@ -3461,7 +3495,7 @@ and the <code>^</code> is self explanatory: the finger released the given button
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">hover_g(germanium, <span style="color: #BA2121">&#39;a.main-menu&#39;</span>)</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>hover_g(germanium, <span style="color: #BA2121">&#39;a.main-menu&#39;</span>)</code></pre>
 </div>
 </div>
 </div>
@@ -3474,7 +3508,7 @@ index.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">select(<span style="color: #BA2121">&#39;select#country&#39;</span>, value<span style="color: #666666">=</span><span style="color: #BA2121">&#39;at&#39;</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span>select(<span style="color: #BA2121">&#39;select#country&#39;</span>, value<span style="color: #666666">=</span><span style="color: #BA2121">&#39;at&#39;</span>)
 select(<span style="color: #BA2121">&#39;select#multivalueSelect&#39;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">1</span>,<span style="color: #666666">3</span>,<span style="color: #666666">7</span>,<span style="color: #666666">8</span>])</code></pre>
 </div>
 </div>
@@ -3488,7 +3522,7 @@ index.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">deselect(<span style="color: #BA2121">&#39;select#multivalueSelect&#39;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">7</span>,<span style="color: #666666">8</span>])</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span>deselect(<span style="color: #BA2121">&#39;select#multivalueSelect&#39;</span>, index<span style="color: #666666">=</span>[<span style="color: #666666">7</span>,<span style="color: #666666">8</span>])</code></pre>
 </div>
 </div>
 </div>
@@ -3503,7 +3537,7 @@ object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html">&lt;<span style="color: #008000; font-weight: bold">body</span>&gt;
+<pre class="pygments highlight"><code data-lang="html"><span></span>&lt;<span style="color: #008000; font-weight: bold">body</span>&gt;
     &lt;<span style="color: #008000; font-weight: bold">div</span> <span style="color: #7D9029">id</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;editor&#39;</span> <span style="color: #7D9029">class</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;modal superb&#39;</span> <span style="color: #7D9029">custom-data</span><span style="color: #666666">=</span><span style="color: #BA2121">&#39;simple-code&#39;</span>&gt;&lt;/<span style="color: #008000; font-weight: bold">div</span>&gt;
 &lt;/<span style="color: #008000; font-weight: bold">body</span>&gt;</code></pre>
 </div>
@@ -3513,7 +3547,7 @@ object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python">editor_attributes <span style="color: #666666">=</span> get_attributes_g(germanium, <span style="color: #BA2121">&#39;#editor&#39;</span>)
+<pre class="pygments highlight"><code data-lang="python"><span></span>editor_attributes <span style="color: #666666">=</span> get_attributes_g(germanium, <span style="color: #BA2121">&#39;#editor&#39;</span>)
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;class&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;modal superb&#39;</span>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;id&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;editor&#39;</span>
 <span style="color: #008000; font-weight: bold">assert</span> editor_attributes[<span style="color: #BA2121">&#39;custom-data&#39;</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;simple-code&#39;</span></code></pre>
@@ -3532,7 +3566,7 @@ values that are currently selected.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span style="color: #008000; font-weight: bold">assert</span> get_value_g(germanium, <span style="color: #BA2121">&#39;select#multivalueSelect&#39;</span>) <span style="color: #666666">==</span> [<span style="color: #666666">1</span>, <span style="color: #666666">3</span>]</code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span style="color: #008000; font-weight: bold">assert</span> get_value_g(germanium, <span style="color: #BA2121">&#39;select#multivalueSelect&#39;</span>) <span style="color: #666666">==</span> [<span style="color: #666666">1</span>, <span style="color: #666666">3</span>]</code></pre>
 </div>
 </div>
 </div>
@@ -3558,7 +3592,7 @@ identification.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-16 21:35:13 UTC
+Last updated 2018-03-26 19:39:12 UTC
 </div>
 </div>
 </body>

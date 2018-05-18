@@ -1,6 +1,6 @@
 **/*.pyc
 node_modules
 .idea
-build
-dist
+/build/
+/dist/
 germanium.egg-info

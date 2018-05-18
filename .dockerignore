@@ -1,7 +1,6 @@
-*
-!bin/build-docker-instance.sh
-!bin/docker/*
-!germanium/*
-!README.rst
-!requirements.txt
-!setup.py
+.git
+.idea
+build
+dist
+doc/out
+node_modules

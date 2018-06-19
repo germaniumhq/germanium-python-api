@@ -1,5 +1,5 @@
 properties([
-    parameters([
+    safeParameters(this, [
         booleanParam(name: 'RUN_FIREFOX_TESTS', defaultValue: true,
                 description: 'Run the tests against Firefox'),
         booleanParam(name: 'RUN_CHROME_TESTS', defaultValue: true,
@@ -31,15 +31,7 @@ properties([
     ])
 ])
 
-RUN_FIREFOX_TESTS = Boolean.valueOf(RUN_FIREFOX_TESTS)
-RUN_CHROME_TESTS = Boolean.valueOf(RUN_CHROME_TESTS)
-RUN_IE8_TESTS = Boolean.valueOf(RUN_IE8_TESTS)
-RUN_IE9_TESTS = Boolean.valueOf(RUN_IE9_TESTS)
-RUN_IE11_TESTS = Boolean.valueOf(RUN_IE11_TESTS)
-RUN_EDGE_TESTS = Boolean.valueOf(RUN_EDGE_TESTS)
-
-RUN_CHROME_LOCAL_TESTS = Boolean.valueOf(RUN_CHROME_LOCAL_TESTS)
-RUN_FIREFOX_LOCAL_TESTS = Boolean.valueOf(RUN_FIREFOX_LOCAL_TESTS)
+safeParametersCheck(this)
 
 CHROME_GERMANIUM_URL = "chrome:${GERMANIUM_HUB_URL}"
 FIREFOX_GERMANIUM_URL = "firefox:${GERMANIUM_HUB_URL}"
@@ -81,10 +73,12 @@ stage('Test Germanium') {
                     'TEST_BROWSER=chrome'
                 ],
                 code: {
-                    sh """
-                        cd /src
-                        behave -t ~@nochrome --no-color --junit
-                    """
+                    junitReports("/src/reports") {
+                        sh """
+                            cd /src
+                            behave -t ~@nochrome --no-color --junit
+                        """
+                    }
                 }
         }
     }

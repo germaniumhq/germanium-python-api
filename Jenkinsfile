@@ -26,7 +26,7 @@ properties([
         string(name: 'GERMANIUM_HUB_URL', defaultValue: 'http://germanium-hub:4444/wd/hub',
                 description: 'Where is the Germanium HUB running.'),
 
-        string(name: 'TEST_HOST', defaultValue: 'localhost:8080',
+        string(name: 'TEST_HOST', defaultValue: '192.168.0.51',
                 description: 'On what host are the tests exposed.')
     ]),
 
@@ -66,6 +66,7 @@ stage('Test Germanium') {
 
     if (RUN_CHROME_LOCAL_TESTS) {
         tests."Chrome (Local)" = {
+            def port = getRandomPort()
             dockerInside image: image_name,
                 privileged: true,
                 links: [
@@ -74,10 +75,13 @@ stage('Test Germanium') {
                 volumes: [
                     '/dev/shm:/dev/shm:rw'
                 ],
+                ports: [
+                    "${port}:8000",
+                ],
                 env: [
                     'DISPLAY=vnc:0',
                     'TEST_REUSE_BROWSER=1',
-                    'TEST_HOST=localhost:8000',
+                    "TEST_HOST=${TEST_HOST}:${port}",
                     'TEST_BROWSER=chrome'
                 ],
                 code: {

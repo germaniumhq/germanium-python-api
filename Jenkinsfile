@@ -26,8 +26,16 @@ properties([
         string(name: 'GERMANIUM_HUB_URL', defaultValue: 'http://germanium-hub:4444/wd/hub',
                 description: 'Where is the Germanium HUB running.'),
 
-        string(name: 'TEST_HOST', defaultValue: '192.168.0.51',
+        string(name: 'TEST_HOST', defaultValue: 'localhost:8080',
                 description: 'On what host are the tests exposed.')
+    ]),
+
+
+    pipelineTriggers([
+        upstream(
+            threshold: 'SUCCESS',
+            upstreamProjects: 'germaniumhq-api-python'
+        )
     ])
 ])
 
@@ -69,7 +77,7 @@ stage('Test Germanium') {
                 env: [
                     'DISPLAY=vnc:0',
                     'TEST_REUSE_BROWSER=1',
-                    'RUN_VNC_SERVER=1',
+                    'TEST_HOST=localhost:8080',
                     'TEST_BROWSER=chrome'
                 ],
                 code: {

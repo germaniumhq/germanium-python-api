@@ -90,6 +90,7 @@ stage('Test Germanium') {
                 code: {
                     junitReports("/src/reports") {
                         sh """
+                            set
                             cd /src
                             behave -t ~@nochrome --no-color --junit
                         """

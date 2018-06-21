@@ -67,6 +67,9 @@ stage('Test Germanium') {
     if (RUN_CHROME_LOCAL_TESTS) {
         tests."Chrome (Local)" = {
             def port = getRandomPort()
+            
+            echo "Listening on port ${TEST_HOST}:${port}"
+
             dockerInside image: image_name,
                 privileged: true,
                 links: [

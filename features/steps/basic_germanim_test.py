@@ -57,6 +57,7 @@ def navigate_to_page(context, page):
                page_matcher.group(3)
 
     go_to(page)
+    sleep(60)
 
 
 @step(u'I type \'(?P<keys>.*?)\' into (?P<selector>.*)')

@@ -26,7 +26,7 @@ properties([
         string(name: 'GERMANIUM_HUB_URL', defaultValue: 'http://germanium-hub:4444/wd/hub',
                 description: 'Where is the Germanium HUB running.'),
 
-        string(name: 'TEST_HOST', defaultValue: '192.168.0.51',
+        string(name: 'TEST_HOST_IP', defaultValue: '192.168.0.51',
                 description: 'On what host are the tests exposed.')
     ]),
 
@@ -68,7 +68,7 @@ stage('Test Germanium') {
         tests."Chrome (Local)" = {
             def port = getRandomPort()
             
-            echo "Listening on port ${TEST_HOST}:${port}"
+            echo "Listening on port ${TEST_HOST_IP}:${port}"
 
             dockerInside image: image_name,
                 privileged: true,
@@ -84,7 +84,7 @@ stage('Test Germanium') {
                 env: [
                     'DISPLAY=vnc:0',
                     'TEST_REUSE_BROWSER=1',
-                    "TEST_HOST=${TEST_HOST}:${port}",
+                    "TEST_HOST=${TEST_HOST_IP}:${port}",
                     'TEST_BROWSER=chrome'
                 ],
                 code: {

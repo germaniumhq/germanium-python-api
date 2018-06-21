@@ -84,7 +84,7 @@ stage('Test Germanium') {
                 env: [
                     'DISPLAY=vnc:0',
                     'TEST_REUSE_BROWSER=1',
-                    "TEST_HOST=${TEST_HOST_IP}:${port}",
+                    "'TEST_HOST=${TEST_HOST_IP}:${port}'",
                     'TEST_BROWSER=chrome'
                 ],
                 code: {

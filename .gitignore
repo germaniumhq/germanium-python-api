@@ -1,4 +1,6 @@
 **/*.pyc
+.mypy_cache
+.ars
 node_modules
 .idea
 /build/

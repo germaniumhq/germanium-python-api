@@ -12,9 +12,9 @@ VERSION=2.0.11
 
 PYTHON_VERSIONS="python2.7 python3.4 python3.5 python3.6"
 
-git tag "$VERSION" master
+git tag -f "$VERSION" master -m "release $VERSION"
 for PYTHON_VERSION in $PYTHON_VERSIONS; do
-    git tag -f "$VERSION-$PYTHON_VERSION" $PYTHON_VERSION
+    git tag -f "$VERSION-$PYTHON_VERSION" $PYTHON_VERSION -m "release $VERSION-$PYTHON_VERSION"
 done
 
 git push origin --all

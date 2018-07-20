@@ -12,12 +12,13 @@ VERSION=2.0.11
 
 PYTHON_VERSIONS="python2.7 python3.4 python3.5 python3.6"
 
-git push origin --all
-git push github --all
-
+git tag "$VERSION" master
 for PYTHON_VERSION in $PYTHON_VERSIONS; do
     git tag -f "$VERSION-$PYTHON_VERSION" $PYTHON_VERSION
 done
+
+git push origin --all
+git push github --all
 
 echo '#############################################################################'
 echo '# Pushing Germanium Python 3 to PyPI'

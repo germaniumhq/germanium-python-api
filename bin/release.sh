@@ -8,7 +8,7 @@
 set -e
 set -x
 
-VERSION=$1
+VERSION=2.0.11
 
 PYTHON_VERSIONS="python2.7 python3.4 python3.5 python3.6"
 

@@ -6,6 +6,7 @@ germanium:
       setup.py: version='**VERSION**',
       doc/usage/index.adoc: = Germanium v**VERSION$$
       germanium/version.py: current = "**VERSION**"
+      bin/release.sh: VERSION=**VERSION$$
 
 germaniumdrivers:
     version: parent:../germaniumdrivers@germaniumdrivers
